@@ -59,22 +59,26 @@
 
     /* Topbar */
     header.topbar{
-      position: sticky;
-      top: 12px;
-      z-index: 50;
-      border-radius: 22px;
-      padding: 16px 18px;
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,.25);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow);
+  position: sticky;
+  top: 12px;
+  z-index: 50;
 
-      display:flex;
-      align-items:center;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: nowrap;
-    }
+  border-radius: 22px;
+  padding: 18px 24px;
+
+  /* AQUI está o cimento queimado ocupando tudo */
+  background: linear-gradient(145deg,
+              rgba(120,120,120,.18),
+              rgba(60,60,60,.28));
+
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 20px 50px rgba(0,0,0,.55);
+
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 18px;
+}
 
     .brand{
       display:flex;
