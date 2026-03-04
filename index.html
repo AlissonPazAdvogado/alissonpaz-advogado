@@ -35,25 +35,14 @@
     *{ box-sizing: border-box; }
     html,body{ height:100%; }
     body{
-  margin:0;
-  color:var(--text);
-
-  /* Camadas do background (2 imagens + gradientes) */
-  background:
-    /* Imagem esquerda */
-    url("bg-left.jpg") left 12% top 140px / min(900px, 62vw) no-repeat,
-    /* Imagem direita */
-    url("bg-right.jpg") right -6% top 210px / min(980px, 66vw) no-repeat,
-
-    /* Gradientes para dar sofisticação e manter legibilidade */
-    radial-gradient(1200px 700px at 70% 10%, rgba(176,138,42,.10), transparent 60%),
-    radial-gradient(1000px 650px at 12% 18%, rgba(15,15,15,.06), transparent 60%),
-    var(--bg);
-
-  background-attachment: scroll, scroll, scroll, scroll, scroll;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  line-height: 1.5;
-}
+      margin:0;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 70% 10%, rgba(176,138,42,.10), transparent 60%),
+                  radial-gradient(900px 600px at 10% 20%, rgba(15,15,15,.05), transparent 55%),
+                  var(--bg);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
     a{ color: inherit; text-decoration: none; }
     img{ max-width:100%; display:block; }
 
