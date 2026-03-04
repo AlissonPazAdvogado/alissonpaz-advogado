@@ -2,247 +2,260 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alisson Paz - Advogado | Coronel Vivida - PR e região</title>
-  <meta name="description" content="Atuação em Coronel Vivida - PR e região. Direito Criminal, Cível, Consumidor, Contratos e Assessoria Jurídica. Atendimento via WhatsApp." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="index,follow" />
 
-  <!-- Open Graph -->
+  <title>Alisson Paz - Advogado | Coronel Vivida - PR</title>
+  <meta name="description" content="Advocacia em Coronel Vivida - PR e região. Atuação em Direito Criminal, Cível, Consumidor, Contratos e Assessoria Jurídica. Atendimento via WhatsApp." />
+
+  <!-- Open Graph (opcional) -->
   <meta property="og:title" content="Alisson Paz - Advogado" />
-  <meta property="og:description" content="Coronel Vivida - PR e região • Atendimento via WhatsApp" />
+  <meta property="og:description" content="Atuação em Coronel Vivida - PR e região. Atendimento via WhatsApp." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="logo.png" />
-
-  <link rel="icon" href="logo.png" />
 
   <style>
     :root{
-      /* CIMENTO QUEIMADO (base) */
-      --cement-0:#0f1113;
-      --cement-1:#14181b;
-      --cement-2:#1a2024;
-      --cement-3:#20282d;
+      --max: 1120px;
+      --radius: 22px;
 
-      /* Texto */
-      --text:#f2f4f6;
-      --muted:rgba(242,244,246,.72);
-      --muted2:rgba(242,244,246,.56);
+      /* Base grafite/cimento (para não “matar” a logo dourada) */
+      --bg0: #0e1012;
+      --bg1: #0a0b0c;
 
-      /* DOURADO */
-      --gold:#caa75a;
-      --gold2:#b8903e;
+      /* “cimento queimado” elegante (cards e header) */
+      --cement0: #2a2d31;
+      --cement1: #1f2226;
 
-      /* Cards e linhas (opacos, sem “lavar” o fundo) */
-      --card:#14181b;
-      --card2:#101418;
-      --line:rgba(255,255,255,.10);
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --line: rgba(255,255,255,.10);
 
-      /* Sombra / raio */
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --muted2: rgba(255,255,255,.55);
+
+      /* Dourado sóbrio (combina com sua logo) */
+      --gold: #caa75a;
+      --gold2: #b8903e;
+
       --shadow: 0 18px 55px rgba(0,0,0,.55);
-      --radius:18px;
-      --max:1120px;
     }
 
-    *{ box-sizing:border-box; }
+    *{ box-sizing: border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      color:var(--text);
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-
-      /* Fundo geral discreto */
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
       background:
-        radial-gradient(900px 520px at 18% 6%, rgba(202,167,90,.10), transparent 60%),
-        radial-gradient(900px 520px at 82% 12%, rgba(202,167,90,.07), transparent 62%),
-        linear-gradient(180deg, #0b0d0f 0%, #0b0d0f 20%, #0a0c0e 100%);
+        radial-gradient(900px 500px at 10% 10%, rgba(202,167,90,.10), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(202,167,90,.07), transparent 65%),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 100%);
     }
 
-    a{ color:inherit; text-decoration:none; }
-
+    a{ color: inherit; }
     .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:26px 18px 54px;
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
     }
 
-    /* ======= CABEÇALHO (cimento queimado opaco) ======= */
+    /* ===== HEADER SOFISTICADO ===== */
     .topbar{
-      position:sticky;
-      top:14px;
-      z-index:50;
-      border-radius:26px;
-      padding:16px 18px;
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      margin: 18px auto;
+      width: min(var(--max), calc(100% - 32px));
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,.10);
 
-      /* Efeito cimento queimado (opaco) */
       background:
-        /* manchas */
-        radial-gradient(120px 90px at 12% 30%, rgba(255,255,255,.06), transparent 70%),
-        radial-gradient(160px 120px at 35% 55%, rgba(0,0,0,.22), transparent 70%),
-        radial-gradient(140px 110px at 70% 35%, rgba(255,255,255,.05), transparent 72%),
-        radial-gradient(180px 140px at 88% 65%, rgba(0,0,0,.26), transparent 72%),
-        /* micro-textura */
-        repeating-linear-gradient(135deg, rgba(255,255,255,.02) 0 2px, rgba(0,0,0,.02) 2px 4px),
-        /* base */
-        linear-gradient(180deg, var(--cement-3) 0%, var(--cement-2) 100%);
+        radial-gradient(1200px 220px at 15% 10%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(900px 220px at 85% 0%, rgba(255,255,255,.05), transparent 60%),
+        linear-gradient(180deg, rgba(46,49,52,1) 0%, rgba(35,38,41,1) 100%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 2px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 8px);
+
+      box-shadow: var(--shadow);
+      backdrop-filter: none; /* opaco, sem “transparência” */
     }
 
     .topbar-inner{
       display:flex;
       align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      min-height:64px;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 18px;
+      min-height: 110px; /* altura do cabeçalho */
     }
 
     .brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  flex:1;
-}
-
-    /* Logo (evita “apagado” com fundo escuro: damos leve realce) */
-    .logo-main{
-  height:100px;
-  width:auto;
-}
-
-    .brand-text{
       display:flex;
-      flex-direction:column;
-      line-height:1.05;
+      align-items:center;
       min-width:0;
-    }
-    .brand-text strong{
-      font-size:14px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .brand-text span{
-      font-size:13px;
-      color:var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      text-decoration:none;
     }
 
-    /* NAV — sempre linear e alinhada */
+    .logo-main{
+      display:block;
+      height: 92px;      /* tamanho da logo */
+      width: auto;
+      max-width: 560px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+    }
+
     .nav{
       display:flex;
       align-items:center;
-      gap:18px;
-      flex-wrap:nowrap;
-      white-space:nowrap;
+      gap: 18px;
+      flex-wrap: nowrap;
+      white-space: nowrap;
     }
+
     .nav a{
-      font-size:14px;
-      color:var(--muted);
-      padding:10px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
-      transition:.18s ease;
+      color: rgba(255,255,255,.82);
+      text-decoration:none;
+      font-weight: 600;
+      letter-spacing: .2px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
     }
     .nav a:hover{
-      color:var(--text);
-      border-color:rgba(202,167,90,.30);
-      background:rgba(0,0,0,.18);
-    }
-    .nav .cta{
-      color:#0b0d0f;
-      background:linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
-      border:1px solid rgba(0,0,0,.18);
-      font-weight:700;
-      padding:10px 14px;
-    }
-    .nav .cta:hover{
-      filter:saturate(1.06) brightness(1.02);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+      transform: translateY(-1px);
+      color: rgba(255,255,255,.92);
     }
 
-    /* Responsivo: em telas estreitas, nav quebra de forma controlada */
-    @media (max-width: 860px){
-      .topbar-inner{ flex-direction:column; align-items:stretch; }
-      .nav{
-        justify-content:space-between;
-        gap:10px;
-        flex-wrap:wrap;
-      }
-      .nav a{ flex:1 1 auto; text-align:center; }
-      .brand{ justify-content:center; }
-      .brand-text{ align-items:center; text-align:center; }
+    .btn-nav{
+      background: linear-gradient(180deg, var(--gold) 0%, var(--gold2) 100%);
+      color: #121212 !important;
+      border: 1px solid rgba(0,0,0,.18) !important;
+      padding: 10px 14px !important;
     }
 
-    /* ======= HERO ======= */
+    @media (max-width: 820px){
+      .topbar-inner{ padding: 12px 14px; min-height: auto; }
+      .logo-main{ height: 72px; max-width: 360px; }
+      .nav{ gap: 10px; }
+      .nav a{ padding: 8px 10px; }
+    }
+
+    /* ===== BACKGROUND POR SEÇÃO (2 imagens) ===== */
+    .bg-justica-1,
+    .bg-justica-2{
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+    }
+
+    .bg-justica-1::before,
+    .bg-justica-2::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      filter: saturate(.95) contrast(.95);
+      z-index:0;
+    }
+
+    /* overlay forte (para leitura, sem ficar “lavado”) */
+    .bg-justica-1::after,
+    .bg-justica-2::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(10,10,10,.86) 0%, rgba(10,10,10,.66) 45%, rgba(10,10,10,.86) 100%),
+        radial-gradient(900px 500px at 20% 0%, rgba(202,167,90,.14), transparent 60%);
+      z-index:1;
+    }
+
+    .bg-justica-1::before{ background-image: url("bg-justica-1.jpg"); }
+    .bg-justica-2::before{ background-image: url("bg-justica-2.jpg"); }
+
+    .bg-justica-1 > *,
+    .bg-justica-2 > *{
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== SEÇÕES ===== */
     .hero{
-      margin-top:22px;
+      padding: 26px;
+      margin-top: 10px;
+    }
+
+    .grid{
       display:grid;
       grid-template-columns: 1.25fr .85fr;
-      gap:18px;
-      align-items:stretch;
+      gap: 18px;
+      align-items: start;
     }
+
     @media (max-width: 980px){
-      .hero{ grid-template-columns:1fr; }
+      .grid{ grid-template-columns: 1fr; }
     }
 
     .panel{
-      border-radius:var(--radius);
-      border:1px solid var(--line);
-      box-shadow:var(--shadow);
-      background: linear-gradient(180deg, rgba(20,24,27,.96) 0%, rgba(16,20,24,.96) 100%);
-    }
-
-    .hero-left{
-      padding:22px 22px 18px;
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      padding: 22px;
     }
 
     .badge{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(202,167,90,.25);
-      background: rgba(0,0,0,.16);
-      color:var(--muted);
-      font-size:13px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(202,167,90,.35);
+      background: rgba(202,167,90,.10);
+      color: rgba(255,255,255,.90);
+      font-weight: 600;
+      font-size: 13px;
+      margin-bottom: 14px;
     }
+
     .dot{
-      width:10px;height:10px;border-radius:999px;
-      background:linear-gradient(180deg, var(--gold) 0%, var(--gold2) 100%);
-      box-shadow: 0 0 0 6px rgba(202,167,90,.12);
+      width: 10px;
+      height: 10px;
+      border-radius: 99px;
+      background: linear-gradient(180deg, var(--gold), var(--gold2));
+      box-shadow: 0 0 0 3px rgba(202,167,90,.14);
     }
 
-    .h1{
-      margin:14px 0 10px;
-      font-family: ui-serif, Georgia, "Times New Roman", serif;
-      font-weight:700;
-      letter-spacing:-.02em;
-      font-size:48px;
-      line-height:1.05;
+    h1{
+      margin: 0 0 12px 0;
+      font-size: 46px;
+      line-height: 1.06;
+      letter-spacing: -0.8px;
     }
-    .h1 .gold{ color:var(--gold); }
-
-    @media (max-width:560px){
-      .h1{ font-size:38px; }
-      .logo-main{ height:62px; }
+    @media (max-width: 520px){
+      h1{ font-size: 36px; }
     }
 
     .lead{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:16px;
-      line-height:1.6;
-      max-width:62ch;
+      margin: 0 0 18px 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 16px;
     }
+
+    .lead strong{ color: rgba(255,255,255,.92); }
 
     .actions{
       display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin:10px 0 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
     }
 
     .btn{
@@ -250,372 +263,321 @@
       align-items:center;
       justify-content:center;
       gap:10px;
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.18);
-      color:var(--text);
-      font-weight:700;
-      cursor:pointer;
-      transition:.16s ease;
-      user-select:none;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.90);
+      text-decoration:none;
+      font-weight: 700;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
-    .btn:hover{ transform:translateY(-1px); }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.16);
+    }
+
     .btn-primary{
-      color:#0b0d0f;
-      background:linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%);
-      border-color: rgba(0,0,0,.15);
+      background: linear-gradient(180deg, var(--gold) 0%, var(--gold2) 100%);
+      border-color: rgba(0,0,0,.10);
+      color: #121212;
     }
 
-    .small{
-      color:var(--muted2);
-      font-size:12px;
-      line-height:1.45;
-      margin-top:12px;
-      border-top:1px solid rgba(255,255,255,.06);
-      padding-top:12px;
-    }
-
-    .mini-grid{
+    .cards3{
       display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:12px;
-      margin-top:14px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
     }
-    @media (max-width:980px){ .mini-grid{ grid-template-columns:1fr; } }
+    @media (max-width: 980px){
+      .cards3{ grid-template-columns: 1fr; }
+    }
 
     .mini{
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:16px;
-      padding:14px;
-      background: linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(0,0,0,.18) 100%);
-    }
-    .mini strong{
-      display:block;
-      font-size:14px;
-      margin-bottom:6px;
-    }
-    .mini span{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.45;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      padding: 14px;
     }
 
-    /* ======= COLUNA DIREITA ======= */
-    .hero-right{
-      padding:18px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
+    .mini b{ display:block; margin-bottom: 6px; }
+    .mini span{ color: var(--muted2); font-size: 14px; line-height: 1.5; }
 
-    .card{
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.08);
-      padding:14px;
-      background: linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(0,0,0,.18) 100%);
-    }
-    .card h3{
-      margin:0 0 10px;
-      font-size:14px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color:var(--muted);
+    .aside-title{
+      margin: 0 0 10px 0;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: .2px;
     }
 
     .chips{
       display:flex;
-      flex-wrap:wrap;
-      gap:10px;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 14px 0;
     }
+
     .chip{
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid rgba(202,167,90,.28);
-      color:var(--text);
-      background: rgba(0,0,0,.18);
-      font-size:13px;
-      white-space:nowrap;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(202,167,90,.25);
+      background: rgba(202,167,90,.08);
+      color: rgba(255,255,255,.88);
+      font-weight: 700;
+      font-size: 13px;
     }
 
     .kv{
       display:grid;
       grid-template-columns: 120px 1fr;
-      gap:10px 12px;
-      align-items:center;
-      font-size:14px;
+      gap: 10px;
+      padding: 12px 0;
+      border-top: 1px dashed rgba(255,255,255,.10);
     }
-    .k{ color:var(--muted); font-weight:700; }
-    .v{ color:var(--text); }
-    .v a{ color:var(--text); text-decoration:underline; text-decoration-color:rgba(202,167,90,.55); }
+    .kv:first-of-type{ border-top: none; padding-top: 0; }
+    .k{ color: rgba(255,255,255,.80); font-weight: 800; }
+    .v{ color: rgba(255,255,255,.86); text-align: right; }
 
-    /* ======= SEÇÕES ======= */
     .section{
-      margin-top:18px;
-      padding:18px;
+      margin: 20px auto 0 auto;
+      width: min(var(--max), calc(100% - 32px));
+      padding: 22px;
     }
+
     .section h2{
-      margin:0 0 10px;
-      font-size:18px;
-      letter-spacing:.02em;
+      margin: 0 0 10px 0;
+      font-size: 26px;
+      letter-spacing: -0.3px;
     }
     .section p{
-      margin:0 0 14px;
-      color:var(--muted);
-      line-height:1.65;
+      margin: 0 0 16px 0;
+      color: var(--muted);
+      line-height: 1.7;
     }
 
-    .grid{
+    .areas{
       display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
-    @media (max-width:980px){ .grid{ grid-template-columns:1fr; } }
-
-    .service{
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.08);
-      padding:16px;
-      background: linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(0,0,0,.18) 100%);
-    }
-    .service strong{
-      display:block;
-      margin-bottom:8px;
-      font-size:16px;
-    }
-    .service span{
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.55;
+    @media (max-width: 980px){
+      .areas{ grid-template-columns: 1fr; }
     }
 
-    /* ======= WHATSAPP FLOAT ======= */
+    .area{
+      background: rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .area h3{
+      margin: 0 0 8px 0;
+      font-size: 18px;
+    }
+    .area p{
+      margin: 0;
+      color: var(--muted2);
+    }
+
+    /* Footer centralizado */
+    .footer{
+      text-align:center;
+      width: 100%;
+      padding: 18px 14px;
+      color: rgba(255,255,255,.70);
+      margin-top: 18px;
+    }
+
+    /* WhatsApp flutuante */
     .wa-float{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      z-index:60;
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
       display:flex;
-      align-items:center;
       gap:10px;
+      align-items:center;
     }
     .wa-label{
-      background: rgba(0,0,0,.35);
-      border:1px solid rgba(255,255,255,.10);
-      color:var(--text);
-      padding:10px 12px;
-      border-radius:999px;
-      font-size:13px;
-      backdrop-filter: blur(6px);
+      background: rgba(0,0,0,.65);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.90);
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
     }
     .wa-btn{
-      width:54px;height:54px;border-radius:999px;
-      display:grid;place-items:center;
-      background:#25D366;
-      border:1px solid rgba(0,0,0,.18);
-      box-shadow:0 18px 55px rgba(0,0,0,.45);
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: #25D366;
+      border: none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 18px 45px rgba(0,0,0,.45);
+      cursor:pointer;
+      text-decoration:none;
     }
-    .wa-btn svg{ width:26px;height:26px; fill:#0b0d0f; }
+    .wa-btn svg{ width: 28px; height: 28px; fill: #0b0b0b; }
 
-    /* ======= FOOTER CENTRALIZADO ======= */
-    .footer{
-      width:100%;
-      text-align:center;
-      color:var(--muted2);
-      margin-top:18px;
-      padding:18px 10px 6px;
-      font-size:13px;
-    }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header class="topbar" aria-label="Cabeçalho">
-  <div class="topbar-inner">
-    <a class="brand" href="#top" aria-label="Início">
-      <img src="logo.png" alt="Alisson Paz - Advogado" class="logo-main">
-    </a>
+  <header class="topbar" aria-label="Cabeçalho">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="Início">
+        <img src="logo.png" alt="Alisson Paz - Advogado" class="logo-main">
+      </a>
 
-    <nav class="nav" aria-label="Navegação">
-      <a href="#atuacao">Atuação</a>
-      <a href="#diferenciais">Diferenciais</a>
-      <a class="btn-nav" href="#contato">Contato</a>
-    </nav>
-  </div>
-</header>
+      <nav class="nav" aria-label="Navegação">
+        <a href="#atuacao">Atuação</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a class="btn-nav" href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
 
-    <main>
-      <section class="hero" id="inicio">
-        <div class="panel hero-left">
+  <main class="wrap" id="top">
+    <!-- HERO com Background 1 -->
+    <section class="hero bg-justica-1" aria-label="Apresentação">
+      <div class="grid">
+        <div class="panel">
           <div class="badge"><span class="dot" aria-hidden="true"></span> Atendimento ágil e orientação estratégica</div>
 
-          <h1 class="h1">
-            Advocacia com <span class="gold">técnica</span>, clareza e firmeza
-          </h1>
+          <h1>Advocacia com técnica, clareza e firmeza</h1>
 
           <p class="lead">
-            Atuação em <strong>Coronel Vivida - PR e região</strong>, com foco em soluções jurídicas objetivas,
-            comunicação transparente e condução estratégica do seu caso — do primeiro atendimento ao desfecho.
+            Atuação em <strong>Coronel Vivida - PR</strong> e região, com foco em soluções jurídicas objetivas,
+            postura combativa quando necessário e comunicação transparente sobre riscos, prazos e possibilidades.
           </p>
 
           <div class="actions">
-            <a class="btn btn-primary" id="btnWhatsapp" href="#" rel="noopener">Falar no WhatsApp</a>
+            <a class="btn btn-primary" href="https://wa.me/5546999746391" target="_blank" rel="noopener">Falar no WhatsApp</a>
             <a class="btn" href="#contato">Ver contatos</a>
-            <button class="btn" id="btnCopiar">Copiar número</button>
+            <button class="btn" type="button" onclick="copyPhone()">Copiar número</button>
           </div>
 
-          <div class="mini-grid">
+          <div class="cards3">
             <div class="mini">
-              <strong>Atuação regional</strong>
+              <b>Atuação regional</b>
               <span>Coronel Vivida - PR e cidades próximas</span>
             </div>
             <div class="mini">
-              <strong>Atendimento objetivo</strong>
-              <span>Sem “juridiquês” excessivo, com foco no que resolve</span>
+              <b>Atendimento humanizado</b>
+              <span>Explicação objetiva, sem “juridiquês” excessivo</span>
             </div>
             <div class="mini">
-              <strong>Estratégia processual</strong>
+              <b>Estratégia processual</b>
               <span>Foco em prova, risco e melhor resultado possível</span>
             </div>
           </div>
-
-          <div class="small">
-            <strong>Observação:</strong> este site possui caráter informativo. A análise de viabilidade depende dos documentos e das particularidades de cada caso.
-          </div>
         </div>
 
-        <aside class="panel hero-right" id="contato" aria-label="Contato e áreas">
-          <div class="card">
-            <h3>Áreas de atuação</h3>
-            <div class="chips">
-              <span class="chip">Criminal</span>
-              <span class="chip">Cível</span>
-              <span class="chip">Consumidor</span>
-              <span class="chip">Contratos</span>
-              <span class="chip">Assessoria Jurídica</span>
-            </div>
+        <aside class="panel" id="contato" aria-label="Contato">
+          <div class="aside-title">Áreas de atuação</div>
+          <div class="chips">
+            <span class="chip">Criminal</span>
+            <span class="chip">Cível</span>
+            <span class="chip">Consumidor</span>
+            <span class="chip">Contratos</span>
+            <span class="chip">Assessoria Jurídica</span>
           </div>
 
-          <div class="card">
-            <h3>Contato direto</h3>
-            <div class="kv">
-              <div class="k">WhatsApp</div>
-              <div class="v"><a id="waLink2" href="#" rel="noopener">+55 46 9 9974-6391</a></div>
+          <div class="aside-title">Contato direto</div>
 
-              <div class="k">E-mail</div>
-              <div class="v"><a href="mailto:allissonpaz@hotmail.com">allissonpaz@hotmail.com</a></div>
-
-              <div class="k">Atendimento</div>
-              <div class="v">Coronel Vivida - PR e região</div>
-            </div>
+          <div class="kv">
+            <div class="k">WhatsApp</div>
+            <div class="v">+55 46 9 9974-6391</div>
+          </div>
+          <div class="kv">
+            <div class="k">E-mail</div>
+            <div class="v">allissonpaz@hotmail.com</div>
+          </div>
+          <div class="kv">
+            <div class="k">Atendimento</div>
+            <div class="v">Coronel Vivida - PR e região</div>
           </div>
 
-          <div class="card">
-            <h3>Como posso ajudar?</h3>
-            <div style="color:var(--muted); line-height:1.6; font-size:14px;">
-              Triagem inicial, orientação estratégica, elaboração de peças e atuação em demandas judiciais e extrajudiciais, conforme o caso.
-            </div>
+          <p style="margin:14px 0 0 0; color: var(--muted2); line-height:1.6;">
+            Preferencialmente, descreva brevemente o tema e envie documentos essenciais (se houver).
+          </p>
+
+          <div id="diferenciais" style="margin-top:16px;">
+            <div class="aside-title">Diferenciais</div>
+            <p style="margin:0; color: var(--muted2); line-height:1.7;">
+              Triagem inicial, orientação estratégica, elaboração de peças e atuação em demandas judiciais e extrajudiciais,
+              conforme o caso.
+            </p>
           </div>
         </aside>
-      </section>
+      </div>
+    </section>
 
-      <section class="panel section" id="atuacao">
-        <h2>Atuação</h2>
-        <p>
-          Atendimento voltado a pessoas físicas e empresas, com foco em prevenção de litígios, condução estratégica de processos e soluções juridicamente seguras.
-        </p>
+    <!-- ATUAÇÃO com Background 2 -->
+    <section class="section bg-justica-2" id="atuacao" aria-label="Atuação">
+      <h2>Atuação</h2>
+      <p>
+        Atendimento voltado a pessoas físicas e empresas, com foco em prevenção de litígios, condução estratégica de processos
+        e soluções juridicamente seguras.
+      </p>
 
-        <div class="grid">
-          <div class="service">
-            <strong>Direito Criminal</strong>
-            <span>Defesa técnica, acompanhamento em delegacia, medidas urgentes, estratégias de prova e atuação processual.</span>
-          </div>
-          <div class="service">
-            <strong>Direito Cível</strong>
-            <span>Ações e defesas em demandas cíveis, obrigações, indenizações, cobranças e demais questões patrimoniais.</span>
-          </div>
-          <div class="service">
-            <strong>Direito do Consumidor</strong>
-            <span>Negativação indevida, vícios de produto/serviço, contratos bancários, cobranças abusivas e responsabilidade civil.</span>
-          </div>
-          <div class="service">
-            <strong>Contratos</strong>
-            <span>Elaboração, revisão e negociação de contratos com foco em segurança jurídica e prevenção de litígios.</span>
-          </div>
-          <div class="service">
-            <strong>Assessoria Jurídica</strong>
-            <span>Orientação contínua para tomada de decisões, gestão de riscos e respostas rápidas a demandas do dia a dia.</span>
-          </div>
-          <div class="service">
-            <strong>Atendimento Regional</strong>
-            <span>Coronel Vivida - PR e região, com possibilidade de atendimento remoto conforme a necessidade.</span>
-          </div>
+      <div class="areas">
+        <div class="area">
+          <h3>Direito Criminal</h3>
+          <p>Defesa técnica, acompanhamento em delegacia, medidas urgentes, estratégias de prova e atuação processual.</p>
         </div>
-      </section>
-
-      <section class="panel section" id="diferenciais">
-        <h2>Diferenciais</h2>
-        <p>
-          Uma atuação profissional sólida combina técnica, estratégia e comunicação clara. O objetivo é reduzir incertezas e conduzir o caso com método e previsibilidade.
-        </p>
-
-        <div class="grid">
-          <div class="service">
-            <strong>Diagnóstico e plano de ação</strong>
-            <span>Enquadramento do problema, riscos, próximos passos e documentação necessária desde o primeiro contato.</span>
-          </div>
-          <div class="service">
-            <strong>Postura combativa quando necessário</strong>
-            <span>Atuação firme, com foco em prova e tese consistente, sem perder a racionalidade estratégica.</span>
-          </div>
-          <div class="service">
-            <strong>Comunicação transparente</strong>
-            <span>Atualizações objetivas sobre prazos, custos, cenários prováveis e medidas recomendadas.</span>
-          </div>
+        <div class="area">
+          <h3>Direito Cível</h3>
+          <p>Ações e defesas em demandas cíveis, obrigações, indenizações, cobranças e demais questões patrimoniais.</p>
         </div>
-      </section>
+        <div class="area">
+          <h3>Direito do Consumidor</h3>
+          <p>Negativação indevida, vícios de produto/serviço, contratos bancários, cobranças abusivas e responsabilidade civil.</p>
+        </div>
+        <div class="area">
+          <h3>Contratos</h3>
+          <p>Elaboração, revisão e negociação de contratos com foco em segurança jurídica e prevenção de litígios.</p>
+        </div>
+        <div class="area">
+          <h3>Assessoria Jurídica</h3>
+          <p>Orientação contínua para tomada de decisões, gestão de riscos e respostas rápidas a demandas do dia a dia.</p>
+        </div>
+        <div class="area">
+          <h3>Atendimento Regional</h3>
+          <p>Coronel Vivida - PR e região, com possibilidade de atendimento remoto conforme a necessidade.</p>
+        </div>
+      </div>
+    </section>
+  </main>
 
-      <footer class="footer">
-        © 2026 Alisson Paz - Advogado • Coronel Vivida - PR e região
-      </footer>
-    </main>
-  </div>
+  <footer class="footer">
+    © 2026 Alisson Paz - Advogado • Coronel Vivida - PR e região
+  </footer>
 
   <!-- WhatsApp flutuante -->
   <div class="wa-float" aria-label="Atendimento via WhatsApp">
     <div class="wa-label">Atendimento via WhatsApp</div>
-    <a class="wa-btn" id="waLinkFloat" href="#" rel="noopener" aria-label="Abrir WhatsApp">
+    <a class="wa-btn" href="https://wa.me/5546999746391" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
       <svg viewBox="0 0 32 32" aria-hidden="true">
-        <path d="M19.11 17.46c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.19-1.35-.81-.72-1.36-1.6-1.52-1.87-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.46h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.26s.97 2.62 1.11 2.8c.14.18 1.9 2.9 4.6 4.06.64.28 1.13.45 1.52.58.64.2 1.22.17 1.68.1.51-.08 1.6-.65 1.82-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32zM16.02 3C8.84 3 3 8.83 3 16c0 2.3.62 4.55 1.8 6.52L3 29l6.7-1.76A12.94 12.94 0 0 0 16.02 29C23.2 29 29 23.17 29 16S23.2 3 16.02 3zm0 23.54c-2 0-3.95-.54-5.63-1.55l-.4-.24-3.97 1.04 1.06-3.87-.26-.4A10.5 10.5 0 0 1 5.52 16c0-5.79 4.71-10.5 10.5-10.5S26.52 10.21 26.52 16s-4.71 10.54-10.5 10.54z"/>
+        <path d="M19.11 17.53c-.27-.14-1.6-.79-1.85-.88-.25-.09-.44-.14-.62.14-.18.27-.71.88-.87 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.33-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.46.09-.18.05-.34-.02-.48-.07-.14-.62-1.5-.85-2.06-.22-.53-.44-.46-.62-.46h-.53c-.18 0-.48.07-.73.34-.25.27-.96.93-.96 2.27 0 1.34.98 2.64 1.12 2.82.14.18 1.93 2.95 4.68 4.13.66.28 1.17.45 1.57.58.66.21 1.27.18 1.75.11.53-.08 1.6-.65 1.83-1.28.23-.62.23-1.16.16-1.28-.07-.11-.25-.18-.52-.32zM16.02 27C11.04 27 7 22.96 7 17.98c0-1.58.41-3.06 1.12-4.35L7 6l7.85 1.99c1.26-.69 2.71-1.08 4.26-1.08 4.98 0 9.02 4.04 9.02 9.02 0 4.98-4.04 9.02-9.02 9.02zm0-21.99c-1.43 0-2.8.37-4.01 1.07L6 4.5l1.57 6.08C6.78 12 6.36 13.47 6.36 15.02 6.36 20.52 10.52 24.68 16.02 24.68S25.68 20.52 25.68 15.02 21.52 5.01 16.02 5.01z"/>
       </svg>
     </a>
   </div>
 
   <script>
-    (function(){
-      const phoneE164 = "5546999746391"; // +55 46 9 9974-6391
-      const waText = encodeURIComponent("Olá, Dr. Alisson. Gostaria de falar sobre uma demanda jurídica.");
-      const waUrl = "https://wa.me/" + phoneE164 + "?text=" + waText;
-
-      const btnWhatsapp = document.getElementById("btnWhatsapp");
-      const waLink2 = document.getElementById("waLink2");
-      const waLinkFloat = document.getElementById("waLinkFloat");
-
-      btnWhatsapp.href = waUrl;
-      waLink2.href = waUrl;
-      waLinkFloat.href = waUrl;
-
-      document.getElementById("btnCopiar").addEventListener("click", async function(){
-        try{
-          await navigator.clipboard.writeText("+55 46 9 9974-6391");
-          this.textContent = "Número copiado";
-          setTimeout(() => this.textContent = "Copiar número", 1400);
-        }catch(e){
-          alert("Não foi possível copiar automaticamente. Número: +55 46 9 9974-6391");
-        }
+    function copyPhone(){
+      const phone = "+55 46 9 9974-6391";
+      navigator.clipboard.writeText(phone).then(() => {
+        alert("Número copiado: " + phone);
+      }).catch(() => {
+        alert("Não foi possível copiar automaticamente. Número: " + phone);
       });
-    })();
+    }
   </script>
 </body>
 </html>
