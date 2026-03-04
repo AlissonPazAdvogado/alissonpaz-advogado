@@ -89,68 +89,74 @@
     }
     .layer{position:relative; z-index:1}
 
-    /* ========== HEADER ========== */
-    header.topbar{
-      margin-bottom:18px;
-      padding:18px 18px;
-      border-radius:28px;
-      border:1px solid rgba(255,255,255,.10);
-      background:
-        radial-gradient(800px 300px at 20% 30%, rgba(255,255,255,.06), transparent 60%),
-        linear-gradient(180deg, rgba(31,34,38,.92), rgba(20,22,26,.90));
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(6px);
-    }
+   /* HEADER (cabeçalho inteiro com o “cimento”) */
+.topbar{
+  width: min(1120px, calc(100% - 36px));
+  margin: 22px auto 18px auto;
+  padding: 18px 22px;
+  border-radius: 26px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 16px;
 
-    .topbar-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-    }
+  /* AQUI está o ponto: o fundo deve ficar no HEADER inteiro */
+  background:
+    radial-gradient(1200px 220px at 20% 0%, rgba(255,255,255,.10), transparent 60%),
+    linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.05)),
+    linear-gradient(0deg, rgba(32,35,38,.92), rgba(32,35,38,.92));
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      min-width: 0;
-    }
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 18px 55px rgba(0,0,0,.55);
+  backdrop-filter: blur(10px);
+}
 
-    .logo-main{
-      height:82px;
-      width:auto;
-      display:block;
-      /* destaque da logo no fundo cimento */
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.55));
-    }
+/* A logo deve “usar” o espaço disponível antes do menu */
+.brand{
+  flex: 1 1 auto;
+  min-width: 0;
+  display:flex;
+  align-items:center;
+}
 
-    nav.nav{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
+/* Logo responsiva: ocupa o espaço possível sem distorcer */
+.logo-main{
+  height: 74px;        /* ajuste fino: 70–86 */
+  width: auto;
+  max-width: 100%;
+  display:block;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.55));
+}
 
-    .nav a{
-      padding:10px 12px;
-      border-radius:12px;
-      color:var(--muted);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.20);
-      transition: transform .15s ease, background .15s ease, color .15s ease;
-    }
-    .nav a:hover{
-      transform: translateY(-1px);
-      background: rgba(0,0,0,.32);
-      color: var(--text);
-    }
-    .nav a.cta{
-      background: linear-gradient(180deg, rgba(202,167,90,.98), rgba(184,144,62,.98));
-      color:#0b0b0b;
-      border:1px solid rgba(0,0,0,.25);
-      font-weight:700;
-    }
+/* Menu */
+.nav{
+  flex: 0 0 auto;
+  display:flex;
+  align-items:center;
+  gap: 14px;
+}
+
+.nav a{
+  color: rgba(255,255,255,.85);
+  text-decoration:none;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.nav a:hover{
+  background: rgba(255,255,255,.06);
+}
+
+/* Botão “Contato” */
+.nav a.cta{
+  background: #caa75a;
+  color: #101113;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-weight: 800;
+}
 
     /* ========== HERO ========== */
     .hero{
