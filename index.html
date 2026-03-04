@@ -3,561 +3,599 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alisson Paz - Advogado | Coronel Vivida - PR e região</title>
+  <title>Alisson Paz – Advogado | Coronel Vivida - PR e região</title>
+  <meta name="description" content="Alisson Paz – Advogado em Coronel Vivida - PR e região. Atuação estratégica em Direito Criminal, Cível, Consumidor, Contratos e Assessoria Jurídica." />
 
-  <!-- Favicon (ícone da aba) -->
+  <!-- Favicon (ideal: um ícone quadrado. Se sua logo for horizontal, pode ficar pequeno no navegador) -->
   <link rel="icon" href="logo.png" type="image/png" />
-  <link rel="apple-touch-icon" href="logo.png" />
 
-  <!-- Open Graph (opcional) -->
-  <meta property="og:title" content="Alisson Paz - Advogado" />
-  <meta property="og:description" content="Atuação em Coronel Vivida - PR e região, com foco em soluções jurídicas objetivas e estratégicas." />
-  <meta property="og:image" content="logo.png" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Alisson Paz – Advogado" />
+  <meta property="og:description" content="Atuação em Coronel Vivida - PR e região. Atendimento estratégico e comunicação objetiva." />
+  <meta property="og:image" content="og-image.png" />
   <meta property="og:type" content="website" />
 
   <style>
     :root{
-      /* Base */
-      --bg: #0b0c0e;
-      --panel: #0f1114;
-      --card: #111418;
-      --card2:#0c0f12;
-
-      /* “cimento queimado” (neutros frios) */
-      --cement-1: #2a2f35;
-      --cement-2: #1f242a;
-      --cement-3: #14181d;
-
-      /* Texto */
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.72);
-      --muted2: rgba(255,255,255,.56);
-
-      /* Dourado da marca */
-      --gold: #caa75a;
-
-      /* Bordas/sombras */
-      --line: rgba(255,255,255,.10);
-      --line2: rgba(255,255,255,.16);
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-
-      --radius: 18px;
-      --max: 1120px;
+      --bg:#0c0e10;
+      --panel:#101418;
+      --panel2:#0f1317;
+      --line:rgba(255,255,255,.10);
+      --line2:rgba(255,255,255,.14);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --muted2:rgba(255,255,255,.55);
+      --gold:#c9a75a;
+      --gold2:#b38b2f;
+      --shadow:0 18px 60px rgba(0,0,0,.55);
+      --radius:22px;
+      --max:1120px;
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      color:var(--text);
       background: var(--bg);
       overflow-x:hidden;
     }
 
-    /* BG com 2 imagens (controlado e consistente) */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-2;
-      background-image:
-        radial-gradient(1200px 700px at 15% 10%, rgba(202,167,90,.14), transparent 55%),
-        radial-gradient(900px 600px at 85% 0%, rgba(202,167,90,.10), transparent 55%),
-        url("bg-justica-1.jpg"),
-        url("bg-justica-2.jpg");
-      background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
-      background-position: center, center, left center, right center;
-      background-size: 120% 120%, 120% 120%, cover, cover;
-      filter: saturate(0.95) contrast(1.05);
-      opacity: .34; /* ajuste fino do “quanto aparece” */
-    }
-    /* camada para “fechar” e dar leitura */
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      z-index:-1;
-      background: linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.86));
-    }
-
-    a{ color: inherit; text-decoration:none; }
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 22px 18px 70px; }
-
-    /* HEADER FULL-WIDTH (ocupa toda a tela) */
-    .topbar-shell{
-      width: 100%;
-      padding: 18px 18px 0;
-    }
-    .topbar{
-      max-width: var(--max);
-      margin: 0 auto;
-      border-radius: 26px;
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+    /* BACKGROUND COM 2 IMAGENS */
+    .bg{
+      position:fixed; inset:0; z-index:-3;
       background:
-        linear-gradient(180deg, rgba(42,47,53,.92), rgba(20,24,29,.92));
-      overflow:hidden;
+        linear-gradient(to bottom, rgba(0,0,0,.72), rgba(0,0,0,.90)),
+        url("bg-justica-1.jpg") center/cover no-repeat;
+      filter:saturate(.95) contrast(1.02);
+      transform: translateZ(0);
     }
-    .topbar-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 16px;
-      padding: 18px 18px;
+    .bg::after{
+      content:"";
+      position:absolute; inset:0; z-index:-2;
+      background:
+        radial-gradient(1000px 520px at 18% 30%, rgba(201,167,90,.15), transparent 58%),
+        radial-gradient(900px 520px at 82% 38%, rgba(201,167,90,.10), transparent 60%),
+        linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.20));
+      pointer-events:none;
     }
-
-    /* Logo maior e “presente” no cabeçalho */
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 14px;
-      min-width: 320px;
-    }
-    .brand img{
-      height: 66px;   /* ajuste principal do “tamanho da logo” */
-      width: auto;
-      display:block;
-      filter: drop-shadow(0 10px 28px rgba(0,0,0,.45));
-    }
-
-    .nav{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      flex-wrap: nowrap;
-    }
-    .nav a{
-      padding: 10px 12px;
-      border-radius: 999px;
-      color: rgba(255,255,255,.82);
-      border: 1px solid transparent;
-      transition: .15s ease;
-      font-weight: 600;
-      font-size: 14px;
-      letter-spacing: .2px;
-      white-space: nowrap;
-    }
-    .nav a:hover{
-      border-color: var(--line2);
-      background: rgba(255,255,255,.04);
-    }
-    .nav .cta{
-      background: var(--gold);
-      color:#151310;
-      padding: 10px 16px;
-      border: 1px solid rgba(0,0,0,.15);
-    }
-    .nav .cta:hover{
-      background: #d6b467;
+    .bg2{
+      position:fixed; inset:-40px; z-index:-4;
+      background:
+        url("bg-justica-2.jpg") center/cover no-repeat;
+      opacity:.22;
+      filter: blur(10px) saturate(.9);
+      transform: scale(1.08);
+      pointer-events:none;
     }
 
-    /* HERO */
-    .grid{
-      display:grid;
-      grid-template-columns: 1.25fr .95fr;
-      gap: 16px;
-      margin-top: 18px;
-    }
-
-    .panel{
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(15,17,20,.78), rgba(10,12,14,.82));
+    /* CONTAINER */
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 72px;}
+    .glass{
+      background: linear-gradient(180deg, rgba(16,20,24,.80), rgba(16,20,24,.62));
+      border:1px solid rgba(255,255,255,.10);
       box-shadow: var(--shadow);
-      padding: 18px;
+      border-radius: var(--radius);
       backdrop-filter: blur(10px);
     }
 
-    .badge{
+    /* HEADER NOVO (TOTALMENTE DIFERENTE) */
+    header{
+      position:sticky; top:14px; z-index:50;
+    }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px 18px;
+      border-radius: 999px;
+    }
+    .logoWrap{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center; /* logo central */
+    }
+    .logoWrap img{
+      height:54px;
+      width:auto;
+      display:block;
+      opacity:.98;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+    }
+
+    /* NAV minimal premium */
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .nav a{
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:600;
+      font-size:13px;
+      letter-spacing:.02em;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      transition: .2s ease;
+      background: rgba(0,0,0,.12);
+    }
+    .nav a:hover{
+      color:var(--text);
+      border-color: rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      transform: translateY(-1px);
+    }
+    .nav a.cta{
+      color:#151515;
+      background: linear-gradient(180deg, var(--gold), #d3b268);
+      border-color: rgba(0,0,0,.15);
+    }
+    .nav a.cta:hover{filter:brightness(1.02)}
+
+    /* HERO NOVO (layout diferente) */
+    .hero{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:16px;
+    }
+    .heroMain{
+      padding:22px;
+      border-radius: var(--radius);
+      position:relative;
+      overflow:hidden;
+    }
+    .heroMain::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(800px 380px at 18% 20%, rgba(201,167,90,.14), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.04), transparent 55%);
+      pointer-events:none;
+    }
+    .kicker{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      padding: 8px 12px;
+      padding:8px 12px;
       border-radius:999px;
-      border:1px solid rgba(202,167,90,.28);
-      background: rgba(202,167,90,.08);
+      border:1px solid rgba(201,167,90,.22);
+      background: rgba(0,0,0,.16);
       color: rgba(255,255,255,.86);
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 10px;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.01em;
+      margin-bottom:14px;
+      position:relative;
+      z-index:1;
     }
     .dot{
-      width: 8px; height: 8px; border-radius: 50%;
+      width:9px; height:9px; border-radius:999px;
       background: var(--gold);
-      box-shadow: 0 0 0 4px rgba(202,167,90,.18);
+      box-shadow: 0 0 0 4px rgba(201,167,90,.14);
     }
 
     h1{
-      margin: 6px 0 10px;
-      font-size: clamp(30px, 3.6vw, 44px);
-      line-height: 1.05;
-      letter-spacing: -0.6px;
+      margin:0 0 12px;
+      font-size:46px;
+      line-height:1.05;
+      letter-spacing:-.02em;
+      position:relative;
+      z-index:1;
+    }
+    h1 span{
+      background: linear-gradient(180deg, #ffffff, rgba(255,255,255,.78));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
     .lead{
-      margin:0;
-      color: var(--muted);
-      font-size: 15.5px;
-      line-height: 1.55;
-      max-width: 60ch;
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.6;
+      max-width: 56ch;
+      position:relative;
+      z-index:1;
     }
-    .lead b{ color: var(--text); }
 
     .actions{
       display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+      position:relative;
+      z-index:1;
     }
     .btn{
       display:inline-flex;
       align-items:center;
-      gap: 10px;
-      padding: 11px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
+      gap:10px;
+      padding:12px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
       color: var(--text);
-      font-weight: 700;
-      font-size: 14px;
-      cursor:pointer;
-      transition: .15s ease;
-      user-select:none;
+      text-decoration:none;
+      font-weight:800;
+      font-size:14px;
+      transition: .2s ease;
     }
-    .btn:hover{ background: rgba(255,255,255,.06); border-color: var(--line2); }
-    .btn.gold{ background: var(--gold); color:#14120f; border-color: rgba(0,0,0,.14); }
-    .btn.gold:hover{ background:#d6b467; }
+    .btn:hover{transform: translateY(-1px); background: rgba(0,0,0,.24)}
+    .btn.primary{
+      background: linear-gradient(180deg, var(--gold), #d3b268);
+      border-color: rgba(0,0,0,.18);
+      color:#141414;
+    }
+    .btn.primary:hover{filter:brightness(1.03)}
+    .btn .meta{
+      color: rgba(0,0,0,.55);
+      font-weight:900;
+      font-size:12px;
+    }
+    .btn.secondary .meta{color: rgba(255,255,255,.52); font-weight:800}
 
-    .mini{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-    .mini .card{
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,.03);
-      padding: 12px 12px;
-      min-height: 72px;
-    }
-    .mini .card h3{
-      margin: 0 0 6px;
-      font-size: 14px;
-    }
-    .mini .card p{
-      margin:0;
-      color: var(--muted2);
-      font-size: 13px;
-      line-height: 1.35;
+    /* Ícone do WhatsApp: ocupa bem e fica “certinho” */
+    .icon{
+      width:18px;
+      height:18px;
+      display:block;
+      flex:0 0 18px;
     }
 
-    .side h2{
-      margin: 0 0 12px;
-      font-size: 18px;
-      letter-spacing: -.2px;
+    /* CARD lateral novo */
+    .heroSide{
+      padding:18px;
+      border-radius: var(--radius);
     }
-    .pills{
+    .sideTitle{
+      font-size:14px;
+      margin:0 0 10px;
+      color:rgba(255,255,255,.88);
+      letter-spacing:.02em;
+      font-weight:900;
+    }
+    .pillGrid{
       display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:14px;
     }
     .pill{
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(202,167,90,.26);
-      background: rgba(202,167,90,.06);
-      font-weight: 700;
-      font-size: 13px;
-      color: rgba(255,255,255,.88);
+      font-size:12px;
+      font-weight:800;
+      color: rgba(255,255,255,.86);
+      border:1px solid rgba(201,167,90,.18);
+      background: rgba(0,0,0,.16);
+      padding:8px 10px;
+      border-radius:999px;
     }
-
     .kv{
-      border-top: 1px dashed rgba(255,255,255,.14);
-      padding-top: 12px;
-      margin-top: 10px;
+      display:grid;
+      gap:10px;
+      margin-top:12px;
     }
-    .row{
+    .kvRow{
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap: 12px;
-      padding: 9px 0;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      font-size: 14px;
+      align-items:center;
+      gap:12px;
+      padding:12px 12px;
+      border-radius: 14px;
+      background: rgba(0,0,0,.14);
+      border:1px solid rgba(255,255,255,.08);
     }
-    .row:last-child{ border-bottom:0; }
-    .row .k{ color: rgba(255,255,255,.80); font-weight: 700; }
-    .row .v{ color: rgba(255,255,255,.92); font-weight: 600; }
+    .k{
+      color: var(--muted2);
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+    .v{
+      color: var(--text);
+      font-weight:900;
+      font-size:13px;
+      text-align:right;
+      word-break:break-word;
+    }
 
-    /* Seções */
+    /* SEÇÕES NOVAS */
     .section{
-      margin-top: 16px;
+      margin-top:16px;
+      padding:18px;
+      border-radius: var(--radius);
     }
     .section h2{
       margin:0 0 10px;
-      font-size: 18px;
-      letter-spacing: -.2px;
+      font-size:16px;
+      letter-spacing:.01em;
+    }
+    .section p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
     }
     .cards{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
+      gap:12px;
+      margin-top:12px;
     }
-    .cards .card{
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255,255,255,.03);
-      padding: 14px;
-      min-height: 110px;
+    .card{
+      padding:14px;
+      border-radius:18px;
+      background: rgba(0,0,0,.14);
+      border:1px solid rgba(255,255,255,.10);
+      transition: .2s ease;
+      position:relative;
+      overflow:hidden;
     }
-    .cards .card h3{ margin:0 0 8px; font-size: 15px; }
-    .cards .card p{ margin:0; color: var(--muted2); font-size: 13px; line-height:1.45; }
+    .card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(500px 220px at 10% 10%, rgba(201,167,90,.10), transparent 65%);
+      opacity:.85;
+      pointer-events:none;
+    }
+    .card:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.14)}
+    .card h3{
+      margin:0 0 8px;
+      font-size:14px;
+      letter-spacing:.01em;
+      position:relative;
+      z-index:1;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.55;
+      position:relative;
+      z-index:1;
+    }
 
-    /* Footer centralizado */
-    .footer{
+    /* FOOTER fix */
+    footer{
+      margin-top:22px;
       text-align:center;
-      color: rgba(255,255,255,.62);
-      font-size: 12.5px;
-      padding: 22px 0 0;
+      color: rgba(255,255,255,.65);
+      font-size:12px;
+      padding:16px 10px;
     }
 
-    /* WhatsApp floating (ícone 100%) */
-    .wa-float{
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 99;
+    /* Botão WhatsApp flutuante (novo) */
+    .float-wa{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:60;
       display:flex;
       align-items:center;
-      gap: 10px;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:999px;
+      text-decoration:none;
+      color:#0f1a12;
+      background: linear-gradient(180deg, #25D366, #18b857);
+      border:1px solid rgba(0,0,0,.18);
+      box-shadow: 0 16px 40px rgba(0,0,0,.40);
+      font-weight:900;
+      font-size:13px;
     }
-    .wa-label{
-      color: rgba(255,255,255,.78);
-      background: rgba(0,0,0,.55);
-      border: 1px solid rgba(255,255,255,.10);
-      padding: 10px 12px;
-      border-radius: 999px;
-      backdrop-filter: blur(8px);
-      font-weight: 700;
-      font-size: 12.5px;
-    }
-    .wa-btn{
-      width: 54px;
-      height: 54px;
-      border-radius: 18px;
-      background: #25D366;
-      border: 1px solid rgba(0,0,0,.18);
-      box-shadow: 0 18px 50px rgba(0,0,0,.55);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .wa-btn svg{
-      width: 30px;
-      height: 30px;
-      display:block;
-      fill: #0b0c0e;
+    .float-wa .bubble{
+      width:22px;height:22px;display:block;
     }
 
     /* Responsivo */
-   @media (max-width: 980px){
-  .grid{ grid-template-columns: 1fr; }
-  .cards{ grid-template-columns: 1fr; }
-  .mini{ grid-template-columns: 1fr; }
-  .brand{ min-width: 0; }
-  .brand img{ height: 58px; }
-  .nav{ gap: 6px; }
-  nav a{ font-size: 13px; padding: 10px 10px; }
-}
-
-/* ===== HEADER SOMENTE COM LOGO ===== */
-
-.nav{
-  display:none !important;
-}
-
-.topbar-inner{
-  justify-content:center !important;
-}
-
-.brand{
-  min-width:0 !important;
-  display:flex;
-  justify-content:center;
-  width:100%;
-}
-
-.brand img{
-  height:95px !important;
-  width:auto;
-}
+    @media (max-width: 980px){
+      header{top:10px}
+      .topbar{border-radius: 18px}
+      .logoWrap{justify-content:flex-start}
+      .logoWrap img{height:48px}
+      .hero{grid-template-columns: 1fr; }
+      h1{font-size:38px}
+      .cards{grid-template-columns: 1fr}
+      .nav{gap:8px}
+      .nav a{padding:10px 10px}
+    }
   </style>
 </head>
 
 <body>
-  <!-- HEADER full-width -->
-  <div class="topbar-shell">
-    <header class="topbar" aria-label="Cabeçalho">
-  <div class="topbar-inner topbar-center">
-    <div class="brand brand-only">
-      <img src="logo.png" alt="Alisson Paz - Advogado" />
-    </div>
-  </div>
-</header>
-  </div>
+  <div class="bg2" aria-hidden="true"></div>
+  <div class="bg" aria-hidden="true"></div>
 
   <div class="wrap">
-    <main>
-      <section class="grid">
-        <div class="panel">
-          <div class="badge"><span class="dot" aria-hidden="true"></span> Atendimento ágil e orientação estratégica</div>
-          <h1>Advocacia com <span style="color:var(--gold)">técnica</span>, clareza e firmeza</h1>
-          <p class="lead">
-            Atuação em <b>Coronel Vivida - PR</b> e região, com foco em soluções jurídicas objetivas,
-            postura combativa quando necessário e comunicação transparente sobre riscos, prazos e possibilidades.
-          </p>
-
-          <div class="actions">
-            <a class="btn gold" href="https://wa.me/5546999746391" target="_blank" rel="noopener">Falar no WhatsApp</a>
-            <a class="btn" href="#contato">Ver contatos</a>
-            <button class="btn" type="button" id="copyBtn">Copiar número</button>
-          </div>
-
-          <div class="mini">
-            <div class="card">
-              <h3>Atuação regional</h3>
-              <p>Coronel Vivida - PR e cidades próximas</p>
-            </div>
-            <div class="card">
-              <h3>Atendimento humanizado</h3>
-              <p>Explicação objetiva, sem “juridiquês” excessivo</p>
-            </div>
-            <div class="card">
-              <h3>Estratégia processual</h3>
-              <p>Foco em prova, risco e melhor resultado possível</p>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:12px;">
-            <p style="margin:0; color:var(--muted2); font-size:13px; line-height:1.45;">
-              <b>Observação:</b> este site possui caráter informativo. A análise de viabilidade depende
-              dos documentos e das particularidades de cada caso.
-            </p>
-          </div>
+    <!-- HEADER: logo centralizada + navegação -->
+    <header>
+      <div class="topbar glass">
+        <div class="logoWrap">
+          <img src="logo.png" alt="Alisson Paz – Advogado">
         </div>
 
-        <aside class="panel side" id="contato">
-          <h2>Áreas de atuação</h2>
-          <div class="pills">
-            <span class="pill">Criminal</span>
-            <span class="pill">Cível</span>
-            <span class="pill">Consumidor</span>
-            <span class="pill">Contratos</span>
-            <span class="pill">Assessoria Jurídica</span>
-          </div>
+        <nav class="nav" aria-label="Navegação">
+          <a href="#atuacao">Atuação</a>
+          <a href="#diferenciais">Diferenciais</a>
+          <a class="cta" href="#contato">Contato</a>
+        </nav>
+      </div>
+    </header>
 
-          <h2 style="margin-top:8px;">Contato direto</h2>
-          <div class="kv">
-            <div class="row">
-              <div class="k">WhatsApp</div>
-              <div class="v">+55 46 9 9974-6391</div>
-            </div>
-            <div class="row">
-              <div class="k">E-mail</div>
-              <div class="v">allissonpaz@hotmail.com</div>
-            </div>
-            <div class="row">
-              <div class="k">Atendimento</div>
-              <div class="v">Coronel Vivida - PR e região</div>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top:12px;">
-            <p style="margin:0; color:var(--muted2); font-size:13px; line-height:1.45;">
-              Preferencialmente, descreva brevemente o tema e envie documentos essenciais (se houver).
-            </p>
-          </div>
-
-          <h2 id="diferenciais" style="margin-top:16px;">Diferenciais</h2>
-          <p style="margin:0; color:var(--muted2); font-size:13.5px; line-height:1.55;">
-            Triagem inicial, orientação estratégica, elaboração de peças e atuação em demandas judiciais e extrajudiciais,
-            conforme o caso.
-          </p>
-        </aside>
-      </section>
-
-      <section class="panel section" id="atuacao">
-        <h2>Atuação</h2>
-        <p style="margin:0 0 12px; color:var(--muted2); font-size:13.5px; line-height:1.55;">
-          Atendimento voltado a pessoas físicas e empresas, com foco em prevenção de litígios, condução estratégica de processos
-          e soluções juridicamente seguras.
+    <!-- HERO NOVO -->
+    <main class="hero" id="inicio">
+      <section class="heroMain glass">
+        <div class="kicker"><span class="dot" aria-hidden="true"></span> Atendimento estratégico, objetivo e transparente</div>
+        <h1><span>Advocacia com técnica, clareza e firmeza</span></h1>
+        <p class="lead">
+          Atuação em <strong>Coronel Vivida - PR e região</strong>, com foco em soluções juridicamente seguras,
+          postura combativa quando necessário e comunicação clara sobre riscos, prazos e possibilidades.
         </p>
 
-        <div class="cards">
-          <div class="card">
-            <h3>Direito Criminal</h3>
-            <p>Defesa técnica, acompanhamento em delegacia, medidas urgentes, estratégias de prova e atuação processual.</p>
-          </div>
-          <div class="card">
-            <h3>Direito Cível</h3>
-            <p>Ações e defesas em demandas cíveis, obrigações, indenizações, cobranças e demais questões patrimoniais.</p>
-          </div>
-          <div class="card">
-            <h3>Direito do Consumidor</h3>
-            <p>Negativação indevida, vícios de produto/serviço, contratos bancários, cobranças abusivas e responsabilidade civil.</p>
-          </div>
-          <div class="card">
-            <h3>Contratos</h3>
-            <p>Elaboração, revisão e negociação de contratos com foco em segurança jurídica e prevenção de litígios.</p>
-          </div>
-          <div class="card">
-            <h3>Assessoria Jurídica</h3>
-            <p>Orientação contínua para tomada de decisões, gestão de riscos e respostas rápidas a demandas do dia a dia.</p>
-          </div>
-          <div class="card">
-            <h3>Atendimento Regional</h3>
-            <p>Coronel Vivida - PR e região, com possibilidade de atendimento remoto conforme a necessidade.</p>
-          </div>
+        <div class="actions">
+          <a class="btn primary" href="https://wa.me/5546999746391" target="_blank" rel="noopener">
+            <!-- WhatsApp SVG -->
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+              <path fill="#111" d="M19.1 17.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.9 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.4-1.9-.1-.3 0-.4.1-.5.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2.1-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.4-.2.3-1 1-1 2.4 0 1.4 1 2.7 1.1 2.9.1.2 2.1 3.3 5.1 4.6.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.3-.5 1.5-1 .2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/>
+              <path fill="#111" d="M16 3C9.4 3 4 8.2 4 14.6c0 2.2.7 4.2 1.9 5.9L5 29l8.8-1.8c1.6.9 3.5 1.4 5.6 1.4 6.6 0 12-5.2 12-11.6S22.6 3 16 3zm0 23.2c-1.8 0-3.4-.5-4.9-1.3l-.4-.2-5.2 1.1 1.1-5-.3-.4c-1.1-1.6-1.7-3.4-1.7-5.4C4.6 9.5 9.7 4.8 16 4.8S27.4 9.5 27.4 14.6 22.3 26.2 16 26.2z"/>
+            </svg>
+            Falar no WhatsApp <span class="meta">(resposta rápida)</span>
+          </a>
+
+          <a class="btn secondary" href="#contato">
+            Ver contatos <span class="meta">↓</span>
+          </a>
+
+          <a class="btn secondary" href="#" id="copyNumberBtn">
+            Copiar número <span class="meta">📋</span>
+          </a>
         </div>
       </section>
 
-      <footer class="footer">
-        © 2026 Alisson Paz - Advogado • Coronel Vivida - PR e região
-      </footer>
+      <!-- LATERAL NOVA -->
+      <aside class="heroSide glass">
+        <h3 class="sideTitle">Áreas de atuação</h3>
+        <div class="pillGrid">
+          <span class="pill">Criminal</span>
+          <span class="pill">Cível</span>
+          <span class="pill">Consumidor</span>
+          <span class="pill">Contratos</span>
+          <span class="pill">Assessoria Jurídica</span>
+        </div>
+
+        <div class="kv" id="contato">
+          <div class="kvRow">
+            <div>
+              <div class="k">WhatsApp</div>
+            </div>
+            <div class="v">+55 46 9 9974-6391</div>
+          </div>
+          <div class="kvRow">
+            <div>
+              <div class="k">E-mail</div>
+            </div>
+            <div class="v">allissonpaz@hotmail.com</div>
+          </div>
+          <div class="kvRow">
+            <div>
+              <div class="k">Atendimento</div>
+            </div>
+            <div class="v">Coronel Vivida - PR e região</div>
+          </div>
+        </div>
+
+        <p style="margin:12px 2px 0; color:var(--muted); font-size:13px; line-height:1.55;">
+          Preferencialmente, descreva brevemente o tema e, se houver, envie documentos essenciais para análise inicial.
+        </p>
+      </aside>
     </main>
+
+    <!-- SEÇÃO: ATUAÇÃO -->
+    <section class="section glass" id="atuacao">
+      <h2>Atuação</h2>
+      <p>
+        Atendimento voltado a pessoas físicas e empresas, com foco em prevenção de litígios, condução estratégica
+        de processos e soluções juridicamente seguras.
+      </p>
+
+      <div class="cards">
+        <article class="card">
+          <h3>Direito Criminal</h3>
+          <p>Defesa técnica, acompanhamento em delegacia, medidas urgentes, estratégia de prova e atuação processual.</p>
+        </article>
+        <article class="card">
+          <h3>Direito Cível</h3>
+          <p>Ações e defesas em demandas cíveis, obrigações, indenizações, cobranças e questões patrimoniais.</p>
+        </article>
+        <article class="card">
+          <h3>Direito do Consumidor</h3>
+          <p>Negativação indevida, vícios de produto/serviço, contratos bancários, cobranças abusivas e responsabilidade civil.</p>
+        </article>
+        <article class="card">
+          <h3>Contratos</h3>
+          <p>Elaboração, revisão e negociação de contratos com foco em segurança jurídica e prevenção de litígios.</p>
+        </article>
+        <article class="card">
+          <h3>Assessoria Jurídica</h3>
+          <p>Orientação contínua para tomada de decisões, gestão de riscos e respostas rápidas às demandas do dia a dia.</p>
+        </article>
+        <article class="card">
+          <h3>Atendimento Regional</h3>
+          <p>Coronel Vivida - PR e região, com possibilidade de atendimento remoto conforme a necessidade.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SEÇÃO: DIFERENCIAIS -->
+    <section class="section glass" id="diferenciais">
+      <h2>Diferenciais</h2>
+      <p>
+        Triagem inicial e condução estratégica, com postura técnica, comunicação objetiva e transparência sobre
+        riscos, prazos e próximos passos.
+      </p>
+
+      <div class="cards">
+        <article class="card">
+          <h3>Comunicação clara</h3>
+          <p>Explicação objetiva, sem “juridiquês” excessivo, com foco no que realmente importa ao seu caso.</p>
+        </article>
+        <article class="card">
+          <h3>Estratégia e prova</h3>
+          <p>Planejamento de linhas defensivas e ofensivas, avaliação de risco e construção probatória.</p>
+        </article>
+        <article class="card">
+          <h3>Agilidade com critério</h3>
+          <p>Atuação responsiva sem perder rigor técnico, priorizando medidas úteis e eficazes.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      © 2026 Alisson Paz - Advogado • Coronel Vivida - PR e região
+    </footer>
   </div>
 
   <!-- WhatsApp flutuante -->
-  <div class="wa-float" aria-label="Atendimento via WhatsApp">
-    <div class="wa-label">Atendimento via WhatsApp</div>
-    <a class="wa-btn" href="https://wa.me/5546999746391" target="_blank" rel="noopener" aria-label="Abrir WhatsApp">
-      <!-- WhatsApp SVG (não quebra) -->
-      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-        <path d="M19.11 17.27c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.33-.8-.71-1.34-1.58-1.5-1.85-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.48-.84-2.03-.22-.53-.45-.46-.61-.46h-.52c-.18 0-.48.07-.73.34-.25.27-.95.93-.95 2.26 0 1.33.98 2.62 1.12 2.8.14.18 1.93 2.95 4.68 4.13.65.28 1.15.45 1.55.58.65.21 1.25.18 1.72.11.52-.08 1.6-.65 1.83-1.27.23-.62.23-1.15.16-1.27-.07-.12-.25-.2-.52-.34z"/>
-        <path d="M16 3C8.83 3 3 8.83 3 16c0 2.52.72 4.88 1.97 6.88L3.7 28.3l5.58-1.24A12.94 12.94 0 0 0 16 29c7.17 0 13-5.83 13-13S23.17 3 16 3zm0 23.5c-2.2 0-4.25-.64-5.98-1.74l-.43-.26-3.31.74.73-3.23-.28-.45A10.46 10.46 0 0 1 5.5 16C5.5 10.21 10.21 5.5 16 5.5S26.5 10.21 26.5 16 21.79 26.5 16 26.5z"/>
-      </svg>
-    </a>
-  </div>
+  <a class="float-wa" href="https://wa.me/5546999746391" target="_blank" rel="noopener" aria-label="Atendimento via WhatsApp">
+    <svg class="bubble" viewBox="0 0 32 32" aria-hidden="true">
+      <path fill="#0f1a12" d="M19.1 17.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.9 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.4-1.9-.1-.3 0-.4.1-.5.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2.1-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.4-.2.3-1 1-1 2.4 0 1.4 1 2.7 1.1 2.9.1.2 2.1 3.3 5.1 4.6.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.3-.5 1.5-1 .2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/>
+      <path fill="#0f1a12" d="M16 3C9.4 3 4 8.2 4 14.6c0 2.2.7 4.2 1.9 5.9L5 29l8.8-1.8c1.6.9 3.5 1.4 5.6 1.4 6.6 0 12-5.2 12-11.6S22.6 3 16 3zm0 23.2c-1.8 0-3.4-.5-4.9-1.3l-.4-.2-5.2 1.1 1.1-5-.3-.4c-1.1-1.6-1.7-3.4-1.7-5.4C4.6 9.5 9.7 4.8 16 4.8S27.4 9.5 27.4 14.6 22.3 26.2 16 26.2z"/>
+    </svg>
+    Atendimento via WhatsApp
+  </a>
 
   <script>
-    (function(){
-      const btn = document.getElementById('copyBtn');
-      if(!btn) return;
-
-      btn.addEventListener('click', async () => {
-        const num = "+55 46 9 9974-6391";
-        try{
-          await navigator.clipboard.writeText(num);
-          const old = btn.textContent;
-          btn.textContent = "Número copiado ✓";
-          setTimeout(()=> btn.textContent = old, 1200);
-        }catch(e){
-          alert("Não foi possível copiar automaticamente. Copie manualmente: " + num);
-        }
+    // Scroll suave
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(!id || id === '#') return;
+        const el = document.querySelector(id);
+        if(!el) return;
+        e.preventDefault();
+        el.scrollIntoView({behavior:'smooth', block:'start'});
       });
-    })();
+    });
+
+    // Copiar número
+    const btn = document.getElementById('copyNumberBtn');
+    btn?.addEventListener('click', async (e)=>{
+      e.preventDefault();
+      const number = "+55 46 9 9974-6391";
+      try{
+        await navigator.clipboard.writeText(number);
+        btn.textContent = "Copiado ✅";
+        setTimeout(()=>btn.innerHTML = 'Copiar número <span class="meta">📋</span>', 1400);
+      }catch{
+        alert("Não foi possível copiar automaticamente. Número: " + number);
+      }
+    });
   </script>
 </body>
 </html>
