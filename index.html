@@ -3,94 +3,125 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0b" />
+  <meta name="theme-color" content="#c7c7c7" />
   <title>Alisson Nascimento Paz – Advocacia</title>
-  <meta name="description" content="Atuação estratégica em Direito Penal, Consumidor e Direito Digital (LGPD). Atendimento em Chopinzinho, Coronel Vivida, Pato Branco e região." />
+  <meta name="description" content="Atuação estratégica em Direito Penal, Consumidor e Direito Digital (LGPD). Atendimento em Coronel Vivida, Pato Branco e região." />
 
-  <!-- Fonte elegante (serif) + sans moderna -->
+  <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-  /* Fundo cimentado */
-  --bg: #cfcfcf;         /* base */
-  --bg2: #bdbdbd;        /* sombra */
-  --bg3: #e1e1e1;        /* luz */
+      /* ===== Fundo “cimento queimado” em GRADIENTE SUAVE (não chapado) ===== */
+      --bg-a: #b8b8b8;   /* início */
+      --bg-b: #cfcfcf;   /* meio */
+      --bg-c: #b0b0b0;   /* sombra */
+      --bg-d: #d9d9d9;   /* luz */
 
-  --surface: rgba(255,255,255,.10);  /* será usado no glass */
-  --surface-2: rgba(255,255,255,.16);
+      --text: #0f0f0f;
+      --muted: rgba(15,15,15,.72);
 
-  --text: #0f0f0f;
-  --muted: #3f3f3f;
-  --line: rgba(15,15,15,.16);
+      --gold: #b08a2a;
+      --line: rgba(15,15,15,.16);
 
-  --gold: #b08a2a;
-  --gold-2: #c9a23a;
+      --radius: 18px;
+      --shadow: 0 18px 46px rgba(0,0,0,.14);
+      --max: 1120px;
 
-  --shadow: 0 16px 40px rgba(0,0,0,.12);
-  --radius: 18px;
-  --max: 1120px;
-}
+      /* Glass */
+      --glass-bg: rgba(255,255,255,.18);
+      --glass-brd: rgba(255,255,255,.28);
+      --glass-blur: 16px;
+    }
 
     *{ box-sizing: border-box; }
     html,body{ height:100%; }
+
     body{
-  margin:0;
-  color:var(--text);
+      margin:0;
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.5;
 
-  /* BG: cimento queimado em gradientes + textura */
-  background:
-    /* suas imagens decorativas (se quiser manter) */
-    url("bg-left.jpg") left 8% top 160px / min(980px, 64vw) no-repeat,
-    url("bg-right.jpg") right -8% top 260px / min(1050px, 70vw) no-repeat,
+      /* ===== BG: gradiente suave “mudando” ao longo da página + textura sutil =====
+         - Começa mais escuro no topo e vai clareando suavemente ao descer.
+         - Não fica uma cor única; há transições longas e “orgânicas”.
+      */
+      background:
+        /* Imagens decorativas (mantém as duas que você enviou) */
+        url("bg-left.jpg") left 6% top 150px / min(980px, 64vw) no-repeat,
+        url("bg-right.jpg") right -10% top 260px / min(1100px, 72vw) no-repeat,
 
-    /* textura "cimento" (ruído muito leve) */
-    radial-gradient(900px 600px at 18% 28%, rgba(0,0,0,.10), transparent 60%),
-    radial-gradient(1100px 700px at 78% 22%, rgba(255,255,255,.22), transparent 62%),
-    radial-gradient(800px 520px at 55% 78%, rgba(0,0,0,.08), transparent 62%),
+        /* Textura e profundidade (cimento) */
+        radial-gradient(1100px 760px at 18% 22%, rgba(0,0,0,.18), transparent 62%),
+        radial-gradient(900px 620px at 82% 18%, rgba(255,255,255,.20), transparent 60%),
+        radial-gradient(900px 700px at 55% 76%, rgba(0,0,0,.10), transparent 62%),
 
-    /* base cimentada em gradiente (não uniforme) */
-    linear-gradient(135deg, var(--bg3) 0%, var(--bg) 34%, var(--bg2) 72%, var(--bg3) 100%);
+        /* Gradiente principal longo (suave) */
+        linear-gradient(
+          180deg,
+          var(--bg-c) 0%,
+          var(--bg-a) 18%,
+          var(--bg-b) 46%,
+          var(--bg-d) 72%,
+          var(--bg-b) 100%
+        );
 
-  background-attachment: scroll, scroll, scroll, scroll, scroll, scroll;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  line-height: 1.5;
-}
+      background-attachment: scroll, scroll, scroll, scroll, scroll, scroll;
+    }
+
+    /* Véu sutil para manter leitura e dar acabamento premium */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(1200px 700px at 60% 10%, rgba(255,255,255,.18), transparent 58%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.08));
+      backdrop-filter: blur(1.2px);
+      -webkit-backdrop-filter: blur(1.2px);
+    }
+
     a{ color: inherit; text-decoration: none; }
     img{ max-width:100%; display:block; }
 
-    /* Layout helpers */
     .container{ max-width: var(--max); margin: 0 auto; padding: 0 20px; }
-    .grid{ display:grid; gap:18px; }
     .row{ display:flex; gap:16px; align-items:center; }
     .stack{ display:flex; flex-direction:column; gap:12px; }
 
-    /* Top bar */
+    /* Conteúdo acima do véu */
+    .topbar, main, footer{
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== Topbar (glass sutil) ===== */
     .topbar{
       position: sticky; top:0; z-index:20;
-      background: rgba(251,251,251,.78);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
+      background: rgba(190,190,190,.42);
+      border-bottom: 1px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
     }
     .topbar-inner{
-      height: 76px;
+      height: 84px;
       display:flex; align-items:center; justify-content:space-between;
     }
-    .brand{
-      display:flex; align-items:center; gap:14px;
-      min-width: 220px;
-    }
+    .brand{ display:flex; align-items:center; gap:14px; min-width: 240px; }
+
+    /* ✅ Logo maior */
     .brand .logo{
-  width: 320px;        /* maior no desktop */
-  max-width: 60vw;     /* evita estourar em telas menores */
-  height: auto;
-  filter: drop-shadow(0 10px 22px rgba(0,0,0,.14));
-}
-    .nav{
-      display:flex; align-items:center; gap:16px;
+      width: 290px;
+      max-width: 68vw;
+      height: auto;
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,.16));
     }
+
+    .nav{ display:flex; align-items:center; gap:16px; }
     .nav a{
       font-size: 13.5px;
       color: rgba(15,15,15,.78);
@@ -99,25 +130,26 @@
       transition: .2s ease;
       white-space: nowrap;
     }
-    .nav a:hover{ background: rgba(15,15,15,.06); color: rgba(15,15,15,.92); }
+    .nav a:hover{ background: rgba(255,255,255,.20); color: rgba(15,15,15,.92); }
 
+    /* ===== Botões ===== */
     .btn{
       display:inline-flex; align-items:center; justify-content:center;
       gap:10px;
       padding: 12px 16px;
       border-radius: 14px;
-      border: 1px solid var(--line);
-      background: var(--surface);
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      border: 1px solid rgba(15,15,15,.14);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 14px 30px rgba(0,0,0,.10);
       font-weight: 600;
       font-size: 14px;
       cursor:pointer;
       transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
     }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 16px 32px rgba(0,0,0,.10); }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 20px 42px rgba(0,0,0,.14); }
     .btn-primary{
       border-color: rgba(176,138,42,.35);
-      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.94));
+      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.90));
       position: relative;
     }
     .btn-primary:before{
@@ -125,21 +157,22 @@
       position:absolute; inset:-1px;
       border-radius: 14px;
       padding:1px;
-      background: linear-gradient(135deg, rgba(176,138,42,.65), rgba(15,15,15,.18));
+      background: linear-gradient(135deg, rgba(176,138,42,.70), rgba(15,15,15,.18));
       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
               mask-composite: exclude;
       pointer-events:none;
     }
     .btn-ghost{
-      background: transparent;
-      box-shadow:none;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.26);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 14px 30px rgba(0,0,0,.10);
     }
 
-    /* Hero */
-    .hero{
-      padding: 52px 0 18px;
-    }
+    /* ===== Hero ===== */
+    .hero{ padding: 56px 0 18px; }
     .hero-wrap{
       display:grid;
       grid-template-columns: 1.25fr .75fr;
@@ -149,18 +182,21 @@
     .kicker{
       display:inline-flex; align-items:center; gap:10px;
       font-size: 12.5px;
-      color: rgba(15,15,15,.70);
-      background: rgba(255,255,255,.65);
-      border: 1px solid rgba(15,15,15,.10);
+      color: rgba(15,15,15,.75);
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.28);
       border-radius: 999px;
       padding: 9px 12px;
       width: fit-content;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
     .dot{
       width:8px; height:8px; border-radius: 50%;
       background: var(--gold);
       box-shadow: 0 0 0 4px rgba(176,138,42,.15);
     }
+
     h1{
       font-family: "Libre Baskerville", serif;
       letter-spacing: -0.02em;
@@ -174,30 +210,36 @@
       max-width: 56ch;
     }
     .hero-ctas{ margin-top: 18px; display:flex; flex-wrap:wrap; gap:12px; }
+
     .meta{
       margin-top: 18px;
       display:flex; flex-wrap:wrap; gap:10px;
-      color: rgba(15,15,15,.70);
+      color: rgba(15,15,15,.72);
       font-size: 13.5px;
     }
     .pill{
       display:inline-flex; align-items:center; gap:9px;
       padding: 9px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(15,15,15,.12);
-      background: rgba(255,255,255,.7);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-brd);
+      box-shadow: 0 12px 26px rgba(0,0,0,.10);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
     }
-    .icon{
-      width: 16px; height: 16px; opacity:.85;
-    }
+    .icon{ width: 16px; height: 16px; opacity:.85; }
 
-    .hero-card{
-      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
-      border: 1px solid rgba(15,15,15,.12);
+    /* ===== Glass containers (cards/panels) ===== */
+    .glass{
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-brd);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 20px;
+      backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(145%);
     }
+
+    .hero-card{ padding: 20px; }
     .hero-card h3{
       margin: 0 0 10px;
       font-family: "Libre Baskerville", serif;
@@ -210,13 +252,9 @@
     }
     .list li{ margin: 8px 0; }
 
-    /* Sections */
-    section{ padding: 34px 0; }
-    .section-title{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
+    /* ===== Seções ===== */
+    section{ padding: 36px 0; }
+    .section-title{ display:flex; align-items:flex-end; justify-content:space-between; gap: 16px; margin-bottom: 16px; }
     .section-title h2{
       margin:0;
       font-family: "Libre Baskerville", serif;
@@ -225,7 +263,7 @@
     }
     .section-title p{
       margin:0;
-      color: rgba(15,15,15,.70);
+      color: rgba(15,15,15,.72);
       max-width: 62ch;
       font-size: 14px;
     }
@@ -235,52 +273,48 @@
       grid-template-columns: repeat(12, 1fr);
       gap: 14px;
     }
+
+    /* ✅ “Banners” do print: são os .card */
     .card{
       grid-column: span 4;
-      background: var(--surface);
-      border: 1px solid rgba(15,15,15,.12);
-      border-radius: var(--radius);
       padding: 18px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.05);
       min-height: 150px;
       transition: transform .15s ease, box-shadow .2s ease;
     }
-    .card:hover{ transform: translateY(-2px); box-shadow: 0 18px 34px rgba(0,0,0,.08); }
+    .card:hover{
+      transform: translateY(-3px);
+      box-shadow: 0 26px 60px rgba(0,0,0,.18);
+    }
+
     .card .tag{
       display:inline-flex; align-items:center; gap:8px;
       font-size: 12px;
-      color: rgba(15,15,15,.70);
-      border: 1px solid rgba(176,138,42,.30);
-      background: rgba(176,138,42,.08);
+      color: rgba(15,15,15,.75);
+      border: 1px solid rgba(176,138,42,.35);
+      background: rgba(255,255,255,.22);
       padding: 7px 10px;
       border-radius: 999px;
       width: fit-content;
+      backdrop-filter: blur(10px) saturate(130%);
+      -webkit-backdrop-filter: blur(10px) saturate(130%);
     }
     .card h4{
       margin: 12px 0 8px;
       font-family: "Libre Baskerville", serif;
       font-size: 16px;
     }
-    .card p{
-      margin:0;
-      color: rgba(15,15,15,.74);
-      font-size: 14px;
-    }
+    .card p{ margin:0; color: rgba(15,15,15,.78); font-size: 14px; }
 
-    /* Diferenciais */
+    /* ===== Diferenciais ===== */
     .split{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
       align-items: start;
     }
-    .panel{
-      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(244,244,244,.88));
-      border: 1px solid rgba(15,15,15,.12);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 12px 26px rgba(0,0,0,.06);
-    }
+
+    .panel{ padding: 18px; }
+
     .checks{
       display:grid; grid-template-columns: 1fr 1fr; gap: 12px;
       margin-top: 10px;
@@ -289,11 +323,13 @@
       display:flex; gap:10px; align-items:flex-start;
       padding: 12px;
       border-radius: 14px;
-      border: 1px solid rgba(15,15,15,.10);
-      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.14);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .check b{ display:block; font-size: 13.5px; }
-    .check span{ display:block; font-size: 13px; color: rgba(15,15,15,.70); margin-top: 2px;}
+    .check span{ display:block; font-size: 13px; color: rgba(15,15,15,.74); margin-top: 2px;}
     .check .mark{
       width: 18px; height: 18px; border-radius: 6px;
       background: rgba(176,138,42,.18);
@@ -303,16 +339,15 @@
     }
     .check .mark svg{ width: 12px; height: 12px; }
 
-    /* Conteúdo */
+    /* ===== Conteúdo ===== */
     .articles .card{ min-height: 0; }
     .articles .card a{ display:block; height:100%; }
-    .articles .card small{ display:block; color: rgba(15,15,15,.65); margin-top: 10px; }
+    .articles .card small{ display:block; color: rgba(15,15,15,.70); margin-top: 10px; }
 
-    /* Contact */
+    /* ===== Contato ===== */
     .contact{
-      background: linear-gradient(180deg, rgba(15,15,15,.02), rgba(176,138,42,.08));
-      border-top: 1px solid rgba(15,15,15,.10);
-      border-bottom: 1px solid rgba(15,15,15,.10);
+      border-top: 1px solid rgba(255,255,255,.18);
+      border-bottom: 1px solid rgba(255,255,255,.18);
     }
     .contact-grid{
       display:grid;
@@ -320,34 +355,29 @@
       gap: 18px;
       align-items: start;
     }
-    .field{
-      display:flex; flex-direction:column; gap: 6px;
-      margin-bottom: 12px;
-    }
-    label{ font-size: 13px; color: rgba(15,15,15,.75); }
+    .field{ display:flex; flex-direction:column; gap: 6px; margin-bottom: 12px; }
+    label{ font-size: 13px; color: rgba(15,15,15,.78); }
+
     input, textarea{
       width: 100%;
       padding: 12px 12px;
       border-radius: 14px;
-      border: 1px solid rgba(15,15,15,.16);
-      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.22);
       font: inherit;
       outline: none;
       transition: border-color .15s ease, box-shadow .2s ease;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     input:focus, textarea:focus{
-      border-color: rgba(176,138,42,.50);
-      box-shadow: 0 0 0 4px rgba(176,138,42,.14);
+      border-color: rgba(176,138,42,.55);
+      box-shadow: 0 0 0 4px rgba(176,138,42,.16);
     }
     textarea{ min-height: 110px; resize: vertical; }
 
-    .contact-box{
-      background: rgba(255,255,255,.8);
-      border: 1px solid rgba(15,15,15,.12);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.06);
-    }
+    .contact-box{ padding: 18px; }
+
     .contact-box h3{
       margin: 0 0 8px;
       font-family: "Libre Baskerville", serif;
@@ -357,26 +387,28 @@
       display:flex; gap:10px; align-items:flex-start;
       padding: 12px;
       border-radius: 14px;
-      border: 1px solid rgba(15,15,15,.10);
-      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.14);
       margin-top: 10px;
       font-size: 14px;
       color: rgba(15,15,15,.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .contact-item svg{ width: 18px; height: 18px; margin-top: 2px; opacity:.85; }
 
-    /* Footer */
+    /* ===== Footer ===== */
     footer{
       padding: 22px 0 36px;
-      color: rgba(15,15,15,.70);
+      color: rgba(15,15,15,.74);
       font-size: 13px;
     }
     footer .line{
-      height:1px; background: rgba(15,15,15,.10);
+      height:1px; background: rgba(255,255,255,.20);
       margin: 16px 0;
     }
 
-    /* Floating WhatsApp */
+    /* ===== Floating WhatsApp ===== */
     .float-wa{
       position: fixed;
       right: 16px;
@@ -385,11 +417,14 @@
       display:flex; align-items:center; gap:10px;
       padding: 12px 14px;
       border-radius: 999px;
-      border: 1px solid rgba(15,15,15,.14);
-      background: rgba(255,255,255,.92);
-      box-shadow: 0 18px 40px rgba(0,0,0,.14);
+      border: 1px solid rgba(255,255,255,.26);
+      background: rgba(255,255,255,.22);
+      box-shadow: 0 18px 44px rgba(0,0,0,.18);
       font-weight: 700;
       font-size: 13.5px;
+      transition: transform .15s ease;
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
     }
     .float-wa:hover{ transform: translateY(-1px); }
     .float-wa .wa-dot{
@@ -398,18 +433,29 @@
       box-shadow: 0 0 0 4px rgba(37,211,102,.20);
     }
 
-    /* Responsive */
+    /* ===== Responsivo ===== */
     @media (max-width: 980px){
       .hero-wrap{ grid-template-columns: 1fr; }
       .cards .card{ grid-column: span 6; }
       .split{ grid-template-columns: 1fr; }
       .contact-grid{ grid-template-columns: 1fr; }
-      .nav{ display:none; } /* simples; se quiser, adiciono menu mobile */
+      .nav{ display:none; }
     }
     @media (max-width: 560px){
       .cards .card{ grid-column: span 12; }
       .checks{ grid-template-columns: 1fr; }
-      .brand .logo{ width: 210px; }
+      .brand .logo{ width: 230px; }
+      .topbar-inner{ height: 82px; }
+    }
+
+    /* No mobile, se quiser aliviar peso, remova as imagens */
+    @media (max-width: 680px){
+      body{
+        background:
+          radial-gradient(1100px 760px at 18% 22%, rgba(0,0,0,.18), transparent 62%),
+          radial-gradient(900px 620px at 82% 18%, rgba(255,255,255,.20), transparent 60%),
+          linear-gradient(180deg, var(--bg-c) 0%, var(--bg-a) 18%, var(--bg-b) 46%, var(--bg-d) 72%, var(--bg-b) 100%);
+      }
     }
   </style>
 </head>
@@ -421,10 +467,7 @@
     <div class="container">
       <div class="topbar-inner">
         <div class="brand">
-          <!-- IMPORTANTE:
-               1) Coloque sua logo com ESCRITA PRETA como "logo-preta.png" na mesma pasta deste HTML.
-               2) Ajuste o nome do arquivo abaixo se for diferente.
-          -->
+          <!-- Logo com escrita preta -->
           <img class="logo" src="logo-preta.png" alt="Alisson Nascimento Paz – Advocacia" />
         </div>
 
@@ -435,15 +478,13 @@
           <a href="#contato">Contato</a>
         </nav>
 
-        <a class="btn btn-primary" href="https://wa.me/5546999746391" target="_blank">
-          Agendar consulta
-        </a>
+        <a class="btn btn-primary" href="#contato">Agendar consulta</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
   <main>
+    <!-- Hero -->
     <section class="hero">
       <div class="container">
         <div class="hero-wrap">
@@ -456,12 +497,10 @@
             </p>
 
             <div class="hero-ctas">
-              <a class="btn btn-primary" href="https://wa.me/5546999746391" target="_blank">
+              <a class="btn btn-primary" href="https://wa.me/5546999746391" target="_blank" rel="noopener">
                 Falar no WhatsApp
               </a>
-              <a class="btn btn-ghost" href="#atuacao">
-                Ver áreas de atuação
-              </a>
+              <a class="btn btn-ghost" href="#atuacao">Ver áreas de atuação</a>
             </div>
 
             <div class="meta">
@@ -487,7 +526,8 @@
             </div>
           </div>
 
-          <aside class="hero-card" aria-label="Resumo de serviços">
+          <!-- Hero Card (glass) -->
+          <aside class="hero-card glass" aria-label="Resumo de serviços">
             <h3>Como posso ajudar</h3>
             <ul class="list">
               <li>Defesa criminal, audiências, memoriais e recursos</li>
@@ -504,7 +544,7 @@
       </div>
     </section>
 
-    <!-- Áreas de atuação -->
+    <!-- Áreas -->
     <section id="atuacao">
       <div class="container">
         <div class="section-title">
@@ -515,40 +555,40 @@
         </div>
 
         <div class="cards">
-          <article class="card">
+          <article class="card glass">
             <div class="tag">Direito Penal</div>
             <h4>Defesa técnica e combativa</h4>
             <p>Atuação em investigação, audiência, instrução, memoriais, recursos e medidas urgentes, com foco na prova e na legalidade do procedimento.</p>
           </article>
 
-          <article class="card">
+          <article class="card glass">
             <div class="tag">Consumidor</div>
             <h4>Fraudes e abusos contratuais</h4>
             <p>Financiamentos indevidos, cobranças abusivas, negativação irregular, vícios de produto/serviço e responsabilização de fornecedores.</p>
           </article>
 
-          <article class="card">
+          <article class="card glass">
             <div class="tag">Digital & LGPD</div>
             <h4>Risco jurídico no ambiente online</h4>
             <p>Responsabilidade civil digital, incidentes com dados pessoais, orientação e medidas judiciais/administrativas com rigor probatório.</p>
           </article>
 
-          <article class="card">
+          <article class="card glass">
             <div class="tag">Cível & Contratos</div>
             <h4>Prevenção e segurança jurídica</h4>
             <p>Elaboração/análise de instrumentos e atuação contenciosa, reduzindo exposição a litígios e fortalecendo a posição negocial.</p>
           </article>
 
-          <article class="card">
+          <article class="card glass">
             <div class="tag">Atendimento</div>
             <h4>Condução pessoal do caso</h4>
             <p>Atendimento direto com o advogado, diagnóstico jurídico inicial e definição objetiva dos próximos passos.</p>
           </article>
 
-          <article class="card">
+          <article class="card glass">
             <div class="tag">Atuação regional</div>
             <h4>Presença no Sudoeste/PR</h4>
-            <p>Atendimento e atuação em Chopinzinho, Coronel Vivida, Pato Branco e região, conforme a necessidade do caso.</p>
+            <p>Atendimento e atuação em Coronel Vivida, Pato Branco e região, conforme a necessidade do caso.</p>
           </article>
         </div>
       </div>
@@ -565,9 +605,9 @@
         </div>
 
         <div class="split">
-          <div class="panel">
+          <div class="panel glass">
             <h3 style="margin:0 0 6px; font-family:'Libre Baskerville',serif;">Método de atuação</h3>
-            <p style="margin:0; color: rgba(15,15,15,.74); font-size:14px;">
+            <p style="margin:0; color: rgba(15,15,15,.78); font-size:14px;">
               A atuação é estruturada em diagnóstico, estratégia e execução: leitura do caso, identificação do ponto de prova,
               definição de tese e condução com clareza de riscos e alternativas.
             </p>
@@ -615,9 +655,9 @@
             </div>
           </div>
 
-          <div class="panel">
+          <div class="panel glass">
             <h3 style="margin:0 0 6px; font-family:'Libre Baskerville',serif;">Quando você deve procurar um advogado</h3>
-            <p style="margin:0; color: rgba(15,15,15,.74); font-size:14px;">
+            <p style="margin:0; color: rgba(15,15,15,.78); font-size:14px;">
               Quanto antes houver orientação, maior a chance de preservar prova, evitar dano e construir uma estratégia consistente.
             </p>
 
@@ -644,12 +684,11 @@
 
               <div style="margin-top:10px; display:flex; gap:12px; flex-wrap:wrap;">
                 <a class="btn btn-primary" href="#contato">Quero orientação</a>
-                <a class="btn btn-ghost" id="ctaWhatsappMid" href="#">Contato rápido</a>
+                <a class="btn btn-ghost" href="https://wa.me/5546999746391" target="_blank" rel="noopener">Contato rápido</a>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -664,7 +703,7 @@
         </div>
 
         <div class="cards articles">
-          <article class="card">
+          <article class="card glass">
             <a href="#" onclick="return false;">
               <div class="tag">Consumidor</div>
               <h4>Negativação após pagamento: o que fazer?</h4>
@@ -673,7 +712,7 @@
             </a>
           </article>
 
-          <article class="card">
+          <article class="card glass">
             <a href="#" onclick="return false;">
               <div class="tag">Penal</div>
               <h4>Transação penal: requisitos e consequências</h4>
@@ -682,7 +721,7 @@
             </a>
           </article>
 
-          <article class="card">
+          <article class="card glass">
             <a href="#" onclick="return false;">
               <div class="tag">Digital & LGPD</div>
               <h4>Vazamento de dados e responsabilidade</h4>
@@ -705,7 +744,7 @@
         </div>
 
         <div class="contact-grid">
-          <form class="contact-box" id="leadForm">
+          <form class="contact-box glass" id="leadForm">
             <h3>Solicitar contato</h3>
 
             <div class="field">
@@ -728,16 +767,14 @@
               <textarea id="mensagem" name="mensagem" placeholder="Explique o essencial (datas, valores, quem está cobrando, se há processo, etc.)." required></textarea>
             </div>
 
-            <button class="btn btn-primary" type="submit">
-              Enviar para WhatsApp
-            </button>
+            <button class="btn btn-primary" type="submit">Enviar para WhatsApp</button>
 
-            <p style="margin:12px 0 0; color: rgba(15,15,15,.62); font-size:12.8px;">
+            <p style="margin:12px 0 0; color: rgba(15,15,15,.70); font-size:12.8px;">
               Ao enviar, você será direcionado ao WhatsApp com a mensagem pré-preenchida.
             </p>
           </form>
 
-          <div class="contact-box">
+          <div class="contact-box glass">
             <h3>Contato e endereço</h3>
 
             <div class="contact-item">
@@ -773,8 +810,7 @@
               </div>
             </div>
 
-            <!-- Opcional: map embed (substitua por seu link do Google Maps) -->
-            <div style="margin-top:12px; border-radius: var(--radius); overflow:hidden; border:1px solid rgba(15,15,15,.12);">
+            <div style="margin-top:12px; border-radius: var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,.22);">
               <iframe
                 title="Mapa do escritório"
                 width="100%"
@@ -782,7 +818,7 @@
                 style="border:0;"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=Rua%20Brigadeiro%20Rocha%20Loures,%20219,%20Coronel%20Vivida%20-%20PR&output=embed"
+                src="https://www.google.com/maps?q=Rua%20Brigadeiro%20Rocha%20Loures,%20219,%20Coronel%20Vivida%20-%20PR&output=embed">
               </iframe>
             </div>
           </div>
@@ -805,7 +841,7 @@
             <a href="#contato" class="pill">Contato</a>
           </div>
         </div>
-        <div style="margin-top:14px; color: rgba(15,15,15,.60);">
+        <div style="margin-top:14px; color: rgba(15,15,15,.74);">
           © <span id="year"></span> • Conteúdo institucional. Este site não substitui consulta jurídica formal.
         </div>
       </div>
@@ -813,42 +849,21 @@
   </main>
 
   <!-- Floating WhatsApp -->
-  <a class="float-wa" href="https://wa.me/5546999746391" target="_blank" aria-label="Falar no WhatsApp">
+  <a class="float-wa" href="https://wa.me/5546999746391" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
     <span class="wa-dot" aria-hidden="true"></span>
     WhatsApp
   </a>
 
   <script>
-    // Ajustes rápidos
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // WhatsApp
-    const WHATSAPP_NUMBER = "5546999746391"; // 55 + DDD + número
-
+    // Form -> WhatsApp com mensagem pré-preenchida
+    const WHATSAPP_LINK = "https://wa.me/5546999746391";
     function buildWhatsAppLink(message){
       const text = encodeURIComponent(message.trim());
-      return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+      return `${WHATSAPP_LINK}?text=${text}`;
     }
 
-    function defaultMessage(){
-      return `Olá, Dr. Alisson. Vim pelo site e gostaria de orientação jurídica.\n\n` +
-             `Área/assunto: (informar)\n` +
-             `Breve resumo: (informar)\n` +
-             `Cidade: (informar)\n`;
-    }
-
-    // CTAs simples
-    const ctaTop = document.getElementById("ctaWhatsappTop");
-    const ctaMid = document.getElementById("ctaWhatsappMid");
-    const ctaFloat = document.getElementById("ctaWhatsappFloat");
-
-    [ctaTop, ctaMid, ctaFloat].forEach(el => {
-      el.href = buildWhatsAppLink(defaultMessage());
-      el.target = "_blank";
-      el.rel = "noopener";
-    });
-
-    // Form -> WhatsApp com mensagem preenchida
     const form = document.getElementById("leadForm");
     form.addEventListener("submit", (e) => {
       e.preventDefault();
