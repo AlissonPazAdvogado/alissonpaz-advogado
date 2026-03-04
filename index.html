@@ -14,39 +14,50 @@
 
   <style>
     :root{
-      /* Paleta para LOGO com escrita preta (fundo claro) */
-     --bg: #e2e2e2;
-      --surface: #ffffff;
-      --surface-2: #f4f4f4;
-      --text: #0f0f0f;
-      --muted: #4b4b4b;
-      --line: rgba(15,15,15,.12);
+  /* Fundo cimentado */
+  --bg: #cfcfcf;         /* base */
+  --bg2: #bdbdbd;        /* sombra */
+  --bg3: #e1e1e1;        /* luz */
 
-      /* Dourado só como acento (sem “apagar” o preto) */
-      --gold: #b08a2a;
-      --gold-2: #c9a23a;
+  --surface: rgba(255,255,255,.10);  /* será usado no glass */
+  --surface-2: rgba(255,255,255,.16);
 
-      --shadow: 0 16px 40px rgba(0,0,0,.08);
-      --radius: 18px;
+  --text: #0f0f0f;
+  --muted: #3f3f3f;
+  --line: rgba(15,15,15,.16);
 
-      --max: 1120px;
-    }
+  --gold: #b08a2a;
+  --gold-2: #c9a23a;
+
+  --shadow: 0 16px 40px rgba(0,0,0,.12);
+  --radius: 18px;
+  --max: 1120px;
+}
 
     *{ box-sizing: border-box; }
     html,body{ height:100%; }
     body{
-      margin:0;
-      color:var(--text);
-      background:
-  linear-gradient(
-    180deg,
-    rgba(225,225,225,.78) 0%,
-    rgba(225,225,225,.70) 35%,
-    rgba(225,225,225,.78) 100%
-  );
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height: 1.5;
-    }
+  margin:0;
+  color:var(--text);
+
+  /* BG: cimento queimado em gradientes + textura */
+  background:
+    /* suas imagens decorativas (se quiser manter) */
+    url("bg-left.jpg") left 8% top 160px / min(980px, 64vw) no-repeat,
+    url("bg-right.jpg") right -8% top 260px / min(1050px, 70vw) no-repeat,
+
+    /* textura "cimento" (ruído muito leve) */
+    radial-gradient(900px 600px at 18% 28%, rgba(0,0,0,.10), transparent 60%),
+    radial-gradient(1100px 700px at 78% 22%, rgba(255,255,255,.22), transparent 62%),
+    radial-gradient(800px 520px at 55% 78%, rgba(0,0,0,.08), transparent 62%),
+
+    /* base cimentada em gradiente (não uniforme) */
+    linear-gradient(135deg, var(--bg3) 0%, var(--bg) 34%, var(--bg2) 72%, var(--bg3) 100%);
+
+  background-attachment: scroll, scroll, scroll, scroll, scroll, scroll;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height: 1.5;
+}
     a{ color: inherit; text-decoration: none; }
     img{ max-width:100%; display:block; }
 
