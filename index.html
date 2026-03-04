@@ -3,598 +3,854 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Alisson Paz – Advogado | Coronel Vivida - PR e região</title>
-  <meta name="description" content="Alisson Paz – Advogado em Coronel Vivida - PR e região. Atuação estratégica em Direito Criminal, Cível, Consumidor, Contratos e Assessoria Jurídica." />
+  <meta name="theme-color" content="#0b0b0b" />
+  <title>Alisson Nascimento Paz – Advocacia</title>
+  <meta name="description" content="Atuação estratégica em Direito Penal, Consumidor e Direito Digital (LGPD). Atendimento em Chopinzinho, Coronel Vivida, Pato Branco e região." />
 
-  <!-- Favicon (ideal: um ícone quadrado. Se sua logo for horizontal, pode ficar pequeno no navegador) -->
-  <link rel="icon" href="logo.png" type="image/png" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Alisson Paz – Advogado" />
-  <meta property="og:description" content="Atuação em Coronel Vivida - PR e região. Atendimento estratégico e comunicação objetiva." />
-  <meta property="og:image" content="og-image.png" />
-  <meta property="og:type" content="website" />
+  <!-- Fonte elegante (serif) + sans moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0c0e10;
-      --panel:#101418;
-      --panel2:#0f1317;
-      --line:rgba(255,255,255,.10);
-      --line2:rgba(255,255,255,.14);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.70);
-      --muted2:rgba(255,255,255,.55);
-      --gold:#c9a75a;
-      --gold2:#b38b2f;
-      --shadow:0 18px 60px rgba(0,0,0,.55);
-      --radius:22px;
-      --max:1120px;
+      /* Paleta para LOGO com escrita preta (fundo claro) */
+      --bg: #fbfbfb;
+      --surface: #ffffff;
+      --surface-2: #f4f4f4;
+      --text: #0f0f0f;
+      --muted: #4b4b4b;
+      --line: rgba(15,15,15,.12);
+
+      /* Dourado só como acento (sem “apagar” o preto) */
+      --gold: #b08a2a;
+      --gold-2: #c9a23a;
+
+      --shadow: 0 16px 40px rgba(0,0,0,.08);
+      --radius: 18px;
+
+      --max: 1120px;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
       color:var(--text);
-      background: var(--bg);
-      overflow-x:hidden;
+      background: radial-gradient(1200px 600px at 70% 10%, rgba(176,138,42,.10), transparent 60%),
+                  radial-gradient(900px 600px at 10% 20%, rgba(15,15,15,.05), transparent 55%),
+                  var(--bg);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.5;
     }
+    a{ color: inherit; text-decoration: none; }
+    img{ max-width:100%; display:block; }
 
-    /* BACKGROUND COM 2 IMAGENS */
-    .bg{
-      position:fixed; inset:0; z-index:-3;
-      background:
-        linear-gradient(to bottom, rgba(0,0,0,.72), rgba(0,0,0,.90)),
-        url("bg-justica-1.jpg") center/cover no-repeat;
-      filter:saturate(.95) contrast(1.02);
-      transform: translateZ(0);
-    }
-    .bg::after{
-      content:"";
-      position:absolute; inset:0; z-index:-2;
-      background:
-        radial-gradient(1000px 520px at 18% 30%, rgba(201,167,90,.15), transparent 58%),
-        radial-gradient(900px 520px at 82% 38%, rgba(201,167,90,.10), transparent 60%),
-        linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.20));
-      pointer-events:none;
-    }
-    .bg2{
-      position:fixed; inset:-40px; z-index:-4;
-      background:
-        url("bg-justica-2.jpg") center/cover no-repeat;
-      opacity:.22;
-      filter: blur(10px) saturate(.9);
-      transform: scale(1.08);
-      pointer-events:none;
-    }
+    /* Layout helpers */
+    .container{ max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .grid{ display:grid; gap:18px; }
+    .row{ display:flex; gap:16px; align-items:center; }
+    .stack{ display:flex; flex-direction:column; gap:12px; }
 
-    /* CONTAINER */
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 72px;}
-    .glass{
-      background: linear-gradient(180deg, rgba(16,20,24,.80), rgba(16,20,24,.62));
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow);
-      border-radius: var(--radius);
-      backdrop-filter: blur(10px);
-    }
-
-    /* HEADER NOVO (TOTALMENTE DIFERENTE) */
-    header{
-      position:sticky; top:14px; z-index:50;
-    }
+    /* Top bar */
     .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding:14px 18px;
-      border-radius: 999px;
+      position: sticky; top:0; z-index:20;
+      background: rgba(251,251,251,.78);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
     }
-    .logoWrap{
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center; /* logo central */
+    .topbar-inner{
+      height: 76px;
+      display:flex; align-items:center; justify-content:space-between;
     }
-    .logoWrap img{
-      height:54px;
-      width:auto;
-      display:block;
-      opacity:.98;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+    .brand{
+      display:flex; align-items:center; gap:14px;
+      min-width: 220px;
     }
-
-    /* NAV minimal premium */
+    .brand .logo{
+      width: 180px;
+      max-width: 42vw;
+      height: auto;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.10));
+    }
     .nav{
-      display:flex;
-      align-items:center;
-      gap:10px;
+      display:flex; align-items:center; gap:16px;
     }
     .nav a{
-      text-decoration:none;
-      color:var(--muted);
-      font-weight:600;
-      font-size:13px;
-      letter-spacing:.02em;
-      padding:10px 12px;
-      border-radius:999px;
-      border:1px solid transparent;
+      font-size: 13.5px;
+      color: rgba(15,15,15,.78);
+      padding: 10px 10px;
+      border-radius: 10px;
       transition: .2s ease;
-      background: rgba(0,0,0,.12);
+      white-space: nowrap;
     }
-    .nav a:hover{
-      color:var(--text);
-      border-color: rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      transform: translateY(-1px);
-    }
-    .nav a.cta{
-      color:#151515;
-      background: linear-gradient(180deg, var(--gold), #d3b268);
-      border-color: rgba(0,0,0,.15);
-    }
-    .nav a.cta:hover{filter:brightness(1.02)}
+    .nav a:hover{ background: rgba(15,15,15,.06); color: rgba(15,15,15,.92); }
 
-    /* HERO NOVO (layout diferente) */
-    .hero{
-      margin-top:18px;
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:16px;
-    }
-    .heroMain{
-      padding:22px;
-      border-radius: var(--radius);
-      position:relative;
-      overflow:hidden;
-    }
-    .heroMain::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(800px 380px at 18% 20%, rgba(201,167,90,.14), transparent 60%),
-        linear-gradient(135deg, rgba(255,255,255,.04), transparent 55%);
-      pointer-events:none;
-    }
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(201,167,90,.22);
-      background: rgba(0,0,0,.16);
-      color: rgba(255,255,255,.86);
-      font-size:13px;
-      font-weight:700;
-      letter-spacing:.01em;
-      margin-bottom:14px;
-      position:relative;
-      z-index:1;
-    }
-    .dot{
-      width:9px; height:9px; border-radius:999px;
-      background: var(--gold);
-      box-shadow: 0 0 0 4px rgba(201,167,90,.14);
-    }
-
-    h1{
-      margin:0 0 12px;
-      font-size:46px;
-      line-height:1.05;
-      letter-spacing:-.02em;
-      position:relative;
-      z-index:1;
-    }
-    h1 span{
-      background: linear-gradient(180deg, #ffffff, rgba(255,255,255,.78));
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-    .lead{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.6;
-      max-width: 56ch;
-      position:relative;
-      z-index:1;
-    }
-
-    .actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:14px;
-      position:relative;
-      z-index:1;
-    }
     .btn{
-      display:inline-flex;
-      align-items:center;
+      display:inline-flex; align-items:center; justify-content:center;
       gap:10px;
-      padding:12px 14px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      color: var(--text);
-      text-decoration:none;
-      font-weight:800;
-      font-size:14px;
-      transition: .2s ease;
-    }
-    .btn:hover{transform: translateY(-1px); background: rgba(0,0,0,.24)}
-    .btn.primary{
-      background: linear-gradient(180deg, var(--gold), #d3b268);
-      border-color: rgba(0,0,0,.18);
-      color:#141414;
-    }
-    .btn.primary:hover{filter:brightness(1.03)}
-    .btn .meta{
-      color: rgba(0,0,0,.55);
-      font-weight:900;
-      font-size:12px;
-    }
-    .btn.secondary .meta{color: rgba(255,255,255,.52); font-weight:800}
-
-    /* Ícone do WhatsApp: ocupa bem e fica “certinho” */
-    .icon{
-      width:18px;
-      height:18px;
-      display:block;
-      flex:0 0 18px;
-    }
-
-    /* CARD lateral novo */
-    .heroSide{
-      padding:18px;
-      border-radius: var(--radius);
-    }
-    .sideTitle{
-      font-size:14px;
-      margin:0 0 10px;
-      color:rgba(255,255,255,.88);
-      letter-spacing:.02em;
-      font-weight:900;
-    }
-    .pillGrid{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-bottom:14px;
-    }
-    .pill{
-      font-size:12px;
-      font-weight:800;
-      color: rgba(255,255,255,.86);
-      border:1px solid rgba(201,167,90,.18);
-      background: rgba(0,0,0,.16);
-      padding:8px 10px;
-      border-radius:999px;
-    }
-    .kv{
-      display:grid;
-      gap:10px;
-      margin-top:12px;
-    }
-    .kvRow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      padding:12px 12px;
+      padding: 12px 16px;
       border-radius: 14px;
-      background: rgba(0,0,0,.14);
-      border:1px solid rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      font-weight: 600;
+      font-size: 14px;
+      cursor:pointer;
+      transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
     }
-    .k{
-      color: var(--muted2);
-      font-weight:800;
-      font-size:12px;
-      letter-spacing:.02em;
-      text-transform:uppercase;
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 16px 32px rgba(0,0,0,.10); }
+    .btn-primary{
+      border-color: rgba(176,138,42,.35);
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.94));
+      position: relative;
     }
-    .v{
-      color: var(--text);
-      font-weight:900;
-      font-size:13px;
-      text-align:right;
-      word-break:break-word;
-    }
-
-    /* SEÇÕES NOVAS */
-    .section{
-      margin-top:16px;
-      padding:18px;
-      border-radius: var(--radius);
-    }
-    .section h2{
-      margin:0 0 10px;
-      font-size:16px;
-      letter-spacing:.01em;
-    }
-    .section p{
-      margin:0 0 14px;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.6;
-    }
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-      margin-top:12px;
-    }
-    .card{
-      padding:14px;
-      border-radius:18px;
-      background: rgba(0,0,0,.14);
-      border:1px solid rgba(255,255,255,.10);
-      transition: .2s ease;
-      position:relative;
-      overflow:hidden;
-    }
-    .card::before{
+    .btn-primary:before{
       content:"";
       position:absolute; inset:-1px;
-      background: radial-gradient(500px 220px at 10% 10%, rgba(201,167,90,.10), transparent 65%);
-      opacity:.85;
+      border-radius: 14px;
+      padding:1px;
+      background: linear-gradient(135deg, rgba(176,138,42,.65), rgba(15,15,15,.18));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
       pointer-events:none;
     }
-    .card:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.14)}
-    .card h3{
-      margin:0 0 8px;
-      font-size:14px;
-      letter-spacing:.01em;
-      position:relative;
-      z-index:1;
+    .btn-ghost{
+      background: transparent;
+      box-shadow:none;
+    }
+
+    /* Hero */
+    .hero{
+      padding: 52px 0 18px;
+    }
+    .hero-wrap{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px;
+      font-size: 12.5px;
+      color: rgba(15,15,15,.70);
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(15,15,15,.10);
+      border-radius: 999px;
+      padding: 9px 12px;
+      width: fit-content;
+    }
+    .dot{
+      width:8px; height:8px; border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(176,138,42,.15);
+    }
+    h1{
+      font-family: "Libre Baskerville", serif;
+      letter-spacing: -0.02em;
+      margin: 14px 0 12px;
+      font-size: clamp(28px, 3.1vw, 44px);
+      line-height: 1.18;
+    }
+    .lead{
+      font-size: 15.8px;
+      color: rgba(15,15,15,.78);
+      max-width: 56ch;
+    }
+    .hero-ctas{ margin-top: 18px; display:flex; flex-wrap:wrap; gap:12px; }
+    .meta{
+      margin-top: 18px;
+      display:flex; flex-wrap:wrap; gap:10px;
+      color: rgba(15,15,15,.70);
+      font-size: 13.5px;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:9px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,15,15,.12);
+      background: rgba(255,255,255,.7);
+    }
+    .icon{
+      width: 16px; height: 16px; opacity:.85;
+    }
+
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+      border: 1px solid rgba(15,15,15,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .hero-card h3{
+      margin: 0 0 10px;
+      font-family: "Libre Baskerville", serif;
+      font-size: 16px;
+    }
+    .list{
+      margin: 0; padding-left: 18px;
+      color: rgba(15,15,15,.78);
+      font-size: 14px;
+    }
+    .list li{ margin: 8px 0; }
+
+    /* Sections */
+    section{ padding: 34px 0; }
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .section-title h2{
+      margin:0;
+      font-family: "Libre Baskerville", serif;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+    }
+    .section-title p{
+      margin:0;
+      color: rgba(15,15,15,.70);
+      max-width: 62ch;
+      font-size: 14px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 4;
+      background: var(--surface);
+      border: 1px solid rgba(15,15,15,.12);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.05);
+      min-height: 150px;
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .card:hover{ transform: translateY(-2px); box-shadow: 0 18px 34px rgba(0,0,0,.08); }
+    .card .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size: 12px;
+      color: rgba(15,15,15,.70);
+      border: 1px solid rgba(176,138,42,.30);
+      background: rgba(176,138,42,.08);
+      padding: 7px 10px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+    .card h4{
+      margin: 12px 0 8px;
+      font-family: "Libre Baskerville", serif;
+      font-size: 16px;
     }
     .card p{
       margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.55;
-      position:relative;
-      z-index:1;
+      color: rgba(15,15,15,.74);
+      font-size: 14px;
     }
 
-    /* FOOTER fix */
+    /* Diferenciais */
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(244,244,244,.88));
+      border: 1px solid rgba(15,15,15,.12);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.06);
+    }
+    .checks{
+      display:grid; grid-template-columns: 1fr 1fr; gap: 12px;
+      margin-top: 10px;
+    }
+    .check{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(15,15,15,.10);
+      background: rgba(255,255,255,.65);
+    }
+    .check b{ display:block; font-size: 13.5px; }
+    .check span{ display:block; font-size: 13px; color: rgba(15,15,15,.70); margin-top: 2px;}
+    .check .mark{
+      width: 18px; height: 18px; border-radius: 6px;
+      background: rgba(176,138,42,.18);
+      border: 1px solid rgba(176,138,42,.35);
+      display:inline-flex; align-items:center; justify-content:center;
+      flex: 0 0 auto;
+    }
+    .check .mark svg{ width: 12px; height: 12px; }
+
+    /* Conteúdo */
+    .articles .card{ min-height: 0; }
+    .articles .card a{ display:block; height:100%; }
+    .articles .card small{ display:block; color: rgba(15,15,15,.65); margin-top: 10px; }
+
+    /* Contact */
+    .contact{
+      background: linear-gradient(180deg, rgba(15,15,15,.02), rgba(176,138,42,.08));
+      border-top: 1px solid rgba(15,15,15,.10);
+      border-bottom: 1px solid rgba(15,15,15,.10);
+    }
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .field{
+      display:flex; flex-direction:column; gap: 6px;
+      margin-bottom: 12px;
+    }
+    label{ font-size: 13px; color: rgba(15,15,15,.75); }
+    input, textarea{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(15,15,15,.16);
+      background: rgba(255,255,255,.90);
+      font: inherit;
+      outline: none;
+      transition: border-color .15s ease, box-shadow .2s ease;
+    }
+    input:focus, textarea:focus{
+      border-color: rgba(176,138,42,.50);
+      box-shadow: 0 0 0 4px rgba(176,138,42,.14);
+    }
+    textarea{ min-height: 110px; resize: vertical; }
+
+    .contact-box{
+      background: rgba(255,255,255,.8);
+      border: 1px solid rgba(15,15,15,.12);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.06);
+    }
+    .contact-box h3{
+      margin: 0 0 8px;
+      font-family: "Libre Baskerville", serif;
+      font-size: 18px;
+    }
+    .contact-item{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(15,15,15,.10);
+      background: rgba(255,255,255,.70);
+      margin-top: 10px;
+      font-size: 14px;
+      color: rgba(15,15,15,.78);
+    }
+    .contact-item svg{ width: 18px; height: 18px; margin-top: 2px; opacity:.85; }
+
+    /* Footer */
     footer{
-      margin-top:22px;
-      text-align:center;
-      color: rgba(255,255,255,.65);
-      font-size:12px;
-      padding:16px 10px;
+      padding: 22px 0 36px;
+      color: rgba(15,15,15,.70);
+      font-size: 13px;
+    }
+    footer .line{
+      height:1px; background: rgba(15,15,15,.10);
+      margin: 16px 0;
     }
 
-    /* Botão WhatsApp flutuante (novo) */
+    /* Floating WhatsApp */
     .float-wa{
-      position:fixed;
-      right:18px;
-      bottom:18px;
-      z-index:60;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:12px 14px;
-      border-radius:999px;
-      text-decoration:none;
-      color:#0f1a12;
-      background: linear-gradient(180deg, #25D366, #18b857);
-      border:1px solid rgba(0,0,0,.18);
-      box-shadow: 0 16px 40px rgba(0,0,0,.40);
-      font-weight:900;
-      font-size:13px;
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 50;
+      display:flex; align-items:center; gap:10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,15,15,.14);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 18px 40px rgba(0,0,0,.14);
+      font-weight: 700;
+      font-size: 13.5px;
     }
-    .float-wa .bubble{
-      width:22px;height:22px;display:block;
+    .float-wa:hover{ transform: translateY(-1px); }
+    .float-wa .wa-dot{
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #25D366;
+      box-shadow: 0 0 0 4px rgba(37,211,102,.20);
     }
 
-    /* Responsivo */
+    /* Responsive */
     @media (max-width: 980px){
-      header{top:10px}
-      .topbar{border-radius: 18px}
-      .logoWrap{justify-content:flex-start}
-      .logoWrap img{height:48px}
-      .hero{grid-template-columns: 1fr; }
-      h1{font-size:38px}
-      .cards{grid-template-columns: 1fr}
-      .nav{gap:8px}
-      .nav a{padding:10px 10px}
+      .hero-wrap{ grid-template-columns: 1fr; }
+      .cards .card{ grid-column: span 6; }
+      .split{ grid-template-columns: 1fr; }
+      .contact-grid{ grid-template-columns: 1fr; }
+      .nav{ display:none; } /* simples; se quiser, adiciono menu mobile */
+    }
+    @media (max-width: 560px){
+      .cards .card{ grid-column: span 12; }
+      .checks{ grid-template-columns: 1fr; }
+      .brand .logo{ width: 150px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="bg2" aria-hidden="true"></div>
-  <div class="bg" aria-hidden="true"></div>
 
-  <div class="wrap">
-    <!-- HEADER: logo centralizada + navegação -->
-    <header>
-      <div class="topbar glass">
-        <div class="logoWrap">
-          <img src="logo.png" alt="Alisson Paz – Advogado">
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <div class="brand">
+          <!-- IMPORTANTE:
+               1) Coloque sua logo com ESCRITA PRETA como "logo-preta.png" na mesma pasta deste HTML.
+               2) Ajuste o nome do arquivo abaixo se for diferente.
+          -->
+          <img class="logo" src="logo-preta.png" alt="Alisson Nascimento Paz – Advocacia" />
         </div>
 
         <nav class="nav" aria-label="Navegação">
-          <a href="#atuacao">Atuação</a>
+          <a href="#atuacao">Áreas de atuação</a>
           <a href="#diferenciais">Diferenciais</a>
-          <a class="cta" href="#contato">Contato</a>
+          <a href="#conteudo">Conteúdo</a>
+          <a href="#contato">Contato</a>
         </nav>
+
+        <a class="btn btn-primary" href="#contato">
+          Agendar consulta
+        </a>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- HERO NOVO -->
-    <main class="hero" id="inicio">
-      <section class="heroMain glass">
-        <div class="kicker"><span class="dot" aria-hidden="true"></span> Atendimento estratégico, objetivo e transparente</div>
-        <h1><span>Advocacia com técnica, clareza e firmeza</span></h1>
-        <p class="lead">
-          Atuação em <strong>Coronel Vivida - PR e região</strong>, com foco em soluções juridicamente seguras,
-          postura combativa quando necessário e comunicação clara sobre riscos, prazos e possibilidades.
-        </p>
+  <!-- Hero -->
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-wrap">
+          <div>
+            <div class="kicker"><span class="dot"></span>Atuação estratégica • Linguagem objetiva • Rigor técnico</div>
+            <h1>Advocacia com posicionamento firme, técnica apurada e foco em resultado.</h1>
+            <p class="lead">
+              Atendimento personalizado em <b>Direito Penal</b>, <b>Direito do Consumidor</b> e <b>Direito Digital (LGPD)</b>,
+              com análise minuciosa do caso e condução estratégica desde o primeiro contato.
+            </p>
 
-        <div class="actions">
-          <a class="btn primary" href="https://wa.me/5546999746391" target="_blank" rel="noopener">
-            <!-- WhatsApp SVG -->
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
-              <path fill="#111" d="M19.1 17.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.9 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.4-1.9-.1-.3 0-.4.1-.5.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2.1-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.4-.2.3-1 1-1 2.4 0 1.4 1 2.7 1.1 2.9.1.2 2.1 3.3 5.1 4.6.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.3-.5 1.5-1 .2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/>
-              <path fill="#111" d="M16 3C9.4 3 4 8.2 4 14.6c0 2.2.7 4.2 1.9 5.9L5 29l8.8-1.8c1.6.9 3.5 1.4 5.6 1.4 6.6 0 12-5.2 12-11.6S22.6 3 16 3zm0 23.2c-1.8 0-3.4-.5-4.9-1.3l-.4-.2-5.2 1.1 1.1-5-.3-.4c-1.1-1.6-1.7-3.4-1.7-5.4C4.6 9.5 9.7 4.8 16 4.8S27.4 9.5 27.4 14.6 22.3 26.2 16 26.2z"/>
-            </svg>
-            Falar no WhatsApp <span class="meta">(resposta rápida)</span>
-          </a>
-
-          <a class="btn secondary" href="#contato">
-            Ver contatos <span class="meta">↓</span>
-          </a>
-
-          <a class="btn secondary" href="#" id="copyNumberBtn">
-            Copiar número <span class="meta">📋</span>
-          </a>
-        </div>
-      </section>
-
-      <!-- LATERAL NOVA -->
-      <aside class="heroSide glass">
-        <h3 class="sideTitle">Áreas de atuação</h3>
-        <div class="pillGrid">
-          <span class="pill">Criminal</span>
-          <span class="pill">Cível</span>
-          <span class="pill">Consumidor</span>
-          <span class="pill">Contratos</span>
-          <span class="pill">Assessoria Jurídica</span>
-        </div>
-
-        <div class="kv" id="contato">
-          <div class="kvRow">
-            <div>
-              <div class="k">WhatsApp</div>
+            <div class="hero-ctas">
+              <a class="btn btn-primary" id="ctaWhatsappTop" href="#">
+                Falar no WhatsApp
+              </a>
+              <a class="btn btn-ghost" href="#atuacao">
+                Ver áreas de atuação
+              </a>
             </div>
-            <div class="v">+55 46 9 9974-6391</div>
-          </div>
-          <div class="kvRow">
-            <div>
-              <div class="k">E-mail</div>
+
+            <div class="meta">
+              <div class="pill">
+                <svg class="icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 21s7-4.4 7-10.5S15.9 3 12 3 5 5.9 5 10.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7"/>
+                  <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" stroke="currentColor" stroke-width="1.7"/>
+                </svg>
+                Região Sudoeste/PR
+              </div>
+              <div class="pill">
+                <svg class="icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z" stroke="currentColor" stroke-width="1.7"/>
+                </svg>
+                Resposta rápida e objetiva
+              </div>
+              <div class="pill">
+                <svg class="icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 1.5 3 5.5v6c0 6 4.5 9.5 9 11 4.5-1.5 9-5 9-11v-6l-9-4Z" stroke="currentColor" stroke-width="1.7"/>
+                </svg>
+                OAB/PR 119.985
+              </div>
             </div>
-            <div class="v">allissonpaz@hotmail.com</div>
           </div>
-          <div class="kvRow">
-            <div>
-              <div class="k">Atendimento</div>
+
+          <aside class="hero-card" aria-label="Resumo de serviços">
+            <h3>Como posso ajudar</h3>
+            <ul class="list">
+              <li>Defesa criminal, audiências, memoriais e recursos</li>
+              <li>Fraudes bancárias, cobranças indevidas e negativação</li>
+              <li>Incidentes digitais, responsabilidade civil e LGPD</li>
+              <li>Contratos e atuação preventiva (consultivo)</li>
+            </ul>
+            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn" href="#contato">Solicitar análise</a>
+              <a class="btn btn-ghost" href="#diferenciais">Entender o método</a>
             </div>
-            <div class="v">Coronel Vivida - PR e região</div>
-          </div>
+          </aside>
         </div>
-
-        <p style="margin:12px 2px 0; color:var(--muted); font-size:13px; line-height:1.55;">
-          Preferencialmente, descreva brevemente o tema e, se houver, envie documentos essenciais para análise inicial.
-        </p>
-      </aside>
-    </main>
-
-    <!-- SEÇÃO: ATUAÇÃO -->
-    <section class="section glass" id="atuacao">
-      <h2>Atuação</h2>
-      <p>
-        Atendimento voltado a pessoas físicas e empresas, com foco em prevenção de litígios, condução estratégica
-        de processos e soluções juridicamente seguras.
-      </p>
-
-      <div class="cards">
-        <article class="card">
-          <h3>Direito Criminal</h3>
-          <p>Defesa técnica, acompanhamento em delegacia, medidas urgentes, estratégia de prova e atuação processual.</p>
-        </article>
-        <article class="card">
-          <h3>Direito Cível</h3>
-          <p>Ações e defesas em demandas cíveis, obrigações, indenizações, cobranças e questões patrimoniais.</p>
-        </article>
-        <article class="card">
-          <h3>Direito do Consumidor</h3>
-          <p>Negativação indevida, vícios de produto/serviço, contratos bancários, cobranças abusivas e responsabilidade civil.</p>
-        </article>
-        <article class="card">
-          <h3>Contratos</h3>
-          <p>Elaboração, revisão e negociação de contratos com foco em segurança jurídica e prevenção de litígios.</p>
-        </article>
-        <article class="card">
-          <h3>Assessoria Jurídica</h3>
-          <p>Orientação contínua para tomada de decisões, gestão de riscos e respostas rápidas às demandas do dia a dia.</p>
-        </article>
-        <article class="card">
-          <h3>Atendimento Regional</h3>
-          <p>Coronel Vivida - PR e região, com possibilidade de atendimento remoto conforme a necessidade.</p>
-        </article>
       </div>
     </section>
 
-    <!-- SEÇÃO: DIFERENCIAIS -->
-    <section class="section glass" id="diferenciais">
-      <h2>Diferenciais</h2>
-      <p>
-        Triagem inicial e condução estratégica, com postura técnica, comunicação objetiva e transparência sobre
-        riscos, prazos e próximos passos.
-      </p>
+    <!-- Áreas de atuação -->
+    <section id="atuacao">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Áreas de atuação</h2>
+            <p>Estrutura enxuta, linguagem clara e estratégia — sem promessas vazias, com condução técnica e responsável.</p>
+          </div>
+        </div>
 
-      <div class="cards">
-        <article class="card">
-          <h3>Comunicação clara</h3>
-          <p>Explicação objetiva, sem “juridiquês” excessivo, com foco no que realmente importa ao seu caso.</p>
-        </article>
-        <article class="card">
-          <h3>Estratégia e prova</h3>
-          <p>Planejamento de linhas defensivas e ofensivas, avaliação de risco e construção probatória.</p>
-        </article>
-        <article class="card">
-          <h3>Agilidade com critério</h3>
-          <p>Atuação responsiva sem perder rigor técnico, priorizando medidas úteis e eficazes.</p>
-        </article>
+        <div class="cards">
+          <article class="card">
+            <div class="tag">Direito Penal</div>
+            <h4>Defesa técnica e combativa</h4>
+            <p>Atuação em investigação, audiência, instrução, memoriais, recursos e medidas urgentes, com foco na prova e na legalidade do procedimento.</p>
+          </article>
+
+          <article class="card">
+            <div class="tag">Consumidor</div>
+            <h4>Fraudes e abusos contratuais</h4>
+            <p>Financiamentos indevidos, cobranças abusivas, negativação irregular, vícios de produto/serviço e responsabilização de fornecedores.</p>
+          </article>
+
+          <article class="card">
+            <div class="tag">Digital & LGPD</div>
+            <h4>Risco jurídico no ambiente online</h4>
+            <p>Responsabilidade civil digital, incidentes com dados pessoais, orientação e medidas judiciais/administrativas com rigor probatório.</p>
+          </article>
+
+          <article class="card">
+            <div class="tag">Cível & Contratos</div>
+            <h4>Prevenção e segurança jurídica</h4>
+            <p>Elaboração/análise de instrumentos e atuação contenciosa, reduzindo exposição a litígios e fortalecendo a posição negocial.</p>
+          </article>
+
+          <article class="card">
+            <div class="tag">Atendimento</div>
+            <h4>Condução pessoal do caso</h4>
+            <p>Atendimento direto com o advogado, diagnóstico jurídico inicial e definição objetiva dos próximos passos.</p>
+          </article>
+
+          <article class="card">
+            <div class="tag">Atuação regional</div>
+            <h4>Presença no Sudoeste/PR</h4>
+            <p>Atendimento e atuação em Chopinzinho, Coronel Vivida, Pato Branco e região, conforme a necessidade do caso.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <footer class="footer">
-      © 2026 Alisson Paz - Advogado • Coronel Vivida - PR e região
+    <!-- Diferenciais -->
+    <section id="diferenciais">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Diferenciais</h2>
+            <p>O que sustenta confiança não é aparência — é método, previsibilidade de conduta e responsabilidade técnica.</p>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="panel">
+            <h3 style="margin:0 0 6px; font-family:'Libre Baskerville',serif;">Método de atuação</h3>
+            <p style="margin:0; color: rgba(15,15,15,.74); font-size:14px;">
+              A atuação é estruturada em diagnóstico, estratégia e execução: leitura do caso, identificação do ponto de prova,
+              definição de tese e condução com clareza de riscos e alternativas.
+            </p>
+
+            <div class="checks">
+              <div class="check">
+                <div class="mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <b>Análise técnica</b>
+                  <span>Foco em prova, narrativa e estratégia processual.</span>
+                </div>
+              </div>
+
+              <div class="check">
+                <div class="mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <b>Transparência</b>
+                  <span>Próximos passos objetivos e orientação clara.</span>
+                </div>
+              </div>
+
+              <div class="check">
+                <div class="mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <b>Atuação pessoal</b>
+                  <span>Contato direto com o advogado, sem ruídos.</span>
+                </div>
+              </div>
+
+              <div class="check">
+                <div class="mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <b>Postura firme</b>
+                  <span>Condução combativa, dentro da técnica e da ética.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3 style="margin:0 0 6px; font-family:'Libre Baskerville',serif;">Quando você deve procurar um advogado</h3>
+            <p style="margin:0; color: rgba(15,15,15,.74); font-size:14px;">
+              Quanto antes houver orientação, maior a chance de preservar prova, evitar dano e construir uma estratégia consistente.
+            </p>
+
+            <div class="stack" style="margin-top:10px;">
+              <div class="check">
+                <div class="mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4l2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/></svg>
+                </div>
+                <div>
+                  <b>Urgência / risco imediato</b>
+                  <span>Prisões, audiências, intimações, prazos ou negativação.</span>
+                </div>
+              </div>
+
+              <div class="check">
+                <div class="mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M4 21v-7a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v7" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>
+                </div>
+                <div>
+                  <b>Prova em risco</b>
+                  <span>Mensagens, documentos e registros digitais precisam ser preservados.</span>
+                </div>
+              </div>
+
+              <div style="margin-top:10px; display:flex; gap:12px; flex-wrap:wrap;">
+                <a class="btn btn-primary" href="#contato">Quero orientação</a>
+                <a class="btn btn-ghost" id="ctaWhatsappMid" href="#">Contato rápido</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Conteúdo -->
+    <section id="conteudo">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Conteúdo jurídico</h2>
+            <p>Artigos curtos e objetivos para orientar decisões com segurança. (Você pode trocar os títulos e links depois.)</p>
+          </div>
+        </div>
+
+        <div class="cards articles">
+          <article class="card">
+            <a href="#" onclick="return false;">
+              <div class="tag">Consumidor</div>
+              <h4>Negativação após pagamento: o que fazer?</h4>
+              <p>Quando a baixa não ocorre, quais provas reunir e quais medidas tomar.</p>
+              <small>Leitura: 4 min</small>
+            </a>
+          </article>
+
+          <article class="card">
+            <a href="#" onclick="return false;">
+              <div class="tag">Penal</div>
+              <h4>Transação penal: requisitos e consequências</h4>
+              <p>O que observar antes de aceitar, negociar ou recusar.</p>
+              <small>Leitura: 5 min</small>
+            </a>
+          </article>
+
+          <article class="card">
+            <a href="#" onclick="return false;">
+              <div class="tag">Digital & LGPD</div>
+              <h4>Vazamento de dados e responsabilidade</h4>
+              <p>Como documentar o incidente e estruturar a estratégia.</p>
+              <small>Leitura: 6 min</small>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="contact">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>Fale diretamente com o advogado</h2>
+            <p>Preencha os dados essenciais e descreva o caso. Você pode enviar documentos pelo WhatsApp após o primeiro contato.</p>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <form class="contact-box" id="leadForm">
+            <h3>Solicitar contato</h3>
+
+            <div class="field">
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" placeholder="Seu nome" autocomplete="name" required />
+            </div>
+
+            <div class="field">
+              <label for="telefone">WhatsApp</label>
+              <input id="telefone" name="telefone" placeholder="(DDD) 9xxxx-xxxx" autocomplete="tel" required />
+            </div>
+
+            <div class="field">
+              <label for="assunto">Assunto</label>
+              <input id="assunto" name="assunto" placeholder="Ex.: negativação indevida, defesa criminal, fraude bancária..." required />
+            </div>
+
+            <div class="field">
+              <label for="mensagem">Breve descrição</label>
+              <textarea id="mensagem" name="mensagem" placeholder="Explique o essencial (datas, valores, quem está cobrando, se há processo, etc.)." required></textarea>
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+              Enviar para WhatsApp
+            </button>
+
+            <p style="margin:12px 0 0; color: rgba(15,15,15,.62); font-size:12.8px;">
+              Ao enviar, você será direcionado ao WhatsApp com a mensagem pré-preenchida.
+            </p>
+          </form>
+
+          <div class="contact-box">
+            <h3>Contato e endereço</h3>
+
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.9 19.9 0 0 1-8.7-3.1 19.5 19.5 0 0 1-6-6A19.9 19.9 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.9 9.1a16 16 0 0 0 6 6l.7-.7a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9Z"
+                      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <b>WhatsApp</b><br/>
+                <span>(46) 9 9974-6391</span>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 4h16v16H4V4Z" stroke="currentColor" stroke-width="1.7"/>
+                <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <b>E-mail</b><br/>
+                <span>allissonpaz@hotmail.com</span>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s7-4.4 7-10.5S15.9 3 12 3 5 5.9 5 10.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7"/>
+                <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" stroke="currentColor" stroke-width="1.7"/>
+              </svg>
+              <div>
+                <b>Endereço</b><br/>
+                <span>Rua Diogo Antonio Feijó, 4093, Centro – Chopinzinho/PR</span>
+              </div>
+            </div>
+
+            <!-- Opcional: map embed (substitua por seu link do Google Maps) -->
+            <div style="margin-top:12px; border-radius: var(--radius); overflow:hidden; border:1px solid rgba(15,15,15,.12);">
+              <iframe
+                title="Mapa do escritório"
+                width="100%"
+                height="220"
+                style="border:0;"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=Rua%20Diogo%20Antonio%20Feij%C3%B3,%204093,%20Chopinzinho%20-%20PR&output=embed">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="line"></div>
+        <div class="row" style="justify-content:space-between; flex-wrap:wrap;">
+          <div class="stack" style="gap:6px;">
+            <b style="font-family:'Libre Baskerville',serif;">Alisson Nascimento Paz – Advocacia</b>
+            <span>OAB/PR 119.985</span>
+          </div>
+          <div class="row" style="flex-wrap:wrap;">
+            <a href="#atuacao" class="pill">Áreas</a>
+            <a href="#diferenciais" class="pill">Diferenciais</a>
+            <a href="#contato" class="pill">Contato</a>
+          </div>
+        </div>
+        <div style="margin-top:14px; color: rgba(15,15,15,.60);">
+          © <span id="year"></span> • Conteúdo institucional. Este site não substitui consulta jurídica formal.
+        </div>
+      </div>
     </footer>
-  </div>
+  </main>
 
-  <!-- WhatsApp flutuante -->
-  <a class="float-wa" href="https://wa.me/5546999746391" target="_blank" rel="noopener" aria-label="Atendimento via WhatsApp">
-    <svg class="bubble" viewBox="0 0 32 32" aria-hidden="true">
-      <path fill="#0f1a12" d="M19.1 17.6c-.2-.1-1.3-.7-1.5-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.9 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.4-1.9-.1-.3 0-.4.1-.5.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2.1-.2-.6-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.4-.2.3-1 1-1 2.4 0 1.4 1 2.7 1.1 2.9.1.2 2.1 3.3 5.1 4.6.7.3 1.3.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.3-.5 1.5-1 .2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/>
-      <path fill="#0f1a12" d="M16 3C9.4 3 4 8.2 4 14.6c0 2.2.7 4.2 1.9 5.9L5 29l8.8-1.8c1.6.9 3.5 1.4 5.6 1.4 6.6 0 12-5.2 12-11.6S22.6 3 16 3zm0 23.2c-1.8 0-3.4-.5-4.9-1.3l-.4-.2-5.2 1.1 1.1-5-.3-.4c-1.1-1.6-1.7-3.4-1.7-5.4C4.6 9.5 9.7 4.8 16 4.8S27.4 9.5 27.4 14.6 22.3 26.2 16 26.2z"/>
-    </svg>
-    Atendimento via WhatsApp
+  <!-- Floating WhatsApp -->
+  <a class="float-wa" id="ctaWhatsappFloat" href="#" aria-label="Falar no WhatsApp">
+    <span class="wa-dot" aria-hidden="true"></span>
+    WhatsApp
   </a>
 
   <script>
-    // Scroll suave
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        const id = a.getAttribute('href');
-        if(!id || id === '#') return;
-        const el = document.querySelector(id);
-        if(!el) return;
-        e.preventDefault();
-        el.scrollIntoView({behavior:'smooth', block:'start'});
-      });
+    // Ajustes rápidos
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // WhatsApp
+    const WHATSAPP_NUMBER = "5546999746391"; // 55 + DDD + número
+
+    function buildWhatsAppLink(message){
+      const text = encodeURIComponent(message.trim());
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    }
+
+    function defaultMessage(){
+      return `Olá, Dr. Alisson. Vim pelo site e gostaria de orientação jurídica.\n\n` +
+             `Área/assunto: (informar)\n` +
+             `Breve resumo: (informar)\n` +
+             `Cidade: (informar)\n`;
+    }
+
+    // CTAs simples
+    const ctaTop = document.getElementById("ctaWhatsappTop");
+    const ctaMid = document.getElementById("ctaWhatsappMid");
+    const ctaFloat = document.getElementById("ctaWhatsappFloat");
+
+    [ctaTop, ctaMid, ctaFloat].forEach(el => {
+      el.href = buildWhatsAppLink(defaultMessage());
+      el.target = "_blank";
+      el.rel = "noopener";
     });
 
-    // Copiar número
-    const btn = document.getElementById('copyNumberBtn');
-    btn?.addEventListener('click', async (e)=>{
+    // Form -> WhatsApp com mensagem preenchida
+    const form = document.getElementById("leadForm");
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const number = "+55 46 9 9974-6391";
-      try{
-        await navigator.clipboard.writeText(number);
-        btn.textContent = "Copiado ✅";
-        setTimeout(()=>btn.innerHTML = 'Copiar número <span class="meta">📋</span>', 1400);
-      }catch{
-        alert("Não foi possível copiar automaticamente. Número: " + number);
-      }
+
+      const nome = (document.getElementById("nome").value || "").trim();
+      const telefone = (document.getElementById("telefone").value || "").trim();
+      const assunto = (document.getElementById("assunto").value || "").trim();
+      const msg = (document.getElementById("mensagem").value || "").trim();
+
+      const composed =
+        `Olá, Dr. Alisson. Vim pelo site e gostaria de orientação jurídica.\n\n` +
+        `Nome: ${nome}\n` +
+        `WhatsApp: ${telefone}\n` +
+        `Assunto: ${assunto}\n` +
+        `Resumo: ${msg}\n`;
+
+      window.open(buildWhatsAppLink(composed), "_blank", "noopener");
     });
   </script>
 </body>
