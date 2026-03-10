@@ -1,889 +1,920 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#c7c7c7" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Alisson Nascimento Paz – Advocacia</title>
-  
-  <link rel="icon" type="image/png" href="/brasao_alisson_paz.png">
-  
-  <meta name="description" content="Atuação estratégica em Direito Penal, Consumidor e Direito Digital (LGPD). Atendimento em Coronel Vivida, Pato Branco e região." />
-
-  <!-- Fontes -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+  <meta
+    name="description"
+    content="Advocacia estratégica e especializada em Direito Penal, Direito Digital, LGPD, Consumidor e Contratos."
+  />
   <style>
     :root{
-      /* ===== Fundo “cimento queimado” em GRADIENTE SUAVE (não chapado) ===== */
-      --bg-a: #b8b8b8;   /* início */
-      --bg-b: #cfcfcf;   /* meio */
-      --bg-c: #b0b0b0;   /* sombra */
-      --bg-d: #d9d9d9;   /* luz */
-
-      --text: #0f0f0f;
-      --muted: rgba(15,15,15,.72);
-
-      --gold: #b08a2a;
-      --line: rgba(15,15,15,.16);
-
-      --radius: 18px;
-      --shadow: 0 18px 46px rgba(0,0,0,.14);
-      --max: 1120px;
-
-      /* Glass */
-      --glass-bg: rgba(255,255,255,.18);
-      --glass-brd: rgba(255,255,255,.28);
-      --glass-blur: 16px;
+      --bg:#efefef;
+      --panel:rgba(255,255,255,.78);
+      --panel-strong:rgba(255,255,255,.86);
+      --line:rgba(0,0,0,.08);
+      --text:#1f1f1f;
+      --muted:#5f5f5f;
+      --gold:#c8a85a;
+      --gold-soft:#d7c08b;
+      --shadow:0 18px 45px rgba(0,0,0,.08);
+      --radius:26px;
+      --max:1240px;
     }
 
-    *{ box-sizing: border-box; }
-    html,body{ height:100%; }
-
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
     body{
       margin:0;
       color:var(--text);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height: 1.5;
-
-      /* ===== BG: gradiente suave “mudando” ao longo da página + textura sutil =====
-         - Começa mais escuro no topo e vai clareando suavemente ao descer.
-         - Não fica uma cor única; há transições longas e “orgânicas”.
-      */
-      background:
-    linear-gradient(rgba(255,255,255,0.70), rgba(255,255,255,0.70)),
-    url("Fundo-SITE.png");
-
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
-background-attachment: fixed;
-        /* Gradiente principal longo (suave) */
-        linear-gradient(
-          180deg,
-          var(--bg-c) 0%,
-          var(--bg-a) 18%,
-          var(--bg-b) 46%,
-          var(--bg-d) 72%,
-          var(--bg-b) 100%
-        );
-
-      background-attachment: scroll, scroll, scroll, scroll, scroll, scroll;
+      line-height:1.55;
+      background-color:var(--bg);
+      background-image:
+        linear-gradient(rgba(255,255,255,.64), rgba(255,255,255,.64)),
+        url("fundo-site.png");
+      background-position:center top;
+      background-size:100% auto;
+      background-repeat:repeat-y;
     }
 
-    /* Véu sutil para manter leitura e dar acabamento premium */
-    body::before{
-      content:"";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      background:
-        radial-gradient(1200px 700px at 60% 10%, rgba(255,255,255,.18), transparent 58%),
-        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.08));
-      backdrop-filter: blur(1.2px);
-      -webkit-backdrop-filter: blur(1.2px);
+    h1,h2,h3,h4{
+      margin:0 0 .5rem;
+      font-family: "Georgia", "Times New Roman", serif;
+      line-height:1.05;
+      letter-spacing:-.02em;
     }
 
-    a{ color: inherit; text-decoration: none; }
+    h1{ font-size:clamp(2.8rem, 5vw, 5rem); }
+    h2{ font-size:clamp(2rem, 3vw, 3rem); }
+    h3{ font-size:clamp(1.45rem, 2vw, 2rem); }
+    p{ margin:.25rem 0 0; }
+    a{ color:inherit; text-decoration:none; }
     img{ max-width:100%; display:block; }
 
-    .container{ max-width: var(--max); margin: 0 auto; padding: 0 20px; }
-    .row{ display:flex; gap:16px; align-items:center; }
-    .stack{ display:flex; flex-direction:column; gap:12px; }
-
-    /* Conteúdo acima do véu */
-    .topbar, main, footer{
-      position: relative;
-      z-index: 1;
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
     }
 
-    /* ===== Topbar (glass sutil) ===== */
     .topbar{
-      position: sticky; top:0; z-index:20;
-      background: rgba(190,190,190,.42);
-      border-bottom: 1px solid rgba(255,255,255,.22);
-      backdrop-filter: blur(var(--glass-blur)) saturate(140%);
-      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(14px);
+      background:rgba(247,247,247,.78);
+      border-bottom:1px solid rgba(0,0,0,.06);
     }
+
     .topbar-inner{
-      height: 84px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .brand{ display:flex; align-items:center; gap:14px; min-width: 240px; }
-
-    /* ✅ Logo maior */
-    .brand .logo{
-      width: 350px;
-      max-width: 68vw;
-      height: auto;
-      filter: drop-shadow(0 12px 24px rgba(0,0,0,.16));
+      height:96px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
     }
 
-    .nav{ display:flex; align-items:center; gap:16px; }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      min-width:0;
+    }
+
+    .brand img{
+      height:64px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .brand-text{
+      display:flex;
+      align-items:center;
+    }
+
+    .brand-text img{
+      height:44px;
+      width:auto;
+      object-fit:contain;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
     .nav a{
-      font-size: 13.5px;
-      color: rgba(15,15,15,.78);
-      padding: 10px 10px;
-      border-radius: 10px;
-      transition: .2s ease;
-      white-space: nowrap;
+      color:#4d4d4d;
+      font-weight:500;
+      padding:10px 8px;
     }
-    .nav a:hover{ background: rgba(255,255,255,.20); color: rgba(15,15,15,.92); }
 
-    /* ===== Botões ===== */
     .btn{
-      display:inline-flex; align-items:center; justify-content:center;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
       gap:10px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      border: 1px solid rgba(15,15,15,.14);
-      background: rgba(255,255,255,.86);
-      box-shadow: 0 14px 30px rgba(0,0,0,.10);
-      font-weight: 600;
-      font-size: 14px;
+      min-height:54px;
+      padding:0 24px;
+      border-radius:18px;
+      border:1px solid rgba(0,0,0,.08);
+      background:rgba(255,255,255,.88);
+      font-weight:700;
+      box-shadow:0 8px 24px rgba(0,0,0,.04);
+      transition:.2s ease;
       cursor:pointer;
-      transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
     }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 20px 42px rgba(0,0,0,.14); }
+
+    .btn:hover{ transform:translateY(-1px); }
     .btn-primary{
-      border-color: rgba(176,138,42,.35);
-      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.90));
-      position: relative;
+      border:1px solid rgba(200,168,90,.55);
+      background:rgba(255,255,255,.92);
     }
-    .btn-primary:before{
+
+    .btn-soft{
+      background:rgba(255,255,255,.58);
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:56px 0 40px;
+    }
+
+    .hero::before{
       content:"";
-      position:absolute; inset:-1px;
-      border-radius: 14px;
-      padding:1px;
-      background: linear-gradient(135deg, rgba(176,138,42,.70), rgba(15,15,15,.18));
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-              mask-composite: exclude;
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(900px 420px at 12% 4%, rgba(255,255,255,.34), transparent 62%),
+        radial-gradient(900px 420px at 88% 18%, rgba(255,255,255,.18), transparent 62%);
+    }
+
+    .hero-wrap{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.25fr .8fr;
+      gap:38px;
+      align-items:center;
+      min-height:640px;
+    }
+
+    .hero-watermark{
+      position:absolute;
+      left:-42px;
+      top:-34px;
+      width:240px;
+      opacity:.12;
+      filter:grayscale(1);
       pointer-events:none;
     }
-    .btn-ghost{
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.26);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 14px 30px rgba(0,0,0,.10);
+
+    .eyebrow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      color:var(--muted);
+      font-weight:600;
+      margin-bottom:18px;
     }
 
-    /* ===== Hero ===== */
-    .hero{ padding: 56px 0 18px; }
-    .hero-wrap{
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 28px;
-      align-items: center;
-    }
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      font-size: 12.5px;
-      color: rgba(15,15,15,.75);
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.28);
-      border-radius: 999px;
-      padding: 9px 12px;
-      width: fit-content;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
     .dot{
-      width:8px; height:8px; border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 0 4px rgba(176,138,42,.15);
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:var(--gold);
+      box-shadow:0 0 0 6px rgba(200,168,90,.12);
+      display:inline-block;
     }
 
-    h1{
-      font-family: "Libre Baskerville", serif;
-      letter-spacing: -0.02em;
-      margin: 14px 0 12px;
-      font-size: clamp(28px, 3.1vw, 44px);
-      line-height: 1.18;
-    }
-    .lead{
-      font-size: 15.8px;
-      color: rgba(15,15,15,.78);
-      max-width: 56ch;
-    }
-    .hero-ctas{ margin-top: 18px; display:flex; flex-wrap:wrap; gap:12px; }
-
-    .meta{
-      margin-top: 18px;
-      display:flex; flex-wrap:wrap; gap:10px;
-      color: rgba(15,15,15,.72);
-      font-size: 13.5px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:9px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-brd);
-      box-shadow: 0 12px 26px rgba(0,0,0,.10);
-      backdrop-filter: blur(12px) saturate(140%);
-      -webkit-backdrop-filter: blur(12px) saturate(140%);
-    }
-    .icon{ width: 16px; height: 16px; opacity:.85; }
-
-    /* ===== Glass containers (cards/panels) ===== */
-    .glass{
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-brd);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(var(--glass-blur)) saturate(145%);
-      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(145%);
+    .hero-copy{
+      position:relative;
+      max-width:800px;
     }
 
-    .hero-card{ padding: 20px; }
+    .hero-copy p.lead{
+      margin-top:18px;
+      font-size:1.18rem;
+      color:#4f4f4f;
+      max-width:860px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:26px;
+    }
+
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.62);
+      border:1px solid rgba(0,0,0,.06);
+      color:#666;
+      font-weight:600;
+      backdrop-filter: blur(8px);
+    }
+
+    .panel{
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.55);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-card{
+      padding:28px 26px 24px;
+    }
+
     .hero-card h3{
-      margin: 0 0 10px;
-      font-family: "Libre Baskerville", serif;
-      font-size: 16px;
+      margin-bottom:12px;
+      font-size:2rem;
     }
-    .list{
-      margin: 0; padding-left: 18px;
-      color: rgba(15,15,15,.78);
-      font-size: 14px;
-    }
-    .list li{ margin: 8px 0; }
 
-    /* ===== Seções ===== */
-    section{ padding: 36px 0; }
-    .section-title{ display:flex; align-items:flex-end; justify-content:space-between; gap: 16px; margin-bottom: 16px; }
-    .section-title h2{
-      margin:0;
-      font-family: "Libre Baskerville", serif;
-      font-size: 22px;
-      letter-spacing: -0.01em;
+    .hero-card ul{
+      margin:8px 0 0 0;
+      padding-left:22px;
+      color:#555;
+      font-size:1.08rem;
     }
-    .section-title p{
-      margin:0;
-      color: rgba(15,15,15,.72);
-      max-width: 62ch;
-      font-size: 14px;
+
+    .hero-card li+li{ margin-top:10px; }
+
+    .hero-card-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:20px;
+    }
+
+    .section{
+      padding:44px 0 24px;
+    }
+
+    .section-head{
+      max-width:860px;
+      margin-bottom:22px;
+    }
+
+    .section-head p{
+      color:#5e5e5e;
+      font-size:1.15rem;
     }
 
     .cards{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
+      gap:18px;
     }
 
-    /* ✅ “Banners” do print: são os .card */
     .card{
       grid-column: span 4;
-      padding: 18px;
-      min-height: 150px;
-      transition: transform .15s ease, box-shadow .2s ease;
-    }
-    .card:hover{
-      transform: translateY(-3px);
-      box-shadow: 0 26px 60px rgba(0,0,0,.18);
+      padding:24px 22px;
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.5);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
     }
 
-    .card .tag{
-      display:inline-flex; align-items:center; gap:8px;
-      font-size: 12px;
-      color: rgba(15,15,15,.75);
-      border: 1px solid rgba(176,138,42,.35);
-      background: rgba(255,255,255,.22);
-      padding: 7px 10px;
-      border-radius: 999px;
-      width: fit-content;
-      backdrop-filter: blur(10px) saturate(130%);
-      -webkit-backdrop-filter: blur(10px) saturate(130%);
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      min-height:38px;
+      padding:0 14px;
+      border-radius:999px;
+      border:1px solid rgba(200,168,90,.65);
+      color:#666;
+      background:rgba(255,248,231,.35);
+      margin-bottom:14px;
     }
+
     .card h4{
-      margin: 12px 0 8px;
-      font-family: "Libre Baskerville", serif;
-      font-size: 16px;
+      font-size:1.08rem;
+      font-family: Inter, system-ui, sans-serif;
+      text-transform:none;
+      letter-spacing:0;
+      color:#222;
+      margin-bottom:10px;
     }
-    .card p{ margin:0; color: rgba(15,15,15,.78); font-size: 14px; }
 
-    /* ===== Diferenciais ===== */
+    .card .card-title{
+      font-family:"Georgia", "Times New Roman", serif;
+      font-size:clamp(1.5rem,2vw,2rem);
+      margin-bottom:10px;
+    }
+
+    .card p{
+      color:#555;
+      font-size:1.04rem;
+    }
+
     .split{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: start;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
     }
 
-    .panel{ padding: 18px; }
+    .feature-list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px 24px;
+      margin-top:20px;
+    }
 
-    .checks{
-      display:grid; grid-template-columns: 1fr 1fr; gap: 12px;
-      margin-top: 10px;
+    .feature{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
     }
-    .check{
-      display:flex; gap:10px; align-items:flex-start;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.14);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    .check b{ display:block; font-size: 13.5px; }
-    .check span{ display:block; font-size: 13px; color: rgba(15,15,15,.74); margin-top: 2px;}
-    .check .mark{
-      width: 18px; height: 18px; border-radius: 6px;
-      background: rgba(176,138,42,.18);
-      border: 1px solid rgba(176,138,42,.35);
-      display:inline-flex; align-items:center; justify-content:center;
-      flex: 0 0 auto;
-    }
-    .check .mark svg{ width: 12px; height: 12px; }
 
-    /* ===== Conteúdo ===== */
-    .articles .card{ min-height: 0; }
-    .articles .card a{ display:block; height:100%; }
-    .articles .card small{ display:block; color: rgba(15,15,15,.70); margin-top: 10px; }
-
-    /* ===== Contato ===== */
-    .contact{
-      border-top: 1px solid rgba(255,255,255,.18);
-      border-bottom: 1px solid rgba(255,255,255,.18);
+    .feature .icon{
+      flex:0 0 24px;
+      width:24px;
+      height:24px;
+      border-radius:8px;
+      border:1px solid rgba(200,168,90,.65);
+      background:rgba(255,248,231,.5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#7c6428;
+      font-size:14px;
+      font-weight:700;
+      margin-top:4px;
     }
+
+    .feature b{
+      display:block;
+      margin-bottom:4px;
+      font-size:1.02rem;
+    }
+
+    .feature span{
+      color:#565656;
+    }
+
+    .article-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .article{
+      padding:24px 22px;
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.55);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .article small{
+      color:#7a7a7a;
+      display:block;
+      margin-bottom:12px;
+      font-weight:700;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+
+    .article h4{
+      font-size:1.4rem;
+      font-family:"Georgia", "Times New Roman", serif;
+      margin-bottom:8px;
+    }
+
+    .article p{
+      color:#555;
+    }
+
     .contact-grid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: start;
+      grid-template-columns: 1fr .82fr;
+      gap:22px;
     }
-    .field{ display:flex; flex-direction:column; gap: 6px; margin-bottom: 12px; }
-    label{ font-size: 13px; color: rgba(15,15,15,.78); }
 
-    input, textarea{
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.22);
-      font: inherit;
-      outline: none;
-      transition: border-color .15s ease, box-shadow .2s ease;
+    .form-card,
+    .contact-card{
+      padding:28px 24px;
+      background:var(--panel-strong);
+      border:1px solid rgba(255,255,255,.55);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
     }
-    input:focus, textarea:focus{
-      border-color: rgba(176,138,42,.55);
-      box-shadow: 0 0 0 4px rgba(176,138,42,.16);
-    }
-    textarea{ min-height: 110px; resize: vertical; }
 
-    .contact-box{ padding: 18px; }
-
-    .contact-box h3{
-      margin: 0 0 8px;
-      font-family: "Libre Baskerville", serif;
-      font-size: 18px;
+    .field{
+      display:grid;
+      gap:8px;
+      margin-bottom:14px;
     }
-    .contact-item{
-      display:flex; gap:10px; align-items:flex-start;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.14);
-      margin-top: 10px;
-      font-size: 14px;
-      color: rgba(15,15,15,.78);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-    .contact-item svg{ width: 18px; height: 18px; margin-top: 2px; opacity:.85; }
 
-    /* ===== Footer ===== */
+    .field label{
+      font-weight:700;
+      color:#3d3d3d;
+    }
+
+    .field input,
+    .field textarea{
+      width:100%;
+      border:none;
+      outline:none;
+      min-height:54px;
+      border-radius:16px;
+      padding:14px 16px;
+      background:rgba(255,255,255,.8);
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+      font:inherit;
+      color:#232323;
+    }
+
+    .field textarea{
+      min-height:140px;
+      resize:vertical;
+    }
+
+    .contact-list{
+      display:grid;
+      gap:18px;
+      margin-top:12px;
+    }
+
+    .contact-item b{
+      display:block;
+      margin-bottom:4px;
+      font-size:1rem;
+    }
+
+    .contact-item span,
+    .contact-item a{
+      color:#555;
+    }
+
     footer{
-      padding: 22px 0 36px;
-      color: rgba(15,15,15,.74);
-      font-size: 13px;
-    }
-    footer .line{
-      height:1px; background: rgba(255,255,255,.20);
-      margin: 16px 0;
+      padding:28px 0 44px;
+      color:#616161;
     }
 
-    /* ===== Floating WhatsApp ===== */
-    .float-wa{
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 50;
-      display:flex; align-items:center; gap:10px;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.26);
-      background: rgba(255,255,255,.22);
-      box-shadow: 0 18px 44px rgba(0,0,0,.18);
-      font-weight: 700;
-      font-size: 13.5px;
-      transition: transform .15s ease;
-      backdrop-filter: blur(14px) saturate(140%);
-      -webkit-backdrop-filter: blur(14px) saturate(140%);
-    }
-    .float-wa:hover{ transform: translateY(-1px); }
-    .float-wa .wa-dot{
-      width: 10px; height: 10px; border-radius: 50%;
-      background: #25D366;
-      box-shadow: 0 0 0 4px rgba(37,211,102,.20);
+    .footer-wrap{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
+      padding-top:24px;
+      border-top:1px solid rgba(0,0,0,.08);
     }
 
-    /* ===== Responsivo ===== */
-    @media (max-width: 980px){
-      .hero-wrap{ grid-template-columns: 1fr; }
-      .cards .card{ grid-column: span 6; }
-      .split{ grid-template-columns: 1fr; }
-      .contact-grid{ grid-template-columns: 1fr; }
-      .nav{ display:none; }
+    .wa-float{
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      z-index:40;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      min-height:58px;
+      padding:0 20px;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 18px 30px rgba(0,0,0,.12);
+      font-weight:800;
     }
-    @media (max-width: 560px){
+
+    .wa-dot{
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:#25d366;
+      box-shadow:0 0 0 5px rgba(37,211,102,.16);
+    }
+
+    .menu-btn{
+      display:none;
+      width:48px;
+      height:48px;
+      border-radius:14px;
+      border:1px solid rgba(0,0,0,.08);
+      background:rgba(255,255,255,.78);
+      font-size:22px;
+    }
+
+    @media (max-width: 1100px){
+      .hero-wrap,
+      .contact-grid,
+      .split{
+        grid-template-columns:1fr;
+      }
+      .card{ grid-column: span 6; }
+      .article-grid{ grid-template-columns:1fr; }
+    }
+
+    @media (max-width: 880px){
+      .nav{
+        display:none;
+        position:absolute;
+        top:88px;
+        left:16px;
+        right:16px;
+        padding:14px;
+        border-radius:20px;
+        background:rgba(255,255,255,.95);
+        border:1px solid rgba(0,0,0,.08);
+        box-shadow:var(--shadow);
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .nav.open{ display:flex; }
+      .menu-btn{ display:inline-flex; align-items:center; justify-content:center; }
+      .topbar-inner{ height:88px; }
+      .brand img{ height:58px; }
+      .brand-text img{ height:38px; }
+      .hero{ padding-top:34px; }
+    }
+
+    @media (max-width: 720px){
+      body{
+        background-size:cover;
+        background-position:center top;
+        background-repeat:repeat-y;
+      }
+      .container{ width:min(100% - 20px, var(--max)); }
+      .hero-wrap{ min-height:auto; gap:20px; }
+      .hero-watermark{ width:160px; left:-18px; top:-10px; }
+      .hero-copy p.lead{ font-size:1.05rem; }
+      .hero-card h3{ font-size:1.6rem; }
       .cards .card{ grid-column: span 12; }
-      .checks{ grid-template-columns: 1fr; }
-      .brand .logo{ width: 230px; }
-      .topbar-inner{ height: 82px; }
+      .feature-list{ grid-template-columns:1fr; }
+      .hero-actions,
+      .hero-card-actions{ flex-direction:column; }
+      .btn{ width:100%; }
+      .wa-float{ right:14px; bottom:14px; padding:0 16px; min-height:54px; }
     }
-
-    /* No mobile, se quiser aliviar peso, remova as imagens */
-   @media (max-width: 680px){
-  body{
-    background:
-      linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
-      url("Fundo%20SITE.png") center/cover no-repeat fixed;
-  }
-}
   </style>
 </head>
-
 <body>
-
-  <!-- Topbar -->
   <header class="topbar">
-    <div class="container">
-      <div class="topbar-inner">
-        <div class="brand">
-          <!-- Logo com escrita preta -->
-          <img class="logo" src="logo-preta.png" alt="Alisson Nascimento Paz – Advocacia" />
-        </div>
+    <div class="container topbar-inner">
+      <a href="#inicio" class="brand" aria-label="Alisson Nascimento Paz – Advocacia">
+        <img src="brasao_alisson_paz.png" alt="Brasão Alisson Paz" />
+        <span class="brand-text">
+          <img src="logo-preta.png" alt="Alisson Paz Advogado" />
+        </span>
+      </a>
 
-        <nav class="nav" aria-label="Navegação">
-          <a href="#atuacao">Áreas de atuação</a>
-          <a href="#diferenciais">Diferenciais</a>
-          <a href="#conteudo">Conteúdo</a>
-          <a href="#contato">Contato</a>
-        </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
 
-        <a class="btn btn-primary" href="#contato">Agendar consulta</a>
-      </div>
+      <nav class="nav" id="nav">
+        <a href="#areas">Áreas de atuação</a>
+        <a href="#diferenciais">Diferenciais</a>
+        <a href="#conteudo">Conteúdo</a>
+        <a href="#contato">Contato</a>
+        <a class="btn btn-primary" href="https://wa.me/5546999746391?text=Olá%2C%20Dr.%20Alisson.%20Gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener noreferrer">Agendar consulta</a>
+      </nav>
     </div>
   </header>
 
   <main>
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-wrap">
-          <div>
-            <div class="kicker"><span class="dot"></span>Atuação estratégica • Linguagem objetiva • Rigor técnico</div>
-            <h1>Advocacia com clareza, técnica e foco em resultado.</h1>
-            <p class="lead">
-              Advocacia estratégica e especializada em <b>Direito Penal</b>, <b>Direito Digital  e Lei Geral de Proteção de Dados (LGPD)</b>,
-              com análise minuciosa do caso e condução estratégica desde o primeiro contato. 
-              O escritório também presta assessoria em </b>Direito do Consumidor</b> e </b>elaboração</b> e </b>análise de Contratos</b>,
-              sempre com abordagem técnica, avaliação detalhada da situação apresentada e definição de estratégias
-              jurídicas adequadas para a defesa dos interesses do cliente.
-            </p>
+    <section class="hero" id="inicio">
+      <div class="container hero-wrap">
+        <img class="hero-watermark" src="brasao_alisson_paz.png" alt="" aria-hidden="true" />
 
-            <div class="hero-ctas">
-              <a class="btn btn-primary" href="https://wa.me/5546999746391" target="_blank" rel="noopener">
-                Falar no WhatsApp
-              </a>
-              <a class="btn btn-ghost" href="#atuacao">Ver áreas de atuação</a>
-            </div>
-
-            <div class="meta">
-              <div class="pill">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 21s7-4.4 7-10.5S15.9 3 12 3 5 5.9 5 10.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7"/>
-                  <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" stroke="currentColor" stroke-width="1.7"/>
-                </svg>
-                Região Sudoeste/PR
-              </div>
-              <div class="pill">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z" stroke="currentColor" stroke-width="1.7"/>
-                </svg>
-                Resposta rápida e objetiva
-              </div>
-              <div class="pill">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 1.5 3 5.5v6c0 6 4.5 9.5 9 11 4.5-1.5 9-5 9-11v-6l-9-4Z" stroke="currentColor" stroke-width="1.7"/>
-                </svg>
-                OAB/PR 119.985
-              </div>
-            </div>
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <span class="dot"></span>
+            <span>Atuação estratégica</span>
+            <span>•</span>
+            <span>Linguagem objetiva</span>
+            <span>•</span>
+            <span>Rigor técnico</span>
           </div>
 
-          <!-- Hero Card (glass) -->
-          <aside class="hero-card glass" aria-label="Resumo de serviços">
-            <h3>Como posso ajudar</h3>
-            <ul class="list">
-              <li>Defesa criminal, audiências, memoriais e recursos</li>
-              <li>Fraudes bancárias, cobranças indevidas e negativação</li>
-              <li>Incidentes digitais, responsabilidade civil e LGPD</li>
-              <li>Contratos e atuação preventiva (consultivo)</li>
-            </ul>
-            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn" href="#contato">Solicitar análise</a>
-              <a class="btn btn-ghost" href="#diferenciais">Entender o método</a>
-            </div>
-          </aside>
+          <h1>Advocacia com clareza, técnica e foco em resultado.</h1>
+
+          <p class="lead">
+            Advocacia estratégica e especializada em <b>Direito Penal</b>, <b>Direito Digital</b> e
+            <b>Lei Geral de Proteção de Dados (LGPD)</b>, com análise minuciosa do caso e condução
+            estratégica desde o primeiro contato. O escritório também presta assessoria em
+            <b>Direito do Consumidor</b> e elaboração e análise de <b>Contratos</b>, sempre com abordagem
+            técnica, avaliação detalhada da situação apresentada e definição de estratégias jurídicas
+            adequadas para a defesa dos interesses do cliente.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://wa.me/5546999746391?text=Olá%2C%20Dr.%20Alisson.%20Gostaria%20de%20falar%20sobre%20meu%20caso." target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+            <a class="btn btn-soft" href="#areas">Ver áreas de atuação</a>
+          </div>
+
+          <div class="badges">
+            <span class="badge">📍 Região Sudoeste/PR</span>
+            <span class="badge">💬 Resposta rápida e objetiva</span>
+            <span class="badge">🛡️ OAB/PR 119.985</span>
+          </div>
         </div>
+
+        <aside class="panel hero-card">
+          <h3>Como posso ajudar</h3>
+          <ul>
+            <li>Defesa criminal, audiências, memoriais e recursos</li>
+            <li>Fraudes bancárias, cobranças indevidas e negativação</li>
+            <li>Incidentes digitais, responsabilidade civil e LGPD</li>
+            <li>Contratos e atuação preventiva (consultivo)</li>
+          </ul>
+
+          <div class="hero-card-actions">
+            <a class="btn btn-primary" href="#contato">Solicitar análise</a>
+            <a class="btn btn-soft" href="#diferenciais">Entender o método</a>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <!-- Áreas -->
-    <section id="atuacao">
+    <section class="section" id="areas">
       <div class="container">
-        <div class="section-title">
-          <div>
-            <h2>Áreas de atuação</h2>
-          
-          </div>
+        <div class="section-head">
+          <h2>Áreas de atuação</h2>
         </div>
 
         <div class="cards">
-          <article class="card glass">
-            <div class="tag">Direito Penal</div>
-            <h4>Defesa técnica e combativa</h4>
+          <article class="card">
+            <span class="pill">Direito Penal</span>
+            <div class="card-title">Defesa técnica e combativa</div>
             <p>Atuação em investigação, audiência, instrução, memoriais, recursos e medidas urgentes, com foco na prova e na legalidade do procedimento.</p>
           </article>
 
-          <article class="card glass">
-            <div class="tag">Consumidor</div>
-            <h4>Fraudes e abusos contratuais</h4>
+          <article class="card">
+            <span class="pill">Consumidor</span>
+            <div class="card-title">Fraudes e abusos contratuais</div>
             <p>Financiamentos indevidos, cobranças abusivas, negativação irregular, vícios de produto/serviço e responsabilização de fornecedores.</p>
           </article>
 
-          <article class="card glass">
-            <div class="tag">Digital & LGPD</div>
-            <h4>Risco jurídico no ambiente online</h4>
+          <article class="card">
+            <span class="pill">Digital &amp; LGPD</span>
+            <div class="card-title">Risco jurídico no ambiente online</div>
             <p>Responsabilidade civil digital, incidentes com dados pessoais, orientação e medidas judiciais/administrativas com rigor probatório.</p>
           </article>
 
-          <article class="card glass">
-            <div class="tag">Cível & Contratos</div>
-            <h4>Prevenção e segurança jurídica</h4>
+          <article class="card">
+            <span class="pill">Cível &amp; Contratos</span>
+            <div class="card-title">Prevenção e segurança jurídica</div>
             <p>Elaboração/análise de instrumentos e atuação contenciosa, reduzindo exposição a litígios e fortalecendo a posição negocial.</p>
           </article>
 
-          <article class="card glass">
-            <div class="tag">Atendimento</div>
-            <h4>Condução pessoal do caso</h4>
+          <article class="card">
+            <span class="pill">Atendimento</span>
+            <div class="card-title">Condução pessoal do caso</div>
             <p>Atendimento direto com o advogado, diagnóstico jurídico inicial e definição objetiva dos próximos passos.</p>
           </article>
 
-          <article class="card glass">
-            <div class="tag">Atuação regional</div>
-            <h4>Presença no Sudoeste/PR</h4>
+          <article class="card">
+            <span class="pill">Atuação regional</span>
+            <div class="card-title">Presença no Sudoeste/PR</div>
             <p>Atendimento e atuação em Coronel Vivida, Pato Branco e região, conforme a necessidade do caso.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Diferenciais -->
-    <section id="diferenciais">
+    <section class="section" id="diferenciais">
       <div class="container">
-        <div class="section-title">
-          <div>
-            <h2>Diferenciais</h2>
-            <p>O que sustenta confiança não é aparência — é método, previsibilidade de conduta e responsabilidade técnica.</p>
-          </div>
+        <div class="section-head">
+          <h2>Diferenciais</h2>
+          <p>O que sustenta confiança não é aparência — é método, previsibilidade de conduta e responsabilidade técnica.</p>
         </div>
 
         <div class="split">
-          <div class="panel glass">
-            <h3 style="margin:0 0 6px; font-family:'Libre Baskerville',serif;">Método de atuação</h3>
-            <p style="margin:0; color: rgba(15,15,15,.78); font-size:14px;">
-              A atuação é estruturada em diagnóstico, estratégia e execução: leitura do caso, identificação do ponto de prova,
-              definição de tese e condução com clareza de riscos e alternativas.
-            </p>
+          <article class="card">
+            <h3>Método de atuação</h3>
+            <p>A atuação é estruturada em diagnóstico, estratégia e execução: leitura do caso, identificação do ponto de prova, definição de tese e condução com clareza de riscos e alternativas.</p>
 
-            <div class="checks">
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
+            <div class="feature-list">
+              <div class="feature">
+                <div class="icon">✓</div>
                 <div>
                   <b>Análise técnica</b>
                   <span>Foco em prova, narrativa e estratégia processual.</span>
                 </div>
               </div>
 
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
+              <div class="feature">
+                <div class="icon">✓</div>
                 <div>
                   <b>Transparência</b>
                   <span>Próximos passos objetivos e orientação clara.</span>
                 </div>
               </div>
 
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
+              <div class="feature">
+                <div class="icon">✓</div>
                 <div>
                   <b>Atuação pessoal</b>
                   <span>Contato direto com o advogado, sem ruídos.</span>
                 </div>
               </div>
 
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
+              <div class="feature">
+                <div class="icon">✓</div>
                 <div>
                   <b>Postura firme</b>
                   <span>Condução combativa, dentro da técnica e da ética.</span>
                 </div>
               </div>
             </div>
-          </div>
+          </article>
 
-          <div class="panel glass">
-            <h3 style="margin:0 0 6px; font-family:'Libre Baskerville',serif;">Quando você deve procurar um advogado</h3>
-            <p style="margin:0; color: rgba(15,15,15,.78); font-size:14px;">
-              Quanto antes houver orientação, maior a chance de preservar prova, evitar dano e construir uma estratégia consistente.
-            </p>
+          <article class="card">
+            <h3>Quando você deve procurar um advogado</h3>
+            <p>Quanto antes houver orientação, maior a chance de preservar prova, evitar dano e construir uma estratégia consistente.</p>
 
-            <div class="stack" style="margin-top:10px;">
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4l2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/></svg>
-                </div>
+            <div class="feature-list" style="grid-template-columns:1fr;">
+              <div class="feature">
+                <div class="icon">!</div>
                 <div>
                   <b>Urgência / risco imediato</b>
                   <span>Prisões, audiências, intimações, prazos ou negativação.</span>
                 </div>
               </div>
 
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M4 21v-7a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v7" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>
-                </div>
+              <div class="feature">
+                <div class="icon">⌁</div>
                 <div>
                   <b>Prova em risco</b>
                   <span>Mensagens, documentos e registros digitais precisam ser preservados.</span>
                 </div>
               </div>
-
-              <div style="margin-top:10px; display:flex; gap:12px; flex-wrap:wrap;">
-                <a class="btn btn-primary" href="#contato">Quero orientação</a>
-                <a class="btn btn-ghost" href="https://wa.me/5546999746391" target="_blank" rel="noopener">Contato rápido</a>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Conteúdo -->
-    <section id="conteudo">
-      <div class="container">
-        <div class="section-title">
-          <div>
-            <h2>Conteúdo jurídico</h2>
-            <p>Artigos curtos e objetivos para orientar decisões com segurança. (Você pode trocar os títulos e links depois.)</p>
-          </div>
-        </div>
-
-        <div class="cards articles">
-          <article class="card glass">
-            <a href="#" onclick="return false;">
-              <div class="tag">Consumidor</div>
-              <h4>Negativação após pagamento: o que fazer?</h4>
-              <p>Quando a baixa não ocorre, quais provas reunir e quais medidas tomar.</p>
-              <small>Leitura: 4 min</small>
-            </a>
-          </article>
-
-          <article class="card glass">
-            <a href="#" onclick="return false;">
-              <div class="tag">Penal</div>
-              <h4>Transação penal: requisitos e consequências</h4>
-              <p>O que observar antes de aceitar, negociar ou recusar.</p>
-              <small>Leitura: 5 min</small>
-            </a>
-          </article>
-
-          <article class="card glass">
-            <a href="#" onclick="return false;">
-              <div class="tag">Digital & LGPD</div>
-              <h4>Vazamento de dados e responsabilidade</h4>
-              <p>Como documentar o incidente e estruturar a estratégia.</p>
-              <small>Leitura: 6 min</small>
-            </a>
+            <div class="hero-actions" style="margin-top:24px;">
+              <a class="btn btn-primary" href="#contato">Quero orientação</a>
+              <a class="btn btn-soft" href="https://wa.me/5546999746391?text=Olá%2C%20Dr.%20Alisson.%20Gostaria%20de%20contato%20rápido." target="_blank" rel="noopener noreferrer">Contato rápido</a>
+            </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Contato -->
-    <section id="contato" class="contact">
+    <section class="section" id="conteudo">
       <div class="container">
-        <div class="section-title">
-          <div>
-            <h2>Fale diretamente com o advogado</h2>
-            <p>Preencha os dados essenciais e descreva o caso. Você pode enviar documentos pelo WhatsApp após o primeiro contato.</p>
-          </div>
+        <div class="section-head">
+          <h2>Conteúdo jurídico</h2>
+          <p>Artigos curtos e objetivos para orientar decisões com segurança.</p>
+        </div>
+
+        <div class="article-grid">
+          <article class="article">
+            <small>Consumidor • Leitura: 4 min</small>
+            <h4>Negativação após pagamento: o que fazer?</h4>
+            <p>Quando a baixa não ocorre, quais provas reunir e quais medidas adotar para rápida regularização.</p>
+          </article>
+
+          <article class="article">
+            <small>Penal • Leitura: 5 min</small>
+            <h4>Transação penal: requisitos e consequências</h4>
+            <p>O que observar antes de aceitar, negociar ou recusar, com visão estratégica desde o primeiro atendimento.</p>
+          </article>
+
+          <article class="article">
+            <small>Digital &amp; LGPD • Leitura: 6 min</small>
+            <h4>Vazamento de dados e responsabilidade</h4>
+            <p>Como documentar o incidente, preservar elementos probatórios e estruturar a estratégia jurídica adequada.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contato">
+      <div class="container">
+        <div class="section-head">
+          <h2>Fale diretamente com o advogado</h2>
+          <p>Preencha os dados essenciais e descreva o caso. Você pode enviar documentos pelo WhatsApp após o primeiro contato.</p>
         </div>
 
         <div class="contact-grid">
-          <form class="contact-box glass" id="leadForm">
+          <div class="form-card">
             <h3>Solicitar contato</h3>
 
-            <div class="field">
-              <label for="nome">Nome</label>
-              <input id="nome" name="nome" placeholder="Seu nome" autocomplete="name" required />
-            </div>
+            <form id="whatsForm">
+              <div class="field">
+                <label for="nome">Nome</label>
+                <input id="nome" name="nome" type="text" required />
+              </div>
 
-            <div class="field">
-              <label for="telefone">WhatsApp</label>
-              <input id="telefone" name="telefone" placeholder="(DDD) 9xxxx-xxxx" autocomplete="tel" required />
-            </div>
+              <div class="field">
+                <label for="whatsapp">WhatsApp</label>
+                <input id="whatsapp" name="whatsapp" type="text" required />
+              </div>
 
-            <div class="field">
-              <label for="assunto">Assunto</label>
-              <input id="assunto" name="assunto" placeholder="Ex.: negativação indevida, defesa criminal, fraude bancária..." required />
-            </div>
+              <div class="field">
+                <label for="assunto">Assunto</label>
+                <input id="assunto" name="assunto" type="text" required />
+              </div>
 
-            <div class="field">
-              <label for="mensagem">Breve descrição</label>
-              <textarea id="mensagem" name="mensagem" placeholder="Explique o essencial (datas, valores, quem está cobrando, se há processo, etc.)." required></textarea>
-            </div>
+              <div class="field">
+                <label for="descricao">Breve descrição</label>
+                <textarea id="descricao" name="descricao" required></textarea>
+              </div>
 
-            <button class="btn btn-primary" type="submit">Enviar para WhatsApp</button>
+              <button class="btn btn-primary" type="submit">Enviar para WhatsApp</button>
+            </form>
 
-            <p style="margin:12px 0 0; color: rgba(15,15,15,.70); font-size:12.8px;">
-              Ao enviar, você será direcionado ao WhatsApp com a mensagem pré-preenchida.
-            </p>
-          </form>
+            <p style="margin-top:14px;color:#666;">Ao enviar, você será direcionado ao WhatsApp com a mensagem pré-preenchida.</p>
+          </div>
 
-          <div class="contact-box glass">
+          <aside class="contact-card">
             <h3>Contato e endereço</h3>
 
-            <div class="contact-item">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.9 19.9 0 0 1-8.7-3.1 19.5 19.5 0 0 1-6-6A19.9 19.9 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.9 9.1a16 16 0 0 0 6 6l.7-.7a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9Z"
-                      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <div>
-                <b>WhatsApp</b><br/>
-                <span>(46) 9 9974-6391</span>
+            <div class="contact-list">
+              <div class="contact-item">
+                <b>WhatsApp</b>
+                <a href="https://wa.me/5546999746391" target="_blank" rel="noopener noreferrer">(46) 9 9974-6391</a>
               </div>
-            </div>
 
-            <div class="contact-item">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 4h16v16H4V4Z" stroke="currentColor" stroke-width="1.7"/>
-                <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <div>
-                <b>E-mail</b><br/>
-                <span>allissonpaz@hotmail.com</span>
+              <div class="contact-item">
+                <b>E-mail</b>
+                <a href="mailto:allissonpaz@hotmail.com">allissonpaz@hotmail.com</a>
               </div>
-            </div>
 
-            <div class="contact-item">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s7-4.4 7-10.5S15.9 3 12 3 5 5.9 5 10.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7"/>
-                <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" stroke="currentColor" stroke-width="1.7"/>
-              </svg>
-              <div>
-                <b>Endereço</b><br/>
+              <div class="contact-item">
+                <b>Endereço</b>
                 <span>Rua Brigadeiro Rocha Loures, 219, Centro – Coronel Vivida/PR, CEP 85550-040</span>
               </div>
-            </div>
 
-            <div style="margin-top:12px; border-radius: var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,.22);">
-              <iframe
-                title="Mapa do escritório"
-                width="100%"
-                height="220"
-                style="border:0;"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=Rua%20Brigadeiro%20Rocha%20Loures,%20219,%20Coronel%20Vivida%20-%20PR&output=embed">
-              </iframe>
+              <div class="contact-item">
+                <b>Identificação profissional</b>
+                <span>Alisson Nascimento Paz – Advocacia • OAB/PR 119.985</span>
+              </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </section>
-
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="line"></div>
-        <div class="row" style="justify-content:space-between; flex-wrap:wrap;">
-          <div class="stack" style="gap:6px;">
-            <b style="font-family:'Libre Baskerville',serif;">Alisson Nascimento Paz – Advocacia</b>
-            <span>OAB/PR 119.985</span>
-          </div>
-          <div class="row" style="flex-wrap:wrap;">
-            <a href="#atuacao" class="pill">Áreas</a>
-            <a href="#diferenciais" class="pill">Diferenciais</a>
-            <a href="#contato" class="pill">Contato</a>
-          </div>
-        </div>
-        <div style="margin-top:14px; color: rgba(15,15,15,.74);">
-          © <span id="year"></span> • Conteúdo institucional. Este site não substitui consulta jurídica formal.
-        </div>
-      </div>
-    </footer>
   </main>
 
-  <!-- Floating WhatsApp -->
-  <a class="float-wa" href="https://wa.me/5546999746391" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
-    <span class="wa-dot" aria-hidden="true"></span>
-    WhatsApp
+  <footer>
+    <div class="container footer-wrap">
+      <div>© Conteúdo institucional. Este site não substitui consulta jurídica formal.</div>
+      <div>
+        <a href="#areas">Áreas</a> •
+        <a href="#diferenciais">Diferenciais</a> •
+        <a href="#contato">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5546999746391?text=Olá%2C%20Dr.%20Alisson.%20Gostaria%20de%20atendimento." target="_blank" rel="noopener noreferrer">
+    <span class="wa-dot"></span>
+    <span>WhatsApp</span>
   </a>
 
   <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
+    const menuBtn = document.getElementById("menuBtn");
+    const nav = document.getElementById("nav");
 
-    // Form -> WhatsApp com mensagem pré-preenchida
-    const WHATSAPP_LINK = "https://wa.me/5546999746391";
-    function buildWhatsAppLink(message){
-      const text = encodeURIComponent(message.trim());
-      return `${WHATSAPP_LINK}?text=${text}`;
-    }
+    menuBtn?.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
 
-    const form = document.getElementById("leadForm");
-    form.addEventListener("submit", (e) => {
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+
+    document.getElementById("whatsForm")?.addEventListener("submit", function(e){
       e.preventDefault();
 
-      const nome = (document.getElementById("nome").value || "").trim();
-      const telefone = (document.getElementById("telefone").value || "").trim();
-      const assunto = (document.getElementById("assunto").value || "").trim();
-      const msg = (document.getElementById("mensagem").value || "").trim();
+      const nome = document.getElementById("nome").value.trim();
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const assunto = document.getElementById("assunto").value.trim();
+      const descricao = document.getElementById("descricao").value.trim();
 
-      const composed =
-        `Olá, Dr. Alisson. Vim pelo site e gostaria de orientação jurídica.\n\n` +
-        `Nome: ${nome}\n` +
-        `WhatsApp: ${telefone}\n` +
-        `Assunto: ${assunto}\n` +
-        `Resumo: ${msg}\n`;
+      const msg =
+`Olá, Dr. Alisson.
+Meu nome é ${nome}.
+WhatsApp: ${whatsapp}.
+Assunto: ${assunto}.
 
-      window.open(buildWhatsAppLink(composed), "_blank", "noopener");
+Breve descrição do caso:
+${descricao}`;
+
+      const url = "https://wa.me/5546999746391?text=" + encodeURIComponent(msg);
+      window.open(url, "_blank");
     });
   </script>
 </body>
