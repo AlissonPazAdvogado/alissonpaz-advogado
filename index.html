@@ -53,15 +53,13 @@
          - Não fica uma cor única; há transições longas e “orgânicas”.
       */
       background:
-        /* Imagens decorativas (mantém as duas que você enviou) */
-        url("bg-left.jpg") left 6% top 150px / min(980px, 64vw) no-repeat,
-        url("bg-right.jpg") right -10% top 260px / min(1100px, 72vw) no-repeat,
+    linear-gradient(rgba(255,255,255,0.70), rgba(255,255,255,0.70)),
+    url("Fundo-SITE.png");
 
-        /* Textura e profundidade (cimento) */
-        radial-gradient(1100px 760px at 18% 22%, rgba(0,0,0,.18), transparent 62%),
-        radial-gradient(900px 620px at 82% 18%, rgba(255,255,255,.20), transparent 60%),
-        radial-gradient(900px 700px at 55% 76%, rgba(0,0,0,.10), transparent 62%),
-
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
         /* Gradiente principal longo (suave) */
         linear-gradient(
           180deg,
@@ -452,14 +450,13 @@
     }
 
     /* No mobile, se quiser aliviar peso, remova as imagens */
-    @media (max-width: 680px){
-      body{
-        background:
-          radial-gradient(1100px 760px at 18% 22%, rgba(0,0,0,.18), transparent 62%),
-          radial-gradient(900px 620px at 82% 18%, rgba(255,255,255,.20), transparent 60%),
-          linear-gradient(180deg, var(--bg-c) 0%, var(--bg-a) 18%, var(--bg-b) 46%, var(--bg-d) 72%, var(--bg-b) 100%);
-      }
-    }
+   @media (max-width: 680px){
+  body{
+    background:
+      linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)),
+      url("Fundo%20SITE.png") center/cover no-repeat fixed;
+  }
+}
   </style>
 </head>
 
