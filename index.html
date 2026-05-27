@@ -250,40 +250,50 @@
     }
     .hero-badge svg { color: var(--gold); flex-shrink: 0; }
 
-    /* ── STATS ── */
-    #stats {
-      padding: 0;
-      background: var(--dark-3);
-      border-top: 1px solid rgba(201,168,76,0.1);
-      border-bottom: 1px solid rgba(201,168,76,0.1);
-    }
+    /* ── MAPA ── */
+    #mapa { background: var(--dark-2); padding: 0; }
 
-    .stats-grid {
+    .mapa-inner {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr 1.8fr;
+      min-height: 380px;
     }
 
-    .stat-item {
-      padding: 52px 32px;
-      text-align: center;
-      border-right: 1px solid rgba(255,255,255,0.06);
-    }
-    .stat-item:last-child { border-right: none; }
-
-    .stat-number {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
-      margin-bottom: 8px;
+    .mapa-info {
+      background: var(--dark-3);
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid rgba(201,168,76,0.1);
     }
 
-    .stat-label {
+    .mapa-info .section-tag { margin-bottom: 12px; }
+
+    .mapa-info h3 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+
+    .mapa-info p { font-size: 14px; color: var(--gray); line-height: 1.8; margin-bottom: 6px; }
+
+    .mapa-info a.mapa-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
       font-size: 13px;
-      color: var(--gray);
-      letter-spacing: 0.3px;
+      font-weight: 500;
+      color: var(--gold);
+      transition: color var(--tr);
     }
+    .mapa-info a.mapa-link:hover { color: var(--gold-lt); }
+
+    .mapa-embed { position: relative; }
+    .mapa-embed iframe { display: block; width: 100%; height: 100%; min-height: 380px; border: none; filter: grayscale(30%) invert(92%) hue-rotate(180deg); }
 
     /* ── ÁREAS DE ATUAÇÃO ── */
     #atuacao { background: var(--dark); }
@@ -350,6 +360,15 @@
     }
 
     .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
+
+    .area-card--wide {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+    }
+    .area-card--wide .area-icon { flex-shrink: 0; margin-bottom: 0; }
+    .area-card--wide .area-title { margin-bottom: 10px; }
 
     /* ── DIFERENCIAIS ── */
     #diferenciais { background: var(--dark-2); }
@@ -777,9 +796,8 @@
       .areas-grid { grid-template-columns: repeat(2, 1fr); }
       .dif-layout { grid-template-columns: 1fr; gap: 48px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
-      .stat-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.06); }
+      .mapa-inner { grid-template-columns: 1fr; }
+      .mapa-embed iframe { min-height: 300px; }
     }
 
     @media (max-width: 768px) {
@@ -815,9 +833,7 @@
     }
 
     @media (max-width: 480px) {
-      .stats-grid { grid-template-columns: 1fr; }
-      .stat-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .stat-item:last-child { border-bottom: none; }
+      .mapa-info { padding: 36px 24px; }
     }
   </style>
 </head>
@@ -889,29 +905,6 @@
   </div>
 </section>
 
-<!-- STATS -->
-<div id="stats">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item fade-up">
-        <div class="stat-number">6+</div>
-        <div class="stat-label">Anos de atuação</div>
-      </div>
-      <div class="stat-item fade-up">
-        <div class="stat-number">3</div>
-        <div class="stat-label">Áreas de especialidade</div>
-      </div>
-      <div class="stat-item fade-up">
-        <div class="stat-number">SW</div>
-        <div class="stat-label">Cobertura Sudoeste PR</div>
-      </div>
-      <div class="stat-item fade-up">
-        <div class="stat-number">1:1</div>
-        <div class="stat-label">Atendimento direto com o advogado</div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ÁREAS DE ATUAÇÃO -->
 <section id="atuacao">
@@ -972,6 +965,14 @@
         </div>
         <div class="area-title">Atuação Regional</div>
         <p class="area-desc">Cobertura em Coronel Vivida e toda a região Sudoeste do Paraná. Disponibilidade para atendimento presencial e remoto.</p>
+      </div>
+
+      <div class="area-card fade-up area-card--wide">
+        <div class="area-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="area-title">Família & Inventários</div>
+        <p class="area-desc">Divórcio, guarda, pensão alimentícia e partilha de bens. Abertura e condução de inventários judiciais e extrajudiciais com agilidade e atenção ao impacto humano do processo.</p>
       </div>
 
     </div>
@@ -1187,6 +1188,7 @@
               <option>Direito do Consumidor</option>
               <option>Direito Digital / LGPD</option>
               <option>Cível e Contratos</option>
+              <option>Família e Inventários</option>
               <option>Outro</option>
             </select>
           </div>
@@ -1205,6 +1207,33 @@
     </div>
   </div>
 </section>
+
+<!-- MAPA -->
+<div id="mapa">
+  <div class="mapa-inner">
+    <div class="mapa-info fade-up">
+      <span class="section-tag">Localização</span>
+      <div class="gold-line"></div>
+      <h3>Onde nos<br>encontrar</h3>
+      <p>Rua Brigadeiro Rocha Loures, 219</p>
+      <p>Centro – Coronel Vivida, PR</p>
+      <p>CEP 85.550-040</p>
+      <a class="mapa-link" href="https://www.google.com/maps/search/Rua+Brigadeiro+Rocha+Loures+219+Coronel+Vivida+PR" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Abrir no Google Maps
+      </a>
+    </div>
+    <div class="mapa-embed">
+      <iframe
+        src="https://maps.google.com/maps?q=Rua+Brigadeiro+Rocha+Loures,219,Centro,Coronel+Vivida,PR,85550-040&output=embed&z=16"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Localização do escritório">
+      </iframe>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1253,41 +1282,4 @@
 
   // Navbar scroll
   const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-
-  // Mobile menu
-  function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('open');
-  }
-  document.querySelectorAll('#navLinks a').forEach(a => {
-    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
-  });
-
-  // Scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // Contact form → WhatsApp
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const nome     = document.getElementById('nome').value.trim();
-    const telefone = document.getElementById('telefone').value.trim();
-    const assunto  = document.getElementById('assunto').value;
-    const mensagem = document.getElementById('mensagem').value.trim();
-    if (!nome || !telefone || !assunto) return;
-    const texto = `Olá! Meu nome é *${nome}*.\n\n*Área:* ${assunto}\n*Telefone:* ${telefone}\n\n*Caso:*\n${mensagem || 'Gostaria de mais informações.'}`;
-    window.open('https://wa.me/5546999746391?text=' + encodeURIComponent(texto), '_blank');
-  });
-</script>
-
-</body>
-</html>
+  window.addEventListener('scro
