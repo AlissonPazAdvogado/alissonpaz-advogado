@@ -1282,4 +1282,41 @@
 
   // Navbar scroll
   const navbar = document.getElementById('navbar');
-  window.addEventListener('scro
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Contact form → WhatsApp
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nome     = document.getElementById('nome').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const assunto  = document.getElementById('assunto').value;
+    const mensagem = document.getElementById('mensagem').value.trim();
+    if (!nome || !telefone || !assunto) return;
+    const texto = `Olá! Meu nome é *${nome}*.\n\n*Área:* ${assunto}\n*Telefone:* ${telefone}\n\n*Caso:*\n${mensagem || 'Gostaria de mais informações.'}`;
+    window.open('https://wa.me/5546999746391?text=' + encodeURIComponent(texto), '_blank');
+  });
+</script>
+
+</body>
+</html>
