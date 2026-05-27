@@ -1,857 +1,1293 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#0b0b0b" />
-  <title>Alisson Nascimento Paz – Advocacia</title>
-  <meta name="description" content="Atuação estratégica em Direito Penal, Consumidor e Direito Digital (LGPD). Atendimento em Chopinzinho, Coronel Vivida, Pato Branco e região." />
-
-  <!-- Fonte elegante (serif) + sans moderna -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alisson Paz | Advocacia Criminal, do Consumidor e Digital</title>
+  <meta name="description" content="Escritório de advocacia com atuação em Direito Penal, do Consumidor e Digital/LGPD. Coronel Vivida e região Sudoeste do Paraná.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      /* Paleta para LOGO com escrita preta (fundo claro) */
-      --bg: #fbfbfb;
-      --surface: #ffffff;
-      --surface-2: #f4f4f4;
-      --text: #0f0f0f;
-      --muted: #4b4b4b;
-      --line: rgba(15,15,15,.12);
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      /* Dourado só como acento (sem “apagar” o preto) */
-      --gold: #b08a2a;
-      --gold-2: #c9a23a;
-
-      --shadow: 0 16px 40px rgba(0,0,0,.08);
-      --radius: 18px;
-
-      --max: 1120px;
+    :root {
+      --dark:    #080808;
+      --dark-2:  #111111;
+      --dark-3:  #1c1c1c;
+      --dark-4:  #252525;
+      --gold:    #c9a84c;
+      --gold-lt: #e2c77a;
+      --white:   #f0ede8;
+      --gray:    #888;
+      --gray-lt: #555;
+      --radius:  8px;
+      --tr: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    *{ box-sizing: border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      color:var(--text);
-      background: radial-gradient(1200px 600px at 70% 10%, rgba(176,138,42,.10), transparent 60%),
-                  radial-gradient(900px 600px at 10% 20%, rgba(15,15,15,.05), transparent 55%),
-                  var(--bg);
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height: 1.5;
-    }
-    a{ color: inherit; text-decoration: none; }
-    img{ max-width:100%; display:block; }
+    html { scroll-behavior: smooth; }
 
-    /* Layout helpers */
-    .container{ max-width: var(--max); margin: 0 auto; padding: 0 20px; }
-    .grid{ display:grid; gap:18px; }
-    .row{ display:flex; gap:16px; align-items:center; }
-    .stack{ display:flex; flex-direction:column; gap:12px; }
-
-    /* Top bar */
-    .topbar{
-      position: sticky; top:0; z-index:20;
-      background: rgba(251,251,251,.78);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-    }
-    .topbar-inner{
-      height: 76px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .brand{
-      display:flex; align-items:center; gap:14px;
-      min-width: 220px;
-    }
-    .brand .logo{
-      width: 320px;
-      max-width: 42vw;
-      height: auto;
-      filter: drop-shadow(0 8px 18px rgba(0,0,0,.10));
-    }
-    .nav{
-      display:flex; align-items:center; gap:16px;
-    }
-    .nav a{
-      font-size: 13.5px;
-      color: rgba(15,15,15,.78);
-      padding: 10px 10px;
-      border-radius: 10px;
-      transition: .2s ease;
-      white-space: nowrap;
-    }
-    .nav a:hover{ background: rgba(15,15,15,.06); color: rgba(15,15,15,.92); }
-
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
-      padding: 12px 16px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: var(--surface);
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
-      font-weight: 600;
-      font-size: 14px;
-      cursor:pointer;
-      transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 16px 32px rgba(0,0,0,.10); }
-    .btn-primary{
-      border-color: rgba(176,138,42,.35);
-      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.94));
-      position: relative;
-    }
-    .btn-primary:before{
-      content:"";
-      position:absolute; inset:-1px;
-      border-radius: 14px;
-      padding:1px;
-      background: linear-gradient(135deg, rgba(176,138,42,.65), rgba(15,15,15,.18));
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-              mask-composite: exclude;
-      pointer-events:none;
-    }
-    .btn-ghost{
-      background: transparent;
-      box-shadow:none;
-    }
-
-    /* Hero */
-    .hero{
-      padding: 52px 0 18px;
-    }
-    .hero-wrap{
-      display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 28px;
-      align-items: center;
-    }
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      font-size: 12.5px;
-      color: rgba(15,15,15,.70);
-      background: rgba(255,255,255,.65);
-      border: 1px solid rgba(15,15,15,.10);
-      border-radius: 999px;
-      padding: 9px 12px;
-      width: fit-content;
-    }
-    .dot{
-      width:8px; height:8px; border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 0 4px rgba(176,138,42,.15);
-    }
-    h1{
-      font-family: "Libre Baskerville", serif;
-      letter-spacing: -0.02em;
-      margin: 14px 0 12px;
-      font-size: clamp(28px, 3.1vw, 44px);
-      line-height: 1.18;
-    }
-    .lead{
-      font-size: 15.8px;
-      color: rgba(15,15,15,.78);
-      max-width: 56ch;
-    }
-    .hero-ctas{ margin-top: 18px; display:flex; flex-wrap:wrap; gap:12px; }
-    .meta{
-      margin-top: 18px;
-      display:flex; flex-wrap:wrap; gap:10px;
-      color: rgba(15,15,15,.70);
-      font-size: 13.5px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:9px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(15,15,15,.12);
-      background: rgba(255,255,255,.7);
-    }
-    .icon{
-      width: 16px; height: 16px; opacity:.85;
-    }
-
-    .hero-card{
-      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
-      border: 1px solid rgba(15,15,15,.12);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 20px;
-    }
-    .hero-card h3{
-      margin: 0 0 10px;
-      font-family: "Libre Baskerville", serif;
+    body {
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
       font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
-    .list{
-      margin: 0; padding-left: 18px;
-      color: rgba(15,15,15,.78);
-      font-size: 14px;
-    }
-    .list li{ margin: 8px 0; }
 
-    /* Sections */
-    section{ padding: 34px 0; }
-    .section-title{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap: 16px;
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* Animations */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    section { padding: 120px 0; }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
       margin-bottom: 16px;
     }
-    .section-title h2{
-      margin:0;
-      font-family: "Libre Baskerville", serif;
-      font-size: 22px;
-      letter-spacing: -0.01em;
-    }
-    .section-title p{
-      margin:0;
-      color: rgba(15,15,15,.70);
-      max-width: 62ch;
-      font-size: 14px;
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 20px;
     }
 
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--gray);
+      max-width: 560px;
+      line-height: 1.8;
     }
-    .card{
-      grid-column: span 4;
-      background: var(--surface);
-      border: 1px solid rgba(15,15,15,.12);
+
+    .gold-line {
+      width: 48px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
       border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 10px 22px rgba(0,0,0,.05);
-      min-height: 150px;
-      transition: transform .15s ease, box-shadow .2s ease;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: var(--tr);
+      border: none;
     }
-    .card:hover{ transform: translateY(-2px); box-shadow: 0 18px 34px rgba(0,0,0,.08); }
-    .card .tag{
-      display:inline-flex; align-items:center; gap:8px;
+
+    .btn-gold { background: var(--gold); color: var(--dark); }
+    .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+    .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(255,255,255,0.25); }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 20px 0;
+      transition: var(--tr);
+    }
+
+    #navbar.scrolled {
+      background: rgba(8,8,8,0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+
+    .nav-logo img { height: 48px; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: rgba(240,237,232,0.75);
+      transition: color var(--tr);
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--dark) !important;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--gold-lt) !important; }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1001;
+      position: relative;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      transition: var(--tr);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('Fundo-SITE.png') center/cover no-repeat;
+      filter: brightness(0.22);
+    }
+
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(8,8,8,0.75) 0%, rgba(8,8,8,0.35) 60%, rgba(201,168,76,0.04) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 120px 0 80px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
       font-size: 12px;
-      color: rgba(15,15,15,.70);
-      border: 1px solid rgba(176,138,42,.30);
-      background: rgba(176,138,42,.08);
-      padding: 7px 10px;
-      border-radius: 999px;
-      width: fit-content;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
     }
-    .card h4{
-      margin: 12px 0 8px;
-      font-family: "Libre Baskerville", serif;
-      font-size: 16px;
-    }
-    .card p{
-      margin:0;
-      color: rgba(15,15,15,.74);
-      font-size: 14px;
+    .hero-kicker::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
     }
 
-    /* Diferenciais */
-    .split{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: start;
+    .hero-title {
+      font-size: clamp(2.6rem, 6vw, 4.6rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.08;
+      margin-bottom: 28px;
+      max-width: 760px;
     }
-    .panel{
-      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(244,244,244,.88));
-      border: 1px solid rgba(15,15,15,.12);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 12px 26px rgba(0,0,0,.06);
-    }
-    .checks{
-      display:grid; grid-template-columns: 1fr 1fr; gap: 12px;
-      margin-top: 10px;
-    }
-    .check{
-      display:flex; gap:10px; align-items:flex-start;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(15,15,15,.10);
-      background: rgba(255,255,255,.65);
-    }
-    .check b{ display:block; font-size: 13.5px; }
-    .check span{ display:block; font-size: 13px; color: rgba(15,15,15,.70); margin-top: 2px;}
-    .check .mark{
-      width: 18px; height: 18px; border-radius: 6px;
-      background: rgba(176,138,42,.18);
-      border: 1px solid rgba(176,138,42,.35);
-      display:inline-flex; align-items:center; justify-content:center;
-      flex: 0 0 auto;
-    }
-    .check .mark svg{ width: 12px; height: 12px; }
+    .hero-title span { color: var(--gold); }
 
-    /* Conteúdo */
-    .articles .card{ min-height: 0; }
-    .articles .card a{ display:block; height:100%; }
-    .articles .card small{ display:block; color: rgba(15,15,15,.65); margin-top: 10px; }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(240,237,232,0.7);
+      max-width: 520px;
+      line-height: 1.85;
+      margin-bottom: 48px;
+    }
 
-    /* Contact */
-    .contact{
-      background: linear-gradient(180deg, rgba(15,15,15,.02), rgba(176,138,42,.08));
-      border-top: 1px solid rgba(15,15,15,.10);
-      border-bottom: 1px solid rgba(15,15,15,.10);
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .hero-badges {
+      margin-top: 72px;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
     }
-    .contact-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      align-items: start;
+
+    .hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: rgba(240,237,232,0.55);
     }
-    .field{
-      display:flex; flex-direction:column; gap: 6px;
+    .hero-badge svg { color: var(--gold); flex-shrink: 0; }
+
+    /* ── STATS ── */
+    #stats {
+      padding: 0;
+      background: var(--dark-3);
+      border-top: 1px solid rgba(201,168,76,0.1);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat-item {
+      padding: 52px 32px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--gray);
+      letter-spacing: 0.3px;
+    }
+
+    /* ── ÁREAS DE ATUAÇÃO ── */
+    #atuacao { background: var(--dark); }
+
+    .areas-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      gap: 32px;
+    }
+
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .area-card {
+      background: var(--dark-2);
+      padding: 40px 32px;
+      transition: var(--tr);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .area-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--tr);
+    }
+
+    .area-card:hover { background: var(--dark-3); }
+    .area-card:hover::after { transform: scaleX(1); }
+
+    .area-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(201,168,76,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      color: var(--gold);
+    }
+
+    .area-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--white);
       margin-bottom: 12px;
     }
-    label{ font-size: 13px; color: rgba(15,15,15,.75); }
-    input, textarea{
-      width: 100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(15,15,15,.16);
-      background: rgba(255,255,255,.90);
-      font: inherit;
-      outline: none;
-      transition: border-color .15s ease, box-shadow .2s ease;
-    }
-    input:focus, textarea:focus{
-      border-color: rgba(176,138,42,.50);
-      box-shadow: 0 0 0 4px rgba(176,138,42,.14);
-    }
-    textarea{ min-height: 110px; resize: vertical; }
 
-    .contact-box{
-      background: rgba(255,255,255,.8);
-      border: 1px solid rgba(15,15,15,.12);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 12px 28px rgba(0,0,0,.06);
-    }
-    .contact-box h3{
-      margin: 0 0 8px;
-      font-family: "Libre Baskerville", serif;
-      font-size: 18px;
-    }
-    .contact-item{
-      display:flex; gap:10px; align-items:flex-start;
-      padding: 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(15,15,15,.10);
-      background: rgba(255,255,255,.70);
-      margin-top: 10px;
-      font-size: 14px;
-      color: rgba(15,15,15,.78);
-    }
-    .contact-item svg{ width: 18px; height: 18px; margin-top: 2px; opacity:.85; }
+    .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
 
-    /* Footer */
-    footer{
-      padding: 22px 0 36px;
-      color: rgba(15,15,15,.70);
-      font-size: 13px;
-    }
-    footer .line{
-      height:1px; background: rgba(15,15,15,.10);
-      margin: 16px 0;
+    /* ── DIFERENCIAIS ── */
+    #diferenciais { background: var(--dark-2); }
+
+    .dif-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
     }
 
-    /* Floating WhatsApp */
-    .float-wa{
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
-      z-index: 50;
-      display:flex; align-items:center; gap:10px;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(15,15,15,.14);
-      background: rgba(255,255,255,.92);
-      box-shadow: 0 18px 40px rgba(0,0,0,.14);
+    .dif-list { margin-top: 40px; display: flex; flex-direction: column; gap: 28px; }
+
+    .dif-item { display: flex; gap: 20px; align-items: flex-start; }
+
+    .dif-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
       font-weight: 700;
-      font-size: 13.5px;
-    }
-    .float-wa:hover{ transform: translateY(-1px); }
-    .float-wa .wa-dot{
-      width: 10px; height: 10px; border-radius: 50%;
-      background: #25D366;
-      box-shadow: 0 0 0 4px rgba(37,211,102,.20);
+      color: rgba(201,168,76,0.2);
+      line-height: 1;
+      min-width: 44px;
     }
 
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero-wrap{ grid-template-columns: 1fr; }
-      .cards .card{ grid-column: span 6; }
-      .split{ grid-template-columns: 1fr; }
-      .contact-grid{ grid-template-columns: 1fr; }
-      .nav{ display:none; } /* simples; se quiser, adiciono menu mobile */
+    .dif-text h4 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .dif-text p { font-size: 14px; color: var(--gray); line-height: 1.7; }
+
+    .dif-visual {
+      background: var(--dark-3);
+      border-radius: 16px;
+      padding: 48px;
+      border: 1px solid rgba(201,168,76,0.1);
+      position: relative;
+      overflow: hidden;
     }
-    @media (max-width: 560px){
-      .cards .card{ grid-column: span 12; }
-      .checks{ grid-template-columns: 1fr; }
-      .brand .logo{ width: 150px; }
+
+    .dif-visual::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .dif-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.4;
+      margin-bottom: 24px;
+    }
+    .dif-quote span { color: var(--gold); }
+
+    .dif-detail { font-size: 14px; color: var(--gray); line-height: 1.8; margin-bottom: 32px; }
+
+    .dif-when {
+      background: rgba(201,168,76,0.06);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+    }
+
+    .dif-when h5 {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .dif-when ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+
+    .dif-when ul li {
+      font-size: 13px;
+      color: rgba(240,237,232,0.65);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .dif-when ul li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+
+    /* ── PROCESSO ── */
+    #processo { background: var(--dark); }
+
+    .processo-header { text-align: center; max-width: 600px; margin: 0 auto; }
+    .processo-header .gold-line { margin: 0 auto 32px; }
+
+    .processo-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 64px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .step {
+      background: var(--dark-2);
+      padding: 48px 36px;
+    }
+
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: rgba(201,168,76,0.07);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .step-icon { width: 38px; height: 38px; color: var(--gold); margin-bottom: 20px; }
+
+    .step h3 { font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 12px; }
+    .step p { font-size: 14px; color: var(--gray); line-height: 1.8; }
+
+    /* ── CONTEÚDO ── */
+    #conteudo { background: var(--dark-2); }
+
+    .content-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .article-card {
+      background: var(--dark-3);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: var(--tr);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-card:hover {
+      border-color: rgba(201,168,76,0.2);
+      transform: translateY(-4px);
+    }
+
+    .article-tag-bar {
+      background: rgba(201,168,76,0.08);
+      padding: 10px 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .article-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+
+    .article-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .article-excerpt { font-size: 13px; color: var(--gray); line-height: 1.8; flex: 1; }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 12px;
+      color: var(--gray-lt);
+    }
+
+    /* ── CONTATO ── */
+    #contato { background: var(--dark); }
+
+    .contato-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: flex-start;
+    }
+
+    .contato-info { padding-top: 8px; }
+
+    .contato-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 32px;
+    }
+
+    .contato-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(201,168,76,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .contato-item h4 {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .contato-item p { font-size: 14px; color: rgba(240,237,232,0.7); line-height: 1.7; }
+
+    .form-card {
+      background: var(--dark-2);
+      border-radius: 16px;
+      padding: 48px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .form-title { font-size: 1.5rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .form-subtitle { font-size: 14px; color: var(--gray); margin-bottom: 36px; }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(240,237,232,0.45);
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      transition: border-color var(--tr);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #444; }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold); }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-group select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      border-radius: var(--radius);
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: var(--tr);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .btn-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+    .form-disclaimer {
+      font-size: 11px;
+      color: #444;
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark-2);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 64px 0 32px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 64px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand img { height: 44px; margin-bottom: 20px; }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.8;
+      max-width: 280px;
+    }
+
+    .footer-col h5 {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .footer-col ul li a {
+      font-size: 13px;
+      color: var(--gray);
+      transition: color var(--tr);
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p { font-size: 12px; color: var(--gray-lt); }
+
+    .footer-oab {
+      font-size: 12px;
+      color: var(--gray-lt);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-oab::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    /* ── FLOATING WHATSAPP ── */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .whatsapp-label {
+      background: var(--dark-3);
+      color: var(--white);
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: var(--tr);
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+
+    .whatsapp-float:hover .whatsapp-label { opacity: 1; transform: translateX(0); }
+
+    .whatsapp-btn {
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.35);
+      transition: var(--tr);
+      color: white;
+    }
+    .whatsapp-btn:hover { transform: scale(1.1); box-shadow: 0 6px 32px rgba(37,211,102,0.5); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .areas-grid { grid-template-columns: repeat(2, 1fr); }
+      .dif-layout { grid-template-columns: 1fr; gap: 48px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-right: 1px solid rgba(255,255,255,0.06); }
+    }
+
+    @media (max-width: 768px) {
+      section { padding: 80px 0; }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(8,8,8,0.97);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        z-index: 999;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links.open a { font-size: 1.15rem; }
+      .nav-toggle { display: flex; }
+
+      .areas-grid { grid-template-columns: 1fr; }
+      .processo-steps { grid-template-columns: 1fr; }
+      .content-grid { grid-template-columns: 1fr; }
+      .contato-layout { grid-template-columns: 1fr; gap: 48px; }
+      .areas-header { flex-direction: column; align-items: flex-start; }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-card { padding: 28px 20px; }
+      .hero-badges { gap: 20px; }
+      .dif-visual { padding: 32px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .stat-item:last-child { border-bottom: none; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Topbar -->
-  <header class="topbar">
-    <div class="container">
-      <div class="topbar-inner">
-        <div class="brand">
-          <!-- IMPORTANTE:
-               1) Coloque sua logo com ESCRITA PRETA como "logo-preta.png" na mesma pasta deste HTML.
-               2) Ajuste o nome do arquivo abaixo se for diferente.
-          -->
-          <img class="logo" src="logo-preta.png" alt="Alisson Nascimento Paz – Advocacia" />
-        </div>
-
-        <nav class="nav" aria-label="Navegação">
-          <a href="#atuacao">Áreas de atuação</a>
-          <a href="#diferenciais">Diferenciais</a>
-          <a href="#conteudo">Conteúdo</a>
-          <a href="#contato">Contato</a>
-        </nav>
-
-        <a class="btn btn-primary" href="#contato">
-          Agendar consulta
-        </a>
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="logo-preta.png" alt="Alisson Paz Advocacia" style="filter: brightness(0) invert(1);">
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#atuacao">Áreas de Atuação</a></li>
+        <li><a href="#diferenciais">Diferenciais</a></li>
+        <li><a href="#conteudo">Conteúdo</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li>
+          <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." class="nav-cta" target="_blank" rel="noopener">
+            Agendar Consulta
+          </a>
+        </li>
+      </ul>
+      <div class="nav-toggle" id="navToggle" onclick="toggleMenu()" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
-  </header>
+  </div>
+</nav>
 
-  <!-- Hero -->
-  <main>
-    <section class="hero">
-      <div class="container">
-        <div class="hero-wrap">
-          <div>
-            <div class="kicker"><span class="dot"></span>Atuação estratégica • Linguagem objetiva • Rigor técnico</div>
-            <h1>Advocacia com posicionamento firme, técnica apurada e foco em resultado.</h1>
-            <p class="lead">
-              Atendimento personalizado em <b>Direito Penal</b>, <b>Direito do Consumidor</b> e <b>Direito Digital (LGPD)</b>,
-              com análise minuciosa do caso e condução estratégica desde o primeiro contato.
-            </p>
-
-            <div class="hero-ctas">
-              <a class="btn btn-primary" id="ctaWhatsappTop" href="#">
-                Falar no WhatsApp
-              </a>
-              <a class="btn btn-ghost" href="#atuacao">
-                Ver áreas de atuação
-              </a>
-            </div>
-
-            <div class="meta">
-              <div class="pill">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 21s7-4.4 7-10.5S15.9 3 12 3 5 5.9 5 10.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7"/>
-                  <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" stroke="currentColor" stroke-width="1.7"/>
-                </svg>
-                Região Sudoeste/PR
-              </div>
-              <div class="pill">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8Z" stroke="currentColor" stroke-width="1.7"/>
-                </svg>
-                Resposta rápida e objetiva
-              </div>
-              <div class="pill">
-                <svg class="icon" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 1.5 3 5.5v6c0 6 4.5 9.5 9 11 4.5-1.5 9-5 9-11v-6l-9-4Z" stroke="currentColor" stroke-width="1.7"/>
-                </svg>
-                OAB/PR 119.985
-              </div>
-            </div>
-          </div>
-
-          <aside class="hero-card" aria-label="Resumo de serviços">
-            <h3>Como posso ajudar</h3>
-            <ul class="list">
-              <li>Defesa criminal, audiências, memoriais e recursos</li>
-              <li>Fraudes bancárias, cobranças indevidas e negativação</li>
-              <li>Incidentes digitais, responsabilidade civil e LGPD</li>
-              <li>Contratos e atuação preventiva (consultivo)</li>
-            </ul>
-            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-              <a class="btn" href="#contato">Solicitar análise</a>
-              <a class="btn btn-ghost" href="#diferenciais">Entender o método</a>
-            </div>
-          </aside>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="container">
+    <div class="hero-content fade-up">
+      <div class="hero-kicker">Advocacia Estratégica</div>
+      <h1 class="hero-title">
+        Defesa técnica.<br>Resultados <span>concretos</span>.
+      </h1>
+      <p class="hero-sub">
+        Atuação firme em Direito Penal, do Consumidor e Digital com linguagem clara, rigor técnico e comprometimento real com o seu caso.
+      </p>
+      <div class="hero-actions">
+        <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." class="btn btn-gold" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar pelo WhatsApp
+        </a>
+        <a href="#atuacao" class="btn btn-outline">Ver áreas de atuação</a>
+      </div>
+      <div class="hero-badges">
+        <div class="hero-badge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          OAB/PR 119.985
+        </div>
+        <div class="hero-badge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Coronel Vivida – PR
+        </div>
+        <div class="hero-badge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Atendimento com hora marcada
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <!-- Áreas de atuação -->
-    <section id="atuacao">
-      <div class="container">
-        <div class="section-title">
-          <div>
-            <h2>Áreas de atuação</h2>
-            <p>Estrutura enxuta, linguagem clara e estratégia — sem promessas vazias, com condução técnica e responsável.</p>
-          </div>
-        </div>
-
-        <div class="cards">
-          <article class="card">
-            <div class="tag">Direito Penal</div>
-            <h4>Defesa técnica e combativa</h4>
-            <p>Atuação em investigação, audiência, instrução, memoriais, recursos e medidas urgentes, com foco na prova e na legalidade do procedimento.</p>
-          </article>
-
-          <article class="card">
-            <div class="tag">Consumidor</div>
-            <h4>Fraudes e abusos contratuais</h4>
-            <p>Financiamentos indevidos, cobranças abusivas, negativação irregular, vícios de produto/serviço e responsabilização de fornecedores.</p>
-          </article>
-
-          <article class="card">
-            <div class="tag">Digital & LGPD</div>
-            <h4>Risco jurídico no ambiente online</h4>
-            <p>Responsabilidade civil digital, incidentes com dados pessoais, orientação e medidas judiciais/administrativas com rigor probatório.</p>
-          </article>
-
-          <article class="card">
-            <div class="tag">Cível & Contratos</div>
-            <h4>Prevenção e segurança jurídica</h4>
-            <p>Elaboração/análise de instrumentos e atuação contenciosa, reduzindo exposição a litígios e fortalecendo a posição negocial.</p>
-          </article>
-
-          <article class="card">
-            <div class="tag">Atendimento</div>
-            <h4>Condução pessoal do caso</h4>
-            <p>Atendimento direto com o advogado, diagnóstico jurídico inicial e definição objetiva dos próximos passos.</p>
-          </article>
-
-          <article class="card">
-            <div class="tag">Atuação regional</div>
-            <h4>Presença no Sudoeste/PR</h4>
-            <p>Atendimento e atuação em Chopinzinho, Coronel Vivida, Pato Branco e região, conforme a necessidade do caso.</p>
-          </article>
-        </div>
+<!-- STATS -->
+<div id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item fade-up">
+        <div class="stat-number">6+</div>
+        <div class="stat-label">Anos de atuação</div>
       </div>
-    </section>
+      <div class="stat-item fade-up">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Áreas de especialidade</div>
+      </div>
+      <div class="stat-item fade-up">
+        <div class="stat-number">SW</div>
+        <div class="stat-label">Cobertura Sudoeste PR</div>
+      </div>
+      <div class="stat-item fade-up">
+        <div class="stat-number">1:1</div>
+        <div class="stat-label">Atendimento direto com o advogado</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- Diferenciais -->
-    <section id="diferenciais">
-      <div class="container">
-        <div class="section-title">
-          <div>
-            <h2>Diferenciais</h2>
-            <p>O que sustenta confiança não é aparência — é método, previsibilidade de conduta e responsabilidade técnica.</p>
-          </div>
+<!-- ÁREAS DE ATUAÇÃO -->
+<section id="atuacao">
+  <div class="container">
+    <div class="areas-header fade-up">
+      <div>
+        <span class="section-tag">Áreas de atuação</span>
+        <div class="gold-line"></div>
+        <h2 class="section-title">Como posso<br>ajudá-lo</h2>
+      </div>
+      <p class="section-subtitle">Atuação especializada nas áreas onde os riscos ao patrimônio, à liberdade e à privacidade são mais críticos.</p>
+    </div>
+    <div class="areas-grid">
+
+      <div class="area-card fade-up">
+        <div class="area-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6l9-4 9 4v6c0 5.25-3.75 10.15-9 11.25C6.75 22.15 3 17.25 3 12V6z"/></svg>
         </div>
+        <div class="area-title">Direito Penal</div>
+        <p class="area-desc">Defesa técnica em inquéritos, processos criminais e execução penal. Atuação estratégica desde a fase investigativa até o trânsito em julgado.</p>
+      </div>
 
-        <div class="split">
-          <div class="panel">
-            <h3 style="margin:0 0 6px; font-family:'Libre Baskerville',serif;">Método de atuação</h3>
-            <p style="margin:0; color: rgba(15,15,15,.74); font-size:14px;">
-              A atuação é estruturada em diagnóstico, estratégia e execução: leitura do caso, identificação do ponto de prova,
-              definição de tese e condução com clareza de riscos e alternativas.
-            </p>
+      <div class="area-card fade-up">
+        <div class="area-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="area-title">Direito do Consumidor</div>
+        <p class="area-desc">Cobranças indevidas, contratos abusivos, fraudes em serviços e produtos. Busca por indenização e reparação de danos materiais e morais.</p>
+      </div>
 
-            <div class="checks">
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <div>
-                  <b>Análise técnica</b>
-                  <span>Foco em prova, narrativa e estratégia processual.</span>
-                </div>
-              </div>
+      <div class="area-card fade-up">
+        <div class="area-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="area-title">Direito Digital & LGPD</div>
+        <p class="area-desc">Crimes cibernéticos, vazamento de dados, responsabilidade online e adequação à Lei Geral de Proteção de Dados.</p>
+      </div>
 
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <div>
-                  <b>Transparência</b>
-                  <span>Próximos passos objetivos e orientação clara.</span>
-                </div>
-              </div>
+      <div class="area-card fade-up">
+        <div class="area-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="area-title">Cível & Contratos</div>
+        <p class="area-desc">Revisão, elaboração e resolução de conflitos contratuais. Assessoria preventiva para evitar litígios e preservar seus direitos.</p>
+      </div>
 
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <div>
-                  <b>Atuação pessoal</b>
-                  <span>Contato direto com o advogado, sem ruídos.</span>
-                </div>
-              </div>
+      <div class="area-card fade-up">
+        <div class="area-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="area-title">Atendimento Direto</div>
+        <p class="area-desc">Você fala diretamente com o advogado responsável pelo seu caso. Sem terceirizações, sem intermediários, com total transparência.</p>
+      </div>
 
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M20 6 9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </div>
-                <div>
-                  <b>Postura firme</b>
-                  <span>Condução combativa, dentro da técnica e da ética.</span>
-                </div>
-              </div>
+      <div class="area-card fade-up">
+        <div class="area-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="area-title">Atuação Regional</div>
+        <p class="area-desc">Cobertura em Coronel Vivida e toda a região Sudoeste do Paraná. Disponibilidade para atendimento presencial e remoto.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="diferenciais">
+  <div class="container">
+    <div class="dif-layout">
+
+      <div class="fade-up">
+        <span class="section-tag">Diferenciais</span>
+        <div class="gold-line"></div>
+        <h2 class="section-title">Por que escolher<br>este escritório</h2>
+        <div class="dif-list">
+          <div class="dif-item">
+            <div class="dif-num">01</div>
+            <div class="dif-text">
+              <h4>Análise técnica aprofundada</h4>
+              <p>Cada caso é estudado com rigor. A estratégia é construída sobre fatos, provas e fundamentos jurídicos sólidos — não sobre promessas.</p>
             </div>
           </div>
-
-          <div class="panel">
-            <h3 style="margin:0 0 6px; font-family:'Libre Baskerville',serif;">Quando você deve procurar um advogado</h3>
-            <p style="margin:0; color: rgba(15,15,15,.74); font-size:14px;">
-              Quanto antes houver orientação, maior a chance de preservar prova, evitar dano e construir uma estratégia consistente.
-            </p>
-
-            <div class="stack" style="margin-top:10px;">
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4l2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="2"/></svg>
-                </div>
-                <div>
-                  <b>Urgência / risco imediato</b>
-                  <span>Prisões, audiências, intimações, prazos ou negativação.</span>
-                </div>
-              </div>
-
-              <div class="check">
-                <div class="mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M4 21v-7a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v7" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>
-                </div>
-                <div>
-                  <b>Prova em risco</b>
-                  <span>Mensagens, documentos e registros digitais precisam ser preservados.</span>
-                </div>
-              </div>
-
-              <div style="margin-top:10px; display:flex; gap:12px; flex-wrap:wrap;">
-                <a class="btn btn-primary" href="#contato">Quero orientação</a>
-                <a class="btn btn-ghost" id="ctaWhatsappMid" href="#">Contato rápido</a>
-              </div>
+          <div class="dif-item">
+            <div class="dif-num">02</div>
+            <div class="dif-text">
+              <h4>Transparência total</h4>
+              <p>Você recebe informações claras e honestas sobre seu caso, prazos e perspectivas — sem linguagem hermética ou falsas expectativas.</p>
+            </div>
+          </div>
+          <div class="dif-item">
+            <div class="dif-num">03</div>
+            <div class="dif-text">
+              <h4>Atuação pessoal</h4>
+              <p>O advogado que assina sua petição é o mesmo que acompanha seu processo do início ao fim. Compromisso real, não delegação.</p>
+            </div>
+          </div>
+          <div class="dif-item">
+            <div class="dif-num">04</div>
+            <div class="dif-text">
+              <h4>Postura firme</h4>
+              <p>Defesa assertiva dos seus direitos, sem passividade. Quando necessário, atuação combativa dentro dos limites da ética profissional.</p>
             </div>
           </div>
         </div>
-
       </div>
-    </section>
 
-    <!-- Conteúdo -->
-    <section id="conteudo">
-      <div class="container">
-        <div class="section-title">
+      <div class="dif-visual fade-up">
+        <p class="dif-quote">
+          "O momento certo de buscar<br>um advogado é <span>antes que<br>o problema escale</span>."
+        </p>
+        <p class="dif-detail">
+          Na maioria dos casos, quanto mais cedo o advogado é envolvido, mais opções estratégicas estão disponíveis. Esperar pode custar caro — em tempo, dinheiro e resultado.
+        </p>
+        <div class="dif-when">
+          <h5>Busque orientação imediata quando</h5>
+          <ul>
+            <li>Receber qualquer intimação ou notificação policial</li>
+            <li>Perceber movimentação suspeita em seus dados ou contas</li>
+            <li>Tiver um contrato importante a assinar ou contestar</li>
+            <li>Identificar cobrança ou negativação indevida</li>
+            <li>Sofrer fraude ou golpe financeiro</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section id="processo">
+  <div class="container">
+    <div class="processo-header fade-up">
+      <span class="section-tag">Como funciona</span>
+      <div class="gold-line"></div>
+      <h2 class="section-title">Do primeiro contato<br>à resolução</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">Um processo claro e direto, sem burocracia desnecessária.</p>
+    </div>
+    <div class="processo-steps">
+      <div class="step fade-up">
+        <div class="step-num">01</div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <h3>Consulta inicial</h3>
+        <p>Entre em contato pelo WhatsApp, apresente brevemente seu caso e agende um horário para uma conversa aprofundada — presencial ou remota.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">02</div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <h3>Análise e estratégia</h3>
+        <p>O caso é analisado detalhadamente. Você recebe um diagnóstico claro e a estratégia jurídica mais adequada para seu objetivo.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">03</div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></svg>
+        <h3>Atuação e acompanhamento</h3>
+        <p>Com a contratação definida, a atuação tem início com acompanhamento contínuo e comunicação clara em cada etapa do processo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEÚDO JURÍDICO -->
+<section id="conteudo">
+  <div class="container">
+    <div class="content-header fade-up">
+      <div>
+        <span class="section-tag">Conteúdo jurídico</span>
+        <div class="gold-line"></div>
+        <h2 class="section-title">Informação que<br>empodera</h2>
+      </div>
+      <p class="section-subtitle">Conteúdo prático para quem quer entender seus direitos antes de precisar de um advogado.</p>
+    </div>
+    <div class="content-grid">
+      <div class="article-card fade-up">
+        <div class="article-tag-bar">Consumidor</div>
+        <div class="article-body">
+          <h3 class="article-title">Negativação indevida: como reverter e exigir indenização</h3>
+          <p class="article-excerpt">Ter o nome incluído em cadastros de inadimplentes sem dever nada é mais comum do que parece. Saiba quais são seus direitos e como agir rapidamente.</p>
+          <div class="article-meta">
+            <span>Leitura: 5 min</span>
+            <span>Direito do Consumidor</span>
+          </div>
+        </div>
+      </div>
+      <div class="article-card fade-up">
+        <div class="article-tag-bar">Penal</div>
+        <div class="article-body">
+          <h3 class="article-title">Transação penal: o que é e quando pode ser vantajoso aceitar</h3>
+          <p class="article-excerpt">Um acordo que evita processo criminal pode parecer atrativo — mas nem sempre é a melhor saída. Entenda os riscos antes de decidir.</p>
+          <div class="article-meta">
+            <span>Leitura: 6 min</span>
+            <span>Direito Penal</span>
+          </div>
+        </div>
+      </div>
+      <div class="article-card fade-up">
+        <div class="article-tag-bar">Digital</div>
+        <div class="article-body">
+          <h3 class="article-title">Vazamento de dados: você tem direito a indenização?</h3>
+          <p class="article-excerpt">Com a LGPD em vigor, empresas que expõem seus dados podem ser responsabilizadas. Veja o que configura violação e como comprovar o dano.</p>
+          <div class="article-meta">
+            <span>Leitura: 4 min</span>
+            <span>Direito Digital</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div class="container">
+    <div class="contato-layout">
+
+      <div class="contato-info fade-up">
+        <span class="section-tag">Contato</span>
+        <div class="gold-line"></div>
+        <h2 class="section-title">Vamos conversar<br>sobre seu caso</h2>
+        <p class="section-subtitle" style="margin-bottom: 48px;">Consultas com hora marcada. Atendimento direto com o advogado, presencial ou remoto.</p>
+
+        <div class="contato-item">
+          <div class="contato-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
           <div>
-            <h2>Conteúdo jurídico</h2>
-            <p>Artigos curtos e objetivos para orientar decisões com segurança. (Você pode trocar os títulos e links depois.)</p>
+            <h4>WhatsApp</h4>
+            <p>(46) 9 9974-6391<br><span style="font-size:12px; color:#555;">Resposta em até 2h úteis</span></p>
           </div>
         </div>
 
-        <div class="cards articles">
-          <article class="card">
-            <a href="#" onclick="return false;">
-              <div class="tag">Consumidor</div>
-              <h4>Negativação após pagamento: o que fazer?</h4>
-              <p>Quando a baixa não ocorre, quais provas reunir e quais medidas tomar.</p>
-              <small>Leitura: 4 min</small>
-            </a>
-          </article>
-
-          <article class="card">
-            <a href="#" onclick="return false;">
-              <div class="tag">Penal</div>
-              <h4>Transação penal: requisitos e consequências</h4>
-              <p>O que observar antes de aceitar, negociar ou recusar.</p>
-              <small>Leitura: 5 min</small>
-            </a>
-          </article>
-
-          <article class="card">
-            <a href="#" onclick="return false;">
-              <div class="tag">Digital & LGPD</div>
-              <h4>Vazamento de dados e responsabilidade</h4>
-              <p>Como documentar o incidente e estruturar a estratégia.</p>
-              <small>Leitura: 6 min</small>
-            </a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contato -->
-    <section id="contato" class="contact">
-      <div class="container">
-        <div class="section-title">
+        <div class="contato-item">
+          <div class="contato-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
           <div>
-            <h2>Fale diretamente com o advogado</h2>
-            <p>Preencha os dados essenciais e descreva o caso. Você pode enviar documentos pelo WhatsApp após o primeiro contato.</p>
+            <h4>E-mail</h4>
+            <p>allissonpaz@hotmail.com</p>
           </div>
         </div>
 
-        <div class="contact-grid">
-          <form class="contact-box" id="leadForm">
-            <h3>Solicitar contato</h3>
+        <div class="contato-item">
+          <div class="contato-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <h4>Endereço</h4>
+            <p>Rua Brigadeiro Rocha Loures, 219<br>Centro – Coronel Vivida, PR<br>CEP 85.550-040</p>
+          </div>
+        </div>
+      </div>
 
-            <div class="field">
-              <label for="nome">Nome</label>
-              <input id="nome" name="nome" placeholder="Seu nome" autocomplete="name" required />
+      <div class="form-card fade-up">
+        <h3 class="form-title">Envie sua mensagem</h3>
+        <p class="form-subtitle">Preencha abaixo e você será redirecionado para o WhatsApp com as informações já preenchidas.</p>
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nome">Seu nome</label>
+              <input type="text" id="nome" placeholder="Ex: João Silva" required>
             </div>
-
-            <div class="field">
+            <div class="form-group">
               <label for="telefone">WhatsApp</label>
-              <input id="telefone" name="telefone" placeholder="(DDD) 9xxxx-xxxx" autocomplete="tel" required />
-            </div>
-
-            <div class="field">
-              <label for="assunto">Assunto</label>
-              <input id="assunto" name="assunto" placeholder="Ex.: negativação indevida, defesa criminal, fraude bancária..." required />
-            </div>
-
-            <div class="field">
-              <label for="mensagem">Breve descrição</label>
-              <textarea id="mensagem" name="mensagem" placeholder="Explique o essencial (datas, valores, quem está cobrando, se há processo, etc.)." required></textarea>
-            </div>
-
-            <button class="btn btn-primary" type="submit">
-              Enviar para WhatsApp
-            </button>
-
-            <p style="margin:12px 0 0; color: rgba(15,15,15,.62); font-size:12.8px;">
-              Ao enviar, você será direcionado ao WhatsApp com a mensagem pré-preenchida.
-            </p>
-          </form>
-
-          <div class="contact-box">
-            <h3>Contato e endereço</h3>
-
-            <div class="contact-item">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.9 19.9 0 0 1-8.7-3.1 19.5 19.5 0 0 1-6-6A19.9 19.9 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8.9 9.1a16 16 0 0 0 6 6l.7-.7a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9Z"
-                      stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <div>
-                <b>WhatsApp</b><br/>
-                <span>(46) 9 9974-6391</span>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 4h16v16H4V4Z" stroke="currentColor" stroke-width="1.7"/>
-                <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <div>
-                <b>E-mail</b><br/>
-                <span>allissonpaz@hotmail.com</span>
-              </div>
-            </div>
-
-            <div class="contact-item">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M12 21s7-4.4 7-10.5S15.9 3 12 3 5 5.9 5 10.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7"/>
-                <path d="M12 12.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4Z" stroke="currentColor" stroke-width="1.7"/>
-              </svg>
-              <div>
-                <b>Endereço</b><br/>
-                <span>Rua Brigadeiro Rocha Loures, 219, Centro, Coronel Vivida - PR, CEP 85.550-040</span>
-              </div>
-            </div>
-
-            <!-- Opcional: map embed (substitua por seu link do Google Maps) -->
-            <div style="margin-top:12px; border-radius: var(--radius); overflow:hidden; border:1px solid rgba(15,15,15,.12);">
-              <iframe
-                title="Mapa do escritório"
-                width="100%"
-                height="220"
-                style="border:0;"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps?q=Rua%20Brigadeiro%20Rocha%20Loures%20219%20Coronel%20Vivida%20PR&output=embed"
-              </iframe>
+              <input type="tel" id="telefone" placeholder="(00) 9 0000-0000" required>
             </div>
           </div>
-        </div>
+          <div class="form-group">
+            <label for="assunto">Área de interesse</label>
+            <select id="assunto" required>
+              <option value="" disabled selected>Selecione a área</option>
+              <option>Direito Penal</option>
+              <option>Direito do Consumidor</option>
+              <option>Direito Digital / LGPD</option>
+              <option>Cível e Contratos</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Descreva brevemente seu caso</label>
+            <textarea id="mensagem" placeholder="Conte o que aconteceu, quando ocorreu e o que você precisa..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Enviar pelo WhatsApp
+          </button>
+          <p class="form-disclaimer">Ao enviar, você será redirecionado para o WhatsApp. Seus dados não são armazenados.</p>
+        </form>
       </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="line"></div>
-        <div class="row" style="justify-content:space-between; flex-wrap:wrap;">
-          <div class="stack" style="gap:6px;">
-            <b style="font-family:'Libre Baskerville',serif;">Alisson Nascimento Paz – Advocacia</b>
-            <span>OAB/PR 119.985</span>
-          </div>
-          <div class="row" style="flex-wrap:wrap;">
-            <a href="#atuacao" class="pill">Áreas</a>
-            <a href="#diferenciais" class="pill">Diferenciais</a>
-            <a href="#contato" class="pill">Contato</a>
-          </div>
-        </div>
-        <div style="margin-top:14px; color: rgba(15,15,15,.60);">
-          © <span id="year"></span> • Conteúdo institucional. Este site não substitui consulta jurídica formal.
-        </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo-preta.png" alt="Alisson Paz Advocacia" style="filter: brightness(0) invert(1);">
+        <p>Advocacia com posicionamento firme, técnica apurada e foco em resultado. Coronel Vivida e Sudoeste do Paraná.</p>
       </div>
-    </footer>
-  </main>
+      <div class="footer-col">
+        <h5>Navegação</h5>
+        <ul>
+          <li><a href="#atuacao">Áreas de atuação</a></li>
+          <li><a href="#diferenciais">Diferenciais</a></li>
+          <li><a href="#processo">Como funciona</a></li>
+          <li><a href="#conteudo">Conteúdo jurídico</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contato</h5>
+        <ul>
+          <li><a href="https://wa.me/5546999746391" target="_blank" rel="noopener">(46) 9 9974-6391</a></li>
+          <li><a href="mailto:allissonpaz@hotmail.com">allissonpaz@hotmail.com</a></li>
+          <li><a href="#contato">Coronel Vivida – PR</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Alisson Nascimento Paz Advocacia. Todos os direitos reservados.</p>
+      <p class="footer-oab">OAB/PR 119.985</p>
+    </div>
+  </div>
+</footer>
 
-  <!-- Floating WhatsApp -->
-  <a class="float-wa" id="ctaWhatsappFloat" href="#" aria-label="Falar no WhatsApp">
-    <span class="wa-dot" aria-hidden="true"></span>
-    WhatsApp
+<!-- FLOATING WHATSAPP -->
+<div class="whatsapp-float">
+  <span class="whatsapp-label">Fale pelo WhatsApp</span>
+  <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida." class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
+</div>
 
-  <script>
-    // Ajustes rápidos
-    document.getElementById("year").textContent = new Date().getFullYear();
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-    // WhatsApp
-    const WHATSAPP_NUMBER = "5546999746391"; // 55 + DDD + número
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
 
-    function buildWhatsAppLink(message){
-      const text = encodeURIComponent(message.trim());
-      return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
-    }
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
 
-    function defaultMessage(){
-      return `Olá, Dr. Alisson. Vim pelo site e gostaria de orientação jurídica.\n\n` +
-             `Área/assunto: (informar)\n` +
-             `Breve resumo: (informar)\n` +
-             `Cidade: (informar)\n`;
-    }
-
-    // CTAs simples
-    const ctaTop = document.getElementById("ctaWhatsappTop");
-    const ctaMid = document.getElementById("ctaWhatsappMid");
-    const ctaFloat = document.getElementById("ctaWhatsappFloat");
-
-    [ctaTop, ctaMid, ctaFloat].forEach(el => {
-      el.href = buildWhatsAppLink(defaultMessage());
-      el.target = "_blank";
-      el.rel = "noopener";
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
     });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // Form -> WhatsApp com mensagem preenchida
-    const form = document.getElementById("leadForm");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+  // Contact form → WhatsApp
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nome     = document.getElementById('nome').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const assunto  = document.getElementById('assunto').value;
+    const mensagem = document.getElementById('mensagem').value.trim();
+    if (!nome || !telefone || !assunto) return;
+    const texto = `Olá! Meu nome é *${nome}*.\n\n*Área:* ${assunto}\n*Telefone:* ${telefone}\n\n*Caso:*\n${mensagem || 'Gostaria de mais informações.'}`;
+    window.open('https://wa.me/5546999746391?text=' + encodeURIComponent(texto), '_blank');
+  });
+</script>
 
-      const nome = (document.getElementById("nome").value || "").trim();
-      const telefone = (document.getElementById("telefone").value || "").trim();
-      const assunto = (document.getElementById("assunto").value || "").trim();
-      const msg = (document.getElementById("mensagem").value || "").trim();
-
-      const composed =
-        `Olá, Dr. Alisson. Vim pelo site e gostaria de orientação jurídica.\n\n` +
-        `Nome: ${nome}\n` +
-        `WhatsApp: ${telefone}\n` +
-        `Assunto: ${assunto}\n` +
-        `Resumo: ${msg}\n`;
-
-      window.open(buildWhatsAppLink(composed), "_blank", "noopener");
-    });
-  </script>
 </body>
 </html>
