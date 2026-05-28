@@ -200,16 +200,29 @@
 
     .hero-photo {
       position: absolute;
-      right: 0;
+      right: 2%;
       bottom: 0;
-      height: 100%;
-      width: 52%;
+      height: 86%;
+      width: 38%;
       object-fit: cover;
       object-position: top center;
       z-index: 1;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 28%);
-      mask-image: linear-gradient(to right, transparent 0%, black 28%);
+      opacity: 0.82;
       display: block;
+      -webkit-mask-image: radial-gradient(
+        ellipse 82% 88% at 62% 52%,
+        black 10%,
+        rgba(0,0,0,0.85) 35%,
+        rgba(0,0,0,0.4)  60%,
+        transparent      82%
+      );
+      mask-image: radial-gradient(
+        ellipse 82% 88% at 62% 52%,
+        black 10%,
+        rgba(0,0,0,0.85) 35%,
+        rgba(0,0,0,0.4)  60%,
+        transparent      82%
+      );
     }
 
     .hero-content {
@@ -220,7 +233,7 @@
     }
 
     @media (max-width: 900px) {
-      .hero-photo { width: 70%; opacity: 0.45; }
+      .hero-photo { width: 58%; opacity: 0.3; }
     }
     @media (max-width: 600px) {
       .hero-photo { display: none; }
@@ -901,7 +914,7 @@
     <div class="hero-content fade-up">
       <div class="hero-kicker">Advocacia Estratégica</div>
       <h1 class="hero-title">
-        Você tem o direito de ser bem defendido.<br>Este escritório existe para <span>garantir isso</span>.
+        Defesa técnica que se<br>transforma em <span>resultados concretos</span>.
       </h1>
       <p class="hero-sub">
         Atuação em Direito Penal, do Consumidor e Digital no Sudoeste do Paraná. Atendimento direto com o advogado, sem intermediários.
@@ -1019,23 +1032,23 @@
     <div class="areas-grid">
 
       <div class="area-card fade-up">
-        <div class="area-title">Especialização em Direito Digital e LGPD</div>
-        <p class="area-desc">Pós-graduação com foco em proteção de dados, crimes cibernéticos, responsabilidade digital e adequação à Lei Geral de Proteção de Dados — área em rápida expansão no ordenamento jurídico brasileiro.</p>
+        <div class="area-title">Pós-graduação em Advocacia Criminal</div>
+        <p class="area-desc">Especialização com foco em defesa criminal, processo penal, execução da pena e procedimentos investigativos — formação técnica para atuação estratégica na área mais sensível do Direito.</p>
       </div>
 
       <div class="area-card fade-up">
-        <div class="area-title">Formação em Contratos e Direito Empresarial</div>
-        <p class="area-desc">Especialização em andamento voltada à estruturação, revisão e resolução de conflitos contratuais, com enfoque em segurança jurídica para pessoas físicas e empresas.</p>
-      </div>
-
-      <div class="area-card fade-up">
-        <div class="area-title">Experiência no PROCON</div>
-        <p class="area-desc">Atuação institucional no órgão de defesa do consumidor, com conhecimento prático dos mecanismos administrativos e das principais infrações cometidas por fornecedores de produtos e serviços.</p>
+        <div class="area-title">Pós-graduação em Direito Digital, LGPD e Compliance</div>
+        <p class="area-desc">Especialização em proteção de dados, crimes cibernéticos, responsabilidade digital e adequação à Lei Geral de Proteção de Dados — área em rápida expansão no ordenamento jurídico brasileiro.</p>
       </div>
 
       <div class="area-card fade-up">
         <div class="area-title">Experiência em Delegacia de Polícia</div>
         <p class="area-desc">Vivência direta no ambiente investigativo policial — compreensão do funcionamento dos inquéritos, das fases de investigação e da dinâmica institucional que antecede o processo criminal. Diferencial relevante na defesa desde a fase pré-processual.</p>
+      </div>
+
+      <div class="area-card fade-up">
+        <div class="area-title">Experiência no PROCON</div>
+        <p class="area-desc">Atuação institucional no órgão de defesa do consumidor, com conhecimento prático dos mecanismos administrativos e das principais infrações cometidas por fornecedores de produtos e serviços.</p>
       </div>
 
     </div>
