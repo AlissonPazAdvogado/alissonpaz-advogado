@@ -42,7 +42,7 @@
     h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.2; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; }
 
     /* Animations */
     .fade-up {
@@ -110,7 +110,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
-      padding: 20px 0;
+      padding: 14px 0;
       transition: var(--tr);
     }
 
@@ -118,7 +118,6 @@
       background: rgba(8,8,8,0.94);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      padding: 14px 0;
       border-bottom: 1px solid rgba(201,168,76,0.15);
     }
 
@@ -225,42 +224,6 @@
       padding: 120px 52% 80px 0;
     }
 
-    @media (max-width: 1024px) {
-      .hero-content { padding-right: 46%; }
-      .hero-photo { width: 55%; opacity: 0.4; }
-    }
-
-    @media (max-width: 768px) {
-      #hero { align-items: flex-start; }
-      .hero-content {
-        padding: 100px 0 48px;
-      }
-      .hero-photo {
-        display: block;
-        width: 86%;
-        height: 48%;
-        right: 0;
-        bottom: 0;
-        opacity: 0.55;
-        -webkit-mask-image:
-          linear-gradient(to bottom, transparent 0%,  black 22%, black 88%, transparent 100%),
-          linear-gradient(to right,  transparent 0%,  black 10%, black 90%, transparent 100%);
-        -webkit-mask-composite: destination-in;
-        mask-image:
-          linear-gradient(to bottom, transparent 0%,  black 22%, black 88%, transparent 100%),
-          linear-gradient(to right,  transparent 0%,  black 10%, black 90%, transparent 100%);
-        mask-composite: intersect;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-photo {
-        width: 100%;
-        height: 45%;
-        opacity: 0.45;
-      }
-    }
-
     .hero-kicker {
       display: inline-flex;
       align-items: center;
@@ -281,7 +244,7 @@
     }
 
     .hero-title {
-      font-size: clamp(1.7rem, 2.8vw, 2.8rem);
+      font-size: clamp(1.9rem, 3.2vw, 3.2rem);
       font-weight: 700;
       color: var(--white);
       line-height: 1.15;
@@ -290,9 +253,8 @@
     .hero-title span { color: var(--gold); }
 
     .hero-sub {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: rgba(240,237,232,0.7);
-      max-width: 520px;
       line-height: 1.85;
       margin-bottom: 48px;
     }
@@ -300,9 +262,9 @@
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
     .hero-badges {
-      margin-top: 72px;
+      margin-top: 56px;
       display: flex;
-      gap: 32px;
+      gap: 28px;
       flex-wrap: wrap;
     }
 
@@ -426,7 +388,6 @@
 
     .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
 
-
     /* ── DIFERENCIAIS ── */
     #diferenciais { background: var(--dark-2); }
 
@@ -526,10 +487,7 @@
       overflow: hidden;
     }
 
-    .step {
-      background: var(--dark-2);
-      padding: 48px 36px;
-    }
+    .step { background: var(--dark-2); padding: 48px 36px; }
 
     .step-num {
       font-family: 'Playfair Display', serif;
@@ -855,6 +813,8 @@
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .mapa-inner { grid-template-columns: 1fr; }
       .mapa-embed iframe { min-height: 300px; }
+      .hero-content { padding-right: 46%; }
+      .hero-photo { width: 55%; opacity: 0.4; }
     }
 
     @media (max-width: 768px) {
@@ -876,6 +836,25 @@
       .nav-links.open a { font-size: 1.15rem; }
       .nav-toggle { display: flex; }
 
+      #hero { align-items: flex-start; }
+      .hero-content { padding: 110px 0 48px; }
+      .hero-photo {
+        display: block;
+        width: 86%;
+        height: 48%;
+        right: 0;
+        bottom: 0;
+        opacity: 0.5;
+        -webkit-mask-image:
+          linear-gradient(to bottom, transparent 0%, black 22%, black 88%, transparent 100%),
+          linear-gradient(to right,  transparent 0%, black 10%, black 90%, transparent 100%);
+        -webkit-mask-composite: destination-in;
+        mask-image:
+          linear-gradient(to bottom, transparent 0%, black 22%, black 88%, transparent 100%),
+          linear-gradient(to right,  transparent 0%, black 10%, black 90%, transparent 100%);
+        mask-composite: intersect;
+      }
+
       .areas-grid { grid-template-columns: 1fr; }
       .processo-steps { grid-template-columns: 1fr; }
       .content-grid { grid-template-columns: 1fr; }
@@ -891,6 +870,7 @@
 
     @media (max-width: 480px) {
       .mapa-info { padding: 36px 24px; }
+      .hero-photo { width: 100%; opacity: 0.4; }
     }
   </style>
 </head>
@@ -918,9 +898,7 @@
         </li>
       </ul>
       <div class="nav-toggle" id="navToggle" onclick="toggleMenu()" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </div>
     </div>
   </div>
@@ -938,7 +916,7 @@
         Defesa técnica que se<br>transforma em <span>resultados concretos</span>.
       </h1>
       <p class="hero-sub">
-        Atuação em Direito Penal, do Consumidor e Digital no Sudoeste do Paraná. Atendimento direto com o advogado, sem intermediários.
+        Atuação em Direito Penal, do Consumidor e Digital no Sudoeste do Paraná.<br>Atendimento direto com o advogado, sem intermediários.
       </p>
       <div class="hero-actions">
         <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." class="btn btn-gold" target="_blank" rel="noopener" data-conversion="whatsapp-cta">
@@ -965,7 +943,6 @@
   </div>
 </section>
 
-
 <!-- ÁREAS DE ATUAÇÃO -->
 <section id="atuacao">
   <div class="container">
@@ -980,57 +957,43 @@
     <div class="areas-grid">
 
       <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6l9-4 9 4v6c0 5.25-3.75 10.15-9 11.25C6.75 22.15 3 17.25 3 12V6z"/></svg>
-        </div>
+        <div class="area-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6l9-4 9 4v6c0 5.25-3.75 10.15-9 11.25C6.75 22.15 3 17.25 3 12V6z"/></svg></div>
         <div class="area-title">Direito Penal</div>
         <p class="area-desc">Investigado, indiciado ou réu em processo criminal? A defesa técnica desde a fase investigativa pode ser determinante no desfecho do caso.</p>
       </div>
 
       <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        </div>
+        <div class="area-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
         <div class="area-title">Direito do Consumidor</div>
         <p class="area-desc">Cobrado por algo que não deve? Contrato com cláusulas abusivas? Há instrumentos jurídicos para revisar, contestar e buscar reparação.</p>
       </div>
 
       <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        </div>
+        <div class="area-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
         <div class="area-title">Direito Digital & LGPD</div>
         <p class="area-desc">Golpe online, calúnia na internet ou exposição indevida de dados? O Direito Digital oferece respostas concretas para essas situações.</p>
       </div>
 
       <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
+        <div class="area-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <div class="area-title">Cível & Contratos</div>
         <p class="area-desc">Conflito contratual, inadimplência ou necessidade de revisão de obrigações? A assessoria jurídica preventiva evita litígios custosos.</p>
       </div>
 
       <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
+        <div class="area-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
         <div class="area-title">Família & Inventários</div>
         <p class="area-desc">Divórcio, guarda de filhos, pensão ou inventário? Cada caso envolve aspectos humanos e jurídicos que merecem atenção individualizada.</p>
       </div>
 
       <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
+        <div class="area-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
         <div class="area-title">Atendimento Direto</div>
         <p class="area-desc">Você fala diretamente com o advogado responsável pelo seu caso. Sem terceirizações, sem intermediários, com total transparência.</p>
       </div>
 
       <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
+        <div class="area-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
         <div class="area-title">Atuação Regional</div>
         <p class="area-desc">Cobertura em Coronel Vivida e toda a região Sudoeste do Paraná. Disponibilidade para atendimento presencial e remoto.</p>
       </div>
@@ -1040,7 +1003,7 @@
 </section>
 
 <!-- FORMAÇÃO E TRAJETÓRIA -->
-<section id="formacao" style="background: var(--dark);">
+<section id="formacao" style="background: var(--dark-2);">
   <div class="container">
     <div class="areas-header fade-up">
       <div>
@@ -1194,10 +1157,7 @@
         <div class="article-body">
           <h3 class="article-title">Transação penal: o que é e quando pode ser vantajoso aceitar</h3>
           <p class="article-excerpt">Um acordo que evita processo criminal pode parecer atrativo — mas nem sempre é a melhor saída. Entenda os riscos antes de decidir.</p>
-          <div class="article-meta">
-            <span>Leitura: 6 min</span>
-            <span>Direito Penal</span>
-          </div>
+          <div class="article-meta"><span>Leitura: 6 min</span><span>Direito Penal</span></div>
         </div>
       </div>
       <div class="article-card fade-up">
@@ -1205,10 +1165,7 @@
         <div class="article-body">
           <h3 class="article-title">Negativação indevida: como reverter e exigir indenização</h3>
           <p class="article-excerpt">Ter o nome incluído em cadastros de inadimplentes sem dever nada é mais comum do que parece. Saiba quais são seus direitos e como agir rapidamente.</p>
-          <div class="article-meta">
-            <span>Leitura: 5 min</span>
-            <span>Direito do Consumidor</span>
-          </div>
+          <div class="article-meta"><span>Leitura: 5 min</span><span>Direito do Consumidor</span></div>
         </div>
       </div>
       <div class="article-card fade-up">
@@ -1216,10 +1173,7 @@
         <div class="article-body">
           <h3 class="article-title">Vazamento de dados: você tem direito a indenização?</h3>
           <p class="article-excerpt">Com a LGPD em vigor, empresas que expõem seus dados podem ser responsabilizadas. Veja o que configura violação e como comprovar o dano.</p>
-          <div class="article-meta">
-            <span>Leitura: 4 min</span>
-            <span>Direito Digital</span>
-          </div>
+          <div class="article-meta"><span>Leitura: 4 min</span><span>Direito Digital</span></div>
         </div>
       </div>
     </div>
@@ -1243,7 +1197,7 @@
           </div>
           <div>
             <h4>WhatsApp</h4>
-            <p>(46) 9 9974-6391<br><span style="font-size:12px; color:#555;">Resposta em até 2h úteis</span></p>
+            <p>(46) 9 9974-6391<br><span style="font-size:12px;color:#555;">Resposta em até 2h úteis</span></p>
           </div>
         </div>
 
@@ -1330,13 +1284,7 @@
       </a>
     </div>
     <div class="mapa-embed">
-      <iframe
-        src="https://maps.google.com/maps?q=Rua+Brigadeiro+Rocha+Loures,219,Centro,Coronel+Vivida,PR,85550-040&output=embed&z=16"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Localização do escritório">
-      </iframe>
+      <iframe src="https://maps.google.com/maps?q=Rua+Brigadeiro+Rocha+Loures,219,Centro,Coronel+Vivida,PR,85550-040&output=embed&z=16" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização do escritório"></iframe>
     </div>
   </div>
 </div>
@@ -1386,13 +1334,11 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // Navbar scroll
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  // Mobile menu
   function toggleMenu() {
     document.getElementById('navLinks').classList.toggle('open');
   }
@@ -1400,7 +1346,6 @@
     a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
   });
 
-  // Scroll animations
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -1411,7 +1356,6 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  // Contact form → WhatsApp
   document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const nome     = document.getElementById('nome').value.trim();
