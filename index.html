@@ -435,6 +435,101 @@
     .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
 
 
+    /* ── TABS DE ÁREAS ── */
+    .areas-tabs { margin-top: 48px; }
+
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 48px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: rgba(240,237,232,0.42);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: var(--tr);
+      white-space: nowrap;
+      margin-bottom: -1px;
+      flex-shrink: 0;
+      outline: none;
+    }
+    .tab-btn svg { flex-shrink: 0; transition: color var(--tr); }
+    .tab-btn:hover { color: rgba(240,237,232,0.78); }
+    .tab-btn.active { color: var(--white); border-bottom-color: var(--gold); }
+    .tab-btn.active svg { color: var(--gold); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .tab-intro {
+      font-size: 15px;
+      color: rgba(240,237,232,0.6);
+      line-height: 1.85;
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+
+    .tab-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px 40px;
+    }
+
+    .tab-group h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .tab-group ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .tab-group ul li {
+      font-size: 13.5px;
+      color: rgba(240,237,232,0.56);
+      line-height: 1.5;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .tab-group ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+
     /* ── DIFERENCIAIS ── */
     #diferenciais { background: var(--dark-2); }
 
@@ -934,10 +1029,15 @@
       .hero-actions .btn { width: 100%; justify-content: center; }
       .nav-logo img { height: 52px; }
       .dif-visual { padding: 32px 24px; }
+      .tab-btn { padding: 12px 16px; font-size: 12px; gap: 8px; }
+      .tab-btn svg { display: none; }
+      .tab-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .tab-intro { font-size: 14px; margin-bottom: 28px; }
     }
 
     @media (max-width: 480px) {
       .mapa-info { padding: 36px 24px; }
+      .tab-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -1024,62 +1124,265 @@
       </div>
       <p class="section-subtitle">Atuação especializada nas áreas onde os riscos ao patrimônio, à liberdade e à privacidade são mais críticos.</p>
     </div>
-    <div class="areas-grid">
+    <div class="areas-tabs fade-up">
 
-      <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6l9-4 9 4v6c0 5.25-3.75 10.15-9 11.25C6.75 22.15 3 17.25 3 12V6z"/></svg>
-        </div>
-        <div class="area-title">Direito Penal</div>
-        <p class="area-desc">Investigado, indiciado ou réu em processo criminal? A defesa técnica desde a fase investigativa pode ser determinante no desfecho do caso.</p>
+      <!-- NAV DAS ABAS -->
+      <div class="tab-nav" role="tablist">
+        <button class="tab-btn active" data-tab="penal" role="tab" aria-selected="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6l9-4 9 4v6c0 5.25-3.75 10.15-9 11.25C6.75 22.15 3 17.25 3 12V6z"/></svg>
+          Direito Penal
+        </button>
+        <button class="tab-btn" data-tab="consumidor" role="tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Direito do Consumidor
+        </button>
+        <button class="tab-btn" data-tab="digital" role="tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Digital & LGPD
+        </button>
+        <button class="tab-btn" data-tab="civel" role="tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Cível & Contratos
+        </button>
+        <button class="tab-btn" data-tab="familia" role="tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Família & Inventários
+        </button>
       </div>
 
-      <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <!-- DIREITO PENAL -->
+      <div class="tab-panel active" id="tab-penal">
+        <p class="tab-intro">Área central de atuação do escritório, com pós-graduação em Advocacia Criminal. A defesa abrange desde a fase investigativa no inquérito policial até a execução da pena.</p>
+        <div class="tab-grid">
+          <div class="tab-group">
+            <h4>Crimes contra a Pessoa</h4>
+            <ul>
+              <li>Homicídio doloso e culposo</li>
+              <li>Lesão corporal</li>
+              <li>Ameaça e constrangimento ilegal</li>
+              <li>Crimes contra a honra</li>
+              <li>Sequestro e cárcere privado</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Crimes contra o Patrimônio</h4>
+            <ul>
+              <li>Furto e roubo</li>
+              <li>Estelionato e fraudes</li>
+              <li>Extorsão</li>
+              <li>Apropriação indébita</li>
+              <li>Receptação</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Legislação Especial</h4>
+            <ul>
+              <li>Tráfico de drogas (Lei 11.343/06)</li>
+              <li>Violência doméstica (Lei Maria da Penha)</li>
+              <li>Crimes de trânsito (CTB)</li>
+              <li>Crimes contra a criança e o adolescente</li>
+              <li>Porte ilegal de arma de fogo</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Processo e Execução Penal</h4>
+            <ul>
+              <li>Acompanhamento em delegacia</li>
+              <li>Habeas corpus e liberdade provisória</li>
+              <li>Acordo de não persecução penal</li>
+              <li>Defesa em ação penal e recursos</li>
+              <li>Progressão de regime e livramento condicional</li>
+            </ul>
+          </div>
         </div>
-        <div class="area-title">Direito do Consumidor</div>
-        <p class="area-desc">Cobrado por algo que não deve? Contrato com cláusulas abusivas? Há instrumentos jurídicos para revisar, contestar e buscar reparação.</p>
       </div>
 
-      <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <!-- CONSUMIDOR -->
+      <div class="tab-panel" id="tab-consumidor">
+        <p class="tab-intro">Defesa dos direitos do consumidor frente a práticas abusivas, cobranças indevidas e contratos prejudiciais. A experiência prévia no Procon orienta a leitura prática de cada caso.</p>
+        <div class="tab-grid">
+          <div class="tab-group">
+            <h4>Crédito e Cobranças</h4>
+            <ul>
+              <li>Negativação indevida (SPC/Serasa)</li>
+              <li>Cobrança de dívida prescrita</li>
+              <li>Superendividamento</li>
+              <li>Revisão de financiamentos</li>
+              <li>Juros abusivos em contratos</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Contratos e Serviços</h4>
+            <ul>
+              <li>Cláusulas contratuais abusivas</li>
+              <li>Rescisão e devolução de valores</li>
+              <li>Cancelamento de serviços</li>
+              <li>Publicidade enganosa</li>
+              <li>Venda casada</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Planos e Operadoras</h4>
+            <ul>
+              <li>Negativa de cobertura em plano de saúde</li>
+              <li>Reajuste abusivo de plano</li>
+              <li>Falhas de operadoras de telefonia</li>
+              <li>Problemas com companhias aéreas</li>
+              <li>Questões com seguradoras</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Produtos e Indenizações</h4>
+            <ul>
+              <li>Vícios e defeitos em produtos</li>
+              <li>Defeito na prestação de serviço</li>
+              <li>Dano moral por violação de direitos</li>
+              <li>Extravio e dano em transporte</li>
+              <li>Recall e substituição de produto</li>
+            </ul>
+          </div>
         </div>
-        <div class="area-title">Direito Digital & LGPD</div>
-        <p class="area-desc">Golpe online, calúnia na internet ou exposição indevida de dados? O Direito Digital oferece respostas concretas para essas situações.</p>
       </div>
 
-      <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <!-- DIGITAL & LGPD -->
+      <div class="tab-panel" id="tab-digital">
+        <p class="tab-intro">Pós-graduação em Direito Digital, LGPD e Compliance. Atuação em crimes cibernéticos, proteção de dados pessoais e responsabilidade civil na internet.</p>
+        <div class="tab-grid">
+          <div class="tab-group">
+            <h4>Crimes Cibernéticos</h4>
+            <ul>
+              <li>Estelionato digital e golpes online</li>
+              <li>Invasão de dispositivo informático</li>
+              <li>Fraudes bancárias digitais</li>
+              <li>Phishing e engenharia social</li>
+              <li>Criação de perfis falsos</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Honra e Imagem Online</h4>
+            <ul>
+              <li>Pornografia de vingança</li>
+              <li>Calúnia, difamação e injúria na internet</li>
+              <li>Assédio e cyberbullying</li>
+              <li>Remoção de conteúdo ofensivo</li>
+              <li>Direito ao esquecimento</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>LGPD e Proteção de Dados</h4>
+            <ul>
+              <li>Vazamento de dados pessoais</li>
+              <li>Direitos do titular dos dados</li>
+              <li>Reclamações perante a ANPD</li>
+              <li>Responsabilidade civil por violação de dados</li>
+              <li>Adequação empresarial à LGPD</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Responsabilidade Digital</h4>
+            <ul>
+              <li>Remoção de conteúdo em plataformas</li>
+              <li>Desindexação de dados no Google</li>
+              <li>Responsabilidade de plataformas digitais</li>
+              <li>Marco Civil da Internet</li>
+              <li>Crimes eleitorais na internet</li>
+            </ul>
+          </div>
         </div>
-        <div class="area-title">Cível & Contratos</div>
-        <p class="area-desc">Conflito contratual, inadimplência ou necessidade de revisão de obrigações? A assessoria jurídica preventiva evita litígios custosos.</p>
       </div>
 
-      <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      <!-- CÍVEL & CONTRATOS -->
+      <div class="tab-panel" id="tab-civel">
+        <p class="tab-intro">Assessoria em conflitos contratuais, questões imobiliárias, responsabilidade civil e cobranças. Atuação preventiva e contenciosa nas relações cíveis.</p>
+        <div class="tab-grid">
+          <div class="tab-group">
+            <h4>Contratos</h4>
+            <ul>
+              <li>Elaboração e revisão de contratos</li>
+              <li>Rescisão contratual</li>
+              <li>Descumprimento de obrigações</li>
+              <li>Multas e cláusulas penais</li>
+              <li>Contratos de prestação de serviço</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Imóveis</h4>
+            <ul>
+              <li>Compra, venda e financiamento</li>
+              <li>Locação residencial e comercial</li>
+              <li>Usucapião</li>
+              <li>Conflitos de vizinhança</li>
+              <li>Regularização de imóveis</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Responsabilidade Civil</h4>
+            <ul>
+              <li>Danos morais e materiais</li>
+              <li>Acidentes e indenizações</li>
+              <li>Responsabilidade por erro profissional</li>
+              <li>Reparação por atos ilícitos</li>
+              <li>Indenizações em geral</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Cobranças e Execuções</h4>
+            <ul>
+              <li>Ação de cobrança</li>
+              <li>Execução de títulos extrajudiciais</li>
+              <li>Embargos à execução</li>
+              <li>Negociação e renegociação de dívidas</li>
+              <li>Protesto de títulos</li>
+            </ul>
+          </div>
         </div>
-        <div class="area-title">Família & Inventários</div>
-        <p class="area-desc">Divórcio, guarda de filhos, pensão ou inventário? Cada caso envolve aspectos humanos e jurídicos que merecem atenção individualizada.</p>
       </div>
 
-      <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <!-- FAMÍLIA & INVENTÁRIOS -->
+      <div class="tab-panel" id="tab-familia">
+        <p class="tab-intro">Assessoria jurídica em questões familiares e sucessórias, com atenção ao aspecto humano de cada situação. Do divórcio ao inventário, cada caso é tratado de forma individualizada.</p>
+        <div class="tab-grid">
+          <div class="tab-group">
+            <h4>Casamento e União</h4>
+            <ul>
+              <li>Divórcio consensual e litigioso</li>
+              <li>Separação e partilha de bens</li>
+              <li>Regime de bens e alteração</li>
+              <li>União estável</li>
+              <li>Pacto antenupcial</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Filhos e Alimentos</h4>
+            <ul>
+              <li>Guarda compartilhada e unilateral</li>
+              <li>Regulamentação de visitas</li>
+              <li>Alimentos e pensão alimentícia</li>
+              <li>Revisão e exoneração de alimentos</li>
+              <li>Reconhecimento e negatória de paternidade</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Inventários e Partilha</h4>
+            <ul>
+              <li>Inventário judicial e extrajudicial</li>
+              <li>Arrolamento de bens</li>
+              <li>Testamento</li>
+              <li>Partilha de bens em vida</li>
+              <li>Sobrepartilha</li>
+            </ul>
+          </div>
+          <div class="tab-group">
+            <h4>Planejamento Familiar</h4>
+            <ul>
+              <li>Planejamento sucessório</li>
+              <li>Doação com reserva de usufruto</li>
+              <li>Tutela e curatela</li>
+              <li>Adoção</li>
+              <li>Interdição</li>
+            </ul>
+          </div>
         </div>
-        <div class="area-title">Atendimento Direto</div>
-        <p class="area-desc">Você fala diretamente com o advogado responsável pelo seu caso. Sem terceirizações, sem intermediários, com total transparência.</p>
-      </div>
-
-      <div class="area-card fade-up">
-        <div class="area-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div class="area-title">Atuação Regional</div>
-        <p class="area-desc">Cobertura em Coronel Vivida e toda a região Sudoeste do Paraná. Disponibilidade para atendimento presencial e remoto.</p>
       </div>
 
     </div>
@@ -1463,6 +1766,16 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Abas de áreas de atuação
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
 
   // Contact form → WhatsApp
   document.getElementById('contactForm').addEventListener('submit', function(e) {
