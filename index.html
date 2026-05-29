@@ -235,33 +235,38 @@
 
     @media (max-width: 768px) {
       #hero { align-items: flex-start; }
-      .hero-content {
-        padding: 100px 0 48px;
-      }
+      .hero-content { padding: 100px 0 56px; }
+
+      /* Foto: cobre 100% do hero, centralizada no eixo vertical */
       .hero-photo {
         display: block;
-        width: 86%;
-        height: 48%;
+        width: 100%;
+        height: 100%;
+        top: 0;
         right: 0;
-        bottom: 0;
-        opacity: 0.55;
-        -webkit-mask-image:
-          linear-gradient(to bottom, transparent 0%,  black 22%, black 88%, transparent 100%),
-          linear-gradient(to right,  transparent 0%,  black 10%, black 90%, transparent 100%);
-        -webkit-mask-composite: destination-in;
-        mask-image:
-          linear-gradient(to bottom, transparent 0%,  black 22%, black 88%, transparent 100%),
-          linear-gradient(to right,  transparent 0%,  black 10%, black 90%, transparent 100%);
-        mask-composite: intersect;
+        bottom: auto;
+        object-position: center 12%;
+        opacity: 0.22;
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 82%, transparent 100%);
+        mask-image:        linear-gradient(to bottom, transparent 0%, black 14%, black 82%, transparent 100%);
+        -webkit-mask-composite: unset;
+        mask-composite: unset;
+      }
+
+      /* Gradiente vertical para proteger a leitura do texto */
+      .hero-gradient {
+        background: linear-gradient(
+          to bottom,
+          rgba(8,8,8,0.72)  0%,
+          rgba(8,8,8,0.32) 35%,
+          rgba(8,8,8,0.55) 65%,
+          rgba(8,8,8,0.95) 100%
+        );
       }
     }
 
     @media (max-width: 480px) {
-      .hero-photo {
-        width: 100%;
-        height: 45%;
-        opacity: 0.45;
-      }
+      .hero-photo { object-position: center 8%; opacity: 0.18; }
     }
 
     .hero-kicker {
@@ -923,7 +928,11 @@
       .footer-bottom { flex-direction: column; text-align: center; }
       .form-row { grid-template-columns: 1fr; }
       .form-card { padding: 28px 20px; }
-      .hero-badges { gap: 20px; }
+      .hero-badges { gap: 20px; margin-top: 48px; }
+      .hero-sub { max-width: 100%; font-size: 1rem; }
+      .hero-actions { flex-direction: column; gap: 12px; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .nav-logo img { height: 52px; }
       .dif-visual { padding: 32px 24px; }
     }
 
