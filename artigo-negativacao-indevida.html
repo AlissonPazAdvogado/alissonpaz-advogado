@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Negativação Indevida: Como Reverter e Exigir Indenização | Alisson Paz Advocacia</title>
+  <meta name="description" content="Saiba o que fazer quando seu nome é incluído indevidamente em cadastros como SPC e Serasa. Entenda seus direitos, os prazos e quando é possível exigir indenização por dano moral.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.alissonpazadv.com.br/artigo-negativacao-indevida.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- GTM: INSERIR SNIPPET HEAD AQUI -->
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:    #080808;
+      --dark-2:  #111111;
+      --dark-3:  #1c1c1c;
+      --dark-4:  #252525;
+      --gold:    #c9a84c;
+      --gold-lt: #e2c77a;
+      --white:   #f0ede8;
+      --gray:    #888;
+      --gray-lt: #555;
+      --radius:  8px;
+      --tr: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.25; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; }
+
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 14px 0;
+      transition: var(--tr);
+      background: rgba(8,8,8,0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo img { height: 80px; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: rgba(240,237,232,0.75);
+      transition: color var(--tr);
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--dark) !important;
+      padding: 10px 22px;
+      border-radius: var(--radius);
+      font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: var(--gold-lt) !important; }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1001;
+      position: relative;
+    }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--white); transition: var(--tr); }
+
+    .article-hero {
+      position: relative;
+      padding: 160px 0 80px;
+      overflow: hidden;
+      background: var(--dark-2);
+    }
+
+    .article-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center 40%;
+      opacity: 0.18;
+    }
+
+    .article-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, rgba(8,8,8,0.85) 100%);
+    }
+
+    .article-hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--gold);
+      margin-bottom: 32px;
+      transition: gap var(--tr);
+    }
+    .back-link:hover { gap: 12px; }
+    .back-link svg { transform: rotate(180deg); }
+
+    .article-category {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      padding: 6px 14px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 4px;
+    }
+
+    .article-hero h1 {
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .article-hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 13px;
+      color: var(--gray);
+    }
+
+    .article-hero-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 64px;
+      padding: 80px 0 100px;
+      align-items: start;
+    }
+
+    .article-content h2 {
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: var(--white);
+      margin: 48px 0 16px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .article-content h2:first-child {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .article-content p {
+      font-size: 1rem;
+      color: rgba(240,237,232,0.78);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .article-content ul, .article-content ol {
+      padding-left: 24px;
+      margin-bottom: 24px;
+    }
+
+    .article-content li {
+      font-size: 1rem;
+      color: rgba(240,237,232,0.78);
+      line-height: 1.9;
+      margin-bottom: 10px;
+    }
+
+    .article-highlight {
+      background: var(--dark-3);
+      border-left: 3px solid var(--gold);
+      padding: 20px 24px;
+      border-radius: 0 8px 8px 0;
+      margin: 32px 0;
+    }
+
+    .article-highlight p { margin: 0; font-size: 0.95rem; color: rgba(240,237,232,0.85); font-style: italic; }
+
+    .article-sidebar { position: sticky; top: 110px; }
+
+    .sidebar-card {
+      background: var(--dark-3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-card h4 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 16px; }
+    .sidebar-card p { font-size: 13px; color: var(--gray); line-height: 1.8; margin-bottom: 20px; }
+
+    .sidebar-toc { list-style: none; padding: 0; }
+    .sidebar-toc li { border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .sidebar-toc a { display: block; padding: 10px 0; font-size: 13px; color: var(--gray); transition: color var(--tr); }
+    .sidebar-toc a:hover { color: var(--gold); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--tr);
+      border: none;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-gold { background: var(--gold); color: var(--dark); }
+    .btn-gold:hover { background: var(--gold-lt); }
+
+    .article-cta {
+      background: var(--dark-2);
+      padding: 80px 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .cta-inner { max-width: 640px; text-align: center; margin: 0 auto; }
+
+    .cta-inner .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .cta-inner h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--white); margin-bottom: 16px; }
+    .cta-inner p { font-size: 1rem; color: var(--gray); line-height: 1.8; margin-bottom: 36px; }
+
+    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-cta-gold {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: var(--radius);
+      font-size: 14px; font-weight: 600;
+      background: var(--gold); color: var(--dark);
+      transition: var(--tr);
+    }
+    .btn-cta-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+    .btn-cta-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 28px; border-radius: var(--radius);
+      font-size: 14px; font-weight: 500;
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: var(--tr);
+    }
+    .btn-cta-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    footer {
+      background: var(--dark-2);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 56px 0 32px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      font-size: 12px;
+      color: var(--gray-lt);
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .whatsapp-btn {
+      width: 56px; height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.35);
+      transition: var(--tr);
+      color: white;
+    }
+    .whatsapp-btn:hover { transform: scale(1.1); }
+
+    @media (max-width: 1024px) {
+      .article-layout { grid-template-columns: 1fr; gap: 48px; }
+      .article-sidebar { position: static; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(8,8,8,0.97);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+        z-index: 999;
+      }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
+      .article-hero { padding: 140px 0 60px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- GTM: INSERIR SNIPPET BODY (NOSCRIPT) AQUI -->
+
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="logo-preta.png" alt="Alisson Paz Advocacia" style="filter: brightness(0) invert(1);">
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#atuacao">Áreas de Atuação</a></li>
+        <li><a href="index.html#diferenciais">Diferenciais</a></li>
+        <li><a href="index.html#conteudo">Conteúdo</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+        <li>
+          <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." class="nav-cta" target="_blank" rel="noopener" data-conversion="whatsapp-cta">
+            Agendar Consulta
+          </a>
+        </li>
+      </ul>
+      <div class="nav-toggle" id="navToggle" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="article-hero">
+  <div class="article-hero-bg"></div>
+  <div class="article-hero-overlay"></div>
+  <div class="container">
+    <div class="article-hero-inner">
+      <a href="index.html#conteudo" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        Voltar aos artigos
+      </a>
+      <span class="article-category">Direito do Consumidor</span>
+      <h1>Negativação indevida: como reverter e exigir indenização</h1>
+      <div class="article-hero-meta">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Leitura: 5 minutos
+        </span>
+        <span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Dr. Alisson Nascimento Paz — OAB/PR 119.985
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="article-layout">
+
+    <article class="article-content">
+
+      <h2>O que é a negativação indevida?</h2>
+      <p>A negativação indevida ocorre quando o nome de uma pessoa é incluído em cadastros de proteção ao crédito — como SPC (Serviço de Proteção ao Crédito) ou Serasa — sem que exista uma dívida válida, exigível e vencida que justifique essa medida. Em outras palavras: seu nome aparece como inadimplente sem que você deva nada, ou sem que a cobrança tenha qualquer respaldo jurídico.</p>
+      <p>É um problema mais comum do que muitas pessoas imaginam. Erros cadastrais, fraudes, cobranças por dívidas já pagas, registros desatualizados e dados de terceiros utilizados indevidamente são algumas das causas frequentes desse tipo de situação.</p>
+
+      <div class="article-highlight">
+        <p>O Código de Defesa do Consumidor (art. 43) e a jurisprudência do Superior Tribunal de Justiça reconhecem que a negativação indevida, por si só, configura dano moral — dispensando, em muitos casos, a necessidade de comprovar um prejuízo específico além do transtorno e da exposição.</p>
+      </div>
+
+      <h2>Como saber se seu nome está negativado?</h2>
+      <p>A consulta ao próprio cadastro de crédito é gratuita e pode ser feita diretamente nos sites do Serasa, SPC Brasil e Boa Vista SCPC. Basta acessar os portais com seu CPF e verificar se há restrições ativas. Em caso de dúvida, é possível solicitar um relatório detalhado com os dados do credor, o valor registrado e a data da inclusão.</p>
+      <p>Além disso, a legislação determina que, antes de incluir um consumidor no cadastro restritivo, a empresa credora deve enviar uma comunicação prévia por escrito informando sobre a negativação. A ausência dessa notificação, por si só, já representa uma irregularidade e pode ser usada na defesa de seus direitos.</p>
+
+      <h2>Quando a negativação é considerada indevida?</h2>
+      <p>Existem diversas situações em que a inclusão no cadastro de inadimplentes não tem amparo legal. As mais comuns são:</p>
+      <ul>
+        <li><strong>Dívida já paga:</strong> o credor mantém o registro mesmo após o pagamento da dívida ou demora além do prazo legal (cinco dias úteis) para solicitar a exclusão;</li>
+        <li><strong>Dívida prescrita:</strong> cobranças de dívidas com mais de cinco anos são consideradas prescritas para fins de negativação;</li>
+        <li><strong>Dívida contestada:</strong> quando há disputa judicial ou administrativa sobre a existência ou o valor da dívida;</li>
+        <li><strong>Fraude ou roubo de identidade:</strong> quando outra pessoa usa seus dados para contrair dívidas;</li>
+        <li><strong>Erro cadastral:</strong> troca de CPF, homônimos, dados desatualizados, erros de digitação;</li>
+        <li><strong>Ausência de notificação prévia:</strong> a inclusão sem comunicação ao consumidor;</li>
+        <li><strong>Cobrança por serviço não prestado ou produto com vício:</strong> quando o consumidor tem fundamento legítimo para não pagar.</li>
+      </ul>
+
+      <h2>Quais são os seus direitos?</h2>
+      <p>O consumidor negativado indevidamente possui direitos expressamente previstos no Código de Defesa do Consumidor e no Código Civil:</p>
+      <ul>
+        <li><strong>Direito à exclusão imediata:</strong> após identificada a irregularidade, é possível solicitar judicialmente a retirada do registro de forma urgente (tutela de urgência), ainda que o processo principal ainda esteja em curso;</li>
+        <li><strong>Direito à indenização por dano moral:</strong> o mero fato de ter o nome negativado indevidamente já configura dano moral, independentemente de comprovar um prejuízo financeiro concreto;</li>
+        <li><strong>Direito à retificação dos dados:</strong> as empresas de proteção ao crédito são obrigadas a corrigir informações incorretas;</li>
+        <li><strong>Direito de acesso:</strong> você pode acessar gratuitamente as informações sobre você mantidas nos cadastros de crédito.</li>
+      </ul>
+
+      <h2>Como agir — passo a passo</h2>
+      <p>Se você identificou uma negativação indevida em seu nome, o caminho mais eficiente é:</p>
+      <ol>
+        <li><strong>Reúna as provas:</strong> comprovante de pagamento, contrato, e-mails trocados com a empresa, print da consulta ao Serasa ou SPC;</li>
+        <li><strong>Notifique a empresa credora por escrito:</strong> um e-mail, carta com aviso de recebimento ou até uma reclamação formal no Procon já servem como notificação extrajudicial;</li>
+        <li><strong>Registre o caso no Procon:</strong> o Procon pode acionar a empresa e mediar a solução do conflito de forma mais ágil;</li>
+        <li><strong>Procure um advogado:</strong> especialmente quando a empresa não resolve ou quando você pretende pleitear indenização por dano moral, a orientação jurídica é fundamental para o correto encaminhamento da ação;</li>
+        <li><strong>Ingresse com ação judicial:</strong> dependendo do valor da indenização pleiteada, a ação pode ser ajuizada nos Juizados Especiais Cíveis (sem necessidade de advogado para causas até 20 salários mínimos), mas a representação por advogado é sempre recomendável para obter melhores resultados.</li>
+      </ol>
+
+      <div class="article-highlight">
+        <p>Importante: não basta apenas retirar o nome do cadastro. Se você foi prejudicado, o direito à indenização por dano moral persiste mesmo após a exclusão do registro. A reparação pelo transtorno causado é um direito seu, e pode ser exigida ainda que a situação já tenha sido resolvida administrativamente.</p>
+      </div>
+
+      <h2>Qual o valor da indenização por dano moral?</h2>
+      <p>A fixação do valor da indenização por dano moral em casos de negativação indevida é feita pelo juiz, com base em critérios como a gravidade da situação, o tempo em que o nome ficou negativado, as repercussões na vida do consumidor e a capacidade econômica do credor responsável.</p>
+      <p>Os valores costumam variar entre R$ 3.000 e R$ 15.000 em primeiro grau, podendo ser maiores dependendo das circunstâncias. O Superior Tribunal de Justiça tem consolidada a tese de que a negativação indevida constitui dano moral presumido (in re ipsa), ou seja, a simples prova da inclusão irregular já é suficiente para a condenação.</p>
+
+      <h2>A importância de agir sem demora</h2>
+      <p>Além do impacto imediato no crédito, a negativação indevida pode afetar a possibilidade de conseguir emprego, financiamentos, contratos e serviços. Por isso, identificada a irregularidade, o ideal é agir de forma célere — tanto para remover o registro quanto para preservar as provas que darão suporte à eventual ação indenizatória.</p>
+      <p>A consulta a um advogado especialista em Direito do Consumidor permite avaliar a situação de forma individualizada, orientar sobre a melhor estratégia e acompanhar o processo de ponta a ponta.</p>
+
+    </article>
+
+    <aside class="article-sidebar">
+      <div class="sidebar-card">
+        <h4>Neste artigo</h4>
+        <ul class="sidebar-toc">
+          <li><a href="#">O que é negativação indevida</a></li>
+          <li><a href="#">Como saber se está negativado</a></li>
+          <li><a href="#">Quando é considerada indevida</a></li>
+          <li><a href="#">Seus direitos</a></li>
+          <li><a href="#">Passo a passo para agir</a></li>
+          <li><a href="#">Valor da indenização</a></li>
+          <li><a href="#">A importância de agir rápido</a></li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <h4>Nome negativado indevidamente?</h4>
+        <p>Consulte o Dr. Alisson para entender quais são os seus direitos e os próximos passos no seu caso específico.</p>
+        <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20li%20o%20artigo%20sobre%20negativa%C3%A7%C3%A3o%20indevida%20e%20preciso%20de%20orienta%C3%A7%C3%A3o." class="btn btn-gold" target="_blank" rel="noopener" data-conversion="whatsapp-cta">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar com o advogado
+        </a>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<section class="article-cta">
+  <div class="container">
+    <div class="cta-inner">
+      <span class="section-tag">Orientação jurídica</span>
+      <h2>Seu caso merece uma análise individualizada</h2>
+      <p>Este artigo tem caráter informativo. Para orientação específica sobre sua situação, consulte um advogado de confiança que possa analisar os detalhes do seu caso.</p>
+      <div class="cta-actions">
+        <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20li%20o%20artigo%20sobre%20negativa%C3%A7%C3%A3o%20indevida%20e%20preciso%20de%20orienta%C3%A7%C3%A3o." class="btn-cta-gold" target="_blank" rel="noopener" data-conversion="whatsapp-cta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Consultar pelo WhatsApp
+        </a>
+        <a href="index.html#conteudo" class="btn-cta-outline">Ver outros artigos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Alisson Nascimento Paz Advocacia. Todos os direitos reservados.</p>
+      <p style="font-size: 11px; color: var(--gray-lt);">OAB/PR 119.985</p>
+    </div>
+  </div>
+</footer>
+
+<div class="whatsapp-float">
+  <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida." class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp" data-conversion="whatsapp-cta">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  function toggleMenu() { document.getElementById('navLinks').classList.toggle('open'); }
+  document.querySelectorAll('#navLinks a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+  });
+</script>
+
+</body>
+</html>
