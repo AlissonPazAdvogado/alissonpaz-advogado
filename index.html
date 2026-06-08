@@ -1062,24 +1062,39 @@
     @media (max-width: 768px) {
       section { padding: 72px 0; }
 
+      /* FIX: backdrop-filter no navbar cria containing block para position:fixed filhos,
+         confinando o overlay dentro da altura do navbar (~80px) em vez do viewport inteiro.
+         Remove o blur no mobile; o fundo sólido já garante separação visual. */
+      #navbar.scrolled {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+
+      /* Bloqueia scroll do body enquanto menu está aberto */
+      body.menu-open { overflow: hidden; touch-action: none; }
+
       /* Overlay do menu mobile */
       .nav-links {
         display: none;
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(20,17,13,0.97);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
+        background: rgba(20,17,13,0.98);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 28px;
-        z-index: 999;
+        z-index: 9000;
       }
       .nav-links.open { display: flex; }
       .nav-links.open a { font-size: 1.3rem; letter-spacing: .04em; }
       .nav-links.open .nav-cta { font-size: 1rem !important; padding: 14px 32px; margin-top: 8px; }
       .nav-toggle { display: flex; }
+
+      /* Animação X no botão hambúrguer */
+      .nav-toggle span { transition: transform 0.3s ease, opacity 0.3s ease; }
+      .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .nav-toggle.active span:nth-child(2) { opacity: 0; transform: translateX(-8px); }
+      .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
       /* Grids → coluna única */
       .areas-grid { grid-template-columns: 1fr; }
@@ -1945,10 +1960,18 @@
 
   // Mobile menu
   function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('open');
+    const navLinks  = document.getElementById('navLinks');
+    const navToggle = document.getElementById('navToggle');
+    const isOpen    = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('active', isOpen);
+    document.body.classList.toggle('menu-open', isOpen);
   }
   document.querySelectorAll('#navLinks a').forEach(a => {
-    a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+    a.addEventListener('click', () => {
+      document.getElementById('navLinks').classList.remove('open');
+      document.getElementById('navToggle').classList.remove('active');
+      document.body.classList.remove('menu-open');
+    });
   });
 
   // Scroll animations
