@@ -428,10 +428,10 @@
 
     .areas-header {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: flex-start;
       margin-bottom: 56px;
-      gap: 32px;
+      gap: 14px;
     }
 
     .areas-grid {
@@ -674,7 +674,9 @@
     #processo { background: var(--dark); }
 
     .processo-header { text-align: center; max-width: 600px; margin: 0 auto; }
+    .processo-header .section-tag { justify-content: center; }
     .processo-header .gold-line { margin: 0 auto 32px; }
+    .processo-header .section-subtitle { margin: 0 auto; }
 
     .processo-steps {
       display: grid;
@@ -710,11 +712,10 @@
 
     .content-header {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: flex-start;
       margin-bottom: 56px;
-      gap: 32px;
-      flex-wrap: wrap;
+      gap: 14px;
     }
 
     .content-grid {
@@ -1085,7 +1086,6 @@
       .processo-steps { grid-template-columns: 1fr; }
       .content-grid { grid-template-columns: 1fr; }
       .contato-layout { grid-template-columns: 1fr; gap: 40px; }
-      .areas-header { flex-direction: column; align-items: flex-start; }
       .footer-top { grid-template-columns: 1fr; gap: 36px; }
       .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
       .form-row { grid-template-columns: 1fr; }
