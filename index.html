@@ -810,6 +810,27 @@
     }
     .article-card:hover .article-read-link { gap: 10px; }
 
+    /* Featured article card (spans full width, horizontal layout) */
+    .article-card.featured {
+      grid-column: 1 / -1;
+      flex-direction: row;
+    }
+    .article-card.featured .article-img {
+      width: 42%;
+      height: auto;
+      min-height: 240px;
+      flex-shrink: 0;
+    }
+    .article-card.featured .article-body { padding: 36px 40px; }
+    .article-card.featured .article-title { font-size: 1.25rem; margin-bottom: 16px; }
+    .article-card.featured .article-excerpt { font-size: 14px; }
+    @media (max-width: 768px) {
+      .article-card.featured { flex-direction: column; }
+      .article-card.featured .article-img { width: 100%; height: 185px; min-height: unset; }
+      .article-card.featured .article-body { padding: 28px; }
+      .article-card.featured .article-title { font-size: 1.05rem; }
+    }
+
     /* ── CONTATO ── */
     #contato { background: var(--dark); }
 
@@ -1749,6 +1770,22 @@
       <p class="section-subtitle">Conteúdo prático para quem quer entender seus direitos antes de precisar de um advogado.</p>
     </div>
     <div class="content-grid">
+      <a class="article-card featured fade-up" href="artigo-memphis-depay-corinthians.html">
+        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80')">
+          <span class="article-tag-bar">Cível &amp; Contratos · Novo</span>
+        </div>
+        <div class="article-body">
+          <h3 class="article-title">Memphis Depay pode cobrar R$ 180 milhões do Corinthians? O que o Direito realmente diz sobre o contrato que não foi assinado</h3>
+          <p class="article-excerpt">O clube desistiu da renovação quando o vínculo parecia próximo de ser concluído. Mas existe uma diferença jurídica crucial entre uma negociação avançada e um contrato efetivamente celebrado. Entenda o que cada tese pode valer.</p>
+          <div class="article-meta">
+            <span>13 ago. 2026 · 10 min</span>
+            <span class="article-read-link">
+              Ler análise
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
       <a class="article-card fade-up" href="artigo-lei-15397-codigo-penal.html">
         <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80')">
           <span class="article-tag-bar">Penal · Novo</span>
