@@ -228,9 +228,10 @@
       font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase;
       color: var(--gold); font-family: 'Manrope', sans-serif;
     }
-    .teses-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-    .tese-item { padding: 24px 20px; border-right: 1px solid rgba(255,255,255,0.06); }
-    .tese-item:last-child { border-right: none; }
+    .teses-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+    .tese-item { padding: 24px 20px; border-right: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .tese-item:nth-child(2n) { border-right: none; }
+    .tese-item:nth-child(n+3) { border-bottom: none; }
     .tese-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; color: rgba(194,161,78,0.18); line-height: 1; margin-bottom: 10px; }
     .tese-item h4 { font-family: 'Manrope', sans-serif; font-size: .9rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
     .tese-item p { font-size: .82rem; color: var(--gray); line-height: 1.65; margin-bottom: 14px; }
@@ -271,8 +272,8 @@
       .article-layout { grid-template-columns: 1fr; gap: 48px; }
       .article-sidebar { position: static; }
       .teses-grid { grid-template-columns: 1fr; }
-      .tese-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .tese-item:last-child { border-bottom: none; }
+      .tese-item { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; }
+      .tese-item:last-child { border-bottom: none !important; }
     }
 
     @media (max-width: 768px) {
@@ -590,25 +591,31 @@
 
       <!-- ── TESES JURÍDICAS ── -->
       <div class="teses-box">
-        <div class="teses-header">As três teses jurídicas em jogo</div>
+        <div class="teses-header">As quatro teses jurídicas em jogo</div>
         <div class="teses-grid">
           <div class="tese-item">
             <div class="tese-num">01</div>
             <h4>Contrato existia</h4>
             <p>O novo vínculo de dois anos já estava celebrado. O Corinthians rescindiu injustificadamente, gerando direito à compensação prevista na Lei Geral do Esporte e nas normas da FIFA.</p>
-            <div class="tese-prova">Prova necessária: contrato vinculante com todos os elementos essenciais definitivamente acordados</div>
+            <div class="tese-prova">Base: Lei 14.597/2023, arts. 38-39. Prova necessária: contrato vinculante com todos os elementos essenciais definitivamente acordados</div>
           </div>
           <div class="tese-item">
             <div class="tese-num">02</div>
             <h4>Contrato preliminar</h4>
             <p>As partes tinham um compromisso definitivo de contratar. A recusa de formalizar o contrato definitivo gera efeitos indenizatórios decorrentes da ruptura desse compromisso.</p>
-            <div class="tese-prova">Prova necessária: todos os elementos essenciais do contrato previamente acordados, restando apenas a formalização</div>
+            <div class="tese-prova">Base: art. 462 do CC. Prova necessária: todos os elementos essenciais do contrato previamente acordados, restando apenas a formalização</div>
           </div>
           <div class="tese-item">
             <div class="tese-num">03</div>
             <h4>Pré-contratual</h4>
             <p>Eram apenas negociações, mas o Corinthians criou uma expectativa legítima de contratação e rompeu as tratativas contrariando a boa-fé, causando prejuízo indenizável ao jogador.</p>
-            <div class="tese-prova">Prova necessária: comportamento contrário à boa-fé, expectativa legítima criada e dano concreto sofrido</div>
+            <div class="tese-prova">Base: art. 422 do CC. Prova necessária: comportamento contrário à boa-fé, expectativa legítima criada e dano concreto sofrido</div>
+          </div>
+          <div class="tese-item">
+            <div class="tese-num">04</div>
+            <h4>Proposta vinculante</h4>
+            <p>O Corinthians formulou uma proposta definitiva com todos os elementos essenciais. O art. 427 do Código Civil determina que a proposta obriga o proponente, vinculando o clube mesmo sem a assinatura formal do presidente.</p>
+            <div class="tese-prova">Base: art. 427 do CC. Prova necessária: proposta com termos definitivos e sem ressalva expressa de não vinculação</div>
           </div>
         </div>
       </div>
