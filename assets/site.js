@@ -4,9 +4,20 @@
 
   const navbar = document.getElementById('navbar');
   if (navbar) {
-    const updateNavbar = () => navbar.classList.toggle('scrolled', window.scrollY > 40);
+    let navbarTicking = false;
+    const updateNavbar = () => {
+      const y = window.scrollY;
+      if (y > 48) navbar.classList.add('scrolled');
+      else if (y < 24) navbar.classList.remove('scrolled');
+      navbarTicking = false;
+    };
+    const onScroll = () => {
+      if (navbarTicking) return;
+      navbarTicking = true;
+      requestAnimationFrame(updateNavbar);
+    };
     updateNavbar();
-    window.addEventListener('scroll', updateNavbar, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   const navLinks = document.getElementById('navLinks');

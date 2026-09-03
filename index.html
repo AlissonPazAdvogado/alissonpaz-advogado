@@ -155,9 +155,11 @@
     }
 
     .section-title {
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.1rem, 4.8vw, 3.75rem);
       font-weight: 600;
       color: var(--white);
+      line-height: 1.12;
       margin-bottom: 20px;
     }
 
@@ -201,7 +203,9 @@
       top: 0; left: 0; right: 0;
       z-index: 1000;
       padding: 20px 0;
-      transition: var(--tr);
+      transition: background-color var(--tr), padding var(--tr), border-color var(--tr);
+      transform: translateZ(0);
+      will-change: backdrop-filter;
     }
 
     #navbar.scrolled {
@@ -395,12 +399,13 @@
 
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3.6vw, 3.6rem);
+      font-size: clamp(2.3rem, 4.6vw, 4.5rem);
       font-weight: 500;
       font-style: normal;
       color: var(--white);
-      line-height: 1.08;
+      line-height: 1.06;
       letter-spacing: .01em;
+      max-width: 620px;
       margin-bottom: 28px;
     }
     .hero-title span { color: var(--gold); font-style: italic; }
@@ -416,10 +421,13 @@
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
     .hero-badges {
-      margin-top: 72px;
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(201,168,76,0.16);
       display: flex;
-      gap: 32px;
+      gap: 0;
       flex-wrap: wrap;
+      max-width: 560px;
     }
 
     .hero-badge {
@@ -428,8 +436,23 @@
       gap: 10px;
       font-size: 13px;
       color: rgba(240,237,232,0.55);
+      padding-right: 24px;
+      margin-right: 24px;
+      border-right: 1px solid rgba(255,255,255,0.08);
     }
+    .hero-badge:last-child { border-right: none; margin-right: 0; padding-right: 0; }
     .hero-badge svg { color: var(--gold); flex-shrink: 0; }
+
+    .hero-divider {
+      position: absolute;
+      top: 18%;
+      bottom: 18%;
+      left: 58%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent 0%, rgba(201,168,76,0.35) 20%, rgba(201,168,76,0.35) 80%, transparent 100%);
+      z-index: 2;
+    }
+    @media (max-width: 1024px) { .hero-divider { display: none; } }
 
     /* ── MAPA ── */
     #mapa { background: var(--dark-2); padding: 0; }
@@ -648,9 +671,16 @@
       align-items: center;
     }
 
-    .dif-list { margin-top: 40px; display: flex; flex-direction: column; gap: 28px; }
+    .dif-list { margin-top: 44px; display: flex; flex-direction: column; gap: 0; }
 
-    .dif-item { display: flex; gap: 20px; align-items: flex-start; }
+    .dif-item {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 22px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .dif-item:first-child { border-top: none; padding-top: 0; }
 
     .dif-num {
       font-family: 'Cormorant Garamond', serif;
@@ -661,9 +691,10 @@
       min-width: 44px;
     }
 
-    .dif-text h4 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .dif-text h4 { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 7px; }
     .dif-text p { font-size: 14px; color: var(--gray); line-height: 1.7;
       font-weight: 300;
+      max-width: 34ch;
       -webkit-font-smoothing: antialiased; }
 
     .dif-visual {
@@ -732,33 +763,54 @@
     .processo-header .section-subtitle { margin: 0 auto; }
 
     .processo-steps {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      margin-top: 64px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 12px;
-      overflow: hidden;
+      gap: 48px;
+      margin-top: 80px;
     }
 
-    .step {
-      background: var(--dark-2);
-      padding: 48px 36px;
+    .processo-steps::before {
+      content: '';
+      position: absolute;
+      top: 11px;
+      left: calc(100% / 6);
+      right: calc(100% / 6);
+      height: 1px;
+      background: linear-gradient(to right, rgba(201,168,76,0.5), rgba(201,168,76,0.5) 96%, transparent 100%);
+      z-index: 0;
     }
 
-    .step-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem;
-      font-weight: 700;
-      color: rgba(201,168,76,0.07);
-      line-height: 1;
-      margin-bottom: 20px;
+    .step { position: relative; padding-top: 44px; }
+
+    .step-dot {
+      position: absolute;
+      top: 0; left: 0;
+      width: 23px; height: 23px;
+      border-radius: 50%;
+      background: var(--dark);
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Manrope', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+      z-index: 1;
     }
 
-    .step-icon { width: 38px; height: 38px; color: var(--gold); margin-bottom: 20px; }
+    .step-icon { width: 32px; height: 32px; color: var(--gold); margin-bottom: 22px; opacity: .85; }
 
-    .step h3 { font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 12px; }
-    .step p { font-size: 14px; color: var(--gray); line-height: 1.8; }
+    .step h3 { font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 12px; }
+    .step p { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 30ch; }
+
+    @media (max-width: 768px) {
+      .processo-steps { grid-template-columns: 1fr; gap: 40px; }
+      .processo-steps::before { top: 0; bottom: 0; left: 11px; right: auto; width: 1px; height: auto; background: linear-gradient(to bottom, rgba(201,168,76,0.5), rgba(201,168,76,0.5) 96%, transparent 100%); }
+      .step { padding-top: 0; padding-left: 44px; }
+      .step-dot { top: 2px; }
+    }
 
     /* ── CONTEÚDO ── */
     #conteudo { background: var(--dark-2); }
@@ -773,8 +825,20 @@
 
     .content-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .content-list-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin: 56px 0 8px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
 
     .article-card {
@@ -881,6 +945,59 @@
       .article-card.featured .article-title { font-size: 1.05rem; }
     }
 
+    /* Secondary articles: compact editorial list row instead of card grid */
+    .article-card:not(.featured) {
+      flex-direction: row;
+      align-items: center;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 26px 0;
+      gap: 24px;
+    }
+    .article-card:not(.featured):last-child { border-bottom: none; }
+    .article-card:not(.featured):hover {
+      transform: none;
+      box-shadow: none;
+      border-color: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.015);
+    }
+    .article-card:not(.featured) .article-img {
+      width: 108px;
+      height: 108px;
+      flex-shrink: 0;
+      border-radius: 8px;
+    }
+    .article-card:not(.featured) .article-tag-bar {
+      position: static;
+      background: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-top: none;
+      padding: 0;
+      margin-bottom: 8px;
+      font-size: 10px;
+      letter-spacing: 1.6px;
+      display: block;
+    }
+    .article-card:not(.featured) .article-body { padding: 0; flex: 1; min-width: 0; }
+    .article-card:not(.featured) .article-title { font-size: .98rem; margin-bottom: 8px; }
+    .article-card:not(.featured) .article-excerpt {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 13px;
+    }
+    .article-card:not(.featured) .article-meta {
+      display: none;
+    }
+    @media (max-width: 640px) {
+      .article-card:not(.featured) .article-img { width: 76px; height: 76px; }
+      .article-card:not(.featured) .article-excerpt { display: none; }
+    }
+
     /* ── CONTATO ── */
     #contato { background: var(--dark); }
 
@@ -893,23 +1010,28 @@
 
     .contato-info { padding-top: 8px; }
 
+    .contato-list {
+      margin-top: 48px;
+      border-top: 1px solid rgba(201,168,76,0.18);
+    }
+
     .contato-item {
       display: flex;
       gap: 16px;
       align-items: flex-start;
-      margin-bottom: 32px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
     .contato-icon {
-      width: 44px;
-      height: 44px;
-      background: rgba(201,168,76,0.1);
-      border-radius: 10px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--gold);
       flex-shrink: 0;
+      margin-top: 2px;
     }
 
     .contato-item h4 {
@@ -930,6 +1052,7 @@
       border-radius: 16px;
       padding: 48px;
       border: 1px solid rgba(255,255,255,0.06);
+      border-top: 2px solid var(--gold);
     }
 
     .form-title { font-size: 1.5rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
@@ -965,7 +1088,7 @@
     }
 
     .form-group input::placeholder,
-    .form-group textarea::placeholder { color: #444; }
+    .form-group textarea::placeholder { color: var(--gray); }
 
     .form-group input:focus,
     .form-group select:focus,
@@ -1005,7 +1128,7 @@
 
     .form-disclaimer {
       font-size: 11px;
-      color: #444;
+      color: var(--gray);
       text-align: center;
       margin-top: 14px;
       line-height: 1.6;
@@ -1363,6 +1486,7 @@
   <div class="hero-bg"></div>
   <img class="hero-photo" src="foto-advogado.jpg" alt="Dr. Alisson Nascimento Paz, Advogado" width="1085" height="1450" fetchpriority="high" decoding="async">
   <div class="hero-gradient"></div>
+  <div class="hero-divider" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-content fade-up">
       <div class="hero-kicker">Advocacia Estratégica</div>
@@ -1791,19 +1915,19 @@
     </div>
     <div class="processo-steps">
       <div class="step">
-        <div class="step-num">01</div>
+        <div class="step-dot" aria-hidden="true">01</div>
         <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         <h3>Consulta inicial</h3>
         <p>Entre em contato pelo WhatsApp, apresente brevemente seu caso e agende um horário para uma conversa aprofundada, presencial ou remota.</p>
       </div>
       <div class="step">
-        <div class="step-num">02</div>
+        <div class="step-dot" aria-hidden="true">02</div>
         <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <h3>Análise e estratégia</h3>
         <p>O caso é analisado detalhadamente. Você recebe uma análise clara da sua situação e da estratégia jurídica mais adequada ao caso.</p>
       </div>
       <div class="step">
-        <div class="step-num">03</div>
+        <div class="step-dot" aria-hidden="true">03</div>
         <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></svg>
         <h3>Atuação e acompanhamento</h3>
         <p>Com a contratação definida, a atuação tem início com acompanhamento contínuo e comunicação clara em cada etapa do processo.</p>
@@ -1840,6 +1964,9 @@
           </div>
         </div>
       </a>
+    </div>
+    <p class="content-list-label">Mais artigos</p>
+    <div class="content-grid">
       <a class="article-card" href="artigo-lei-15397-codigo-penal.html">
         <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80')">
           <span class="article-tag-bar">Penal</span>
@@ -1918,8 +2045,9 @@
         <span class="section-tag">Contato</span>
         <div class="gold-line"></div>
         <h2 class="section-title">Vamos conversar<br>sobre seu caso</h2>
-        <p class="section-subtitle" style="margin-bottom: 48px;">Consultas com hora marcada. Atendimento direto com o advogado, presencial ou remoto.</p>
+        <p class="section-subtitle" style="margin-bottom: 0;">Consultas com hora marcada. Atendimento direto com o advogado, presencial ou remoto.</p>
 
+        <div class="contato-list">
         <div class="contato-item">
           <div class="contato-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -1948,6 +2076,7 @@
             <h3>Endereço</h3>
             <p>Rua Brigadeiro Rocha Loures, 219<br>Centro – Coronel Vivida, PR<br>CEP 85.550-040</p>
           </div>
+        </div>
         </div>
       </div>
 
