@@ -10,9 +10,59 @@
   <link rel="icon" type="image/png" href="/favicon-512x512.png" sizes="512x512">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alisson Paz | Advogado</title>
-  <meta name="description" content="Escritório de advocacia com atuação em Direito Penal, do Consumidor e Digital/LGPD. Coronel Vivida e região Sudoeste do Paraná.">
+  <title>Alisson Paz Advocacia | Direito Penal, Cível e Digital</title>
+  <meta name="description" content="Escritório de advocacia com atuação em Direito Penal, do Consumidor, Digital/LGPD, Cível e de Família, em Coronel Vivida e região Sudoeste do Paraná.">
   <link rel="canonical" href="https://www.alissonpazadv.com.br/">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Alisson Paz Advocacia">
+  <meta property="og:title" content="Alisson Paz Advocacia | Direito Penal, Cível e Digital">
+  <meta property="og:description" content="Escritório de advocacia com atuação em Direito Penal, do Consumidor, Digital/LGPD, Cível e de Família, em Coronel Vivida e região Sudoeste do Paraná.">
+  <meta property="og:url" content="https://www.alissonpazadv.com.br/">
+  <meta property="og:image" content="https://www.alissonpazadv.com.br/foto-advogado.jpg">
+  <meta property="og:image:width" content="1085">
+  <meta property="og:image:height" content="1450">
+  <meta property="og:image:alt" content="Dr. Alisson Nascimento Paz, Advogado">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Alisson Paz Advocacia | Direito Penal, Cível e Digital">
+  <meta name="twitter:description" content="Escritório de advocacia com atuação em Direito Penal, do Consumidor, Digital/LGPD, Cível e de Família, em Coronel Vivida e região Sudoeste do Paraná.">
+  <meta name="twitter:image" content="https://www.alissonpazadv.com.br/foto-advogado.jpg">
+  <meta name="twitter:image:alt" content="Dr. Alisson Nascimento Paz, Advogado">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LegalService",
+        "@id": "https://www.alissonpazadv.com.br/#escritorio",
+        "name": "Alisson Nascimento Paz Advocacia",
+        "url": "https://www.alissonpazadv.com.br/",
+        "telephone": "+55 46 99974-6391",
+        "email": "allissonpaz@hotmail.com",
+        "image": "https://www.alissonpazadv.com.br/foto-advogado.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rua Brigadeiro Rocha Loures, 219, Centro",
+          "addressLocality": "Coronel Vivida",
+          "addressRegion": "PR",
+          "postalCode": "85550-040",
+          "addressCountry": "BR"
+        },
+        "employee": { "@id": "https://www.alissonpazadv.com.br/#alisson-paz" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.alissonpazadv.com.br/#alisson-paz",
+        "name": "Dr. Alisson Nascimento Paz",
+        "jobTitle": "Advogado",
+        "identifier": "OAB/PR 119.985",
+        "email": "allissonpaz@hotmail.com",
+        "telephone": "+55 46 99974-6391",
+        "worksFor": { "@id": "https://www.alissonpazadv.com.br/#escritorio" }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -82,22 +132,25 @@
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     section { padding: 120px 0; }
+    #diferenciais { padding: 148px 0; }
+    #processo { padding: 108px 0; }
+    #contato { padding: 136px 0; }
 
     .section-tag {
       font-family: 'Manrope', sans-serif;
       font-weight: 500;
       font-size: .72rem;
-      letter-spacing: .42em;
+      letter-spacing: .36em;
       text-transform: uppercase;
       color: var(--gold);
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 26px;
+      gap: 16px;
+      margin-bottom: 30px;
     }
     .section-tag::before {
       content: "";
-      width: 38px;
+      width: 42px;
       height: 1px;
       background: var(--gold);
       opacity: .8;
@@ -105,9 +158,11 @@
     }
 
     .section-title {
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.1rem, 4.8vw, 3.75rem);
       font-weight: 600;
       color: var(--white);
+      line-height: 1.12;
       margin-bottom: 20px;
     }
 
@@ -118,12 +173,7 @@
       line-height: 1.8;
     }
 
-    .gold-line {
-      width: 48px;
-      height: 2px;
-      background: var(--gold);
-      margin-bottom: 32px;
-    }
+    /* .gold-line removida: o eyebrow (.section-tag::before) e agora o unico tracinho dourado */
 
     .btn {
       display: inline-flex;
@@ -151,7 +201,9 @@
       top: 0; left: 0; right: 0;
       z-index: 1000;
       padding: 20px 0;
-      transition: var(--tr);
+      transition: background-color var(--tr), padding var(--tr);
+      transform: translateZ(0);
+      will-change: backdrop-filter;
     }
 
     #navbar.scrolled {
@@ -159,7 +211,6 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       padding: 14px 0;
-      border-bottom: 1px solid rgba(201,168,76,0.15);
     }
 
     .nav-inner { display: flex; align-items: center; justify-content: space-between; }
@@ -223,6 +274,8 @@
       align-items: center;
       padding: 0;
       overflow: hidden;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .hero-bg {
@@ -345,12 +398,13 @@
 
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3.6vw, 3.6rem);
+      font-size: clamp(2.3rem, 4.6vw, 4.5rem);
       font-weight: 500;
       font-style: normal;
       color: var(--white);
-      line-height: 1.08;
+      line-height: 1.06;
       letter-spacing: .01em;
+      max-width: 620px;
       margin-bottom: 28px;
     }
     .hero-title span { color: var(--gold); font-style: italic; }
@@ -366,10 +420,13 @@
     .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
     .hero-badges {
-      margin-top: 72px;
+      margin-top: 64px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(201,168,76,0.16);
       display: flex;
-      gap: 32px;
+      gap: 0;
       flex-wrap: wrap;
+      max-width: 560px;
     }
 
     .hero-badge {
@@ -378,8 +435,23 @@
       gap: 10px;
       font-size: 13px;
       color: rgba(240,237,232,0.55);
+      padding-right: 24px;
+      margin-right: 24px;
+      border-right: 1px solid rgba(255,255,255,0.08);
     }
+    .hero-badge:last-child { border-right: none; margin-right: 0; padding-right: 0; }
     .hero-badge svg { color: var(--gold); flex-shrink: 0; }
+
+    .hero-divider {
+      position: absolute;
+      top: 18%;
+      bottom: 18%;
+      left: 58%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent 0%, rgba(201,168,76,0.35) 20%, rgba(201,168,76,0.35) 80%, transparent 100%);
+      z-index: 2;
+    }
+    @media (max-width: 1024px) { .hero-divider { display: none; } }
 
     /* ── MAPA ── */
     #mapa { background: var(--dark-2); padding: 0; }
@@ -437,50 +509,36 @@
       gap: 14px;
     }
 
-    .areas-grid {
+    .formacao-columns {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      overflow: hidden;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
     }
 
-    .area-card {
-      background: var(--dark-2);
-      padding: 40px 32px;
-      transition: var(--tr);
-      position: relative;
-      overflow: hidden;
+    .formacao-col { padding-right: 48px; }
+    .formacao-col + .formacao-col {
+      padding-right: 0;
+      padding-left: 48px;
+      border-left: 1px solid rgba(201,168,76,0.14);
     }
 
-    .area-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--tr);
-    }
-
-    .area-card:hover { background: var(--dark-3); }
-    .area-card:hover::after { transform: scaleX(1); }
-
-    .area-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(201,168,76,0.1);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
+    .formacao-col-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: .76rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
       color: var(--gold);
+      padding-bottom: 18px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(201,168,76,0.22);
     }
+
+    .formacao-item {
+      padding: 28px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .formacao-item:first-of-type { border-top: none; }
 
     .area-title {
       font-family: 'Cormorant Garamond', serif;
@@ -490,7 +548,19 @@
       margin-bottom: 12px;
     }
 
-    .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
+    .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 46ch; }
+
+    @media (max-width: 768px) {
+      .formacao-columns { grid-template-columns: 1fr; gap: 0; }
+      .formacao-col { padding-right: 0; }
+      .formacao-col + .formacao-col {
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid rgba(201,168,76,0.14);
+        margin-top: 40px;
+        padding-top: 40px;
+      }
+    }
 
 
     /* ── TABS DE ÁREAS ── */
@@ -598,9 +668,16 @@
       align-items: center;
     }
 
-    .dif-list { margin-top: 40px; display: flex; flex-direction: column; gap: 28px; }
+    .dif-list { margin-top: 44px; display: flex; flex-direction: column; gap: 0; }
 
-    .dif-item { display: flex; gap: 20px; align-items: flex-start; }
+    .dif-item {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 22px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .dif-item:first-child { border-top: none; padding-top: 0; }
 
     .dif-num {
       font-family: 'Cormorant Garamond', serif;
@@ -611,9 +688,10 @@
       min-width: 44px;
     }
 
-    .dif-text h4 { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .dif-text h4 { font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 7px; }
     .dif-text p { font-size: 14px; color: var(--gray); line-height: 1.7;
       font-weight: 300;
+      max-width: 34ch;
       -webkit-font-smoothing: antialiased; }
 
     .dif-visual {
@@ -636,10 +714,10 @@
 
     .dif-quote {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-size: clamp(1.5rem, 2.6vw, 1.95rem);
       font-weight: 600;
       color: var(--white);
-      line-height: 1.4;
+      line-height: 1.32;
       margin-bottom: 24px;
     }
     .dif-quote span { color: var(--gold); }
@@ -678,37 +756,57 @@
 
     .processo-header { text-align: center; max-width: 600px; margin: 0 auto; }
     .processo-header .section-tag { justify-content: center; }
-    .processo-header .gold-line { margin: 0 auto 32px; }
     .processo-header .section-subtitle { margin: 0 auto; }
 
     .processo-steps {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      margin-top: 64px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 12px;
-      overflow: hidden;
+      gap: 48px;
+      margin-top: 80px;
     }
 
-    .step {
-      background: var(--dark-2);
-      padding: 48px 36px;
+    .processo-steps::before {
+      content: '';
+      position: absolute;
+      top: 11px;
+      left: calc(100% / 6);
+      right: calc(100% / 6);
+      height: 1px;
+      background: linear-gradient(to right, rgba(201,168,76,0.5), rgba(201,168,76,0.5) 96%, transparent 100%);
+      z-index: 0;
     }
 
-    .step-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem;
-      font-weight: 700;
-      color: rgba(201,168,76,0.07);
-      line-height: 1;
-      margin-bottom: 20px;
+    .step { position: relative; padding-top: 44px; }
+
+    .step-dot {
+      position: absolute;
+      top: 0; left: 0;
+      width: 23px; height: 23px;
+      border-radius: 50%;
+      background: var(--dark);
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Manrope', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+      z-index: 1;
     }
 
-    .step-icon { width: 38px; height: 38px; color: var(--gold); margin-bottom: 20px; }
+    .step-icon { width: 32px; height: 32px; color: var(--gold); margin-bottom: 22px; opacity: .85; }
 
-    .step h3 { font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 12px; }
-    .step p { font-size: 14px; color: var(--gray); line-height: 1.8; }
+    .step h3 { font-size: 1.2rem; font-weight: 600; color: var(--white); margin-bottom: 12px; }
+    .step p { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 30ch; }
+
+    @media (max-width: 768px) {
+      .processo-steps { grid-template-columns: 1fr; gap: 40px; }
+      .processo-steps::before { top: 0; bottom: 0; left: 11px; right: auto; width: 1px; height: auto; background: linear-gradient(to bottom, rgba(201,168,76,0.5), rgba(201,168,76,0.5) 96%, transparent 100%); }
+      .step { padding-top: 0; padding-left: 44px; }
+      .step-dot { top: 2px; }
+    }
 
     /* ── CONTEÚDO ── */
     #conteudo { background: var(--dark-2); }
@@ -723,8 +821,20 @@
 
     .content-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .content-list-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin: 56px 0 8px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
 
     .article-card {
@@ -831,6 +941,59 @@
       .article-card.featured .article-title { font-size: 1.05rem; }
     }
 
+    /* Secondary articles: compact editorial list row instead of card grid */
+    .article-card:not(.featured) {
+      flex-direction: row;
+      align-items: center;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 26px 0;
+      gap: 24px;
+    }
+    .article-card:not(.featured):last-child { border-bottom: none; }
+    .article-card:not(.featured):hover {
+      transform: none;
+      box-shadow: none;
+      border-color: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.015);
+    }
+    .article-card:not(.featured) .article-img {
+      width: 108px;
+      height: 108px;
+      flex-shrink: 0;
+      border-radius: 8px;
+    }
+    .article-card:not(.featured) .article-tag-bar {
+      position: static;
+      background: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-top: none;
+      padding: 0;
+      margin-bottom: 8px;
+      font-size: 10px;
+      letter-spacing: 1.6px;
+      display: block;
+    }
+    .article-card:not(.featured) .article-body { padding: 0; flex: 1; min-width: 0; }
+    .article-card:not(.featured) .article-title { font-size: .98rem; margin-bottom: 8px; }
+    .article-card:not(.featured) .article-excerpt {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 13px;
+    }
+    .article-card:not(.featured) .article-meta {
+      display: none;
+    }
+    @media (max-width: 640px) {
+      .article-card:not(.featured) .article-img { width: 76px; height: 76px; }
+      .article-card:not(.featured) .article-excerpt { display: none; }
+    }
+
     /* ── CONTATO ── */
     #contato { background: var(--dark); }
 
@@ -843,23 +1006,28 @@
 
     .contato-info { padding-top: 8px; }
 
+    .contato-list {
+      margin-top: 48px;
+      border-top: 1px solid rgba(201,168,76,0.18);
+    }
+
     .contato-item {
       display: flex;
       gap: 16px;
       align-items: flex-start;
-      margin-bottom: 32px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
     .contato-icon {
-      width: 44px;
-      height: 44px;
-      background: rgba(201,168,76,0.1);
-      border-radius: 10px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--gold);
       flex-shrink: 0;
+      margin-top: 2px;
     }
 
     .contato-item h4 {
@@ -880,6 +1048,7 @@
       border-radius: 16px;
       padding: 48px;
       border: 1px solid rgba(255,255,255,0.06);
+      border-top: 2px solid var(--gold);
     }
 
     .form-title { font-size: 1.5rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
@@ -915,7 +1084,7 @@
     }
 
     .form-group input::placeholder,
-    .form-group textarea::placeholder { color: #444; }
+    .form-group textarea::placeholder { color: var(--gray); }
 
     .form-group input:focus,
     .form-group select:focus,
@@ -955,7 +1124,7 @@
 
     .form-disclaimer {
       font-size: 11px;
-      color: #444;
+      color: var(--gray);
       text-align: center;
       margin-top: 14px;
       line-height: 1.6;
@@ -1076,7 +1245,6 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
-      .areas-grid { grid-template-columns: repeat(2, 1fr); }
       .dif-layout { grid-template-columns: 1fr; gap: 48px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .mapa-inner { grid-template-columns: 1fr; }
@@ -1145,7 +1313,6 @@
       .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
       /* Grids → coluna única */
-      .areas-grid { grid-template-columns: 1fr; }
       .processo-steps { grid-template-columns: 1fr; }
       .content-grid { grid-template-columns: 1fr; }
       .contato-layout { grid-template-columns: 1fr; gap: 40px; }
@@ -1239,6 +1406,7 @@
       .tab-group:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
     }
   </style>
+  <link rel="stylesheet" href="assets/base.css">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17974605756"></script>
   <script>
@@ -1251,13 +1419,15 @@
 
 <body>
 
+<a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
+
 <!-- GTM: INSERIR SNIPPET BODY (NOSCRIPT) AQUI -->
 
 <!-- NAVBAR -->
 <nav id="navbar">
   <div class="container">
     <div class="nav-inner">
-      <a href="#" class="nav-logo" aria-label="Alisson Paz Advogado — página inicial">
+      <a href="index.html" class="nav-logo" aria-label="Alisson Paz Advogado — página inicial">
         <div class="nav-lockup">
           <svg class="nav-mark" viewBox="0 0 240 270" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M58,52 L182,52 Q196,52 196,66 L196,150 Q196,206 120,252 Q44,206 44,150 L44,66 Q44,52 58,52 Z"/>
@@ -1280,8 +1450,8 @@
         </div>
       </a>
       <ul class="nav-links" id="navLinks">
-        <li class="nav-close-item" aria-hidden="true">
-          <button class="nav-close" onclick="toggleMenu()" aria-label="Fechar menu">
+        <li class="nav-close-item">
+          <button class="nav-close" id="navClose" type="button" aria-label="Fechar menu">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </li>
@@ -1295,20 +1465,22 @@
           </a>
         </li>
       </ul>
-      <div class="nav-toggle" id="navToggle" onclick="toggleMenu()" aria-label="Menu">
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
+<main id="main-content">
 <section id="hero">
   <div class="hero-bg"></div>
-  <img class="hero-photo" src="foto-advogado.jpg" alt="Dr. Alisson Nascimento Paz, Advogado">
+  <img class="hero-photo" src="foto-advogado.jpg" alt="Dr. Alisson Nascimento Paz, Advogado" width="1085" height="1450" fetchpriority="high" decoding="async">
   <div class="hero-gradient"></div>
+  <div class="hero-divider" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-content fade-up">
       <div class="hero-kicker">Advocacia Estratégica</div>
@@ -1347,15 +1519,14 @@
 <!-- ÁREAS DE ATUAÇÃO -->
 <section id="atuacao">
   <div class="container">
-    <div class="areas-header fade-up">
+    <div class="areas-header">
       <div>
         <span class="section-tag">Áreas de atuação</span>
-        <div class="gold-line"></div>
         <h2 class="section-title">Como posso<br>ajudá-lo</h2>
       </div>
       <p class="section-subtitle">Atuação especializada nas áreas onde os riscos ao patrimônio, à liberdade e à privacidade são mais críticos.</p>
     </div>
-    <div class="areas-tabs fade-up">
+    <div class="areas-tabs">
 
       <!-- NAV DAS ABAS -->
       <div class="tab-nav" role="tablist">
@@ -1386,7 +1557,7 @@
         <p class="tab-intro">Área central de atuação do escritório, com pós-graduação em Advocacia Criminal. A defesa abrange desde a fase investigativa no inquérito policial até a execução da pena.</p>
         <div class="tab-grid">
           <div class="tab-group">
-            <h4>Crimes contra a Pessoa</h4>
+            <h3>Crimes contra a Pessoa</h3>
             <ul>
               <li>Homicídio doloso e culposo</li>
               <li>Lesão corporal</li>
@@ -1396,7 +1567,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Crimes contra o Patrimônio</h4>
+            <h3>Crimes contra o Patrimônio</h3>
             <ul>
               <li>Furto e roubo</li>
               <li>Estelionato e fraudes</li>
@@ -1406,7 +1577,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Legislação Especial</h4>
+            <h3>Legislação Especial</h3>
             <ul>
               <li>Tráfico de drogas (Lei 11.343/06)</li>
               <li>Violência doméstica (Lei Maria da Penha)</li>
@@ -1416,7 +1587,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Processo e Execução Penal</h4>
+            <h3>Processo e Execução Penal</h3>
             <ul>
               <li>Acompanhamento em delegacia</li>
               <li>Habeas corpus e liberdade provisória</li>
@@ -1433,7 +1604,7 @@
         <p class="tab-intro">Defesa dos direitos do consumidor frente a práticas abusivas, cobranças indevidas e contratos prejudiciais. A experiência prévia no Procon orienta a leitura prática de cada caso.</p>
         <div class="tab-grid">
           <div class="tab-group">
-            <h4>Crédito e Cobranças</h4>
+            <h3>Crédito e Cobranças</h3>
             <ul>
               <li>Negativação indevida (SPC/Serasa)</li>
               <li>Cobrança de dívida prescrita</li>
@@ -1443,7 +1614,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Contratos e Serviços</h4>
+            <h3>Contratos e Serviços</h3>
             <ul>
               <li>Cláusulas contratuais abusivas</li>
               <li>Rescisão e devolução de valores</li>
@@ -1453,7 +1624,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Planos e Operadoras</h4>
+            <h3>Planos e Operadoras</h3>
             <ul>
               <li>Negativa de cobertura em plano de saúde</li>
               <li>Reajuste abusivo de plano</li>
@@ -1463,7 +1634,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Produtos e Indenizações</h4>
+            <h3>Produtos e Indenizações</h3>
             <ul>
               <li>Vícios e defeitos em produtos</li>
               <li>Defeito na prestação de serviço</li>
@@ -1480,7 +1651,7 @@
         <p class="tab-intro">Pós-graduação em Direito Digital, LGPD e Compliance. Atuação em crimes cibernéticos, proteção de dados pessoais e responsabilidade civil na internet.</p>
         <div class="tab-grid">
           <div class="tab-group">
-            <h4>Crimes Cibernéticos</h4>
+            <h3>Crimes Cibernéticos</h3>
             <ul>
               <li>Estelionato digital e golpes online</li>
               <li>Invasão de dispositivo informático</li>
@@ -1490,7 +1661,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Honra e Imagem Online</h4>
+            <h3>Honra e Imagem Online</h3>
             <ul>
               <li>Pornografia de vingança</li>
               <li>Calúnia, difamação e injúria na internet</li>
@@ -1500,7 +1671,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>LGPD e Proteção de Dados</h4>
+            <h3>LGPD e Proteção de Dados</h3>
             <ul>
               <li>Vazamento de dados pessoais</li>
               <li>Direitos do titular dos dados</li>
@@ -1510,7 +1681,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Responsabilidade Digital</h4>
+            <h3>Responsabilidade Digital</h3>
             <ul>
               <li>Remoção de conteúdo em plataformas</li>
               <li>Desindexação de dados no Google</li>
@@ -1527,7 +1698,7 @@
         <p class="tab-intro">Assessoria em conflitos contratuais, questões imobiliárias, responsabilidade civil e cobranças. Atuação preventiva e contenciosa nas relações cíveis.</p>
         <div class="tab-grid">
           <div class="tab-group">
-            <h4>Contratos</h4>
+            <h3>Contratos</h3>
             <ul>
               <li>Elaboração e revisão de contratos</li>
               <li>Rescisão contratual</li>
@@ -1537,7 +1708,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Imóveis</h4>
+            <h3>Imóveis</h3>
             <ul>
               <li>Compra, venda e financiamento</li>
               <li>Locação residencial e comercial</li>
@@ -1547,7 +1718,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Responsabilidade Civil</h4>
+            <h3>Responsabilidade Civil</h3>
             <ul>
               <li>Danos morais e materiais</li>
               <li>Acidentes e indenizações</li>
@@ -1557,7 +1728,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Cobranças e Execuções</h4>
+            <h3>Cobranças e Execuções</h3>
             <ul>
               <li>Ação de cobrança</li>
               <li>Execução de títulos extrajudiciais</li>
@@ -1574,7 +1745,7 @@
         <p class="tab-intro">Assessoria jurídica em questões familiares e sucessórias, com atenção ao aspecto humano de cada situação. Do divórcio ao inventário, cada caso é tratado de forma individualizada.</p>
         <div class="tab-grid">
           <div class="tab-group">
-            <h4>Casamento e União</h4>
+            <h3>Casamento e União</h3>
             <ul>
               <li>Divórcio consensual e litigioso</li>
               <li>Separação e partilha de bens</li>
@@ -1584,7 +1755,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Filhos e Alimentos</h4>
+            <h3>Filhos e Alimentos</h3>
             <ul>
               <li>Guarda compartilhada e unilateral</li>
               <li>Regulamentação de visitas</li>
@@ -1594,7 +1765,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Inventários e Partilha</h4>
+            <h3>Inventários e Partilha</h3>
             <ul>
               <li>Inventário judicial e extrajudicial</li>
               <li>Arrolamento de bens</li>
@@ -1604,7 +1775,7 @@
             </ul>
           </div>
           <div class="tab-group">
-            <h4>Planejamento Familiar</h4>
+            <h3>Planejamento Familiar</h3>
             <ul>
               <li>Planejamento sucessório</li>
               <li>Doação com reserva de usufruto</li>
@@ -1623,34 +1794,37 @@
 <!-- FORMAÇÃO E TRAJETÓRIA -->
 <section id="formacao" style="background: var(--dark);">
   <div class="container">
-    <div class="areas-header fade-up">
+    <div class="areas-header">
       <div>
         <span class="section-tag">Trajetória</span>
-        <div class="gold-line"></div>
         <h2 class="section-title">Formação e<br>experiência institucional</h2>
       </div>
       <p class="section-subtitle">Conhecimento técnico construído em diferentes frentes do Direito e das instituições que o operam.</p>
     </div>
-    <div class="areas-grid">
+    <div class="formacao-columns">
 
-      <div class="area-card fade-up">
-        <div class="area-title">Pós-graduação em Advocacia Criminal</div>
-        <p class="area-desc">Especialização com foco em defesa criminal, processo penal, execução da pena e procedimentos investigativos. Formação técnica voltada para atuação na área mais sensível do Direito.</p>
+      <div class="formacao-col">
+        <h3 class="formacao-col-title">Formação acadêmica</h3>
+        <div class="formacao-item">
+          <h4 class="area-title">Pós-graduação em Advocacia Criminal</h4>
+          <p class="area-desc">Especialização com foco em defesa criminal, processo penal, execução da pena e procedimentos investigativos. Formação técnica voltada para atuação na área mais sensível do Direito.</p>
+        </div>
+        <div class="formacao-item">
+          <h4 class="area-title">Pós-graduação em Direito Digital, LGPD e Compliance</h4>
+          <p class="area-desc">Especialização em proteção de dados, crimes cibernéticos, responsabilidade digital e adequação à Lei Geral de Proteção de Dados, área em crescimento constante no ordenamento jurídico brasileiro.</p>
+        </div>
       </div>
 
-      <div class="area-card fade-up">
-        <div class="area-title">Pós-graduação em Direito Digital, LGPD e Compliance</div>
-        <p class="area-desc">Especialização em proteção de dados, crimes cibernéticos, responsabilidade digital e adequação à Lei Geral de Proteção de Dados, área em crescimento constante no ordenamento jurídico brasileiro.</p>
-      </div>
-
-      <div class="area-card fade-up">
-        <div class="area-title">Experiência em Delegacia de Polícia</div>
-        <p class="area-desc">Vivência direta no ambiente investigativo policial. Compreensão do funcionamento dos inquéritos, das fases de investigação e da dinâmica institucional que antecede o processo criminal. Referência importante na defesa desde a fase pré-processual.</p>
-      </div>
-
-      <div class="area-card fade-up">
-        <div class="area-title">Experiência no PROCON</div>
-        <p class="area-desc">Atuação institucional no órgão de defesa do consumidor, com conhecimento prático dos mecanismos administrativos e das principais infrações cometidas por fornecedores de produtos e serviços.</p>
+      <div class="formacao-col">
+        <h3 class="formacao-col-title">Experiência institucional</h3>
+        <div class="formacao-item">
+          <h4 class="area-title">Experiência em Delegacia de Polícia</h4>
+          <p class="area-desc">Vivência direta no ambiente investigativo policial. Compreensão do funcionamento dos inquéritos, das fases de investigação e da dinâmica institucional que antecede o processo criminal. Referência importante na defesa desde a fase pré-processual.</p>
+        </div>
+        <div class="formacao-item">
+          <h4 class="area-title">Experiência no PROCON</h4>
+          <p class="area-desc">Atuação institucional no órgão de defesa do consumidor, com conhecimento prático dos mecanismos administrativos e das principais infrações cometidas por fornecedores de produtos e serviços.</p>
+        </div>
       </div>
 
     </div>
@@ -1662,43 +1836,42 @@
   <div class="container">
     <div class="dif-layout">
 
-      <div class="fade-up">
+      <div>
         <span class="section-tag">Diferenciais</span>
-        <div class="gold-line"></div>
         <h2 class="section-title">Como este escritório<br>trabalha</h2>
         <div class="dif-list">
           <div class="dif-item">
-            <div class="dif-num">01</div>
+            <span class="dif-marker" aria-hidden="true"></span>
             <div class="dif-text">
-              <h4>Análise técnica aprofundada</h4>
+              <h3>Análise técnica aprofundada</h3>
               <p>Cada caso é estudado com rigor. A estratégia é construída sobre fatos, provas e fundamentos jurídicos sólidos. Sem promessas.</p>
             </div>
           </div>
           <div class="dif-item">
-            <div class="dif-num">02</div>
+            <span class="dif-marker" aria-hidden="true"></span>
             <div class="dif-text">
-              <h4>Transparência total</h4>
+              <h3>Comunicação transparente</h3>
               <p>Você recebe informações claras e honestas sobre seu caso, prazos e perspectivas, sem linguagem hermética ou falsas expectativas.</p>
             </div>
           </div>
           <div class="dif-item">
-            <div class="dif-num">03</div>
+            <span class="dif-marker" aria-hidden="true"></span>
             <div class="dif-text">
-              <h4>Atuação pessoal</h4>
+              <h3>Atuação pessoal</h3>
               <p>O advogado que assina sua petição é o mesmo que acompanha seu processo do início ao fim. Compromisso real, não delegação.</p>
             </div>
           </div>
           <div class="dif-item">
-            <div class="dif-num">04</div>
+            <span class="dif-marker" aria-hidden="true"></span>
             <div class="dif-text">
-              <h4>Postura firme</h4>
+              <h3>Postura firme</h3>
               <p>Defesa assertiva dos seus direitos, sem passividade. Quando necessário, atuação combativa dentro dos limites da ética profissional.</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="dif-visual fade-up">
+      <div class="dif-visual">
         <p class="dif-quote">
           "O momento certo de buscar<br>um advogado é <span>antes que<br>o problema escale</span>."
         </p>
@@ -1706,7 +1879,7 @@
           Na maioria dos casos, quanto antes o advogado é envolvido, mais recursos jurídicos estão disponíveis. Aguardar pode reduzir significativamente as opções estratégicas.
         </p>
         <div class="dif-when">
-          <h5>Busque orientação imediata quando</h5>
+          <h3 class="dif-subheading">Busque orientação imediata quando</h3>
           <ul>
             <li>Receber qualquer intimação ou notificação policial</li>
             <li>Perceber movimentação suspeita em seus dados ou contas</li>
@@ -1729,27 +1902,26 @@
 <!-- PROCESSO -->
 <section id="processo">
   <div class="container">
-    <div class="processo-header fade-up">
+    <div class="processo-header">
       <span class="section-tag">Como funciona</span>
-      <div class="gold-line"></div>
       <h2 class="section-title">Do primeiro contato<br>à resolução</h2>
       <p class="section-subtitle" style="margin: 0 auto;">Um processo claro e direto, sem burocracia desnecessária.</p>
     </div>
     <div class="processo-steps">
-      <div class="step fade-up">
-        <div class="step-num">01</div>
+      <div class="step">
+        <div class="step-dot" aria-hidden="true">01</div>
         <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         <h3>Consulta inicial</h3>
         <p>Entre em contato pelo WhatsApp, apresente brevemente seu caso e agende um horário para uma conversa aprofundada, presencial ou remota.</p>
       </div>
-      <div class="step fade-up">
-        <div class="step-num">02</div>
+      <div class="step">
+        <div class="step-dot" aria-hidden="true">02</div>
         <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <h3>Análise e estratégia</h3>
         <p>O caso é analisado detalhadamente. Você recebe uma análise clara da sua situação e da estratégia jurídica mais adequada ao caso.</p>
       </div>
-      <div class="step fade-up">
-        <div class="step-num">03</div>
+      <div class="step">
+        <div class="step-dot" aria-hidden="true">03</div>
         <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polyline points="20 6 9 17 4 12"/></svg>
         <h3>Atuação e acompanhamento</h3>
         <p>Com a contratação definida, a atuação tem início com acompanhamento contínuo e comunicação clara em cada etapa do processo.</p>
@@ -1761,16 +1933,15 @@
 <!-- CONTEÚDO JURÍDICO -->
 <section id="conteudo">
   <div class="container">
-    <div class="content-header fade-up">
+    <div class="content-header">
       <div>
         <span class="section-tag">Conteúdo jurídico</span>
-        <div class="gold-line"></div>
         <h2 class="section-title">Informação que<br>liberta</h2>
       </div>
       <p class="section-subtitle">Conteúdo prático para quem quer entender seus direitos antes de precisar de um advogado.</p>
     </div>
     <div class="content-grid">
-      <a class="article-card featured fade-up" href="artigo-memphis-depay-corinthians.html">
+      <a class="article-card featured" href="artigo-memphis-depay-corinthians.html">
         <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80')">
           <span class="article-tag-bar">Cível &amp; Contratos · Novo</span>
         </div>
@@ -1786,7 +1957,10 @@
           </div>
         </div>
       </a>
-      <a class="article-card fade-up" href="artigo-lei-15397-codigo-penal.html">
+    </div>
+    <p class="content-list-label">Mais artigos</p>
+    <div class="content-grid">
+      <a class="article-card" href="artigo-lei-15397-codigo-penal.html">
         <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80')">
           <span class="article-tag-bar">Penal</span>
         </div>
@@ -1799,7 +1973,7 @@
           </div>
         </div>
       </a>
-      <a class="article-card fade-up" href="artigo-transacao-penal.html">
+      <a class="article-card" href="artigo-transacao-penal.html">
         <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80')">
           <span class="article-tag-bar">Penal</span>
         </div>
@@ -1812,7 +1986,7 @@
           </div>
         </div>
       </a>
-      <a class="article-card fade-up" href="artigo-negativacao-indevida.html">
+      <a class="article-card" href="artigo-negativacao-indevida.html">
         <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80')">
           <span class="article-tag-bar">Consumidor</span>
         </div>
@@ -1825,13 +1999,26 @@
           </div>
         </div>
       </a>
-      <a class="article-card fade-up" href="artigo-guarda-pensao.html">
+      <a class="article-card" href="artigo-guarda-pensao.html">
         <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1476703993599-0035a21b17a9?auto=format&fit=crop&w=800&q=80')">
           <span class="article-tag-bar">Família</span>
         </div>
         <div class="article-body">
           <h3 class="article-title">Guarda e pensão alimentícia: o que a lei garante nos processos de família</h3>
           <p class="article-excerpt">Da guarda compartilhada como regra ao binômio necessidade/possibilidade nos alimentos. Saiba como o processo funciona e quando é possível pedir revisão.</p>
+          <div class="article-meta">
+            <span>Leitura: 7 min</span>
+            <span class="article-read-link">Ler artigo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+      <a class="article-card" href="artigo-vazamento-dados.html">
+        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80')">
+          <span class="article-tag-bar">Digital &amp; LGPD</span>
+        </div>
+        <div class="article-body">
+          <h3 class="article-title">Vazamento de dados: você tem direito a indenização?</h3>
+          <p class="article-excerpt">Entenda o que configura um vazamento, quais são os direitos do titular e quando a exposição de dados pode gerar responsabilidade.</p>
           <div class="article-meta">
             <span>Leitura: 7 min</span>
             <span class="article-read-link">Ler artigo <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
@@ -1847,19 +2034,19 @@
   <div class="container">
     <div class="contato-layout">
 
-      <div class="contato-info fade-up">
+      <div class="contato-info">
         <span class="section-tag">Contato</span>
-        <div class="gold-line"></div>
         <h2 class="section-title">Vamos conversar<br>sobre seu caso</h2>
-        <p class="section-subtitle" style="margin-bottom: 48px;">Consultas com hora marcada. Atendimento direto com o advogado, presencial ou remoto.</p>
+        <p class="section-subtitle" style="margin-bottom: 0;">Consultas com hora marcada. Atendimento direto com o advogado, presencial ou remoto.</p>
 
+        <div class="contato-list">
         <div class="contato-item">
           <div class="contato-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </div>
           <div>
-            <h4>WhatsApp</h4>
-            <p>(46) 9 9974-6391<br><span style="font-size:12px; color:#555;">Resposta em até 2h úteis</span></p>
+            <h3>WhatsApp</h3>
+            <p>(46) 9 9974-6391</p>
           </div>
         </div>
 
@@ -1868,7 +2055,7 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
           <div>
-            <h4>E-mail</h4>
+            <h3>E-mail</h3>
             <p>allissonpaz@hotmail.com</p>
           </div>
         </div>
@@ -1878,13 +2065,14 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
           <div>
-            <h4>Endereço</h4>
+            <h3>Endereço</h3>
             <p>Rua Brigadeiro Rocha Loures, 219<br>Centro – Coronel Vivida, PR<br>CEP 85.550-040</p>
           </div>
         </div>
+        </div>
       </div>
 
-      <div class="form-card fade-up">
+      <div class="form-card">
         <h3 class="form-title">Envie sua mensagem</h3>
         <p class="form-subtitle">Preencha abaixo e você será redirecionado para o WhatsApp com as informações já preenchidas.</p>
         <form id="contactForm">
@@ -1933,9 +2121,8 @@
 <!-- MAPA -->
 <div id="mapa">
   <div class="mapa-inner">
-    <div class="mapa-info fade-up">
+    <div class="mapa-info">
       <span class="section-tag">Localização</span>
-      <div class="gold-line"></div>
       <h3>Onde nos<br>encontrar</h3>
       <p>Rua Brigadeiro Rocha Loures, 219</p>
       <p>Centro – Coronel Vivida, PR</p>
@@ -1956,6 +2143,8 @@
     </div>
   </div>
 </div>
+
+</main>
 
 <!-- FOOTER -->
 <footer>
@@ -1982,10 +2171,10 @@
             <span class="footer-tagline">Advogado</span>
           </div>
         </div>
-        <p>Advocacia com posicionamento firme, técnica apurada e foco em resultado. Coronel Vivida e Sudoeste do Paraná.</p>
+        <p>Advocacia com atuação técnica, responsável e orientada por análise individualizada. Coronel Vivida e Sudoeste do Paraná.</p>
       </div>
       <div class="footer-col">
-        <h5>Navegação</h5>
+        <h2>Navegação</h2>
         <ul>
           <li><a href="#atuacao">Áreas de atuação</a></li>
           <li><a href="#diferenciais">Diferenciais</a></li>
@@ -1995,7 +2184,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h5>Contato</h5>
+        <h2>Contato</h2>
         <ul>
           <li><a href="https://wa.me/5546999746391" target="_blank" rel="noopener" data-conversion="whatsapp-cta">(46) 9 9974-6391</a></li>
           <li><a href="mailto:allissonpaz@hotmail.com">allissonpaz@hotmail.com</a></li>
@@ -2005,7 +2194,7 @@
     </div>
     <div class="footer-bottom">
       <p>© <span id="year"></span> Alisson Nascimento Paz Advocacia. Todos os direitos reservados.</p>
-      <p class="footer-oab">OAB/PR 119.985</p>
+      <p class="footer-nap">Dr. Alisson Nascimento Paz · OAB/PR 119.985 · Rua Brigadeiro Rocha Loures, 219, Centro, Coronel Vivida – PR, CEP 85550-040 · (46) 9 9974-6391</p>
     </div>
   </div>
 </footer>
@@ -2018,52 +2207,8 @@
   </a>
 </div>
 
+<script src="assets/site.js" defer></script>
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Navbar scroll
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-
-  // Mobile menu
-  function toggleMenu() {
-    const navLinks  = document.getElementById('navLinks');
-    const navToggle = document.getElementById('navToggle');
-    const isOpen    = navLinks.classList.toggle('open');
-    navToggle.classList.toggle('active', isOpen);
-    document.body.classList.toggle('menu-open', isOpen);
-  }
-  document.querySelectorAll('#navLinks a').forEach(a => {
-    a.addEventListener('click', () => {
-      document.getElementById('navLinks').classList.remove('open');
-      document.getElementById('navToggle').classList.remove('active');
-      document.body.classList.remove('menu-open');
-    });
-  });
-
-  // Scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-  // Abas de áreas de atuação
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
-    });
-  });
-
   // Contact form → WhatsApp
   document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
