@@ -145,13 +145,6 @@ body.menu-open {
   border-radius: var(--radius-action);
 }
 
-.section-overline {
-  margin-bottom: 16px;
-  color: var(--gold-lt);
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-}
 
 .dif-marker {
   width: 2px;

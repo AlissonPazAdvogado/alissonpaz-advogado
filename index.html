@@ -132,22 +132,25 @@
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     section { padding: 120px 0; }
+    #diferenciais { padding: 148px 0; }
+    #processo { padding: 108px 0; }
+    #contato { padding: 136px 0; }
 
     .section-tag {
       font-family: 'Manrope', sans-serif;
       font-weight: 500;
       font-size: .72rem;
-      letter-spacing: .42em;
+      letter-spacing: .36em;
       text-transform: uppercase;
       color: var(--gold);
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 26px;
+      gap: 16px;
+      margin-bottom: 30px;
     }
     .section-tag::before {
       content: "";
-      width: 38px;
+      width: 42px;
       height: 1px;
       background: var(--gold);
       opacity: .8;
@@ -170,12 +173,7 @@
       line-height: 1.8;
     }
 
-    .gold-line {
-      width: 48px;
-      height: 2px;
-      background: var(--gold);
-      margin-bottom: 32px;
-    }
+    /* .gold-line removida: o eyebrow (.section-tag::before) e agora o unico tracinho dourado */
 
     .btn {
       display: inline-flex;
@@ -277,6 +275,8 @@
       align-items: center;
       padding: 0;
       overflow: hidden;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .hero-bg {
@@ -510,50 +510,36 @@
       gap: 14px;
     }
 
-    .areas-grid {
+    .formacao-columns {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 12px;
-      overflow: hidden;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
     }
 
-    .area-card {
-      background: var(--dark-2);
-      padding: 40px 32px;
-      transition: var(--tr);
-      position: relative;
-      overflow: hidden;
+    .formacao-col { padding-right: 48px; }
+    .formacao-col + .formacao-col {
+      padding-right: 0;
+      padding-left: 48px;
+      border-left: 1px solid rgba(201,168,76,0.14);
     }
 
-    .area-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%;
-      height: 2px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--tr);
-    }
-
-    .area-card:hover { background: var(--dark-3); }
-    .area-card:hover::after { transform: scaleX(1); }
-
-    .area-icon {
-      width: 48px;
-      height: 48px;
-      background: rgba(201,168,76,0.1);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 24px;
+    .formacao-col-title {
+      font-family: 'Manrope', sans-serif;
+      font-size: .76rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
       color: var(--gold);
+      padding-bottom: 18px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid rgba(201,168,76,0.22);
     }
+
+    .formacao-item {
+      padding: 28px 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .formacao-item:first-of-type { border-top: none; }
 
     .area-title {
       font-family: 'Cormorant Garamond', serif;
@@ -563,7 +549,19 @@
       margin-bottom: 12px;
     }
 
-    .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; }
+    .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 46ch; }
+
+    @media (max-width: 768px) {
+      .formacao-columns { grid-template-columns: 1fr; gap: 0; }
+      .formacao-col { padding-right: 0; }
+      .formacao-col + .formacao-col {
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid rgba(201,168,76,0.14);
+        margin-top: 40px;
+        padding-top: 40px;
+      }
+    }
 
 
     /* ── TABS DE ÁREAS ── */
@@ -717,10 +715,10 @@
 
     .dif-quote {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-size: clamp(1.5rem, 2.6vw, 1.95rem);
       font-weight: 600;
       color: var(--white);
-      line-height: 1.4;
+      line-height: 1.32;
       margin-bottom: 24px;
     }
     .dif-quote span { color: var(--gold); }
@@ -759,7 +757,6 @@
 
     .processo-header { text-align: center; max-width: 600px; margin: 0 auto; }
     .processo-header .section-tag { justify-content: center; }
-    .processo-header .gold-line { margin: 0 auto 32px; }
     .processo-header .section-subtitle { margin: 0 auto; }
 
     .processo-steps {
@@ -1249,7 +1246,6 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
-      .areas-grid { grid-template-columns: repeat(2, 1fr); }
       .dif-layout { grid-template-columns: 1fr; gap: 48px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
       .mapa-inner { grid-template-columns: 1fr; }
@@ -1318,7 +1314,6 @@
       .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
       /* Grids → coluna única */
-      .areas-grid { grid-template-columns: 1fr; }
       .processo-steps { grid-template-columns: 1fr; }
       .content-grid { grid-template-columns: 1fr; }
       .contato-layout { grid-template-columns: 1fr; gap: 40px; }
@@ -1528,7 +1523,6 @@
     <div class="areas-header">
       <div>
         <span class="section-tag">Áreas de atuação</span>
-        <div class="gold-line"></div>
         <h2 class="section-title">Como posso<br>ajudá-lo</h2>
       </div>
       <p class="section-subtitle">Atuação especializada nas áreas onde os riscos ao patrimônio, à liberdade e à privacidade são mais críticos.</p>
@@ -1803,32 +1797,35 @@
   <div class="container">
     <div class="areas-header">
       <div>
-        <p class="section-overline">Trajetória</p>
-        <div class="gold-line"></div>
+        <span class="section-tag">Trajetória</span>
         <h2 class="section-title">Formação e<br>experiência institucional</h2>
       </div>
       <p class="section-subtitle">Conhecimento técnico construído em diferentes frentes do Direito e das instituições que o operam.</p>
     </div>
-    <div class="areas-grid">
+    <div class="formacao-columns">
 
-      <div class="area-card">
-        <h3 class="area-title">Pós-graduação em Advocacia Criminal</h3>
-        <p class="area-desc">Especialização com foco em defesa criminal, processo penal, execução da pena e procedimentos investigativos. Formação técnica voltada para atuação na área mais sensível do Direito.</p>
+      <div class="formacao-col">
+        <h3 class="formacao-col-title">Formação acadêmica</h3>
+        <div class="formacao-item">
+          <h4 class="area-title">Pós-graduação em Advocacia Criminal</h4>
+          <p class="area-desc">Especialização com foco em defesa criminal, processo penal, execução da pena e procedimentos investigativos. Formação técnica voltada para atuação na área mais sensível do Direito.</p>
+        </div>
+        <div class="formacao-item">
+          <h4 class="area-title">Pós-graduação em Direito Digital, LGPD e Compliance</h4>
+          <p class="area-desc">Especialização em proteção de dados, crimes cibernéticos, responsabilidade digital e adequação à Lei Geral de Proteção de Dados, área em crescimento constante no ordenamento jurídico brasileiro.</p>
+        </div>
       </div>
 
-      <div class="area-card">
-        <h3 class="area-title">Pós-graduação em Direito Digital, LGPD e Compliance</h3>
-        <p class="area-desc">Especialização em proteção de dados, crimes cibernéticos, responsabilidade digital e adequação à Lei Geral de Proteção de Dados, área em crescimento constante no ordenamento jurídico brasileiro.</p>
-      </div>
-
-      <div class="area-card">
-        <h3 class="area-title">Experiência em Delegacia de Polícia</h3>
-        <p class="area-desc">Vivência direta no ambiente investigativo policial. Compreensão do funcionamento dos inquéritos, das fases de investigação e da dinâmica institucional que antecede o processo criminal. Referência importante na defesa desde a fase pré-processual.</p>
-      </div>
-
-      <div class="area-card">
-        <h3 class="area-title">Experiência no PROCON</h3>
-        <p class="area-desc">Atuação institucional no órgão de defesa do consumidor, com conhecimento prático dos mecanismos administrativos e das principais infrações cometidas por fornecedores de produtos e serviços.</p>
+      <div class="formacao-col">
+        <h3 class="formacao-col-title">Experiência institucional</h3>
+        <div class="formacao-item">
+          <h4 class="area-title">Experiência em Delegacia de Polícia</h4>
+          <p class="area-desc">Vivência direta no ambiente investigativo policial. Compreensão do funcionamento dos inquéritos, das fases de investigação e da dinâmica institucional que antecede o processo criminal. Referência importante na defesa desde a fase pré-processual.</p>
+        </div>
+        <div class="formacao-item">
+          <h4 class="area-title">Experiência no PROCON</h4>
+          <p class="area-desc">Atuação institucional no órgão de defesa do consumidor, com conhecimento prático dos mecanismos administrativos e das principais infrações cometidas por fornecedores de produtos e serviços.</p>
+        </div>
       </div>
 
     </div>
@@ -1842,7 +1839,6 @@
 
       <div>
         <span class="section-tag">Diferenciais</span>
-        <div class="gold-line"></div>
         <h2 class="section-title">Como este escritório<br>trabalha</h2>
         <div class="dif-list">
           <div class="dif-item">
@@ -1909,7 +1905,6 @@
   <div class="container">
     <div class="processo-header">
       <span class="section-tag">Como funciona</span>
-      <div class="gold-line"></div>
       <h2 class="section-title">Do primeiro contato<br>à resolução</h2>
       <p class="section-subtitle" style="margin: 0 auto;">Um processo claro e direto, sem burocracia desnecessária.</p>
     </div>
@@ -1941,8 +1936,7 @@
   <div class="container">
     <div class="content-header">
       <div>
-        <p class="section-overline">Conteúdo jurídico</p>
-        <div class="gold-line"></div>
+        <span class="section-tag">Conteúdo jurídico</span>
         <h2 class="section-title">Informação que<br>liberta</h2>
       </div>
       <p class="section-subtitle">Conteúdo prático para quem quer entender seus direitos antes de precisar de um advogado.</p>
@@ -2043,7 +2037,6 @@
 
       <div class="contato-info">
         <span class="section-tag">Contato</span>
-        <div class="gold-line"></div>
         <h2 class="section-title">Vamos conversar<br>sobre seu caso</h2>
         <p class="section-subtitle" style="margin-bottom: 0;">Consultas com hora marcada. Atendimento direto com o advogado, presencial ou remoto.</p>
 
@@ -2130,8 +2123,7 @@
 <div id="mapa">
   <div class="mapa-inner">
     <div class="mapa-info">
-      <p class="section-overline">Localização</p>
-      <div class="gold-line"></div>
+      <span class="section-tag">Localização</span>
       <h3>Onde nos<br>encontrar</h3>
       <p>Rua Brigadeiro Rocha Loures, 219</p>
       <p>Centro – Coronel Vivida, PR</p>
