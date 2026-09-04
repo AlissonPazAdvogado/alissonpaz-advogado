@@ -65,7 +65,7 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-5J4N177RQL"></script>
@@ -86,9 +86,15 @@
       --dark-4:  #332C22;
       --gold:    #C2A14E;
       --gold-lt: #E4D2A0;
+      --gold-deep: #8C6B2E;
       --white:   #F4EFE3;
       --gray:    #8A8073;
       --gray-lt: #5e5648;
+      /* Papel/creme — seções claras, ritmo editorial */
+      --paper:    #EDE6D5;
+      --paper-2:  #E4DBC7;
+      --ink:      #211C15;
+      --ink-soft: rgba(33,28,21,0.62);
       --radius:  6px;
       --tr: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -100,7 +106,7 @@
     body {
       background: var(--dark);
       color: var(--white);
-      font-family: 'Manrope', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 16px;
       line-height: 1.7;
       font-weight: 300;
@@ -118,7 +124,7 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.2; }
+    h1, h2, h3, h4 { font-family: 'IBM Plex Sans', sans-serif; line-height: 1.2; }
     a { text-decoration: none; color: inherit; }
     img { max-width: 100%; display: block; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; }
@@ -138,7 +144,7 @@
 
     /* Rótulo de seção: numeração editorial em vez do eyebrow+tracinho repetido */
     .section-tag {
-      font-family: 'Manrope', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-weight: 500;
       font-size: .72rem;
       letter-spacing: .12em;
@@ -152,17 +158,17 @@
     }
     .section-tag::before {
       content: "0" counter(section);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 600;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .82rem;
+      font-weight: 500;
       color: var(--gold);
       letter-spacing: 0;
     }
     body { counter-reset: section; }
 
     .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.1rem, 4.8vw, 3.75rem);
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(1.9rem, 3.6vw, 2.85rem);
       font-weight: 600;
       color: var(--white);
       line-height: 1.12;
@@ -221,8 +227,8 @@
     .nav-lockup { display: flex; align-items: center; gap: 16px; }
     .nav-mark { height: 54px; width: auto; color: var(--gold); }
     .nav-txt { display: flex; flex-direction: column; line-height: 1; }
-    .nav-name { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: .12em; color: var(--white); }
-    .nav-tagline { font-family: 'Cinzel', serif; font-size: .58rem; letter-spacing: .4em; color: var(--gray); margin-top: 7px; }
+    .nav-name { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: .05em; color: var(--white); }
+    .nav-tagline { font-family: 'IBM Plex Mono', monospace; font-size: .58rem; letter-spacing: .18em; color: var(--gray); margin-top: 6px; }
 
     .nav-links {
       display: flex;
@@ -269,16 +275,16 @@
     /* Botão fechar — escondido no desktop */
     .nav-close-item { display: none; }
 
-    /* ── HERO: masthead editorial (não split 50/50) ── */
+    /* ── HERO: equilíbrio real entre conteúdo e fotografia (~57/43) ── */
     #hero {
       position: relative;
-      min-height: 100vh;
-      padding: 152px 0 64px;
+      min-height: 92vh;
+      padding: 128px 0 0;
       overflow: hidden;
       will-change: transform;
       transform: translateZ(0);
       display: flex;
-      align-items: flex-end;
+      align-items: stretch;
     }
 
     .hero-bg { position: absolute; inset: 0; background: var(--dark); }
@@ -287,34 +293,30 @@
       position: absolute;
       inset: 0;
       z-index: 2;
-      background:
-        linear-gradient(to bottom, transparent 0%, transparent 58%, rgba(20,17,13,0.55) 80%, #14110D 100%),
-        linear-gradient(to left,  rgba(20,17,13,1) 0%, rgba(20,17,13,0.9) 18%, rgba(20,17,13,0.2) 30%, transparent 42%);
+      background: linear-gradient(to left, rgba(20,17,13,0.08) 0%, rgba(20,17,13,0.55) 42%, rgba(20,17,13,0.98) 57%, var(--dark) 100%);
     }
 
-    /* Faixa vertical da fotografia — janela recortada à direita, não metade da tela */
+    /* Fotografia com presença real — quase metade da tela, recorte forte */
     .hero-photo {
       position: absolute;
       top: 0;
       right: 0;
       bottom: 0;
-      width: 27%;
+      width: 43%;
       object-fit: cover;
       object-position: top center;
       z-index: 1;
-      opacity: 0.92;
+      opacity: 1;
       display: block;
-      -webkit-mask-image: linear-gradient(to left, black 82%, transparent 100%);
-      mask-image:        linear-gradient(to left, black 82%, transparent 100%);
     }
 
     .hero-rule {
       position: absolute;
-      top: 152px;
-      bottom: 64px;
-      right: 27%;
+      top: 128px;
+      bottom: 56px;
+      right: 43%;
       width: 1px;
-      background: rgba(201,168,76,0.35);
+      background: rgba(201,168,76,0.3);
       z-index: 2;
     }
 
@@ -323,50 +325,50 @@
       z-index: 3;
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 27%;
-      column-gap: 40px;
+      grid-template-columns: 1fr 43%;
+      column-gap: 48px;
     }
 
-    .hero-content { grid-column: 1; padding-right: 64px; }
+    .hero-content { grid-column: 1; padding: 0 48px 56px 0; align-self: center; }
 
     .hero-byline {
       display: flex;
       flex-wrap: wrap;
       align-items: baseline;
-      gap: 18px;
-      font-family: 'Manrope', sans-serif;
-      font-size: .72rem;
-      font-weight: 500;
-      letter-spacing: .08em;
+      gap: 16px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .68rem;
+      font-weight: 400;
+      letter-spacing: .04em;
       text-transform: uppercase;
       color: var(--gray);
-      padding-bottom: 20px;
+      padding-bottom: 18px;
       border-bottom: 1px solid rgba(201,168,76,0.2);
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
-    .hero-byline strong { color: var(--gold-lt); font-weight: 600; }
+    .hero-byline strong { color: var(--gold-lt); font-weight: 500; }
     .hero-byline .sep { color: rgba(201,168,76,0.35); }
 
     .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.2rem, 3.9vw, 3.6rem);
-      font-weight: 500;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: clamp(1.7rem, 2.7vw, 2.35rem);
+      font-weight: 600;
       color: var(--white);
-      line-height: 1.16;
-      letter-spacing: .002em;
-      max-width: 17ch;
-      margin-bottom: 30px;
+      line-height: 1.28;
+      letter-spacing: -.005em;
+      max-width: 22ch;
+      margin-bottom: 22px;
     }
 
     .hero-sub {
-      font-size: 1.05rem;
-      color: rgba(240,237,232,0.68);
-      max-width: 52ch;
-      line-height: 1.85;
-      margin-bottom: 40px;
+      font-size: .98rem;
+      color: rgba(240,237,232,0.64);
+      max-width: 46ch;
+      line-height: 1.75;
+      margin-bottom: 34px;
     }
 
-    .hero-actions { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .hero-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
     .hero-actions .btn-outline {
       border-color: transparent;
       padding-left: 0;
@@ -376,50 +378,27 @@
     }
     .hero-actions .btn-gold { padding: 11px 22px; font-size: 13px; }
 
-    .hero-margin {
-      grid-column: 2;
-      align-self: end;
-      padding-bottom: 4px;
-    }
-    .hero-margin-label {
-      font-family: 'Manrope', sans-serif;
-      font-size: .64rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(240,237,232,0.4);
-      margin-bottom: 10px;
-    }
-    .hero-margin-value {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      color: var(--white);
-      margin-bottom: 22px;
-      line-height: 1.4;
-    }
-    .hero-margin-value:last-child { margin-bottom: 0; }
-
     @media (max-width: 1024px) {
       .hero-grid { grid-template-columns: 1fr; }
-      .hero-photo { width: 44%; opacity: 0.35; }
+      .hero-photo { width: 46%; opacity: 0.32; }
       .hero-rule { display: none; }
-      .hero-content { padding-right: 0; }
-      .hero-margin { grid-column: 1; align-self: auto; display: flex; gap: 32px; margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); }
-      .hero-margin-value { margin-bottom: 0; }
+      .hero-content { padding: 0 0 40px; align-self: end; }
+      .hero-gradient { background: linear-gradient(to bottom, rgba(20,17,13,0.15) 0%, rgba(20,17,13,0.7) 55%, var(--dark) 88%); }
     }
 
     @media (max-width: 768px) {
-      #hero { padding: 108px 0 56px; align-items: flex-end; }
+      #hero { padding: 96px 0 0; min-height: auto; }
       .hero-photo {
         width: 100%;
-        opacity: 0.2;
+        opacity: 0.22;
         -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 78%, transparent 100%);
         mask-image:        linear-gradient(to bottom, transparent 0%, black 20%, black 78%, transparent 100%);
       }
       .hero-gradient {
         background: linear-gradient(to bottom, rgba(20,17,13,0.75) 0%, rgba(20,17,13,0.35) 30%, rgba(20,17,13,0.55) 60%, #14110D 92%);
       }
-      .hero-byline { gap: 12px 16px; }
-      .hero-margin { flex-direction: column; gap: 10px; }
+      .hero-content { padding-bottom: 48px; }
+      .hero-byline { gap: 10px 14px; }
     }
 
     /* ── MAPA ── */
@@ -468,7 +447,8 @@
     .mapa-embed iframe { display: block; width: 100%; height: 100%; min-height: 380px; border: none; filter: grayscale(30%) invert(92%) hue-rotate(180deg); }
 
     /* ── ÁREAS DE ATUAÇÃO ── */
-    #atuacao { background: var(--dark); }
+    #atuacao { background: var(--paper); }
+    #formacao { background: var(--paper); }
 
     .areas-header {
       display: flex;
@@ -492,7 +472,7 @@
     }
 
     .formacao-col-title {
-      font-family: 'Manrope', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: .76rem;
       font-weight: 600;
       letter-spacing: .1em;
@@ -510,11 +490,12 @@
     .formacao-item:first-of-type { border-top: none; }
 
     .area-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.02rem;
       font-weight: 600;
+      letter-spacing: -.005em;
       color: var(--white);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 46ch; }
@@ -557,7 +538,7 @@
       border: none;
       border-top: 1px solid rgba(255,255,255,0.06);
       color: rgba(240,237,232,0.45);
-      font-family: 'Manrope', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 13.5px;
       font-weight: 500;
       letter-spacing: 0.3px;
@@ -570,10 +551,10 @@
     .tab-btn:first-child { border-top: none; }
     .tab-btn::before {
       content: "0" counter(area);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: rgba(201,168,76,0.35);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: .82rem;
+      font-weight: 500;
+      color: rgba(201,168,76,0.4);
       flex-shrink: 0;
     }
     .tab-btn svg { display: none; }
@@ -615,8 +596,8 @@
     }
 
     .tab-group h4 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: .92rem;
       font-weight: 600;
       color: var(--white);
       margin-bottom: 16px;
@@ -675,10 +656,10 @@
     .dif-item:first-child { border-top: none; padding-top: 0; }
 
     .dif-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: rgba(201,168,76,0.2);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: rgba(201,168,76,0.4);
       line-height: 1;
       min-width: 44px;
     }
@@ -708,14 +689,14 @@
     }
 
     .dif-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.5rem, 2.6vw, 1.95rem);
-      font-weight: 600;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 500;
       color: var(--white);
-      line-height: 1.32;
-      margin-bottom: 24px;
+      line-height: 1.55;
+      max-width: 34ch;
+      margin-bottom: 20px;
     }
-    .dif-quote span { color: var(--gold); }
 
     .dif-detail { font-size: 14px; color: var(--gray); line-height: 1.8; margin-bottom: 32px; }
 
@@ -746,7 +727,7 @@
     .dif-when ul li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
 
     /* ── PROCESSO ── */
-    #processo { background: var(--dark); }
+    #processo { background: var(--paper-2); }
 
     .processo-header { text-align: center; max-width: 600px; margin: 0 auto; }
     .processo-header .section-tag { justify-content: center; }
@@ -783,7 +764,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Manrope', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 11px;
       font-weight: 600;
       color: var(--gold);
@@ -803,7 +784,7 @@
     }
 
     /* ── CONTEÚDO ── */
-    #conteudo { background: var(--dark-2); }
+    #conteudo { background: var(--paper); }
 
     .content-header {
       display: flex;
@@ -820,7 +801,7 @@
     }
 
     .content-list-label {
-      font-family: 'Manrope', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 2px;
@@ -988,8 +969,37 @@
       .article-card:not(.featured) .article-excerpt { display: none; }
     }
 
-    /* ── CONTATO ── */
-    #contato { background: var(--dark); }
+    /* ── CONTATO: reservado para futura fotografia institucional (~42% da largura) ── */
+    #contato {
+      background: var(--dark);
+      padding: 0;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .contato-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42%;
+      flex-shrink: 0;
+      background: var(--dark-3);
+      border-right: 1px solid rgba(201,168,76,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .contato-visual svg {
+      width: 42%;
+      height: auto;
+      color: rgba(201,168,76,0.14);
+    }
+
+    .contato-body { flex: 1; min-width: 0; padding: 136px 0; }
+
+    @media (max-width: 1024px) {
+      .contato-visual { display: none; }
+      .contato-body { padding: 96px 0; }
+    }
 
     .contato-layout {
       display: grid;
@@ -1069,7 +1079,7 @@
       border-radius: var(--radius);
       padding: 14px 16px;
       color: var(--white);
-      font-family: 'Manrope', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 14px;
       transition: border-color var(--tr);
       outline: none;
@@ -1141,8 +1151,8 @@
     .footer-lockup { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
     .footer-mark { height: 44px; width: auto; color: var(--gold); }
     .footer-txt { display: flex; flex-direction: column; line-height: 1; }
-    .footer-name { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: .12em; color: var(--white); }
-    .footer-tagline { font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .42em; color: var(--gray); margin-top: 7px; }
+    .footer-name { font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; font-size: .95rem; letter-spacing: .05em; color: var(--white); }
+    .footer-tagline { font-family: 'IBM Plex Mono', monospace; font-size: .5rem; letter-spacing: .18em; color: var(--gray); margin-top: 6px; }
 
     .footer-brand p {
       font-size: 13px;
@@ -1372,6 +1382,49 @@
       .tab-group { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
       .tab-group:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
     }
+
+    /* ── SEÇÕES CLARAS: ritmo editorial ônix/creme ── */
+    .light-section .section-tag { color: var(--ink-soft); }
+    .light-section .section-tag::before { color: var(--gold-deep); }
+    .light-section .section-title { color: var(--ink); }
+    .light-section .section-subtitle { color: var(--ink-soft); }
+
+    .light-section .tab-nav { border-right-color: rgba(33,28,21,0.15); }
+    .light-section .tab-btn { color: rgba(33,28,21,0.45); }
+    .light-section .tab-btn::before { color: rgba(140,107,46,0.55); }
+    .light-section .tab-btn:hover { color: rgba(33,28,21,0.75); }
+    .light-section .tab-btn.active { color: var(--ink); }
+    .light-section .tab-btn.active::before { color: var(--gold-deep); }
+    .light-section .tab-intro { color: var(--ink-soft); }
+    .light-section .tab-group h4 { color: var(--ink); border-bottom-color: rgba(140,107,46,0.3); }
+    .light-section .tab-group ul li { color: var(--ink-soft); }
+
+    .light-section .formacao-col-title { color: var(--gold-deep); border-bottom-color: rgba(140,107,46,0.3); }
+    .light-section .formacao-item { border-top-color: rgba(33,28,21,0.1); }
+    .light-section .formacao-col + .formacao-col { border-left-color: rgba(140,107,46,0.25); }
+    .light-section .area-title { color: var(--ink); }
+    .light-section .area-desc { color: var(--ink-soft); }
+
+    .light-section .processo-header .section-subtitle { color: var(--ink-soft); }
+    .light-section .step h3 { color: var(--ink); }
+    .light-section .step p { color: var(--ink-soft); }
+    .light-section .step-dot { background: var(--paper-2); border-color: var(--gold-deep); color: var(--gold-deep); }
+    .light-section .step-icon { color: var(--gold-deep); }
+    .light-section .processo-steps::before { background: linear-gradient(to right, rgba(140,107,46,0.55), rgba(140,107,46,0.55) 96%, transparent 100%); }
+
+    .light-section .content-list-label { color: var(--ink-soft); border-top-color: rgba(33,28,21,0.1); }
+    .light-section .article-card { background: var(--white); border-color: rgba(33,28,21,0.08); }
+    .light-section .article-card:not(.featured) { border-bottom-color: rgba(33,28,21,0.12); }
+    .light-section .article-card:not(.featured):hover { background: rgba(33,28,21,0.03); border-color: rgba(33,28,21,0.12); }
+    .light-section .article-title { color: var(--ink); }
+    .light-section .article-excerpt { color: var(--ink-soft); }
+    .light-section .article-meta { color: var(--gold-deep); border-top-color: rgba(33,28,21,0.1); }
+    .light-section .article-read-link { color: var(--gold-deep); }
+
+    @media (max-width: 768px) {
+      .light-section .tab-nav { border-bottom-color: rgba(33,28,21,0.15); }
+      .light-section .tab-group { border-bottom-color: rgba(33,28,21,0.1) !important; }
+    }
   </style>
   <link rel="stylesheet" href="assets/base.css">
   <!-- Google tag (gtag.js) -->
@@ -1456,13 +1509,13 @@
           <span class="sep">·</span>
           <span>Coronel Vivida – PR</span>
           <span class="sep">·</span>
-          <span>Criminal, Consumidor, Digital, Cível e Família</span>
+          <span>Criminal, Cível, Família, Consumidor, Digital e LGPD</span>
         </div>
         <h1 class="hero-title">
-          Defesa técnica, responsável e orientada pela melhor estratégia jurídica.
+          Defesa técnica orientada pela melhor estratégia jurídica.
         </h1>
         <p class="hero-sub">
-          O escritório presta assessoria jurídica com ética, discrição e rigor técnico, atuando desde a fase investigativa até a execução processual.
+          Assessoria jurídica com ética, discrição e rigor técnico, da fase investigativa à execução processual.
         </p>
         <div class="hero-actions">
           <a href="#atuacao" class="btn btn-outline">Ver áreas de atuação</a>
@@ -1472,28 +1525,18 @@
           </a>
         </div>
       </div>
-      <div class="hero-margin">
-        <div>
-          <div class="hero-margin-label">Atuação</div>
-          <div class="hero-margin-value">Nacional</div>
-        </div>
-        <div>
-          <div class="hero-margin-label">Atendimento</div>
-          <div class="hero-margin-value">Com hora marcada</div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 
 <!-- ÁREAS DE ATUAÇÃO -->
-<section id="atuacao">
+<section id="atuacao" class="light-section">
   <div class="container">
     <div class="areas-header">
       <div>
         <span class="section-tag">Áreas de atuação</span>
-        <h2 class="section-title">Como posso<br>ajudá-lo</h2>
+        <h2 class="section-title">Como posso<br>ajudá-lo?</h2>
       </div>
       <p class="section-subtitle">Atuação especializada nas áreas onde os riscos ao patrimônio, à liberdade e à privacidade são mais críticos.</p>
     </div>
@@ -1505,14 +1548,6 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6l9-4 9 4v6c0 5.25-3.75 10.15-9 11.25C6.75 22.15 3 17.25 3 12V6z"/></svg>
           Direito Penal
         </button>
-        <button class="tab-btn" data-tab="consumidor" role="tab">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          Direito do Consumidor
-        </button>
-        <button class="tab-btn" data-tab="digital" role="tab">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          Digital & LGPD
-        </button>
         <button class="tab-btn" data-tab="civel" role="tab">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           Cível & Contratos
@@ -1520,6 +1555,14 @@
         <button class="tab-btn" data-tab="familia" role="tab">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
           Família & Inventários
+        </button>
+        <button class="tab-btn" data-tab="consumidor" role="tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Direito do Consumidor
+        </button>
+        <button class="tab-btn" data-tab="digital" role="tab">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Digital & LGPD
         </button>
       </div>
 
@@ -1763,7 +1806,7 @@
 </section>
 
 <!-- FORMAÇÃO E TRAJETÓRIA -->
-<section id="formacao" style="background: var(--dark);">
+<section id="formacao" class="light-section">
   <div class="container">
     <div class="areas-header">
       <div>
@@ -1844,7 +1887,7 @@
 
       <div class="dif-visual">
         <p class="dif-quote">
-          "O momento certo de buscar<br>um advogado é <span>antes que<br>o problema escale</span>."
+          O momento certo de buscar um advogado é antes que o problema escale.
         </p>
         <p class="dif-detail">
           Na maioria dos casos, quanto antes o advogado é envolvido, mais recursos jurídicos estão disponíveis. Aguardar pode reduzir significativamente as opções estratégicas.
@@ -1871,7 +1914,7 @@
 </section>
 
 <!-- PROCESSO -->
-<section id="processo">
+<section id="processo" class="light-section">
   <div class="container">
     <div class="processo-header">
       <span class="section-tag">Como funciona</span>
@@ -1902,7 +1945,7 @@
 </section>
 
 <!-- CONTEÚDO JURÍDICO -->
-<section id="conteudo">
+<section id="conteudo" class="light-section">
   <div class="container">
     <div class="content-header">
       <div>
@@ -2002,6 +2045,16 @@
 
 <!-- CONTATO -->
 <section id="contato">
+  <div class="contato-visual" aria-hidden="true">
+    <svg viewBox="0 0 240 270" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M58,52 L182,52 Q196,52 196,66 L196,150 Q196,206 120,252 Q44,206 44,150 L44,66 Q44,52 58,52 Z"/>
+      <circle cx="120" cy="37" r="6.5" stroke-width="2.6"/>
+      <line x1="120" y1="43.5" x2="120" y2="96" stroke-width="2.6"/>
+      <line x1="60" y1="96" x2="180" y2="96" stroke-width="2.6"/>
+      <path d="M113,98 L113,230 L120,247 L127,230 L127,98" stroke-width="2.6"/>
+    </svg>
+  </div>
+  <div class="contato-body">
   <div class="container">
     <div class="contato-layout">
 
@@ -2086,6 +2139,7 @@
       </div>
 
     </div>
+  </div>
   </div>
 </section>
 
