@@ -79,6 +79,29 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* ── Marca-d'água do brasão: 1 por seção, variando posição/tamanho, nunca competindo com conteúdo ── */
+    .crest-mark {
+      position: absolute;
+      aspect-ratio: 240 / 270;
+      color: var(--gold);
+      opacity: .05;
+      pointer-events: none;
+      z-index: 0;
+      overflow: visible;
+    }
+    .crest-mark--hero      { top: -30px; right: -40px; width: 200px; opacity: .05; }
+    .crest-mark--atuacao   { bottom: 24px; left: 24px; width: 110px; opacity: .05; }
+    .crest-mark--formacao  { top: 50%; right: -50px; width: 150px; opacity: .04; transform: translateY(-50%); }
+    .crest-mark--diferenciais { top: 32px; left: 32px; width: 100px; opacity: .06; }
+    .crest-mark--processo  { bottom: -36px; right: 40px; width: 170px; opacity: .05; }
+    .crest-mark--conteudo  { top: 60px; right: 12%; width: 130px; opacity: .04; }
+    .crest-mark--contato   { top: 50%; left: -40px; width: 160px; opacity: .05; transform: translateY(-50%); }
+
+    @media (max-width: 768px) {
+      .crest-mark { transform: scale(.65); opacity: .035 !important; }
+      .crest-mark--formacao, .crest-mark--contato { transform: translateY(-50%) scale(.6); }
+    }
+
     :root {
       --dark:    #14110D;
       --dark-2:  #1B1712;
@@ -499,7 +522,7 @@
     .mapa-embed iframe { display: block; width: 100%; height: 100%; min-height: 380px; border: none; filter: grayscale(30%) invert(92%) hue-rotate(180deg); }
 
     /* ── ÁREAS DE ATUAÇÃO ── */
-    #atuacao { background: var(--dark); }
+    #atuacao { background: var(--dark); position: relative; overflow: hidden; }
 
     .areas-header {
       display: flex;
@@ -508,6 +531,8 @@
       margin-bottom: 56px;
       gap: 14px;
     }
+
+    #formacao { position: relative; overflow: hidden; }
 
     .formacao-columns {
       display: grid;
@@ -659,7 +684,7 @@
     }
 
     /* ── DIFERENCIAIS ── */
-    #diferenciais { background: var(--dark-2); }
+    #diferenciais { background: var(--dark-2); position: relative; overflow: hidden; }
 
     .dif-layout {
       display: grid;
@@ -752,7 +777,7 @@
     .dif-when ul li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
 
     /* ── PROCESSO ── */
-    #processo { background: var(--dark); }
+    #processo { background: var(--dark); position: relative; overflow: hidden; }
 
     .processo-header { text-align: center; max-width: 600px; margin: 0 auto; }
     .processo-header .section-tag { justify-content: center; }
@@ -809,7 +834,7 @@
     }
 
     /* ── CONTEÚDO ── */
-    #conteudo { background: var(--dark-2); }
+    #conteudo { background: var(--dark-2); position: relative; overflow: hidden; }
 
     .content-header {
       display: flex;
@@ -995,7 +1020,7 @@
     }
 
     /* ── CONTATO ── */
-    #contato { background: var(--dark); }
+    #contato { background: var(--dark); position: relative; overflow: hidden; }
 
     .contato-layout {
       display: grid;
@@ -1419,6 +1444,25 @@
 
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="crest-symbol" viewBox="0 0 240 270" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M58,52 L182,52 Q196,52 196,66 L196,150 Q196,206 120,252 Q44,206 44,150 L44,66 Q44,52 58,52 Z" stroke-width="3"/>
+      <circle cx="120" cy="37" r="6.5" stroke-width="2.6"/>
+      <line x1="120" y1="43.5" x2="120" y2="96" stroke-width="2.6"/>
+      <line x1="60" y1="96" x2="180" y2="96" stroke-width="2.6"/>
+      <circle cx="82" cy="96" r="3.2" stroke-width="2"/>
+      <circle cx="158" cy="96" r="3.2" stroke-width="2"/>
+      <line x1="82" y1="99.2" x2="82" y2="112" stroke-width="2"/>
+      <line x1="158" y1="99.2" x2="158" y2="112" stroke-width="2"/>
+      <path d="M82,112 L65,140 Q82,147 99,140 Z" stroke-width="2.4"/>
+      <path d="M158,112 L141,140 Q158,147 175,140 Z" stroke-width="2.4"/>
+      <path d="M113,98 L113,230 L120,247 L127,230 L127,98" stroke-width="2.6"/>
+      <line x1="120" y1="100" x2="120" y2="232" stroke-width="2"/>
+    </symbol>
+  </defs>
+</svg>
+
 <a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
 
 <!-- GTM: INSERIR SNIPPET BODY (NOSCRIPT) AQUI -->
@@ -1478,6 +1522,7 @@
 <main id="main-content">
 <section id="hero">
   <div class="hero-bg"></div>
+  <svg class="crest-mark crest-mark--hero" aria-hidden="true"><use href="#crest-symbol"/></svg>
   <img class="hero-photo" src="foto-advogado.jpg" alt="Dr. Alisson Nascimento Paz, Advogado" width="1085" height="1450" fetchpriority="high" decoding="async">
   <div class="hero-gradient"></div>
   <div class="hero-divider" aria-hidden="true"></div>
@@ -1518,6 +1563,7 @@
 
 <!-- ÁREAS DE ATUAÇÃO -->
 <section id="atuacao">
+  <svg class="crest-mark crest-mark--atuacao" aria-hidden="true"><use href="#crest-symbol"/></svg>
   <div class="container">
     <div class="areas-header">
       <div>
@@ -1793,6 +1839,7 @@
 
 <!-- FORMAÇÃO E TRAJETÓRIA -->
 <section id="formacao" style="background: var(--dark);">
+  <svg class="crest-mark crest-mark--formacao" aria-hidden="true"><use href="#crest-symbol"/></svg>
   <div class="container">
     <div class="areas-header">
       <div>
@@ -1833,6 +1880,7 @@
 
 <!-- DIFERENCIAIS -->
 <section id="diferenciais">
+  <svg class="crest-mark crest-mark--diferenciais" aria-hidden="true"><use href="#crest-symbol"/></svg>
   <div class="container">
     <div class="dif-layout">
 
@@ -1901,6 +1949,7 @@
 
 <!-- PROCESSO -->
 <section id="processo">
+  <svg class="crest-mark crest-mark--processo" aria-hidden="true"><use href="#crest-symbol"/></svg>
   <div class="container">
     <div class="processo-header">
       <span class="section-tag">Como funciona</span>
@@ -1932,6 +1981,7 @@
 
 <!-- CONTEÚDO JURÍDICO -->
 <section id="conteudo">
+  <svg class="crest-mark crest-mark--conteudo" aria-hidden="true"><use href="#crest-symbol"/></svg>
   <div class="container">
     <div class="content-header">
       <div>
@@ -2031,6 +2081,7 @@
 
 <!-- CONTATO -->
 <section id="contato">
+  <svg class="crest-mark crest-mark--contato" aria-hidden="true"><use href="#crest-symbol"/></svg>
   <div class="container">
     <div class="contato-layout">
 
