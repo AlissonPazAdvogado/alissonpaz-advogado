@@ -79,7 +79,7 @@ body.menu-open {
   transform: none !important;
 }
 
-.hero-content.fade-up {
+.hero-grid.fade-up {
   animation: hero-reveal 0.72s ease-out both;
 }
 
