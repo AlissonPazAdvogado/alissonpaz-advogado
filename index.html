@@ -176,18 +176,22 @@
        removido por ficar redundante entre Diferenciais e Contato (pouco
        espaço negativo real na seção, numeração 01-03 já ocupa a largura).
        Lados alternados em sequência (direita → esquerda → direita → esquerda)
-       para não repetir o mesmo lado em seções consecutivas. */
+       para não repetir o mesmo lado em seções consecutivas. Tamanho calibrado
+       por seção para preencher de fato o espaço negativo disponível, sem
+       tocar texto/CTA/formulário — Atuação e Diferenciais recebem o maior
+       porte (referência visual fornecida pelo cliente), pois são as seções
+       com o vazio lateral mais evidente. */
     .crest-atuacao {
-      width: 258px; right: -40px; top: 50%; transform: translateY(-50%); opacity: .09;
+      width: clamp(300px, 27vw, 560px); right: -70px; top: 50%; transform: translateY(-50%); opacity: .1;
     }
     .crest-formacao {
-      width: 200px; left: -28px; top: 14%; opacity: .08;
+      width: clamp(220px, 16vw, 300px); left: -40px; top: 10%; opacity: .09;
     }
     .crest-diferenciais {
-      width: 188px; right: -24px; bottom: 14%; opacity: .08;
+      width: clamp(280px, 38vw, 780px); right: -60px; top: 50%; transform: translateY(-50%); opacity: .08;
     }
     .crest-contato {
-      width: 258px; left: -38px; top: 50%; transform: translateY(-50%); opacity: .09;
+      width: clamp(240px, 19vw, 360px); left: -54px; top: 50%; transform: translateY(-50%); opacity: .1;
     }
 
     @media (max-width: 768px) {
@@ -197,8 +201,8 @@
          discretos e parcialmente cortados; as demais (conteúdo mais denso
          em coluna única) ficam sem marca d'água. */
       .crest-atuacao, .crest-formacao { display: none; }
-      .crest-diferenciais { width: 120px; opacity: .06; right: -18px; bottom: 10%; transform: none; }
-      .crest-contato { width: 140px; opacity: .06; left: -20px; top: 40%; transform: translateY(-50%); }
+      .crest-diferenciais { width: 150px; opacity: .07; right: -22px; bottom: 10%; transform: none; }
+      .crest-contato { width: 170px; opacity: .07; left: -24px; top: 40%; transform: translateY(-50%); }
     }
 
     .section-tag {
