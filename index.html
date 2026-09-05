@@ -159,39 +159,58 @@
       position: relative;
       z-index: 1;
     }
-    .section-crest {
+    /* Sistema único de coordenadas: cada seção define o CENTRO visual do seu
+       brasão via 4 variáveis (--wm-x, --wm-y, --wm-size, --wm-opacity) em vez
+       de combinações ad-hoc de right/left/top/bottom interpretadas seção a
+       seção. .section-watermark só lê essas variáveis e centraliza o brasão
+       nesse ponto com translate(-50%,-50%) — determinístico e fácil de
+       recalibrar por seção sem tocar na lógica de posicionamento em si.
+       --wm-x/--wm-y são % simples da caixa da própria seção (0%/100% =
+       borda esquerda/direita ou topo/base da seção). */
+    .section-watermark {
       position: absolute;
+      left: var(--wm-x);
+      top: var(--wm-y);
+      width: var(--wm-size);
+      opacity: var(--wm-opacity);
+      transform: translate(-50%, -50%);
       color: var(--gold);
       pointer-events: none;
       z-index: 0;
-      opacity: .09;
     }
     /* Cada brasão pertence a UMA seção só: sangria apenas lateral (nunca
-       vertical, para não vazar visualmente para a seção vizinha), e uma
-       margem de segurança vertical (~10-15% da altura da seção) entre o
-       brasão e as bordas superior/inferior — top/bottom em % + translateY
-       em vez de px fixos, para essa margem escalar com o conteúdo real de
-       cada seção. Nenhum fica no canto inferior direito, onde vive o botão
-       flutuante do WhatsApp (position:fixed). Apenas 4 marcas — Processo foi
-       removido por ficar redundante entre Diferenciais e Contato (pouco
-       espaço negativo real na seção, numeração 01-03 já ocupa a largura).
-       Lados alternados em sequência (direita → esquerda → direita → esquerda)
-       para não repetir o mesmo lado em seções consecutivas. Tamanho calibrado
-       por seção para preencher de fato o espaço negativo disponível, sem
-       tocar texto/CTA/formulário — Atuação e Diferenciais recebem o maior
-       porte (referência visual fornecida pelo cliente), pois são as seções
-       com o vazio lateral mais evidente. */
+       vertical, para não vazar visualmente para a seção vizinha). Nenhum
+       fica no canto inferior direito, onde vive o botão flutuante do
+       WhatsApp (position:fixed). Apenas 4 marcas — Processo foi removido por
+       ficar redundante entre Diferenciais e Contato (pouco espaço negativo
+       real na seção, numeração 01-03 já ocupa a largura). Lados alternados
+       em sequência (direita → esquerda → direita → esquerda). Atuação e
+       Diferenciais recebem o maior porte, pois são as seções com o vazio
+       lateral mais evidente — calibrado visualmente em 1920×1080 a partir
+       das coordenadas de referência do cliente. */
     .crest-atuacao {
-      width: clamp(300px, 27vw, 560px); right: -70px; top: 50%; transform: translateY(-50%); opacity: .1;
+      --wm-size: clamp(430px, 34vw, 680px);
+      --wm-x: 86%;
+      --wm-y: 55%;
+      --wm-opacity: .085;
     }
     .crest-formacao {
-      width: clamp(220px, 16vw, 300px); left: -40px; top: 10%; opacity: .09;
+      --wm-size: clamp(380px, 30vw, 600px);
+      --wm-x: 9%;
+      --wm-y: 52%;
+      --wm-opacity: .075;
     }
     .crest-diferenciais {
-      width: clamp(280px, 38vw, 780px); right: -60px; top: 50%; transform: translateY(-50%); opacity: .08;
+      --wm-size: clamp(520px, 42vw, 820px);
+      --wm-x: 84%;
+      --wm-y: 54%;
+      --wm-opacity: .075;
     }
     .crest-contato {
-      width: clamp(240px, 19vw, 360px); left: -54px; top: 50%; transform: translateY(-50%); opacity: .1;
+      --wm-size: clamp(420px, 32vw, 640px);
+      --wm-x: 9%;
+      --wm-y: 52%;
+      --wm-opacity: .08;
     }
 
     @media (max-width: 768px) {
@@ -201,8 +220,18 @@
          discretos e parcialmente cortados; as demais (conteúdo mais denso
          em coluna única) ficam sem marca d'água. */
       .crest-atuacao, .crest-formacao { display: none; }
-      .crest-diferenciais { width: 150px; opacity: .07; right: -22px; bottom: 10%; transform: none; }
-      .crest-contato { width: 170px; opacity: .07; left: -24px; top: 40%; transform: translateY(-50%); }
+      .crest-diferenciais {
+        --wm-size: 190px;
+        --wm-opacity: .06;
+        --wm-x: 88%;
+        --wm-y: 82%;
+      }
+      .crest-contato {
+        --wm-size: 210px;
+        --wm-opacity: .06;
+        --wm-x: 10%;
+        --wm-y: 42%;
+      }
     }
 
     .section-tag {
@@ -1455,7 +1484,7 @@
 
 <!-- ÁREAS DE ATUAÇÃO -->
 <section id="atuacao">
-  <svg class="section-crest crest-atuacao" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
+  <svg class="section-watermark crest-atuacao" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
   <div class="container">
     <div class="areas-header">
       <div>
@@ -1736,7 +1765,7 @@
 
 <!-- FORMAÇÃO E TRAJETÓRIA -->
 <section id="formacao" style="background: var(--dark);">
-  <svg class="section-crest crest-formacao" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
+  <svg class="section-watermark crest-formacao" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
   <div class="container">
     <div class="areas-header">
       <div>
@@ -1777,7 +1806,7 @@
 
 <!-- DIFERENCIAIS -->
 <section id="diferenciais">
-  <svg class="section-crest crest-diferenciais" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
+  <svg class="section-watermark crest-diferenciais" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
   <div class="container">
     <div class="dif-layout">
 
@@ -1970,7 +1999,7 @@
 
 <!-- CONTATO -->
 <section id="contato">
-  <svg class="section-crest crest-contato" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
+  <svg class="section-watermark crest-contato" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
   <div class="container">
     <div class="contato-layout">
 
