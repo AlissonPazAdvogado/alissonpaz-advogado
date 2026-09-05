@@ -184,32 +184,36 @@
        WhatsApp (position:fixed). Apenas 4 marcas — Processo foi removido por
        ficar redundante entre Diferenciais e Contato (pouco espaço negativo
        real na seção, numeração 01-03 já ocupa a largura). Lados alternados
-       em sequência (direita → esquerda → direita → esquerda). Atuação e
-       Diferenciais recebem o maior porte, pois são as seções com o vazio
-       lateral mais evidente — calibrado visualmente em 1920×1080 a partir
-       das coordenadas de referência do cliente. */
+       em sequência (direita → esquerda → direita → esquerda). --wm-x/--wm-y
+       medidos por análise de pixel do bounding box do círculo de referência
+       em cada screenshot do cliente (1920×1080), convertido para % da
+       própria seção via um landmark de texto scroll-invariante (distância
+       DOM landmark→topo-da-seção + delta de posição no screenshot),
+       eliminando a dependência de adivinhar o scroll no momento da captura.
+       --wm-size calibrado para o corpo visível do brasão preencher ~82% da
+       maior dimensão do círculo de referência. */
     .crest-atuacao {
-      --wm-size: clamp(430px, 34vw, 680px);
-      --wm-x: 86%;
-      --wm-y: 55%;
+      --wm-size: clamp(360px, 27.7vw, 531px);
+      --wm-x: 77%;
+      --wm-y: 32%;
       --wm-opacity: .085;
     }
     .crest-formacao {
-      --wm-size: clamp(380px, 30vw, 600px);
-      --wm-x: 9%;
-      --wm-y: 52%;
+      --wm-size: clamp(375px, 28.7vw, 551px);
+      --wm-x: 21.3%;
+      --wm-y: 62%;
       --wm-opacity: .075;
     }
     .crest-diferenciais {
-      --wm-size: clamp(520px, 42vw, 820px);
-      --wm-x: 84%;
-      --wm-y: 54%;
+      --wm-size: clamp(400px, 30.7vw, 590px);
+      --wm-x: 77.8%;
+      --wm-y: 80.6%;
       --wm-opacity: .075;
     }
     .crest-contato {
-      --wm-size: clamp(420px, 32vw, 640px);
-      --wm-x: 9%;
-      --wm-y: 52%;
+      --wm-size: clamp(290px, 22.2vw, 427px);
+      --wm-x: 27.3%;
+      --wm-y: 59.8%;
       --wm-opacity: .08;
     }
 
