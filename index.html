@@ -91,6 +91,11 @@
       --gray-lt: #5e5648;
       --radius:  6px;
       --tr: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      --nav-h: 88px; /* altura aproximada da navbar (padding 20px*2 + logo 54px, arredondado) */
+    }
+
+    @media (max-width: 768px) {
+      :root { --nav-h: 74px; }
     }
 
     ::selection { background: var(--gold); color: var(--dark); }
@@ -136,26 +141,46 @@
     #processo { padding: 108px 0; }
     #contato { padding: 136px 0; }
 
-    /* ── MARCA D'ÁGUA (brasão) ── */
+    /* ── MARCA D'ÁGUA (brasão) ──
+       Estrutura de stacking: a seção ganha isolation:isolate, o que a torna
+       um novo contexto de empilhamento próprio — assim o z-index do brasão
+       passa a ser resolvido DENTRO da seção, não escapa para o contexto raiz
+       (era isso que fazia o brasão pintar atrás do próprio background da
+       seção com z-index:-1 sem isolation, ficando invisível). O brasão fica
+       em z-index:0 e o .container de conteúdo em z-index:1, garantindo ordem
+       de pintura inequívoca independente da ordem no DOM. */
+    #atuacao, #formacao, #diferenciais, #processo, #contato {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    #atuacao > .container, #formacao > .container, #diferenciais > .container,
+    #processo > .container, #contato > .container {
+      position: relative;
+      z-index: 1;
+    }
     .section-crest {
       position: absolute;
       color: var(--gold);
       pointer-events: none;
-      z-index: -1;
-      opacity: .05;
+      z-index: 0;
+      opacity: .09;
     }
-    #atuacao, #formacao, #diferenciais, #processo, #contato {
-      position: relative;
-      overflow: hidden;
-    }
-    .crest-atuacao     { width: 130px; left: -30px; bottom: -20px; }
-    .crest-formacao    { width: 170px; right: -50px; top: 50%; transform: translateY(-50%); opacity: .04; }
-    .crest-diferenciais{ width: 110px; left: 24px; top: 24px; opacity: .06; }
-    .crest-processo    { width: 150px; right: -34px; bottom: -28px; }
-    .crest-contato      { width: 120px; left: 12px; bottom: -16px; opacity: .045; }
+    .crest-atuacao       { width: 260px; right: -40px; bottom: -50px; opacity: .10; }
+    .crest-formacao      { width: 200px; top: -30px; right: -30px; opacity: .08; }
+    .crest-diferenciais  { width: 170px; left: -20px; bottom: -20px; opacity: .08; }
+    .crest-processo      { width: 190px; right: -25px; bottom: -25px; opacity: .08; }
+    .crest-contato       { width: 240px; left: -35px; bottom: -30px; opacity: .09; }
 
     @media (max-width: 768px) {
-      .section-crest { display: none; }
+      /* Nem toda seção tem respiro suficiente no mobile para um brasão sem
+         disputar espaço com o texto. Mantemos apenas Diferenciais e Contato
+         — onde a área negativa é real mesmo em telas estreitas — bem
+         discretos e parcialmente cortados; as demais (conteúdo mais denso
+         em coluna única) ficam sem marca d'água. */
+      .crest-atuacao, .crest-formacao, .crest-processo { display: none; }
+      .crest-diferenciais { width: 110px; opacity: .06; left: -16px; bottom: -14px; }
+      .crest-contato { width: 130px; opacity: .06; left: -20px; bottom: -18px; }
     }
 
     .section-tag {
@@ -288,16 +313,32 @@
     .hero-grid {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
+      align-items: stretch;
+      /* Altura-alvo = viewport real menos a navbar, com piso (presença da foto)
+         e teto (não crescer sem limite em monitores grandes). Se o conteúdo do
+         hero-copy precisar de mais espaço que isso, a linha do grid cresce para
+         acomodá-lo (min-height nunca corta conteúdo) — por isso as duas colunas
+         nunca ficam com alturas desencontradas, o que era a causa da faixa vazia. */
+      min-height: clamp(460px, calc(100vh - var(--nav-h, 88px)), 820px);
+      min-height: clamp(460px, calc(100svh - var(--nav-h, 88px)), 820px);
     }
 
     .hero-media {
       position: relative;
       overflow: hidden;
       background: var(--dark-2);
-      min-height: clamp(400px, 68vh, 660px);
     }
 
     .hero-media img {
+      /* Absoluto em vez de width/height:100% em fluxo normal: dentro de um
+         grid item sem altura própria definida, height:100% é circular e o
+         navegador cai para o aspect ratio intrínseco da imagem (1085×1450),
+         inflando a coluna da foto bem além do min-height do grid — essa era
+         a causa real da foto gigante e da faixa vazia antes de "Áreas de
+         Atuação". Position:absolute preenche exatamente o tamanho que o
+         grid decidir para a linha, sem esse loop. */
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -361,9 +402,22 @@
       .hero-title { max-width: 420px; }
     }
 
+    /* Viewports desktop baixas (notebook com barras do navegador, zoom, etc.) —
+       aperta o respiro vertical do texto sem depender de mais um "vh mágico"
+       para a altura total, que já é resolvida por calc(100svh - navbar) acima. */
+    @media (min-width: 769px) and (max-height: 760px) {
+      .hero-copy {
+        padding-top: clamp(56px, 8vh, 84px);
+        padding-bottom: clamp(20px, 3.5vh, 32px);
+      }
+      .hero-kicker { margin-bottom: clamp(6px, 1vh, 12px); }
+      .hero-title { margin-bottom: clamp(8px, 1.2vh, 14px); }
+      .hero-sub, .hero-actions { margin-bottom: clamp(10px, 2vh, 18px); }
+    }
+
     @media (max-width: 768px) {
       .hero-grid { grid-template-columns: 1fr; }
-      .hero-media { height: 42vh; min-height: 300px; }
+      .hero-media { height: 42vh; height: 42dvh; min-height: 260px; max-height: 420px; }
       .hero-copy { justify-content: flex-start; padding: 36px 0 56px; }
       .hero-title, .hero-sub, .hero-meta { max-width: 100%; }
     }
