@@ -174,18 +174,20 @@
        cada seção. Nenhum fica no canto inferior direito, onde vive o botão
        flutuante do WhatsApp (position:fixed). Apenas 4 marcas — Processo foi
        removido por ficar redundante entre Diferenciais e Contato (pouco
-       espaço negativo real na seção, numeração 01-03 já ocupa a largura). */
+       espaço negativo real na seção, numeração 01-03 já ocupa a largura).
+       Lados alternados em sequência (direita → esquerda → direita → esquerda)
+       para não repetir o mesmo lado em seções consecutivas. */
     .crest-atuacao {
-      width: 220px; right: -36px; top: 50%; transform: translateY(-50%); opacity: .09;
+      width: 258px; right: -40px; top: 50%; transform: translateY(-50%); opacity: .09;
     }
     .crest-formacao {
-      width: 170px; left: -24px; top: 14%; opacity: .08;
+      width: 200px; left: -28px; top: 14%; opacity: .08;
     }
     .crest-diferenciais {
-      width: 160px; left: -20px; bottom: 14%; opacity: .08;
+      width: 188px; right: -24px; bottom: 14%; opacity: .08;
     }
     .crest-contato {
-      width: 220px; left: -34px; top: 50%; transform: translateY(-50%); opacity: .09;
+      width: 258px; left: -38px; top: 50%; transform: translateY(-50%); opacity: .09;
     }
 
     @media (max-width: 768px) {
@@ -195,8 +197,8 @@
          discretos e parcialmente cortados; as demais (conteúdo mais denso
          em coluna única) ficam sem marca d'água. */
       .crest-atuacao, .crest-formacao { display: none; }
-      .crest-diferenciais { width: 110px; opacity: .06; left: -16px; bottom: 10%; transform: none; }
-      .crest-contato { width: 130px; opacity: .06; left: -20px; top: 40%; transform: translateY(-50%); }
+      .crest-diferenciais { width: 120px; opacity: .06; right: -18px; bottom: 10%; transform: none; }
+      .crest-contato { width: 140px; opacity: .06; left: -20px; top: 40%; transform: translateY(-50%); }
     }
 
     .section-tag {
@@ -347,7 +349,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 62% 22%;
+      object-position: 58% 38%;
       display: block;
       z-index: 0;
     }
@@ -368,7 +370,12 @@
           rgba(20,17,13,0.06) 66%,
           transparent 80%
         ),
-        linear-gradient(to top, rgba(20,17,13,0.55) 0%, transparent 24%),
+        linear-gradient(to top,
+          #14110D 0%,
+          rgba(20,17,13,0.65) 8%,
+          rgba(20,17,13,0.2) 20%,
+          transparent 30%
+        ),
         linear-gradient(to bottom, rgba(20,17,13,0.35) 0%, transparent 20%);
     }
 
@@ -443,7 +450,7 @@
          texto separado (bug antigo), mantemos o mesmo cenário único, mas com
          object-position mais central (rosto) e um véu quase full-bleed,
          mais escuro embaixo, onde o texto se ancora. */
-      .hero-bg-img { object-position: 56% 16%; }
+      .hero-bg-img { object-position: 54% 24%; }
       .hero-scrim {
         background:
           linear-gradient(to bottom,
