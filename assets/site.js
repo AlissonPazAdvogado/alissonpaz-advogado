@@ -27,9 +27,8 @@
   // capture=true — dispara antes do handoff de navegação para o WhatsApp e
   // é resiliente a stopPropagation nos CTAs. O botão de submit do formulário
   // não tem data-conversion="whatsapp-cta", então este evento não se
-  // sobrepõe ao lead_form_submit (emitido pelo handler inline do formulário
-  // em index.html, que precisa controlar o próprio redirect via
-  // event_callback).
+  // sobrepõe ao lead_form_submit (emitido em obrigado.html via flag no
+  // sessionStorage gravada pelo handler inline do formulário).
   document.addEventListener('click', (event) => {
     const target = event.target.closest('[data-conversion="whatsapp-cta"]');
     if (!target) return;

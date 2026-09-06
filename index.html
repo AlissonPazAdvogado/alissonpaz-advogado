@@ -2208,25 +2208,9 @@
     const mensagem = document.getElementById('mensagem').value.trim();
     if (!nome || !telefone || !assunto) return;
     const texto = `Olá! Meu nome é *${nome}*.\n\n*Área:* ${assunto}\n*Telefone:* ${telefone}\n\n*Caso:*\n${mensagem || 'Gostaria de mais informações.'}`;
+    sessionStorage.setItem('lead_form_submitted', '1');
     window.open('https://wa.me/5546999746391?text=' + encodeURIComponent(texto), '_blank');
-
-    let redirected = false;
-    const goToObrigado = () => {
-      if (redirected) return;
-      redirected = true;
-      window.location.href = 'obrigado.html';
-    };
-
-    if (typeof window.gtag === 'function') {
-      window.gtag('event', 'lead_form_submit', {
-        send_to: 'G-5J4N177RQL',
-        form_id: 'contactForm',
-        event_callback: goToObrigado,
-        event_timeout: 1500
-      });
-    } else {
-      goToObrigado();
-    }
+    setTimeout(() => { window.location.href = 'obrigado.html'; }, 400);
   });
 </script>
 

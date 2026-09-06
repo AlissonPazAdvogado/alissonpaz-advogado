@@ -329,6 +329,24 @@
 </footer>
 
 <script src="assets/site.js" defer></script>
+<script>
+  // Conversão de formulário: a flag é gravada no #contactForm (index.html)
+  // logo antes do redirect para esta página. Removê-la antes de emitir o
+  // evento impede que um refresh ou acesso direto a obrigado.html gere
+  // lead_form_submit novamente.
+  (() => {
+    const submitted = sessionStorage.getItem('lead_form_submitted') === '1';
+    if (submitted) {
+      sessionStorage.removeItem('lead_form_submitted');
+      if (typeof window.gtag === 'function') {
+        gtag('event', 'lead_form_submit', {
+          send_to: 'G-5J4N177RQL',
+          form_id: 'contactForm'
+        });
+      }
+    }
+  })();
+</script>
 
 </body>
 </html>
