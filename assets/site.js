@@ -23,16 +23,17 @@
     }
   }
 
-  // Tracking GA4: cliques em qualquer link de WhatsApp (data-conversion)
-  // e submit do formulário de contato → generate_lead, diferenciando o
-  // canal em "method". O handler original do formulário (script inline)
-  // continua responsável por montar a mensagem e redirecionar; este
-  // listener adicional só reporta o evento, sem interferir nesse fluxo.
+  // Tracking GA4: eventos distintos para cada canal de lead. O botão de
+  // submit do formulário não tem data-conversion="whatsapp-cta", então os
+  // dois eventos abaixo não se sobrepõem no mesmo clique/submit. O handler
+  // original do formulário (script inline) continua responsável por montar
+  // a mensagem e redirecionar; este listener adicional só reporta o evento,
+  // sem interferir nesse fluxo.
   document.querySelectorAll('[data-conversion="whatsapp-cta"]').forEach((el) => {
-    el.addEventListener('click', () => track('generate_lead', { method: 'whatsapp' }));
+    el.addEventListener('click', () => track('whatsapp_click', { link_location: el.closest('section, header, footer, div.whatsapp-float')?.id || el.className }));
   });
   document.getElementById('contactForm')?.addEventListener('submit', () => {
-    track('generate_lead', { method: 'form' });
+    track('lead_form_submit', { form_id: 'contactForm' });
   });
 
   const year = document.getElementById('year');
