@@ -498,8 +498,19 @@
             #14110D 100%
           );
       }
-      .hero-copy { max-width: 100%; justify-content: flex-end; padding: 96px 0 40px; }
+      .hero-copy { max-width: 100%; justify-content: flex-end; padding: 96px 18px 40px; }
       .hero-title, .hero-sub, .hero-meta { max-width: 100%; }
+    }
+
+    /* Em viewports mobile muito baixas (ex.: 320x568) o hero ocupa quase
+       toda a altura da tela, o CTA "Ver áreas de atuação" quebra em duas
+       linhas (largura estreita) e tanto ele quanto a linha de meta no
+       rodapé do hero ficam sob o botão flutuante do WhatsApp (fixed,
+       canto inferior direito). Reserva espaço à direita só nesse caso,
+       sem afetar as demais alturas. */
+    @media (max-width: 768px) and (max-height: 600px) {
+      .hero-meta { padding-right: 84px; }
+      .hero-actions .btn { max-width: calc(100% - 76px); }
     }
 
     /* ── MAPA ── */
@@ -1342,9 +1353,15 @@
       .nav-name { font-size: .8rem; }
       .nav-tagline { font-size: .5rem; letter-spacing: .35em; margin-top: 5px; }
 
-      /* WhatsApp flutuante: esconde label (touch não tem hover) */
+      /* WhatsApp flutuante: esconde label (touch não tem hover). Soma
+         env(safe-area-inset-*) ao offset fixo para não ficar sob a área
+         de home-indicator/notch em iOS — resolve para 0 em devices sem
+         safe-area, então o valor final continua 20px onde já estava. */
       .whatsapp-label { display: none; }
-      .whatsapp-float { bottom: 20px; right: 20px; }
+      .whatsapp-float {
+        bottom: calc(20px + env(safe-area-inset-bottom));
+        right: calc(20px + env(safe-area-inset-right));
+      }
 
       /* Seções */
       .form-card { padding: 28px 20px; }
@@ -1914,7 +1931,7 @@
     </div>
     <div class="content-grid">
       <a class="article-card featured" href="artigo-memphis-depay-corinthians.html">
-        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80')">
+        <div class="article-img" data-bg="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80">
           <span class="article-tag-bar">Cível &amp; Contratos · Novo</span>
         </div>
         <div class="article-body">
@@ -1933,7 +1950,7 @@
     <p class="content-list-label">Mais artigos</p>
     <div class="content-grid">
       <a class="article-card" href="artigo-lei-15397-codigo-penal.html">
-        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80')">
+        <div class="article-img" data-bg="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=800&q=80">
           <span class="article-tag-bar">Penal</span>
         </div>
         <div class="article-body">
@@ -1946,7 +1963,7 @@
         </div>
       </a>
       <a class="article-card" href="artigo-transacao-penal.html">
-        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80')">
+        <div class="article-img" data-bg="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80">
           <span class="article-tag-bar">Penal</span>
         </div>
         <div class="article-body">
@@ -1959,7 +1976,7 @@
         </div>
       </a>
       <a class="article-card" href="artigo-negativacao-indevida.html">
-        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80')">
+        <div class="article-img" data-bg="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80">
           <span class="article-tag-bar">Consumidor</span>
         </div>
         <div class="article-body">
@@ -1972,7 +1989,7 @@
         </div>
       </a>
       <a class="article-card" href="artigo-guarda-pensao.html">
-        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1476703993599-0035a21b17a9?auto=format&fit=crop&w=800&q=80')">
+        <div class="article-img" data-bg="https://images.unsplash.com/photo-1476703993599-0035a21b17a9?auto=format&fit=crop&w=800&q=80">
           <span class="article-tag-bar">Família</span>
         </div>
         <div class="article-body">
@@ -1985,7 +2002,7 @@
         </div>
       </a>
       <a class="article-card" href="artigo-vazamento-dados.html">
-        <div class="article-img" style="background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80')">
+        <div class="article-img" data-bg="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80">
           <span class="article-tag-bar">Digital &amp; LGPD</span>
         </div>
         <div class="article-body">
@@ -2019,7 +2036,7 @@
           </div>
           <div>
             <h3>WhatsApp</h3>
-            <p>(46) 9 9974-6391</p>
+            <p><a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20tirar%20uma%20d%C3%BAvida." target="_blank" rel="noopener" data-conversion="whatsapp-cta">(46) 9 9974-6391</a></p>
           </div>
         </div>
 
@@ -2029,7 +2046,7 @@
           </div>
           <div>
             <h3>E-mail</h3>
-            <p>allissonpaz@hotmail.com</p>
+            <p><a href="mailto:allissonpaz@hotmail.com">allissonpaz@hotmail.com</a></p>
           </div>
         </div>
 
@@ -2039,7 +2056,7 @@
           </div>
           <div>
             <h3>Endereço</h3>
-            <p>Rua Brigadeiro Rocha Loures, 219<br>Centro – Coronel Vivida, PR<br>CEP 85.550-040</p>
+            <p><a href="https://www.google.com/maps/search/Rua+Brigadeiro+Rocha+Loures+219+Coronel+Vivida+PR" target="_blank" rel="noopener">Rua Brigadeiro Rocha Loures, 219<br>Centro – Coronel Vivida, PR<br>CEP 85.550-040</a></p>
           </div>
         </div>
         </div>

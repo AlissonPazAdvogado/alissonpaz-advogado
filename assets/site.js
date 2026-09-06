@@ -1,4 +1,40 @@
 (() => {
+  const track = (name, params) => {
+    if (typeof window.gtag === 'function') window.gtag('event', name, params);
+  };
+
+  // Lazy-load das imagens de artigo (background-image via data-bg) só
+  // quando a seção entra perto do viewport — evita disputar banda com o
+  // hero/LCP logo no carregamento, já que ficam abaixo da dobra.
+  const lazyBgEls = document.querySelectorAll('.article-img[data-bg]');
+  if (lazyBgEls.length) {
+    if ('IntersectionObserver' in window) {
+      const bgObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          el.style.backgroundImage = `url('${el.dataset.bg}')`;
+          observer.unobserve(el);
+        });
+      }, { rootMargin: '200px 0px' });
+      lazyBgEls.forEach((el) => bgObserver.observe(el));
+    } else {
+      lazyBgEls.forEach((el) => { el.style.backgroundImage = `url('${el.dataset.bg}')`; });
+    }
+  }
+
+  // Tracking GA4: cliques em qualquer link de WhatsApp (data-conversion)
+  // e submit do formulário de contato → generate_lead, diferenciando o
+  // canal em "method". O handler original do formulário (script inline)
+  // continua responsável por montar a mensagem e redirecionar; este
+  // listener adicional só reporta o evento, sem interferir nesse fluxo.
+  document.querySelectorAll('[data-conversion="whatsapp-cta"]').forEach((el) => {
+    el.addEventListener('click', () => track('generate_lead', { method: 'whatsapp' }));
+  });
+  document.getElementById('contactForm')?.addEventListener('submit', () => {
+    track('generate_lead', { method: 'form' });
+  });
+
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 
@@ -63,7 +99,7 @@
       .map((tab) => document.getElementById(`tab-${tab.dataset.tab}`))
       .filter(Boolean);
 
-    const activateTab = (tab, moveFocus = false) => {
+    const activateTab = (tab, moveFocus = false, userInitiated = false) => {
       tabs.forEach((item) => {
         const selected = item === tab;
         item.classList.toggle('active', selected);
@@ -76,6 +112,10 @@
         panel.hidden = !active;
       });
       if (moveFocus) tab.focus();
+      // Só reporta area_select numa seleção real do usuário (clique ou
+      // teclado) - a ativação automática da aba padrão no carregamento da
+      // página não deve gerar um evento de interação falso.
+      if (userInitiated) track('area_select', { area: tab.dataset.tab });
     };
 
     tabs.forEach((tab, index) => {
@@ -87,7 +127,7 @@
       panel?.setAttribute('aria-labelledby', tabId);
       panel?.setAttribute('tabindex', '0');
 
-      tab.addEventListener('click', () => activateTab(tab));
+      tab.addEventListener('click', () => activateTab(tab, false, true));
       tab.addEventListener('keydown', (event) => {
         let nextIndex = null;
         if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % tabs.length;
@@ -96,7 +136,7 @@
         if (event.key === 'End') nextIndex = tabs.length - 1;
         if (nextIndex !== null) {
           event.preventDefault();
-          activateTab(tabs[nextIndex], true);
+          activateTab(tabs[nextIndex], true, true);
         }
       });
     });
