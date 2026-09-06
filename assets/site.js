@@ -23,23 +23,17 @@
     }
   }
 
-  // Tracking GA4: eventos distintos para cada canal de lead, via event
-  // delegation no document com capture=true — dispara antes do handoff de
-  // navegação para o WhatsApp e é resiliente a stopPropagation nos CTAs. O
-  // botão de submit do formulário não tem data-conversion="whatsapp-cta",
-  // então os dois eventos abaixo não se sobrepõem no mesmo clique/submit. O
-  // handler original do formulário (script inline) continua responsável por
-  // montar a mensagem e redirecionar; este listener adicional só reporta o
-  // evento, sem interferir nesse fluxo.
+  // Tracking GA4: whatsapp_click via event delegation no document com
+  // capture=true — dispara antes do handoff de navegação para o WhatsApp e
+  // é resiliente a stopPropagation nos CTAs. O botão de submit do formulário
+  // não tem data-conversion="whatsapp-cta", então este evento não se
+  // sobrepõe ao lead_form_submit (emitido pelo handler inline do formulário
+  // em index.html, que precisa controlar o próprio redirect via
+  // event_callback).
   document.addEventListener('click', (event) => {
     const target = event.target.closest('[data-conversion="whatsapp-cta"]');
     if (!target) return;
     track('whatsapp_click', { send_to: 'G-5J4N177RQL', link_location: target.getAttribute('href') || '' });
-  }, true);
-
-  document.addEventListener('submit', (event) => {
-    if (!event.target.matches('#contactForm')) return;
-    track('lead_form_submit', { send_to: 'G-5J4N177RQL', form_id: 'contactForm' });
   }, true);
 
   const year = document.getElementById('year');
