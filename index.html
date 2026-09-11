@@ -1261,6 +1261,10 @@
 
     .footer-bottom p { font-size: 12px; color: var(--gray-lt); }
 
+    .footer-legal { display: flex; gap: 16px; }
+    .footer-legal a { font-size: 12px; color: var(--gray-lt); transition: color var(--tr); }
+    .footer-legal a:hover { color: var(--gold); }
+
     .footer-oab {
       font-size: 12px;
       color: var(--gray-lt);
@@ -1702,6 +1706,31 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* ── EXPERIMENTAL: content-visibility para seções abaixo da dobra ──
+       #hero e #atuacao ficam de fora (parte de #atuacao é visível na
+       primeira dobra em 375x812/390x844). contain-intrinsic-size é uma
+       estimativa (medida real da seção) só para evitar salto grande de
+       scroll antes do primeiro layout real; "auto" faz o navegador
+       lembrar o tamanho real após a primeira medição. */
+    #formacao, #diferenciais, #processo, #conteudo, #contato, footer {
+      content-visibility: auto;
+    }
+    #formacao        { contain-intrinsic-size: auto 3300px; }
+    #diferenciais    { contain-intrinsic-size: auto 3950px; }
+    #processo        { contain-intrinsic-size: auto 1900px; }
+    #conteudo        { contain-intrinsic-size: auto 4500px; }
+    #contato         { contain-intrinsic-size: auto 2200px; }
+    footer            { contain-intrinsic-size: auto 1400px; }
+
+    @media (max-width: 768px) {
+      #formacao        { contain-intrinsic-size: auto 1600px; }
+      #diferenciais    { contain-intrinsic-size: auto 1800px; }
+      #processo        { contain-intrinsic-size: auto 1300px; }
+      #conteudo        { contain-intrinsic-size: auto 1850px; }
+      #contato         { contain-intrinsic-size: auto 1950px; }
+      footer            { contain-intrinsic-size: auto 950px; }
+    }
   </style>
 </head>
 
@@ -1784,7 +1813,7 @@
 <section id="hero">
   <picture>
     <source srcset="hero-bg.webp" type="image/webp">
-    <img class="hero-bg-img" src="hero-bg.jpg" alt="Dr. Alisson Nascimento Paz em seu escritório de advocacia" width="1672" height="941" fetchpriority="high" decoding="async">
+    <img class="hero-bg-img" src="hero-bg.jpg" alt="Dr. Alisson Nascimento Paz em seu escritório de advocacia" width="1672" height="941" fetchpriority="high">
   </picture>
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-copy fade-up">
@@ -2485,6 +2514,10 @@
     <div class="footer-bottom">
       <p>© <span id="year"></span> Alisson Nascimento Paz Advocacia. Todos os direitos reservados.</p>
       <p class="footer-nap">Dr. Alisson Nascimento Paz · OAB/PR 119.985 · Rua Brigadeiro Rocha Loures, 219, Centro, Coronel Vivida – PR, CEP 85550-040 · (46) 9 9974-6391</p>
+      <div class="footer-legal">
+        <a href="politica-de-privacidade.html">Política de Privacidade</a>
+        <a href="termos-de-uso.html">Termos de Uso</a>
+      </div>
     </div>
   </div>
 </footer>
