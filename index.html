@@ -1706,6 +1706,51 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* ── EXPERIMENTAL (teste isolado): content-visibility aplicado só ao
+       wrapper .container interno das seções abaixo da dobra — não à
+       <section> em si, que mantém seu próprio box (padding, watermark,
+       isolation) intacto para não afetar altura/scroll/âncoras dela.
+       #hero e #atuacao ficam de fora (parte de #atuacao é visível na
+       primeira dobra em 375x812/390x844). contain-intrinsic-size usa a
+       altura real medida do .container em cada breakpoint testado. */
+    #formacao > .container, #diferenciais > .container, #processo > .container,
+    #conteudo > .container, #contato > .container, footer > .container {
+      content-visibility: auto;
+    }
+    #formacao > .container        { contain-intrinsic-size: auto 736px; }
+    #diferenciais > .container    { contain-intrinsic-size: auto 844px; }
+    #processo > .container        { contain-intrinsic-size: auto 456px; }
+    #conteudo > .container        { contain-intrinsic-size: auto 1548px; }
+    #contato > .container         { contain-intrinsic-size: auto 757px; }
+    footer > .container            { contain-intrinsic-size: auto 366px; }
+
+    @media (max-width: 768px) {
+      #formacao > .container        { contain-intrinsic-size: auto 1300px; }
+      #diferenciais > .container    { contain-intrinsic-size: auto 1343px; }
+      #processo > .container        { contain-intrinsic-size: auto 965px; }
+      #conteudo > .container        { contain-intrinsic-size: auto 1582px; }
+      #contato > .container         { contain-intrinsic-size: auto 1460px; }
+      footer > .container            { contain-intrinsic-size: auto 775px; }
+    }
+
+    /* Valores exatos para os dois viewports de validação obrigatória */
+    @media (width: 375px) {
+      #formacao > .container    { contain-intrinsic-size: auto 1319px; }
+      #diferenciais > .container{ contain-intrinsic-size: auto 1343px; }
+      #processo > .container    { contain-intrinsic-size: auto 965px; }
+      #conteudo > .container    { contain-intrinsic-size: auto 1582px; }
+      #contato > .container     { contain-intrinsic-size: auto 1486px; }
+      footer > .container        { contain-intrinsic-size: auto 775px; }
+    }
+    @media (width: 390px) {
+      #formacao > .container    { contain-intrinsic-size: auto 1246px; }
+      #diferenciais > .container{ contain-intrinsic-size: auto 1343px; }
+      #processo > .container    { contain-intrinsic-size: auto 965px; }
+      #conteudo > .container    { contain-intrinsic-size: auto 1582px; }
+      #contato > .container     { contain-intrinsic-size: auto 1432px; }
+      footer > .container        { contain-intrinsic-size: auto 775px; }
+    }
   </style>
 </head>
 
