@@ -387,8 +387,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to bottom, var(--dark) 0%, transparent 14%, transparent 86%, var(--dark) 100%),
-        rgba(20,17,13,0.38);
+        linear-gradient(to bottom, var(--dark) 0%, transparent 8%, transparent 92%, var(--dark) 100%),
+        rgba(20,17,13,0.32);
     }
 
     .chapter-content {
@@ -398,9 +398,34 @@
       z-index: 1;
     }
 
+    /* Causa real do "desenquadramento ao assentar": #navbar (fixed,
+       z-index:1000) só ganha fundo sólido (rgba(20,17,13,.94) + blur) depois
+       de 48px de scroll (assets/site.js) — e não perde mais essa classe até
+       voltar a menos de 24px. Como os capítulos 2/3 só ficam visíveis depois
+       de rolar bem além disso, a navbar SEMPRE está opaca sobre eles, e a
+       cabeça nas fotos (com pouquíssima margem acima na foto original) cai
+       exatamente nessa faixa coberta — não é a foto que perde
+       enquadramento, é a navbar opaca por cima dela o tempo todo. Nos
+       capítulos 2/3, a camada de fundo passa a começar já abaixo da navbar
+       (em vez de height:100vh a partir do topo do viewport), preservando o
+       mesmo enquadramento (mesma imagem, mesmo object-position) em vez de
+       escondê-lo atrás da barra. */
+    .visual-chapter-2 .chapter-bg,
+    .visual-chapter-3 .chapter-bg {
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      height: calc(100svh - var(--nav-h));
+    }
+
     .visual-chapter-1 .chapter-bg-img { object-position: 50% 50%; }
-    .visual-chapter-2 .chapter-bg-img { object-position: 54% 50%; }
-    .visual-chapter-3 .chapter-bg-img { object-position: 56% 50%; }
+    /* Y baixo (não 50%) é inerte na maioria dos viewports (a imagem cabe
+       inteira na vertical, object-position-Y não tem "folga" pra usar) —
+       mas em janelas bem largas/baixas (ex.: 1920×1080), onde a proporção
+       do container passa a exceder a da foto, о corte passa a ser vertical;
+       um Y baixo garante que esse corte tire de baixo (pernas/chão) e nunca
+       da cabeça. */
+    .visual-chapter-2 .chapter-bg-img { object-position: 54% 20%; }
+    .visual-chapter-3 .chapter-bg-img { object-position: 56% 20%; }
 
     /* ── HERO ── */
     #hero {
@@ -422,15 +447,15 @@
       pointer-events: none;
       background:
         linear-gradient(to right,
-          rgba(20,17,13,0.82) 0%,
-          rgba(20,17,13,0.66) 26%,
-          rgba(20,17,13,0.28) 48%,
-          rgba(20,17,13,0.04) 66%,
+          rgba(20,17,13,0.66) 0%,
+          rgba(20,17,13,0.52) 26%,
+          rgba(20,17,13,0.22) 48%,
+          rgba(20,17,13,0.03) 66%,
           transparent 80%
         ),
         linear-gradient(to top,
-          rgba(20,17,13,0.55) 0%,
-          rgba(20,17,13,0.15) 20%,
+          rgba(20,17,13,0.4) 0%,
+          rgba(20,17,13,0.1) 20%,
           transparent 32%
         );
     }
@@ -510,8 +535,8 @@
          object-position mais central (rosto) e um véu quase full-bleed,
          mais escuro embaixo, onde o texto se ancora. */
       .visual-chapter-1 .chapter-bg-img { object-position: 68% 50%; }
-      .visual-chapter-2 .chapter-bg-img { object-position: 59% 50%; }
-      .visual-chapter-3 .chapter-bg-img { object-position: 62% 50%; }
+      .visual-chapter-2 .chapter-bg-img { object-position: 55% 50%; }
+      .visual-chapter-3 .chapter-bg-img { object-position: 56% 50%; }
       .hero-scrim {
         background:
           linear-gradient(to bottom,
