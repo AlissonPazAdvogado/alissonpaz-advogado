@@ -191,101 +191,14 @@
     #processo { padding: 108px 0; }
     #contato { padding: 136px 0; }
 
-    /* ── MARCA D'ÁGUA (brasão) ──
-       Estrutura de stacking: a seção ganha isolation:isolate, o que a torna
-       um novo contexto de empilhamento próprio — assim o z-index do brasão
-       passa a ser resolvido DENTRO da seção, não escapa para o contexto raiz
-       (era isso que fazia o brasão pintar atrás do próprio background da
-       seção com z-index:-1 sem isolation, ficando invisível). O brasão fica
-       em z-index:0 e o .container de conteúdo em z-index:1, garantindo ordem
-       de pintura inequívoca independente da ordem no DOM. */
+    /* Marca d'água decorativa (brasão translúcido de fundo) removida: com
+       as fotografias dos capítulos visuais, um segundo brasão sobreposto
+       competia com o brasão físico da foto 1 e com as próprias fotos 2/3.
+       Mantido apenas position:relative — necessário para o stacking normal
+       do conteúdo dentro de cada .chapter-content, sem overflow/isolation,
+       que existiam só para o brasão removido. */
     #atuacao, #formacao, #diferenciais, #contato {
       position: relative;
-      overflow: hidden;
-      isolation: isolate;
-    }
-    #atuacao > .container, #formacao > .container, #diferenciais > .container,
-    #contato > .container {
-      position: relative;
-      z-index: 1;
-    }
-    /* Sistema único de coordenadas: cada seção define o CENTRO visual do seu
-       brasão via 4 variáveis (--wm-x, --wm-y, --wm-size, --wm-opacity) em vez
-       de combinações ad-hoc de right/left/top/bottom interpretadas seção a
-       seção. .section-watermark só lê essas variáveis e centraliza o brasão
-       nesse ponto com translate(-50%,-50%) — determinístico e fácil de
-       recalibrar por seção sem tocar na lógica de posicionamento em si.
-       --wm-x/--wm-y são % simples da caixa da própria seção (0%/100% =
-       borda esquerda/direita ou topo/base da seção). */
-    .section-watermark {
-      position: absolute;
-      left: var(--wm-x);
-      top: var(--wm-y);
-      width: var(--wm-size);
-      opacity: var(--wm-opacity);
-      transform: translate(-50%, -50%);
-      color: var(--gold);
-      pointer-events: none;
-      z-index: 0;
-    }
-    /* Cada brasão pertence a UMA seção só: sangria apenas lateral (nunca
-       vertical, para não vazar visualmente para a seção vizinha). Nenhum
-       fica no canto inferior direito, onde vive o botão flutuante do
-       WhatsApp (position:fixed). Apenas 4 marcas — Processo foi removido por
-       ficar redundante entre Diferenciais e Contato (pouco espaço negativo
-       real na seção, numeração 01-03 já ocupa a largura). Lados alternados
-       em sequência (direita → esquerda → direita → esquerda). --wm-x/--wm-y
-       medidos por análise de pixel do bounding box do círculo de referência
-       em cada screenshot do cliente (1920×1080), convertido para % da
-       própria seção via um landmark de texto scroll-invariante (distância
-       DOM landmark→topo-da-seção + delta de posição no screenshot),
-       eliminando a dependência de adivinhar o scroll no momento da captura.
-       --wm-size calibrado para o corpo visível do brasão preencher ~82% da
-       maior dimensão do círculo de referência. */
-    .crest-atuacao {
-      --wm-size: clamp(360px, 27.7vw, 531px);
-      --wm-x: 77%;
-      --wm-y: 32%;
-      --wm-opacity: .085;
-    }
-    .crest-formacao {
-      --wm-size: clamp(375px, 28.7vw, 551px);
-      --wm-x: 21.3%;
-      --wm-y: 62%;
-      --wm-opacity: .075;
-    }
-    .crest-diferenciais {
-      --wm-size: clamp(400px, 30.7vw, 590px);
-      --wm-x: 77.8%;
-      --wm-y: 80.6%;
-      --wm-opacity: .075;
-    }
-    .crest-contato {
-      --wm-size: clamp(290px, 22.2vw, 427px);
-      --wm-x: 27.3%;
-      --wm-y: 59.8%;
-      --wm-opacity: .08;
-    }
-
-    @media (max-width: 768px) {
-      /* Nem toda seção tem respiro suficiente no mobile para um brasão sem
-         disputar espaço com o texto. Mantemos apenas Diferenciais e Contato
-         — onde a área negativa é real mesmo em telas estreitas — bem
-         discretos e parcialmente cortados; as demais (conteúdo mais denso
-         em coluna única) ficam sem marca d'água. */
-      .crest-atuacao, .crest-formacao { display: none; }
-      .crest-diferenciais {
-        --wm-size: 190px;
-        --wm-opacity: .06;
-        --wm-x: 88%;
-        --wm-y: 82%;
-      }
-      .crest-contato {
-        --wm-size: 210px;
-        --wm-opacity: .06;
-        --wm-x: 10%;
-        --wm-y: 42%;
-      }
     }
 
     .section-tag {
@@ -312,6 +225,18 @@
       color: var(--gray);
       max-width: 560px;
       line-height: 1.8;
+    }
+
+    /* Sombra de texto extremamente discreta, só onde o texto pode sentar
+       diretamente sobre a fotografia do capítulo (fora de um .content-panel)
+       — não é um recurso global do design system, existe só por causa das
+       fotos de fundo. */
+    .visual-chapter .section-tag,
+    .visual-chapter .section-subtitle {
+      text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+    }
+    .visual-chapter .section-title {
+      text-shadow: 0 1px 10px rgba(0,0,0,0.4);
     }
 
     .areas-hint {
@@ -412,38 +337,84 @@
     /* Botão fechar — escondido no desktop */
     .nav-close-item { display: none; }
 
-    /* ── HERO ──
-       Cenário único: a foto (hero-bg.jpg/webp) preenche o hero inteiro via
-       position:absolute (não grid) — mesma técnica anti-circularidade da
-       rodada anterior, agora aplicada a uma imagem de fundo em vez de uma
-       coluna. #hero define a altura real (viewport menos navbar, com piso e
-       teto); a imagem só herda esse tamanho já resolvido, nunca o contrário. */
-    #hero {
+    /* ── CAPÍTULOS VISUAIS ──
+       A home é dividida em 3 macroblocos ("visual-chapter"), cada um com UMA
+       fotografia fixa como cenário de fundo (sem troca automática — a única
+       alternância é a que o próprio scroll produz ao entrar/sair de cada
+       capítulo). Técnica: grid com uma única célula (chapter-bg e
+       chapter-content ocupam a MESMA grid-area, então um não empurra o
+       outro no fluxo do documento) + chapter-bg com position:sticky/top:0/
+       height:100vh, que faz a foto permanecer pinada no viewport enquanto o
+       conteúdo daquele capítulo (bem mais alto que 100vh) rola por cima —
+       e se desprende naturalmente quando o capítulo termina, sem JS e sem
+       os problemas de background-attachment:fixed no Safari/mobile. */
+    .visual-chapter {
       position: relative;
-      overflow: hidden;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      will-change: transform;
-      transform: translateZ(0);
-      min-height: clamp(460px, calc(100vh - var(--nav-h, 88px)), 820px);
-      min-height: clamp(460px, calc(100svh - var(--nav-h, 88px)), 820px);
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+      isolation: isolate;
     }
 
-    .hero-bg-img {
+    .chapter-bg {
+      grid-column: 1;
+      grid-row: 1;
+      position: sticky;
+      top: 0;
+      align-self: start;
+      height: 100vh;
+      height: 100svh;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .chapter-bg-img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 58% 38%;
       display: block;
-      z-index: 0;
     }
 
-    /* Escurece só o suficiente para o texto respirar sobre a foto — mais forte
-       à esquerda (onde o texto fica) e embaixo (linha de meta), transparente
-       do centro para a direita, onde o advogado precisa continuar nítido. */
+    /* Escurecimento "muito discreto" e uniforme — a foto continua sendo o
+       cenário, os blocos de texto é que ganham seu próprio painel (mais
+       abaixo) para garantir leitura. Um leve gradiente vertical nas bordas
+       do próprio capítulo funciona como a "faixa de transição" para o
+       carvão do site, suavizando a entrada/saída de cada fotografia. */
+    .chapter-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, var(--dark) 0%, transparent 14%, transparent 86%, var(--dark) 100%),
+        rgba(20,17,13,0.38);
+    }
+
+    .chapter-content {
+      grid-column: 1;
+      grid-row: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .visual-chapter-1 .chapter-bg-img { object-position: 50% 50%; }
+    .visual-chapter-2 .chapter-bg-img { object-position: 54% 50%; }
+    .visual-chapter-3 .chapter-bg-img { object-position: 56% 50%; }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      min-height: clamp(460px, calc(100vh - var(--nav-h, 88px)), 820px);
+      min-height: clamp(460px, calc(100svh - var(--nav-h, 88px)), 820px);
+    }
+
+    /* Camada extra só do Hero: reforça o degradê à esquerda (onde fica o
+       texto) sobre o chapter-bg-overlay já discreto do capítulo inteiro —
+       o resto do capítulo 1 (Áreas de atuação) usa só o overlay uniforme. */
     .hero-scrim {
       position: absolute;
       inset: 0;
@@ -451,19 +422,17 @@
       pointer-events: none;
       background:
         linear-gradient(to right,
-          rgba(20,17,13,0.88) 0%,
-          rgba(20,17,13,0.74) 26%,
-          rgba(20,17,13,0.34) 48%,
-          rgba(20,17,13,0.06) 66%,
+          rgba(20,17,13,0.82) 0%,
+          rgba(20,17,13,0.66) 26%,
+          rgba(20,17,13,0.28) 48%,
+          rgba(20,17,13,0.04) 66%,
           transparent 80%
         ),
         linear-gradient(to top,
-          #14110D 0%,
-          rgba(20,17,13,0.65) 8%,
-          rgba(20,17,13,0.2) 20%,
-          transparent 30%
-        ),
-        linear-gradient(to bottom, rgba(20,17,13,0.35) 0%, transparent 20%);
+          rgba(20,17,13,0.55) 0%,
+          rgba(20,17,13,0.15) 20%,
+          transparent 32%
+        );
     }
 
     .hero-copy {
@@ -516,6 +485,9 @@
 
     @media (max-width: 1024px) {
       .hero-title { max-width: 420px; }
+      .visual-chapter-1 .chapter-bg-img { object-position: 58% 50%; }
+      .visual-chapter-2 .chapter-bg-img { object-position: 58% 50%; }
+      .visual-chapter-3 .chapter-bg-img { object-position: 60% 50%; }
     }
 
     /* Viewports desktop baixas (notebook com barras do navegador, zoom, etc.) —
@@ -537,7 +509,9 @@
          texto separado (bug antigo), mantemos o mesmo cenário único, mas com
          object-position mais central (rosto) e um véu quase full-bleed,
          mais escuro embaixo, onde o texto se ancora. */
-      .hero-bg-img { object-position: 54% 24%; }
+      .visual-chapter-1 .chapter-bg-img { object-position: 68% 50%; }
+      .visual-chapter-2 .chapter-bg-img { object-position: 59% 50%; }
+      .visual-chapter-3 .chapter-bg-img { object-position: 62% 50%; }
       .hero-scrim {
         background:
           linear-gradient(to bottom,
@@ -548,7 +522,22 @@
             #14110D 100%
           );
       }
-      .hero-copy { max-width: 100%; justify-content: flex-end; padding: 96px 18px 40px; }
+      /* Na foto 1 (parede/logo), o brasão físico + "ALISSON PAZ ADVOGADO"
+         ocupam a metade superior do enquadramento (o crop mobile só corta
+         largura, nunca altura — a posição vertical do brasão na tela é fixa
+         e não se move via object-position). Duas mudanças, cada uma isolada:
+         1) align-items:flex-end no #hero ancora o bloco de texto embaixo
+            (por padrão ele era centralizado, jogando o H1 em cima do brasão);
+         2) como o texto sozinho (H1+sub+CTAs+rodapé) ainda é mais alto que a
+            faixa "livre" abaixo do brasão, o hero ganha ~130px extras de
+            altura mínima só no mobile — não é espaço vazio, é mais fotografia
+            visível — suficiente para o H1 nascer só depois de "ALISSON PAZ". */
+      #hero {
+        align-items: flex-end;
+        min-height: calc(100vh - var(--nav-h) + 220px);
+        min-height: calc(100svh - var(--nav-h) + 220px);
+      }
+      .hero-copy { max-width: 100%; justify-content: flex-end; padding: 28px 18px 40px; }
       .hero-title, .hero-sub, .hero-meta { max-width: 100%; }
     }
 
@@ -564,7 +553,7 @@
     }
 
     /* ── MAPA ── */
-    #mapa { background: var(--dark-2); padding: 0; }
+    #mapa { background: transparent; padding: 0; }
 
     .mapa-inner {
       display: grid;
@@ -609,7 +598,7 @@
     .mapa-embed iframe { display: block; width: 100%; height: 100%; min-height: 380px; border: none; filter: grayscale(30%) invert(92%) hue-rotate(180deg); }
 
     /* ── ÁREAS DE ATUAÇÃO ── */
-    #atuacao { background: var(--dark); }
+    #atuacao { background: transparent; }
 
     .areas-header {
       display: flex;
@@ -674,6 +663,17 @@
 
 
     /* ── TABS DE ÁREAS ── */
+    /* Painel translúcido reutilizado nos blocos de texto dos capítulos com
+       fotografia de fundo (Áreas de atuação, Trajetória, Diferenciais,
+       Como funciona, Contato) — garante leitura sem exigir fundo opaco na
+       seção inteira, deixando a foto respirar nas margens/respiros. */
+    .content-panel {
+      background: rgba(20,17,13,0.48);
+      border: 1px solid rgba(201,168,76,0.12);
+      border-radius: 16px;
+      padding: 40px clamp(20px, 4vw, 48px);
+    }
+
     .areas-tabs {
       margin-top: 48px;
       display: grid;
@@ -792,7 +792,7 @@
     }
 
     /* ── DIFERENCIAIS ── */
-    #diferenciais { background: var(--dark-2); }
+    #diferenciais { background: transparent; }
 
     .dif-layout { display: block; }
 
@@ -852,7 +852,7 @@
     .dif-when ul li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
 
     /* ── PROCESSO ── */
-    #processo { background: var(--dark); }
+    #processo { background: transparent; }
 
     .processo-header { text-align: center; max-width: 600px; margin: 0 auto; }
     .processo-header .section-tag { text-align: center; }
@@ -877,17 +877,18 @@
       font-weight: 600;
       color: var(--gold);
       margin-bottom: 18px;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.35);
     }
 
-    .step h3 { font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 10px; }
-    .step p { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 30ch; }
+    .step h3 { font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 10px; text-shadow: 0 1px 8px rgba(0,0,0,0.4); }
+    .step p { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 30ch; text-shadow: 0 1px 6px rgba(0,0,0,0.35); }
 
     @media (max-width: 768px) {
       .processo-steps { grid-template-columns: 1fr; gap: 32px; }
     }
 
     /* ── CONTEÚDO ── */
-    #conteudo { background: var(--dark-2); }
+    #conteudo { background: transparent; }
 
     .content-header {
       display: flex;
@@ -1069,7 +1070,7 @@
     }
 
     /* ── CONTATO ── */
-    #contato { background: var(--dark); }
+    #contato { background: transparent; }
 
     .contato-layout {
       display: grid;
@@ -1711,23 +1712,6 @@
 
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="crest-mark" viewBox="0 0 240 270" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M58,52 L182,52 Q196,52 196,66 L196,150 Q196,206 120,252 Q44,206 44,150 L44,66 Q44,52 58,52 Z" stroke-width="3"/>
-    <circle cx="120" cy="37" r="6.5" stroke-width="2.6"/>
-    <line x1="120" y1="43.5" x2="120" y2="96" stroke-width="2.6"/>
-    <line x1="60" y1="96" x2="180" y2="96" stroke-width="2.6"/>
-    <circle cx="82" cy="96" r="3.2" stroke-width="2"/>
-    <circle cx="158" cy="96" r="3.2" stroke-width="2"/>
-    <line x1="82" y1="99.2" x2="82" y2="112" stroke-width="2"/>
-    <line x1="158" y1="99.2" x2="158" y2="112" stroke-width="2"/>
-    <path d="M82,112 L65,140 Q82,147 99,140 Z" stroke-width="2.4"/>
-    <path d="M158,112 L141,140 Q158,147 175,140 Z" stroke-width="2.4"/>
-    <path d="M113,98 L113,230 L120,247 L127,230 L127,98" stroke-width="2.6"/>
-    <line x1="120" y1="100" x2="120" y2="232" stroke-width="2"/>
-  </symbol>
-</svg>
-
 <a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
 
 <!-- GTM: INSERIR SNIPPET BODY (NOSCRIPT) AQUI -->
@@ -1785,11 +1769,15 @@
 
 <!-- HERO -->
 <main id="main-content">
+
+<!-- CAPÍTULO VISUAL 1 — parede/logo: Hero + Áreas de atuação -->
+<div class="visual-chapter visual-chapter-1">
+  <div class="chapter-bg" aria-hidden="true">
+    <img class="chapter-bg-img" src="hero-slide-1-logo-wall.webp" alt="" width="1672" height="941" fetchpriority="high" decoding="async">
+    <div class="chapter-bg-overlay"></div>
+  </div>
+  <div class="chapter-content">
 <section id="hero">
-  <picture>
-    <source srcset="hero-bg.webp" type="image/webp">
-    <img class="hero-bg-img" src="hero-bg.jpg" alt="Dr. Alisson Nascimento Paz em seu escritório de advocacia" width="1672" height="941" fetchpriority="high" decoding="async">
-  </picture>
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-copy fade-up">
     <p class="hero-kicker">Dr. Alisson Nascimento Paz · OAB/PR 119.985</p>
@@ -1809,7 +1797,6 @@
 
 <!-- ÁREAS DE ATUAÇÃO -->
 <section id="atuacao">
-  <svg class="section-watermark crest-atuacao" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
   <div class="container">
     <div class="areas-header">
       <div>
@@ -1818,7 +1805,7 @@
       </div>
       <p class="section-subtitle">Atuação especializada nas áreas onde os riscos ao patrimônio, à liberdade e à privacidade são mais críticos.<br><span class="areas-hint">Selecione uma área para ver os principais serviços atendidos.</span></p>
     </div>
-    <div class="areas-tabs">
+    <div class="areas-tabs content-panel">
 
       <!-- NAV DAS ABAS -->
       <div class="tab-nav" role="tablist">
@@ -2087,10 +2074,18 @@
     </div>
   </div>
 </section>
+  </div>
+</div>
 
+<!-- CAPÍTULO VISUAL 2 — em pé: Trajetória + Diferenciais -->
+<div class="visual-chapter visual-chapter-2">
+  <div class="chapter-bg" aria-hidden="true">
+    <img class="chapter-bg-img" src="hero-slide-2-standing.webp" alt="" width="1672" height="941" loading="lazy" decoding="async">
+    <div class="chapter-bg-overlay"></div>
+  </div>
+  <div class="chapter-content">
 <!-- FORMAÇÃO E TRAJETÓRIA -->
-<section id="formacao" style="background: var(--dark);">
-  <svg class="section-watermark crest-formacao" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
+<section id="formacao">
   <div class="container">
     <div class="areas-header">
       <div>
@@ -2099,7 +2094,7 @@
       </div>
       <p class="section-subtitle">Conhecimento técnico construído em diferentes frentes do Direito e das instituições que o operam.</p>
     </div>
-    <div class="formacao-columns">
+    <div class="formacao-columns content-panel">
 
       <div class="formacao-col">
         <h3 class="formacao-col-title">Formação acadêmica</h3>
@@ -2131,7 +2126,6 @@
 
 <!-- DIFERENCIAIS -->
 <section id="diferenciais">
-  <svg class="section-watermark crest-diferenciais" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
   <div class="container">
     <div class="dif-layout">
 
@@ -2140,7 +2134,7 @@
         <h2 class="section-title">Como este escritório trabalha</h2>
       </div>
 
-      <div class="dif-list">
+      <div class="dif-list content-panel">
         <div class="dif-item">
           <div class="dif-text">
             <h3>Análise técnica</h3>
@@ -2167,7 +2161,7 @@
         </div>
       </div>
 
-      <div class="dif-visual">
+      <div class="dif-visual content-panel">
         <p class="dif-quote">
           O momento de buscar orientação jurídica é antes que o problema se agrave.
         </p>
@@ -2194,7 +2188,16 @@
     </div>
   </div>
 </section>
+  </div>
+</div>
 
+<!-- CAPÍTULO VISUAL 3 — sentado: Como funciona + Conteúdo + Contato + Localização -->
+<div class="visual-chapter visual-chapter-3">
+  <div class="chapter-bg" aria-hidden="true">
+    <img class="chapter-bg-img" src="hero-slide-3-seated.webp" alt="" width="1672" height="941" loading="lazy" decoding="async">
+    <div class="chapter-bg-overlay"></div>
+  </div>
+  <div class="chapter-content">
 <!-- PROCESSO -->
 <section id="processo">
   <div class="container">
@@ -2324,11 +2327,10 @@
 
 <!-- CONTATO -->
 <section id="contato">
-  <svg class="section-watermark crest-contato" viewBox="0 0 240 270" aria-hidden="true"><use href="#crest-mark"/></svg>
   <div class="container">
     <div class="contato-layout">
 
-      <div class="contato-info">
+      <div class="contato-info content-panel">
         <span class="section-tag">Contato</span>
         <h2 class="section-title">Vamos conversar<br>sobre seu caso?</h2>
         <p class="section-subtitle" style="margin-bottom: 0;">Consultas com hora marcada. Atendimento direto com o advogado, presencial ou remoto.</p>
@@ -2435,6 +2437,8 @@
         title="Localização do escritório">
       </iframe>
     </div>
+  </div>
+</div>
   </div>
 </div>
 
