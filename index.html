@@ -267,20 +267,21 @@
     .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
 
     /* ── NAVBAR ── */
+    /* Transparente na abertura do site; ao rolar (.scrolled, via assets/site.js)
+       ganha uma barra sólida translúcida — sem blur — só para não confundir a
+       logo com o conteúdo por trás. */
     #navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1000;
       padding: 20px 0;
+      background: transparent;
       transition: background-color var(--tr), padding var(--tr);
       transform: translateZ(0);
-      will-change: backdrop-filter;
     }
 
     #navbar.scrolled {
-      background: rgba(20,17,13,0.94);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(20,17,13,0.85);
       padding: 14px 0;
     }
 
@@ -356,39 +357,70 @@
       isolation: isolate;
     }
 
+    /* #navbar é fixed e sempre transparente, sobre os 3 capítulos.
+       Por isso .chapter-bg dos TRÊS capítulos começa exatamente abaixo dela
+       (top: var(--nav-h)) e cobre até o fim da viewport, sem respiro. */
     .chapter-bg {
       grid-column: 1;
       grid-row: 1;
       position: sticky;
-      top: 0;
+      top: var(--nav-h);
       align-self: start;
-      height: 100vh;
-      height: 100svh;
+      height: calc(100vh - var(--nav-h));
+      height: calc(100svh - var(--nav-h));
       overflow: hidden;
       z-index: 0;
       pointer-events: none;
+      background: var(--dark);
     }
 
+    /* Fundo full-screen direto: as fotos já vêm recortadas em ~2.33:1 (bem
+       perto da proporção real da área abaixo da navbar), então cover quase
+       não precisa cortar nada. A <img> cobre 100% do .chapter-bg (sticky,
+       100vw de largura, borda-a-borda). */
     .chapter-bg-img {
       position: absolute;
       inset: 0;
+      z-index: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
     }
 
-    /* Escurecimento "muito discreto" e uniforme — a foto continua sendo o
-       cenário, os blocos de texto é que ganham seu próprio painel (mais
-       abaixo) para garantir leitura. Um leve gradiente vertical nas bordas
-       do próprio capítulo funciona como a "faixa de transição" para o
-       carvão do site, suavizando a entrada/saída de cada fotografia. */
+    /* Suaviza a passagem de um capítulo para o outro: uma faixa no topo e
+       outra na base de cada foto borra o PRÓPRIO fundo por trás dela
+       (backdrop-filter), com o blur esmaecendo até zero em direção ao
+       centro (mask-image) — a foto nítida no meio não é tocada, só as
+       bordas onde uma foto entrega a vez pra próxima. */
+    .chapter-bg-blend {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 16%;
+      z-index: 1;
+      pointer-events: none;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+    }
+    .chapter-bg-blend-top {
+      top: 0;
+      -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+    }
+    .chapter-bg-blend-bottom {
+      bottom: 0;
+      -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+      mask-image: linear-gradient(to top, #000 0%, transparent 100%);
+    }
+
+    /* Tingimento uniforme leve, só para leitura do texto sobre a foto. */
     .chapter-bg-overlay {
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(to bottom, var(--dark) 0%, transparent 8%, transparent 92%, var(--dark) 100%),
-        rgba(20,17,13,0.32);
+      z-index: 2;
+      background: rgba(20,17,13,0.32);
     }
 
     .chapter-content {
@@ -397,35 +429,6 @@
       position: relative;
       z-index: 1;
     }
-
-    /* Causa real do "desenquadramento ao assentar": #navbar (fixed,
-       z-index:1000) só ganha fundo sólido (rgba(20,17,13,.94) + blur) depois
-       de 48px de scroll (assets/site.js) — e não perde mais essa classe até
-       voltar a menos de 24px. Como os capítulos 2/3 só ficam visíveis depois
-       de rolar bem além disso, a navbar SEMPRE está opaca sobre eles, e a
-       cabeça nas fotos (com pouquíssima margem acima na foto original) cai
-       exatamente nessa faixa coberta — não é a foto que perde
-       enquadramento, é a navbar opaca por cima dela o tempo todo. Nos
-       capítulos 2/3, a camada de fundo passa a começar já abaixo da navbar
-       (em vez de height:100vh a partir do topo do viewport), preservando o
-       mesmo enquadramento (mesma imagem, mesmo object-position) em vez de
-       escondê-lo atrás da barra. */
-    .visual-chapter-2 .chapter-bg,
-    .visual-chapter-3 .chapter-bg {
-      top: var(--nav-h);
-      height: calc(100vh - var(--nav-h));
-      height: calc(100svh - var(--nav-h));
-    }
-
-    .visual-chapter-1 .chapter-bg-img { object-position: 50% 50%; }
-    /* Y baixo (não 50%) é inerte na maioria dos viewports (a imagem cabe
-       inteira na vertical, object-position-Y não tem "folga" pra usar) —
-       mas em janelas bem largas/baixas (ex.: 1920×1080), onde a proporção
-       do container passa a exceder a da foto, о corte passa a ser vertical;
-       um Y baixo garante que esse corte tire de baixo (pernas/chão) e nunca
-       da cabeça. */
-    .visual-chapter-2 .chapter-bg-img { object-position: 54% 20%; }
-    .visual-chapter-3 .chapter-bg-img { object-position: 56% 20%; }
 
     /* ── HERO ── */
     #hero {
@@ -467,8 +470,41 @@
       flex-direction: column;
       justify-content: center;
       width: 100%;
-      max-width: 620px;
-      padding: clamp(72px, 10vh, 108px) clamp(32px, 4vw, 64px) clamp(28px, 4.5vh, 48px) clamp(28px, 4vw, 56px);
+      /* --hero-inset repete o recuo esquerdo (mesma referência do .container);
+         --hero-nav-w é a largura, já medida, do menu (de "Áreas de Atuação" até
+         "Agendar Consulta") — o texto do hero termina exatamente na coluna onde
+         o menu começa, puxando a caixa até ali em vez do limite fixo antigo. */
+      --hero-inset: max(24px, calc((100% - 1200px) / 2 + 24px));
+      --hero-pad-r: clamp(32px, 4vw, 64px);
+      --hero-nav-w: 616px;
+      /* Piso de 420px: em telas médias (onde o menu já está bem apertado
+         contra o logo) a fórmula ficaria estreita demais — mantém a largura
+         antiga nesses casos, e só "puxa" de verdade em telas largas. */
+      max-width: max(420px, calc(100% - var(--hero-inset) + var(--hero-pad-r) - var(--hero-nav-w)));
+      padding: clamp(72px, 10vh, 108px) var(--hero-pad-r) clamp(28px, 4.5vh, 48px) var(--hero-inset);
+    }
+
+    /* Mesmo painel translúcido (.content-panel) usado no resto do site,
+       mas só ao redor do texto do hero — não mais um degradê cobrindo boa
+       parte da foto/logo. Para os 4 cantos aparecerem (como nos outros
+       painéis), a caixa deixa de começar na borda: o recuo esquerdo vira
+       margem, e o padding interno passa a ser simétrico com o direito.
+       .hero-scrim (véu largo) fica só para o mobile, onde o texto já
+       ocupa quase 100% da largura e um cartão flutuante não faria sentido. */
+    @media (min-width: 769px) {
+      .hero-scrim { display: none; }
+      .hero-copy {
+        max-width: max(380px, calc(100% - 2 * var(--hero-inset) + var(--hero-pad-r) - var(--hero-nav-w)));
+        margin-left: var(--hero-inset);
+        /* Empurra o topo do cartão para começar só depois da navbar
+           (transparente no topo da página) — sem isso, a borda/canto
+           arredondado do painel aparecia colidindo com o menu. */
+        margin-top: var(--nav-h);
+        padding-left: var(--hero-pad-r);
+        background: rgba(20,17,13,0.48);
+        border: 1px solid rgba(201,168,76,0.12);
+        border-radius: 16px;
+      }
     }
 
     .hero-kicker {
@@ -486,15 +522,19 @@
       color: var(--white);
       line-height: 1.15;
       letter-spacing: -0.01em;
-      max-width: 480px;
+      max-width: 100%;
       margin-bottom: clamp(10px, 1.6vh, 18px);
     }
 
+    /* Tipografia do corpo de texto NÃO é definida aqui — .hero-sub carrega
+       só o espaçamento; a classe .section-subtitle (já usada em todas as
+       outras seções do site) é quem define font-size/line-height/peso/cor/
+       largura, para o Hero usar exatamente o mesmo padrão de texto corrido
+       do resto da página. Ver HTML: <p class="hero-sub section-subtitle">.
+       O max-width:100% sobrescreve o limite de 560px do .section-subtitle
+       global, para acompanhar a largura mais generosa do hero. */
     .hero-sub {
-      font-size: clamp(.9rem, .25vw + .82rem, .98rem);
-      color: rgba(240,237,232,0.68);
-      max-width: 480px;
-      line-height: 1.62;
+      max-width: 100%;
       margin-bottom: clamp(14px, 2.6vh, 26px);
     }
 
@@ -502,17 +542,11 @@
 
     .hero-meta {
       font-size: 13px;
+      line-height: 1.5;
       color: rgba(240,237,232,0.5);
       padding-top: clamp(10px, 1.6vh, 18px);
       border-top: 1px solid rgba(255,255,255,0.08);
-      max-width: 480px;
-    }
-
-    @media (max-width: 1024px) {
-      .hero-title { max-width: 420px; }
-      .visual-chapter-1 .chapter-bg-img { object-position: 58% 50%; }
-      .visual-chapter-2 .chapter-bg-img { object-position: 58% 50%; }
-      .visual-chapter-3 .chapter-bg-img { object-position: 60% 50%; }
+      max-width: 100%;
     }
 
     /* Viewports desktop baixas (notebook com barras do navegador, zoom, etc.) —
@@ -530,13 +564,10 @@
 
     @media (max-width: 768px) {
       /* No mobile a coluna de texto ocupa quase toda a largura, então a foto
-         não tem "espaço negativo" real à esquerda — em vez de um painel de
-         texto separado (bug antigo), mantemos o mesmo cenário único, mas com
-         object-position mais central (rosto) e um véu quase full-bleed,
-         mais escuro embaixo, onde o texto se ancora. */
-      .visual-chapter-1 .chapter-bg-img { object-position: 68% 50%; }
-      .visual-chapter-2 .chapter-bg-img { object-position: 55% 50%; }
-      .visual-chapter-3 .chapter-bg-img { object-position: 56% 50%; }
+         não tem "espaço negativo" real à esquerda — mantemos o mesmo
+         cenário único (agora em contain, com folga acima/abaixo em vez de
+         corte) e um véu quase full-bleed, mais escuro embaixo, onde o
+         texto se ancora. */
       .hero-scrim {
         background:
           linear-gradient(to bottom,
@@ -547,23 +578,9 @@
             #14110D 100%
           );
       }
-      /* Na foto 1 (parede/logo), o brasão físico + "ALISSON PAZ ADVOGADO"
-         ocupam a metade superior do enquadramento (o crop mobile só corta
-         largura, nunca altura — a posição vertical do brasão na tela é fixa
-         e não se move via object-position). Duas mudanças, cada uma isolada:
-         1) align-items:flex-end no #hero ancora o bloco de texto embaixo
-            (por padrão ele era centralizado, jogando o H1 em cima do brasão);
-         2) como o texto sozinho (H1+sub+CTAs+rodapé) ainda é mais alto que a
-            faixa "livre" abaixo do brasão, o hero ganha ~130px extras de
-            altura mínima só no mobile — não é espaço vazio, é mais fotografia
-            visível — suficiente para o H1 nascer só depois de "ALISSON PAZ". */
-      #hero {
-        align-items: flex-end;
-        min-height: calc(100vh - var(--nav-h) + 220px);
-        min-height: calc(100svh - var(--nav-h) + 220px);
-      }
+      #hero { align-items: flex-end; }
       .hero-copy { max-width: 100%; justify-content: flex-end; padding: 28px 18px 40px; }
-      .hero-title, .hero-sub, .hero-meta { max-width: 100%; }
+      .hero-title, .hero-meta, .hero-sub { max-width: 100%; }
     }
 
     /* Em viewports mobile muito baixas (ex.: 320x568) o hero ocupa quase
@@ -1357,14 +1374,6 @@
     @media (max-width: 768px) {
       section { padding: 72px 0; }
 
-      /* FIX: backdrop-filter no navbar cria containing block para position:fixed filhos,
-         confinando o overlay dentro da altura do navbar (~80px) em vez do viewport inteiro.
-         Remove o blur no mobile; o fundo sólido já garante separação visual. */
-      #navbar.scrolled {
-        backdrop-filter: none;
-        -webkit-backdrop-filter: none;
-      }
-
       /* Bloqueia scroll do body enquanto menu está aberto */
       body.menu-open { overflow: hidden; touch-action: none; }
 
@@ -1798,7 +1807,9 @@
 <!-- CAPÍTULO VISUAL 1 — parede/logo: Hero + Áreas de atuação -->
 <div class="visual-chapter visual-chapter-1">
   <div class="chapter-bg" aria-hidden="true">
-    <img class="chapter-bg-img" src="hero-slide-1-logo-wall.webp" alt="" width="1672" height="941" fetchpriority="high" decoding="async">
+    <img class="chapter-bg-img" src="hero-slide-1-logo-wall.webp" alt="" width="1916" height="821" fetchpriority="high" decoding="async">
+    <div class="chapter-bg-blend chapter-bg-blend-top"></div>
+    <div class="chapter-bg-blend chapter-bg-blend-bottom"></div>
     <div class="chapter-bg-overlay"></div>
   </div>
   <div class="chapter-content">
@@ -1806,8 +1817,8 @@
   <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-copy fade-up">
     <p class="hero-kicker">Dr. Alisson Nascimento Paz · OAB/PR 119.985</p>
-    <h1 class="hero-title">Advocacia Criminal, Cível e de Família em Coronel Vivida e região.</h1>
-    <p class="hero-sub">Atendimento direto pelo advogado responsável, com análise individual de cada caso e orientação sobre as providências cabíveis, nas áreas Criminal, Cível, Família, Consumidor e Digital/LGPD.</p>
+    <h1 class="hero-title">Advocacia Criminal, Cível e de Família em Coronel&nbsp;Vivida e região.</h1>
+    <p class="hero-sub section-subtitle">Atendimento direto pelo advogado responsável, com análise individual de cada caso e orientação sobre as providências cabíveis, nas áreas Criminal, Cível, Família, Consumidor e Digital/LGPD.</p>
     <div class="hero-actions">
       <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." class="btn btn-gold" target="_blank" rel="noopener" data-conversion="whatsapp-cta">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -2105,7 +2116,9 @@
 <!-- CAPÍTULO VISUAL 2 — em pé: Trajetória + Diferenciais -->
 <div class="visual-chapter visual-chapter-2">
   <div class="chapter-bg" aria-hidden="true">
-    <img class="chapter-bg-img" src="hero-slide-2-standing.webp" alt="" width="1672" height="941" loading="lazy" decoding="async">
+    <img class="chapter-bg-img" src="hero-slide-2-standing.webp" alt="" width="1916" height="821" loading="lazy" decoding="async">
+    <div class="chapter-bg-blend chapter-bg-blend-top"></div>
+    <div class="chapter-bg-blend chapter-bg-blend-bottom"></div>
     <div class="chapter-bg-overlay"></div>
   </div>
   <div class="chapter-content">
@@ -2219,7 +2232,9 @@
 <!-- CAPÍTULO VISUAL 3 — sentado: Como funciona + Conteúdo + Contato + Localização -->
 <div class="visual-chapter visual-chapter-3">
   <div class="chapter-bg" aria-hidden="true">
-    <img class="chapter-bg-img" src="hero-slide-3-seated.webp" alt="" width="1672" height="941" loading="lazy" decoding="async">
+    <img class="chapter-bg-img" src="hero-slide-3-seated.webp" alt="" width="1916" height="821" loading="lazy" decoding="async">
+    <div class="chapter-bg-blend chapter-bg-blend-top"></div>
+    <div class="chapter-bg-blend chapter-bg-blend-bottom"></div>
     <div class="chapter-bg-overlay"></div>
   </div>
   <div class="chapter-content">
@@ -2231,7 +2246,7 @@
       <h2 class="section-title">Do primeiro contato<br>à resolução</h2>
       <p class="section-subtitle" style="margin: 0 auto;">Um processo claro e direto, sem burocracia desnecessária.</p>
     </div>
-    <div class="processo-steps">
+    <div class="processo-steps content-panel">
       <div class="step">
         <div class="step-dot" aria-hidden="true">01</div>
         <h3>Consulta inicial</h3>
@@ -2254,7 +2269,7 @@
 <!-- CONTEÚDO JURÍDICO -->
 <section id="conteudo">
   <div class="container">
-    <div class="content-header">
+    <div class="content-header content-panel">
       <div>
         <span class="section-tag">Conteúdo jurídico</span>
         <h2 class="section-title">Artigos e casos<br>recentes</h2>
@@ -2279,6 +2294,7 @@
         </div>
       </a>
     </div>
+    <div class="content-panel">
     <p class="content-list-label">Mais artigos</p>
     <div class="content-grid">
       <a class="article-card" href="artigo-lei-15397-codigo-penal.html">
@@ -2346,6 +2362,7 @@
           </div>
         </div>
       </a>
+    </div>
     </div>
   </div>
 </section>
