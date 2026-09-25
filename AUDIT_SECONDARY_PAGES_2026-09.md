@@ -304,3 +304,18 @@ Ver tabelas nas Fases 1 e 9. Resumo: FCP e Speed Index caíram ~40% nas 3 págin
 - Nenhuma página jurídica ou de marketing nova foi criada.
 - Nenhum conteúdo de artigo foi alterado.
 - Nenhuma campanha do Google Ads foi tocada.
+
+---
+
+## FASE 12 — Validação manual final (usuário)
+
+O usuário validou manualmente o Preview real (commit `989222f`) e confirmou:
+
+- Preview visualmente idêntico à produção;
+- tipografia preservada (Cinzel/Cormorant Garamond/Manrope, mesma família/peso/espaçamento em todas as páginas secundárias);
+- títulos, corpo, navbar e espaçamentos sem regressão perceptível;
+- `obrigado.html` também validada manualmente.
+
+Conferência técnica final antes do merge (nesta sessão): `base` = `main`, `main` confirmada em `2c72d64f172556dade8ed7d3eeabc49b565aff49`, `head` do PR = `989222f6d5b45e947f7488f38050c55bbd0aa8fc` (exatamente 3 commits na branch, todos já auditados — nenhuma mudança nova entrou depois da validação), `mergeable_state: clean` (sem conflitos), deployment da Vercel para o commit `989222f` em estado `READY`, e `git diff origin/main -- index.html` / `git diff origin/main -- assets/fonts/cinzel-latin.woff2` ambos vazios (home e seu arquivo de fonte permanecem intocados).
+
+**VALIDAÇÃO TÉCNICA E MANUAL CONCLUÍDAS — nenhuma regressão identificada. PR aprovado para merge.**
