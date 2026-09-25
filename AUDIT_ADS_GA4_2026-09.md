@@ -145,17 +145,21 @@ Objetivo do usuário: acompanhar Google Ads + GA4 diariamente sem login manual, 
 
 ### Opções tecnicamente viáveis
 
-1. **Google Ads API + GA4 Data API diretamente (oficial, sem intermediário)**
-   - Prós: sem dependência de terceiro, sem limite de "contas por plano" (o problema que bloqueou esta sessão), controle total de escopo OAuth (pode pedir só `https://www.googleapis.com/auth/adwords` em modo somente leitura via `AdGroupCriterionService`/`GoogleAdsService.search` com queries `SELECT`, e `analyticsdata.readonly` para GA4).
-   - Contras: exige um backend pequeno (mesmo que serverless) para guardar o `refresh_token` com segurança e renovar o `access_token`; maior esforço inicial de implementação do que um conector pronto.
-   - Custo: gratuito (dentro das cotas padrão da API).
+> **Nota de proveniência desta subseção**: os itens 1 e 2 abaixo incorporam uma informação que **não verifiquei eu mesmo nesta sessão** — o usuário informou, na revisão deste relatório, que existe um MCP oficial `googleads/google-ads-mcp` já operacional no ambiente local dele; ele simplesmente não estava disponível/instalado nesta Cloud Session (busquei por ferramentas com esse perfil nesta sessão e não encontrei nenhuma). Registro isso como informação do usuário, não como fato que eu tenha confirmado por mim mesmo — a distinção importa porque o restante deste relatório segue a regra de nunca misturar dado real com estimativa.
 
-2. **Windsor.ai (já em uso nesta sessão) em plano pago**
+1. **`googleads/google-ads-mcp` (MCP oficial para Google Ads) + GA4 Data API oficial (read-only) — recomendação primária**
+   - Segundo informação do usuário, o `google-ads-mcp` já está configurado e operacional no ambiente local dele — bastaria disponibilizá-lo/habilitá-lo em uma Cloud Session para uso aqui. Isso resolve, para o lado do Google Ads, tanto o problema de dependência de terceiro quanto o limite de "1 conta por plano" que bloqueou esta sessão (era uma limitação do Windsor.ai, não do Google Ads).
+   - Para o GA4, não há indicação de um MCP oficial equivalente já configurado — a via recomendada é implementar acesso direto à **GA4 Data API** em modo somente leitura, usando o escopo OAuth **`https://www.googleapis.com/auth/analytics.readonly`** (correção: este é o escopo correto da Analytics Data API — não `analyticsdata.readonly`, que não é um nome de escopo válido do Google).
+   - Contras: a parte de GA4 ainda exige um backend pequeno (mesmo que serverless) para guardar o `refresh_token` com segurança e renovar o `access_token`; esforço de implementação nessa ponta.
+   - Custo: gratuito (dentro das cotas padrão das APIs).
+
+2. **Windsor.ai — opção secundária, não solução prioritária**
    - Prós: já está conectado, já mapeia campos, zero código adicional.
-   - Contras: **já demonstrou nesta própria auditoria** a limitação de "1 conta por plano Free" — pagar resolveria isso, mas adiciona dependência de terceiro com acesso às duas contas (Ads + GA4) e custo recorrente. Verificar na política de privacidade do Windsor.ai como eles armazenam e usam esse acesso antes de decidir.
+   - Contras: **já demonstrou nesta própria auditoria** a limitação de "1 conta por plano Free" — um upgrade pago resolveria isso, mas mantém uma dependência de terceiro com acesso às duas contas (Ads + GA4) e custo recorrente, quando a rota oficial (item 1) já cobre o lado do Google Ads sem esse custo. Faz sentido como opção secundária/backup, ou para conectores que não têm MCP oficial equivalente — não como base principal do monitoramento diário, dado que a rota oficial já está disponível para Ads.
 
-3. **MCP oficial do Google (se/quando existir um MCP oficial mantido pelo Google para Ads/GA4)**
-   - Não encontrei, nesta sessão, nenhum MCP com esse nome/finalidade instalado ou disponível — não posso recomendar o que não confirmei existir. Se você tiver conhecimento de um MCP oficial específico, ele pode ser avaliado numa sessão futura.
+### Antes de qualquer envio de conversão direto ao Google Ads
+
+Ao desenhar a integração oficial acima, **não implementar envio de evento diretamente para `AW-17974605756`** (via Measurement Protocol, API de conversões offline, ou qualquer outro caminho que grave uma conversão nova na conta de Ads) sem antes verificar, no próprio Google Ads (Conversões), quais ações de conversão já existem e se `whatsapp_click`/`lead_form_submit` já chegam lá via importação do GA4 (ver seção "Validação de eventos" acima — isso não foi confirmado nesta sessão por falta de acesso a dado real). Implementar um segundo caminho de envio para a mesma conversão, sem primeiro confirmar isso, criaria risco real de **dupla contagem** de leads/conversões no Ads. Este é um item de verificação manual antes de qualquer implementação, não uma tarefa executada nesta sessão.
 
 ### Recomendação de desenho (independente da opção escolhida)
 
@@ -173,7 +177,7 @@ Nenhuma credencial foi configurada, solicitada ou exposta nesta sessão.
 
 1. **Dados reais de Google Ads e GA4 bloqueados** pelo limite do plano Free do Windsor.ai (1 conta simultânea, 2 conectadas) — ver Fase Inicial. Nenhum número de gasto, cliques, impressões, termos de pesquisa, sessões ou conversões pôde ser obtido ou é reportado neste documento.
 2. Como consequência direta do item 1, **não foi possível**: analisar o termo de pesquisa "Devon Defaci" ou qualquer outro termo (nenhum dado de termos de pesquisa foi obtido); comparar períodos de gasto/desempenho; checar discrepância real GA4×Ads; confirmar se `whatsapp_click`/`lead_form_submit` aparecem de fato como conversões importadas no Ads.
-3. Não há Google Ads API nem GA4 Data API oficiais conectadas nesta sessão — só o Windsor.ai.
+3. Não há Google Ads API nem GA4 Data API oficiais conectadas nesta sessão — só o Windsor.ai. Segundo o usuário, o MCP oficial `googleads/google-ads-mcp` já está operacional no ambiente local dele; apenas não estava disponível nesta Cloud Session (não verificado por mim diretamente nesta sessão).
 
 ---
 
