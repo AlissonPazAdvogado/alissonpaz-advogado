@@ -294,6 +294,23 @@ Nenhuma. Não foi identificado nenhum problema introduzido especificamente por e
 
 Todas as evidências obtidas (headers reais do Preview, CSP real aplicada localmente com zero violações, contagem de requisições `gtag.js`, leitura estática confirmando que a lógica de `whatsapp_click`/`lead_form_submit`/navbar/tabs não foi tocada, e um `git diff` que não inclui nenhum arquivo visual) são consistentes entre si e não revelam nenhuma regressão causada pelas mudanças desta branch. As únicas lacunas são de **cobertura de teste** (não de resultado negativo): captura de screenshot comparativo real e clique/submissão interativa no Preview, e confirmação nos painéis do GA4/Google Ads — bloqueadas por SSO Protection do projeto e por falta de credenciais dos painéis, respectivamente, não por qualquer falha encontrada.
 
-Com essa ressalva expressa sobre cobertura de teste (não sobre resultado), a validação é:
+Com essa ressalva expressa sobre cobertura de teste (não sobre resultado), a validação técnica automatizada é:
 
 **VALIDAÇÃO TÉCNICA CONCLUÍDA COM RESSALVA — nenhuma regressão identificada nas verificações possíveis neste ambiente; recomenda-se complementar com screenshots comparativos reais e um clique/submissão manual no Preview (ou em produção pós-merge) antes de considerar a cobertura de QA visual/interativa como completa.**
+
+---
+
+## FASE 7 — Validação manual final (usuário)
+
+A ressalva de cobertura registrada na Fase 6 (screenshots comparativos reais e interação real no Preview, impossibilitados neste ambiente pelo SSO Protection da Vercel) foi fechada pelo **usuário**, que validou manualmente o Preview real (`https://alissonpaz-advogado-git-perf-a687e1-alissonpaz00-5189s-projects.vercel.app`, commit `20c935a`) e confirmou:
+
+- Preview visualmente idêntico à produção;
+- Hero, fotografias, navbar, layout e tipografia sem regressões;
+- CTA do WhatsApp abre o número correto;
+- formulário abre corretamente o WhatsApp;
+- após o envio, a aba original é redirecionada corretamente para `/obrigado.html`;
+- página de confirmação carregou normalmente.
+
+Com essa confirmação manual, a ressalva de cobertura da Fase 6 está encerrada.
+
+**VALIDAÇÃO TÉCNICA CONCLUÍDA — nenhuma regressão identificada no Preview da Vercel.**
