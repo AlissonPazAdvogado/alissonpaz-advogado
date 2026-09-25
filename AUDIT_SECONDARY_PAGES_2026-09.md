@@ -65,28 +65,58 @@ Ou seja: **as 3 famílias usadas nas páginas secundárias são fontes variávei
 
 **Conclusão da investigação:** é possível reproduzir a tipografia das páginas secundárias com fidelidade total — mesma família, mesmos pesos, mesmo eixo variável, mesmos glifos — baixando e hospedando localmente **os mesmos 4 arquivos** que o Google já serve hoje para este import exato. Não há necessidade de aproximar com uma fonte "parecida": são literalmente os mesmos binários.
 
-Verificação adicional: o arquivo `cinzel-latin.woff2` já existente em `assets/fonts/` (usado por `index.html`) foi comparado por hash com o arquivo Cinzel baixado agora do Google — os hashes SHA-256 **não são idênticos** (diferença de 16 bytes no tamanho do arquivo), mas a inspeção com `fontTools` mostra **versão idêntica** (`fontRevision 2.0`), **mesmo número de glifos** (228) e mesmos metadados de nome — indicando apenas uma recompressão/rebuild em momento diferente do mesmo font source, não uma fonte diferente. Ainda assim, por rigor, **não reaproveitei esse arquivo para as páginas secundárias**: baixei uma cópia própria e atual de cada arquivo (`cormorant-garamond-latin.woff2`, `cormorant-garamond-italic-latin.woff2`, `manrope-latin.woff2`), evitando qualquer dependência de uma decisão tomada em outra sessão. O arquivo `cinzel-latin.woff2` de `index.html` foi **reaproveitado como está** (sem modificação) para as páginas secundárias, já que Cinzel é usada de forma idêntica (mesma família, mesmos pesos) nos dois contextos.
+### Verificação técnica adicional: `cinzel-latin.woff2` (arquivo da home) vs. arquivo atual do Google
+
+O arquivo `cinzel-latin.woff2` já existente em `assets/fonts/` (usado por `index.html`, página aprovada) tem hash SHA-256 **diferente** do arquivo Cinzel baixado agora de `fonts.gstatic.com` (confirmado em dois downloads separados, hashes idênticos entre si: `09941fb1c169c38fd414536b37690057fc01b3117a5c63dd6571186540c8f370`). Isso, por si só, não prova nem descarta equivalência visual — então foi feita uma comparação técnica completa com `fontTools`, tabela por tabela:
+
+| Verificação | Resultado |
+|---|---|
+| `cmap` (mapeamento caractere→glifo) | **Idêntico** (220 entradas, comparação completa) |
+| Ordem dos glifos (`glyf order`) | **Idêntica** (228 glifos, mesma ordem) |
+| Outlines dos glifos (contornos/curvas, via `RecordingPen`, todos os 228 glifos) | **Idênticos** — 0 glifos com outline diferente |
+| `hmtx` (advance width + left side bearing) | **Idêntico** para os 228 glifos — 0 diferenças |
+| Unidades por em (`unitsPerEm`) | **Idêntico** — 1000 em ambos |
+| Ascender/descender (`hhea` e `OS/2.sTypoAscender/Descender`) | **Idêntico** — 976 / -372 em ambos |
+| x-height / cap-height (`OS/2.sxHeight/sCapHeight`) | **Idêntico** — 500 / 700 em ambos |
+| Eixo `wght` (`fvar`) | **Idêntico** — min 400, default 400, max 900 em ambos |
+| Instâncias nomeadas (`fvar.instances`) | **Idênticas** — Regular(400)/Bold(700)/Black(900) em ambos |
+| `gvar` (deltas de variação — como cada glifo muda ao longo do eixo `wght`) | **Bytes idênticos** (14.406 bytes, comparação binária direta) |
+| `avar`, `HVAR`, `STAT` (tabelas de suporte a fonte variável) | **Bytes idênticos** nos três |
+| `GPOS` (kerning/posicionamento) | **Bytes idênticos** (16.088 bytes) |
+| `GSUB` (substituição de glifos) | **Bytes idênticos** (114 bytes) |
+| `GDEF` (definições de glifo) | **Bytes idênticos** (380 bytes) |
+| `post` (ângulo itálico, sublinhado) | **Idêntico** — ângulo 0°, mesmas posições de sublinhado |
+| `gasp` (grid-fitting/anti-aliasing) | **Bytes idênticos** |
+| Nomes/style linking (`name` table, IDs 1/2/4/6) | **Idênticos** — "Cinzel" / "Regular" / "Cinzel Regular" / "Cinzel-Regular" |
+| Tabelas presentes | **Única diferença**: o arquivo do Google tem a tabela `prep` (7 bytes: bytecode TrueType `SCANCTRL(511)` + `SCANTYPE(4)`); o arquivo local **não tem** essa tabela |
+
+A única diferença encontrada, em toda a fonte, é a tabela `prep` — um pequeno programa de hinting TrueType legado que controla como o rasterizador lida com dropout de traços finos em tamanhos de pixel muito pequenos (tipicamente relevante só para renderização GDI clássica no Windows; navegadores modernos, em qualquer sistema operacional, renderizam texto web via seus próprios pipelines de anti-aliasing/hinting e, para fontes variáveis como esta, majoritariamente ignoram ou não dependem de bytecode `prep` para determinar a forma visível do glifo). Como a comparação acima já prova, byte a byte, que os outlines, métricas, kerning e dados de variação são idênticos, essa tabela ausente não altera forma de letra, espaçamento ou layout — mas, seguindo a regra explícita desta auditoria de não presumir equivalência diante de qualquer diferença, **`cinzel-latin.woff2` de `index.html` não foi reaproveitado nem modificado**. Em vez disso, foi criado um arquivo **separado**, `assets/fonts/cinzel-secondary-latin.woff2`, contendo o binário exato hoje servido pelo Google (hash confirmado idêntico), usado **apenas** pelas páginas secundárias. `index.html` continua referenciando somente `cinzel-latin.woff2`, sem nenhuma alteração.
+
+Como confirmação final, prática e não apenas teórica: capturei um screenshot de `artigo-guarda-pensao.html` com `cinzel-latin.woff2` e outro, no mesmo ambiente, após trocar para `cinzel-secondary-latin.woff2` — **os dois arquivos PNG resultantes têm o mesmo hash SHA-256**, ou seja, a troca produziu uma imagem renderizada bit a bit idêntica.
+
+Os outros 3 arquivos (`cormorant-garamond-latin.woff2`, `cormorant-garamond-italic-latin.woff2`, `manrope-latin.woff2`) são novos — baixados agora, sem arquivo local prévio para comparar — então essa questão de equivalência não se aplica a eles.
 
 ### Implementação
 
-- Adicionados 3 novos arquivos a `assets/fonts/`: `cormorant-garamond-latin.woff2` (37.640 bytes), `cormorant-garamond-italic-latin.woff2` (23.660 bytes), `manrope-latin.woff2` (24.836 bytes) — baixados diretamente de `fonts.gstatic.com` nas URLs exatas que o import atual referenciava.
+- Adicionados 4 novos arquivos a `assets/fonts/`: `cinzel-secondary-latin.woff2` (25.904 bytes — binário idêntico ao servido hoje por `fonts.gstatic.com`, ver verificação técnica acima), `cormorant-garamond-latin.woff2` (37.640 bytes), `cormorant-garamond-italic-latin.woff2` (23.660 bytes), `manrope-latin.woff2` (24.836 bytes) — todos baixados diretamente de `fonts.gstatic.com` nas URLs exatas que o import atual referenciava. `assets/fonts/cinzel-latin.woff2` (usado por `index.html`) **não foi tocado nem reaproveitado**.
 - Adicionado a `assets/base.css` (arquivo já compartilhado pelas 10 páginas secundárias — nenhum arquivo novo, nenhum build system) um bloco `@font-face` com 4 declarações, usando `font-weight` em **intervalo** (`400 600`, `300 600` etc.) já que são fontes variáveis — forma mais correta e compacta do que repetir um `@font-face` por peso discreto (equivalente em resultado, já que é o mesmo arquivo e o mesmo eixo variável; só reduz duplicação de código):
   ```css
-  @font-face { font-family: 'Cinzel'; font-style: normal; font-weight: 400 600; font-display: swap; src: url('fonts/cinzel-latin.woff2') format('woff2'); }
+  @font-face { font-family: 'Cinzel'; font-style: normal; font-weight: 400 600; font-display: swap; src: url('fonts/cinzel-secondary-latin.woff2') format('woff2'); }
   @font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 400 600; font-display: swap; src: url('fonts/cormorant-garamond-latin.woff2') format('woff2'); }
   @font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 400; font-display: swap; src: url('fonts/cormorant-garamond-italic-latin.woff2') format('woff2'); }
   @font-face { font-family: 'Manrope'; font-style: normal; font-weight: 300 600; font-display: swap; src: url('fonts/manrope-latin.woff2') format('woff2'); }
   ```
 - `font-display: swap` mantido (mesma estratégia já usada por `index.html` e pelo Google Fonts anteriormente).
-- Nas 10 páginas secundárias, o bloco de 3 linhas do Google Fonts (`preconnect` ×2 + `<link rel="stylesheet">`) foi substituído por 3 `<link rel="preload" as="font" type="font/woff2" ... crossorigin>` apontando para os arquivos locais — preload usado porque as 3 famílias (Manrope no corpo, Cormorant Garamond no H1, Cinzel na navbar) são todas usadas **acima da dobra**, mesmo padrão de justificativa que `index.html` já usa para suas próprias fontes.
+- Nas 10 páginas secundárias, o bloco de 3 linhas do Google Fonts (`preconnect` ×2 + `<link rel="stylesheet">`) foi substituído por 3 `<link rel="preload" as="font" type="font/woff2" ... crossorigin>` apontando para os arquivos locais (`manrope-latin.woff2`, `cormorant-garamond-latin.woff2`, `cinzel-secondary-latin.woff2`) — preload usado porque as 3 famílias (Manrope no corpo, Cormorant Garamond no H1, Cinzel na navbar) são todas usadas **acima da dobra**, mesmo padrão de justificativa que `index.html` já usa para suas próprias fontes.
 - **Nenhuma declaração `font-family` no CSS de nenhuma página foi alterada** — todas continuam referenciando `'Cinzel'`, `'Cormorant Garamond'`, `'Manrope'` exatamente como antes; só a origem do arquivo físico mudou.
 - CSP (`vercel.json`): removidas as entradas `https://fonts.googleapis.com` de `style-src` e `https://fonts.gstatic.com` de `font-src`, já que nenhuma página depende mais desses domínios (confirmado por busca em todo o repositório — nenhuma referência restante). `font-src` passa a ser só `'self'`; `style-src` passa a ser `'self' 'unsafe-inline'` (o `'unsafe-inline'` já existia antes, não foi adicionado nem removido). Nenhum hash de `script-src` foi tocado (nenhum `<script>` inline foi alterado nesta rodada).
 
 ### Validação
 
-- **Zero erros de CSP** (`Refused to load`/`Content Security Policy`) em nenhuma das 6 execuções de Lighthouse pós-mudança (mobile+desktop em artigo, política, obrigado) — confirma que remover `fonts.googleapis.com`/`fonts.gstatic.com` da CSP não quebrou nada, e que os arquivos locais carregam sob `font-src 'self'` normalmente.
+- **Zero erros de CSP** (`Refused to load`/`Content Security Policy`) em nenhuma das 12 execuções de Lighthouse pós-mudança (mobile+desktop em artigo, política, obrigado — 6 execuções com `cinzel-latin.woff2` reaproveitado, repetidas depois de trocar para `cinzel-secondary-latin.woff2`) — confirma que remover `fonts.googleapis.com`/`fonts.gstatic.com` da CSP não quebrou nada, e que os arquivos locais carregam sob `font-src 'self'` normalmente, com ou sem a troca do arquivo Cinzel.
 - Todas as 10 páginas alteradas passaram por validação estrutural de HTML (`html.parser`, sem erros) e `vercel.json` validado como JSON.
 - **Comparação visual direta** (screenshot antes/depois, mesma página, mesmo ambiente, via `git stash`): no estado anterior, com o Google Fonts falhando neste sandbox, o H1 e a navbar renderizavam com fonte de fallback do sistema (perceptivelmente diferente — sem serifa elegante no título, sem o letter-spacing da logo); no estado novo, com as fontes locais, H1 renderiza em Cormorant Garamond e a navbar em Cinzel, exatamente como o restante do site (e como a própria home). Capturas adicionais em 390px (mobile) e 1920px (desktop) em `artigo-guarda-pensao.html` e `obrigado.html` confirmam layout, quebra de linha e alinhamento preservados, sem CLS perceptível.
+- **Confirmação específica da troca de arquivo Cinzel**: screenshot de `artigo-guarda-pensao.html` (1366px) capturado com `cinzel-latin.woff2` e novamente, no mesmo ambiente, com `cinzel-secondary-latin.woff2` — os dois PNGs resultantes têm **hash SHA-256 idêntico**, confirmando renderização bit a bit igual (ver Fase 2).
 - Nenhum FOUT/FOIT problemático identificado: `font-display: swap` está ativo, e como os arquivos agora são de mesma origem (sem round-trip DNS/TLS para um domínio externo), o tempo até o texto usar a fonte final é menor que antes.
 
 ---
@@ -162,16 +192,18 @@ Todas as mudanças passaram no critério das 5 condições simultâneas exigidas
 
 ### Lighthouse — depois
 
+Números finais, medidos com o arquivo definitivo `cinzel-secondary-latin.woff2` (a rodada anterior, com `cinzel-latin.woff2` reaproveitado, tinha números praticamente idênticos — ver Fase 2, confirmação por screenshot com hash igual):
+
 | Página | Perfil | Perf | LCP | FCP | SI | CLS | Requests |
 |---|---|---|---|---|---|---|---|
 | artigo-guarda-pensao.html | Mobile | 1.00 (antes 0.98) | 1.8s (antes 1.6s) | 0.9s (antes 1.5s) | 0.9s (antes 3.8s) | 0 | 10 (antes 8) |
-| artigo-guarda-pensao.html | Desktop | 0.93 (antes 0.88) | 1.7s (antes 1.6s) | 0.9s (antes 1.5s) | 0.9s (antes 1.5s) | 0 | 10 (antes 8) |
+| artigo-guarda-pensao.html | Desktop | 0.91 (antes 0.88) | 1.8s (antes 1.6s) | 0.9s (antes 1.5s) | 0.9s (antes 1.5s) | 0 | 10 (antes 8) |
 | politica-de-privacidade.html | Mobile | 1.00 (antes 0.99) | 1.8s (antes 1.5s) | 0.9s (antes 1.5s) | 0.9s (antes 2.4s) | 0 | 9 (antes 7) |
-| politica-de-privacidade.html | Desktop | 0.91 (antes 0.88) | 1.8s (antes 1.6s) | 0.9s (antes 1.5s) | 0.9s (antes 1.5s) | 0 | 9 (antes 7) |
-| obrigado.html | Mobile | 1.00 (antes 0.99) | 1.8s (antes 1.5s) | 0.9s (antes 1.5s) | 0.9s (antes 2.4s) | 0.003 | 10 (antes 8) |
-| obrigado.html | Desktop | 0.91 (antes 0.88) | 1.8s (antes 1.5s) | 0.9s (antes 1.5s) | 0.9s (antes 1.5s) | 0 | 10 (antes 8) |
+| politica-de-privacidade.html | Desktop | 0.90 (antes 0.88) | 1.8s (antes 1.6s) | 1.1s (antes 1.5s) | 1.1s (antes 1.5s) | 0 | 9 (antes 7) |
+| obrigado.html | Mobile | 1.00 (antes 0.99) | 1.7s (antes 1.5s) | 0.9s (antes 1.5s) | 0.9s (antes 2.4s) | 0.003 | 10 (antes 8) |
+| obrigado.html | Desktop | 0.90 (antes 0.88) | 1.8s (antes 1.5s) | 1.1s (antes 1.5s) | 1.1s (antes 1.5s) | 0 | 10 (antes 8) |
 
-**Leitura honesta dos números** (ver aviso metodológico): FCP e Speed Index melhoraram de forma consistente e grande (~40%) porque o Chrome de teste finalmente consegue carregar as fontes (antes falhava 100% das vezes contra o Google Fonts neste sandbox). O LCP aparenta uma leve piora (+0.1–0.3s) porque agora o elemento de LCP espera 3 arquivos de fonte locais carregarem antes do "swap" final — algo que antes nunca acontecia aqui (a fonte de fallback já "era" o LCP, por a busca externa nunca completar). **Isso não deve se repetir em produção real**: lá, o Google Fonts atualmente carrega normalmente para a maioria dos usuários (com sua própria latência de DNS/TLS/CDN), então substituí-lo por arquivos same-origin tende a **igualar ou melhorar** o LCP real, nunca piorar — mas isso só pode ser confirmado com um teste real em produção/preview (ver Fase 11, limitação). Requests subiram de 7–8 para 9–10 porque agora 3 arquivos de fonte realmente chegam a ser buscados (antes, zero — a única requisição de fonte, o CSS do Google, falhava).
+**Leitura honesta dos números — os deltas de FCP/SI abaixo NÃO representam ganho de produção.** O baseline "antes" foi medido com o Google Fonts **inacessível** para o Chrome do Lighthouse neste sandbox (ver aviso metodológico: falha de rede confirmada, 100% das tentativas, para `fonts.googleapis.com`/`fonts.gstatic.com` especificamente no processo Chrome, ainda que o mesmo host fosse alcançável via `curl` no shell). Ou seja, a página "antes" nunca chegou a buscar nenhum `.woff2` — ficou presa esperando um CSS externo que sempre falhava, e a melhora de ~40% em FCP/SI medida aqui reflete, em grande parte, a **eliminação dessa espera por um recurso que já estava quebrado neste ambiente de teste**, não necessariamente o ganho que um usuário real teria trocando um Google Fonts funcional por self-hosting. Em produção, onde o Google Fonts carrega normalmente para a maioria dos usuários, o ganho esperado de self-hosting é tipicamente mais modesto (elimina 1–2 round-trips de DNS/TLS/CDN externos, mas não uma falha total de carregamento) — a magnitude real só pode ser confirmada com um teste contra o Preview/produção. O LCP aparenta uma leve piora (+0.1–0.3s) pelo motivo inverso: agora o elemento de LCP espera 3 arquivos de fonte locais carregarem antes do "swap" final, algo que antes nunca acontecia aqui (a fonte de fallback já "era" o conteúdo do LCP, já que a busca externa nunca completava). Isso também não deve se repetir em produção real: lá, substituir Google Fonts funcional por arquivos same-origin tende a **igualar ou melhorar** o LCP, nunca piorar — mas, novamente, isso só pode ser confirmado com um teste real em produção/preview (ver Fase 11, limitação). Requests subiram de 7–8 para 9–10 porque agora 3 arquivos de fonte realmente chegam a ser buscados com sucesso (antes, zero — a única requisição de fonte, o CSS do Google, falhava).
 
 Best Practices, Accessibility e SEO permaneceram estáveis (nenhuma categoria piorou).
 
@@ -197,6 +229,7 @@ Best Practices, Accessibility e SEO permaneceram estáveis (nenhuma categoria pi
 ### Arquivos modificados
 ```
 assets/base.css                        (novo bloco @font-face)
+assets/fonts/cinzel-secondary-latin.woff2           (novo arquivo — NÃO é assets/fonts/cinzel-latin.woff2, que continua exclusivo de index.html)
 assets/fonts/cormorant-garamond-latin.woff2         (novo arquivo)
 assets/fonts/cormorant-garamond-italic-latin.woff2  (novo arquivo)
 assets/fonts/manrope-latin.woff2                    (novo arquivo)
@@ -223,7 +256,7 @@ AUDIT_SECONDARY_PAGES_2026-09.md       (novo)
 5. **Uniformizar a fonte de corpo entre home (Instrument Sans) e páginas secundárias (Manrope)** — mudaria a aparência aprovada da home; fora de escopo.
 
 ### Métricas antes/depois
-Ver tabelas nas Fases 1 e 9. Resumo: FCP e Speed Index melhoraram ~40% nas 3 páginas testadas (efeito real de eliminar a dependência de fonte externa, ainda que amplificado pela particularidade deste ambiente de teste); Performance subiu em todas as 6 combinações testadas; CLS permaneceu ~0; nenhuma categoria (Accessibility, Best Practices, SEO) piorou; zero erros de CSP.
+Ver tabelas nas Fases 1 e 9. Resumo: FCP e Speed Index caíram ~40% nas 3 páginas testadas neste ambiente local — mas esse número **não deve ser lido como o ganho esperado em produção**, porque o baseline "antes" tinha o Google Fonts inacessível para o Chrome de teste (ver leitura honesta na Fase 9); é um indicador de que a mudança funciona e remove uma dependência externa, não uma previsão de melhoria real de produção. Performance (score 0–1 do Lighthouse) subiu em todas as 6 combinações testadas; CLS permaneceu ~0; nenhuma categoria (Accessibility, Best Practices, SEO) piorou; zero erros de CSP em nenhuma execução, antes ou depois da correção do arquivo Cinzel.
 
 ### Riscos remanescentes
 - LCP mostrou uma leve alta local (+0.1–0.3s) neste ambiente sintético pelo motivo explicado na Fase 9 — recomenda-se confirmar em produção/preview real antes do merge que o LCP não piorou (deve manter-se igual ou melhorar, já que se trata de trocar uma origem externa por same-origin).
@@ -243,6 +276,7 @@ Ver tabelas nas Fases 1 e 9. Resumo: FCP e Speed Index melhoraram ~40% nas 3 pá
 ## Confirmação de escopo
 
 - Hero da home, as três fotografias principais, seu enquadramento/zoom/`object-position`, navbar da home, cores, paleta, identidade visual, textos jurídicos/institucionais, telefone, endereço, OAB e URLs de WhatsApp: **nenhum tocado**.
+- `index.html` e `assets/fonts/cinzel-latin.woff2` (arquivo de fonte que ela usa): **nenhum byte alterado** — confirmado por `git diff index.html` vazio e pelo arquivo de fonte não ter sido sobrescrito nem reaproveitado (ver Fase 2, verificação técnica com `fontTools`).
 - GA4 (`G-5J4N177RQL`) e Google Ads (`AW-17974605756`): IDs intactos.
 - Eventos `whatsapp_click` e `lead_form_submit`: código-fonte intacto, comportamento confirmado.
 - Formulário e fluxo `index.html → WhatsApp → obrigado.html`: código-fonte intacto (nenhuma linha tocada).

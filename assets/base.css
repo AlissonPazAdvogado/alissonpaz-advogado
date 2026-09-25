@@ -1,12 +1,18 @@
 /* Fontes self-hosted (mesmos arquivos servidos hoje via Google Fonts nas
    páginas secundárias, hospedados localmente) — variáveis, cobrem os pesos
-   usados sem repetir arquivo por peso. */
+   usados sem repetir arquivo por peso.
+   Cinzel usa um arquivo próprio (cinzel-secondary-latin.woff2), binário
+   idêntico ao servido hoje por fonts.gstatic.com — não é o mesmo arquivo
+   de fonts/cinzel-latin.woff2 usado por index.html: uma comparação com
+   fontTools encontrou 1 tabela de hinting TrueType (`prep`) ausente no
+   arquivo da home, então optou-se por não reaproveitá-lo aqui e manter
+   os dois arquivos separados (ver AUDIT_SECONDARY_PAGES_2026-09.md). */
 @font-face {
   font-family: 'Cinzel';
   font-style: normal;
   font-weight: 400 600;
   font-display: swap;
-  src: url('fonts/cinzel-latin.woff2') format('woff2');
+  src: url('fonts/cinzel-secondary-latin.woff2') format('woff2');
 }
 @font-face {
   font-family: 'Cormorant Garamond';
