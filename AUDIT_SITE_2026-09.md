@@ -176,3 +176,124 @@ Ver tabelas nas Fases 1 e 4. Resumo: nenhuma métrica piorou; TBT do `index.html
 - As métricas de Performance neste relatório foram obtidas contra um servidor HTTP local simples (sem HTTP/2, sem Brotli/gzip, sem CDN), não a infraestrutura real do Vercel — os números absolutos não são diretamente comparáveis a uma medição em produção, apenas o **delta antes/depois no mesmo ambiente** é confiável.
 - A alteração de hash CSP (`script-src`) é sensível: qualquer edição futura no conteúdo do bloco `<script>` de `gtag('config', 'AW-17974605756')` em qualquer uma das 10 páginas exigirá recalcular o hash SHA-256 e atualizar `vercel.json`, sob pena de o Google Ads deixar de disparar (bloqueado pela própria CSP). Isso já era uma característica pré-existente do projeto (CSP com hashes, sem `unsafe-inline` em `script-src`), não uma fragilidade introduzida por esta auditoria.
 - Testes end-to-end em browser real (cliques em CTAs de WhatsApp, submissão de formulário, navegação por teclado, menu mobile) não puderam ser executados de forma automatizada neste ambiente por falta de acesso à produção; recomenda-se validação manual do preview do Vercel antes do merge.
+
+---
+
+## FASE 6 — Validação no Preview Vercel
+
+- **Preview testado:** `https://alissonpaz-advogado-git-perf-a687e1-alissonpaz00-5189s-projects.vercel.app`
+- **Deployment:** `dpl_FxmrRpYM533zDgdNTuyxAUKofK2k`, commit `3c511f8` (branch `perf/cloud-audit-2026-09`), estado `READY`.
+- **Produção de referência:** `https://www.alissonpazadv.com.br` (não alterada; `main` continua em `8bf1e02`).
+- **Data/hora da validação:** 2026-09-25, ~18:15–18:30 UTC.
+
+### Limitação de ambiente encontrada (e como foi contornada)
+
+O projeto Vercel tem **SSO Protection (Vercel Authentication) habilitada em nível de projeto** (`ssoProtection.enabled: true`, `deploymentType: "all_except_custom_domains"`) — configuração pré-existente, **não alterada por este PR**. Isso exige login na Vercel para qualquer acesso a URLs `*.vercel.app` (preview), inclusive para ferramentas automatizadas.
+
+- Uma única requisição HTTP autenticada ao Preview foi bem-sucedida (`GET /`, status 200), via uma ferramenta MCP de acesso à Vercel deste ambiente, e forneceu headers e HTML reais servidos pela infraestrutura de produção (Vercel Edge, compressão Brotli). Chamadas subsequentes para `/artigo-guarda-pensao.html`, `/obrigado.html`, `/sitemap.xml` e `/robots.txt` foram consistentemente redirecionadas (302) para `vercel.com/sso-api`, mesmo especificando o `teamId` explicitamente.
+- A pedido do usuário, foi tentada a criação de um **Protection Bypass for Automation** (segredo temporário e revogável, de menor escopo possível, especificamente para esta validação). A chamada retornou **403 Forbidden — "You don't have permission to create the protection bypass"**: a credencial/conta conectada a este ambiente não tem papel de Admin/Owner no time `alissonpaz00-5189s-projects` necessário para essa operação. **Nenhum bypass foi criado** (logo, não havia nada para revogar depois). Nenhum token, secret ou credencial foi gravado no repositório, no PR ou neste relatório.
+- Diante disso, a validação foi completada com uma combinação de evidências equivalentes e verificáveis, descritas abaixo, sem tocar em nenhuma configuração de segurança do projeto Vercel.
+
+### 1. Deploy da Vercel — headers efetivamente recebidos (via requisição real ao Preview)
+
+Headers recebidos na única resposta HTTP 200 obtida diretamente do Preview (`GET /`):
+
+```
+HTTP/1.1 200 OK
+server: Vercel
+content-type: text/html; charset=utf-8
+content-encoding: br
+x-vercel-cache: MISS
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+x-content-type-options: nosniff
+x-frame-options: DENY
+referrer-policy: strict-origin-when-cross-origin
+permissions-policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+content-security-policy: default-src 'self'; ... 'sha256-MZ/Z0hPMuggZeRGlItuyQYF3lWc+6HkjtCgy8VAMJsY=' ... (demais diretivas idênticas ao vercel.json commitado)
+x-robots-tag: noindex   ← injetado automaticamente pela Vercel em deployments de Preview (não é o robots do HTML, é padrão da plataforma para não indexar previews; produção não recebe este header)
+```
+
+Confirmado: **o `vercel.json` da branch foi efetivamente aplicado** no deployment de Preview — a CSP contém exatamente o hash novo (`sha256-MZ/Z0hPMuggZeRGlItuyQYF3lWc+6HkjtCgy8VAMJsY=`) no lugar do antigo, o header `Strict-Transport-Security` está presente com o valor configurado, e todos os demais headers de segurança (`X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`) continuam presentes e inalterados.
+
+Como a regra de headers do `vercel.json` usa `"source": "/(.*)"` (aplica-se a **todas** as rotas do deployment, não por arquivo individual), e o deployment é o mesmo para todas as páginas, esse conjunto de headers se aplica igualmente a `artigo-guarda-pensao.html`, `obrigado.html`, `alisson-paz-ads-manager.html` etc. — não é uma suposição, é como o roteamento de headers da Vercel funciona (regra declarativa por padrão de rota, avaliada no edge antes de servir qualquer arquivo do mesmo deployment), mas não pôde ser **re-confirmado por uma segunda requisição HTTP direta** nessas páginas especificamente, por causa do bloqueio de SSO descrito acima.
+- Não foi possível, dentro dessas restrições, verificar 404 de assets, redirects inesperados ou mixed content fazendo crawling direto do Preview.
+
+### 2. Verificação equivalente: CSP real aplicada localmente + Lighthouse (mobile/desktop) nas 3 páginas exigidas
+
+Para validar de forma objetiva se o **hash de CSP alterado realmente funciona no navegador** (o ponto de maior risco técnico desta auditoria) sem depender do Preview bloqueado por SSO, foi criado um servidor local que replica **byte a byte** o bloco `headers` do `vercel.json` da branch (mesmos valores de CSP, HSTS, X-Frame-Options etc.), servindo os arquivos exatamente como estão no commit `3c511f8`. Isso é uma verificação mais direta do que rodar Lighthouse contra o Preview, porque isola precisamente a variável que mudou (a CSP) sob controle.
+
+Lighthouse 13.5.0 rodado em mobile e desktop em `/`, `/artigo-guarda-pensao.html`, `/obrigado.html` e adicionalmente `/alisson-paz-ads-manager.html`:
+
+| Página | Perfil | Perf | A11y | BP | SEO | LCP | CLS | TBT | FCP | SI | Erros CSP no console |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| index.html | Mobile | 0.89 | 0.97 | 0.96 | 1.00 | 3.7s | 0 | 90ms | 1.2s | 1.2s | **0** |
+| index.html | Desktop | 0.76 | 0.97 | 0.96 | 1.00 | 3.7s | 0 | 60ms | 1.4s | 1.3s | **0** |
+| artigo-guarda-pensao.html | Mobile | 0.99 | 1.00 | 0.96 | 1.00 | 1.5s | 0 | 0ms | 1.5s | 2.4s | **0** |
+| artigo-guarda-pensao.html | Desktop | 0.88 | 1.00 | 0.96 | 1.00 | 1.5s | 0 | 0ms | 1.5s | 1.5s | **0** |
+| obrigado.html | Mobile | 0.99 | 1.00 | 0.96 | 0.63* | 1.5s | 0 | 0ms | 1.5s | 2.4s | **0** |
+| obrigado.html | Desktop | 0.88 | 1.00 | 0.96 | 0.63* | 1.5s | 0 | 0ms | 1.5s | 1.5s | **0** |
+| alisson-paz-ads-manager.html | Mobile | 0.99 | 0.95 | 0.96 | 0.66* | 1.5s | 0 | 0ms | 1.5s | 2.4s | **0** |
+
+\* `obrigado.html` e `alisson-paz-ads-manager.html` mostram SEO < 1.00 exclusivamente por `is-crawlable` (ambas têm `noindex` **intencional**, confirmado no item 8 abaixo) — não é regressão. O SEO de `obrigado.html` subiu de 0,54 (baseline Fase 1) para 0,63 nesta rodada porque a `meta description` adicionada nesta auditoria passou a ser detectada; o único item restante é o `noindex` proposital.
+
+**Comparação com o baseline de `AUDIT_SITE_2026-09.md` (Fase 1/4):** nenhuma métrica relevante piorou de forma reproduzível. Ao longo desta sessão foram feitas três rodadas independentes de Lighthouse sobre o mesmo código (baseline pré-mudança, pós-mudança sem headers reais, e esta rodada com a CSP real aplicada) — o Perf de `index.html` mobile ficou em 0,89 / 0,90 / 0,89 e o TBT variou entre 10ms e 90ms nas três rodadas. Essa variação é consistente com ruído normal de simulação de throttling em ambiente compartilhado (não houve nenhuma mudança de código entre a 2ª e a 3ª rodada, só a adição dos headers reais), não com uma regressão — não foi executado um protocolo formal de 3 repetições por página, mas as três medições independentes já disponíveis convergem para a mesma faixa de valores.
+
+**Resultado central desta verificação: zero erros de CSP no console em qualquer página testada** (nenhuma mensagem do tipo *"Refused to execute inline script because it violates the following Content Security Policy directive"*), confirmando que o hash `sha256-MZ/Z0hPMuggZeRGlItuyQYF3lWc+6HkjtCgy8VAMJsY=` corresponde exatamente ao conteúdo do script `gtag('config', 'AW-17974605756');` presente nas 10 páginas alteradas. Os únicos erros de console observados foram falhas de rede (`ERR_TUNNEL_CONNECTION_FAILED`, `ERR_CERT_AUTHORITY_INVALID`) para domínios externos (`googletagmanager.com`, `fonts.googleapis.com`) bloqueados pela política de rede deste sandbox — artefato do ambiente, não do código.
+
+### 3. Regressão visual
+
+**Nenhuma alteração de CSS, HTML estrutural, imagem ou marcação visual foi feita nesta auditoria** — o diff da branch (`git diff main...perf/cloud-audit-2026-09`) toca exclusivamente: (a) dois blocos `<script>` no `<head>` de 10 páginas (consolidação do carregamento do `gtag.js`); (b) um `<meta name="robots">` e uma `<meta name="description">`; (c) `sitemap.xml`; (d) `vercel.json` (headers HTTP, não renderizados). Nenhum desses pontos afeta o DOM visível, CSS, imagens ou layout. Por construção, portanto, **não há superfície para regressão visual** nesta branch — confirmado adicionalmente pelo `git diff --stat`, que não lista nenhum arquivo de imagem (`.webp`/`.jpg`/`.png`) entre os alterados.
+
+Como o Preview está bloqueado por SSO para navegação interativa, não foi possível capturar screenshots comparativos diretamente contra ele nas larguras 360/390/430/768/1366/1920px. Dado que zero arquivos visuais foram tocados, essa verificação foi tratada como **de baixo risco residual**, mas fica como pendência formal para validação manual antes do merge (ver `Riscos remanescentes` abaixo e a recomendação de teste no PR).
+
+### 4. Testes funcionais (verificação estática do código, já que a interação real no Preview foi bloqueada por SSO)
+
+- **Navbar (menu mobile, Escape, foco):** lógica em `assets/site.js` (linhas 59–93) inalterada por este PR. O deployment de Preview inspecionado via API da Vercel (`list_deployments`) confirma que foi construído a partir do `githubCommitSha` `3c511f8…`, ou seja, exatamente o commit desta branch — o mesmo código lido localmente. Fechamento por tecla `Escape`, toggle do menu, e restauração de foco (`menuWasOpenedBy`) presentes e não tocados.
+- **Abas de #atuacao (Criminal, Cível & Contratos, Família & Inventários, Consumidor, Digital & LGPD):** lógica de `activateTab` com suporte a clique e navegação por teclado (`ArrowRight/Left/Up/Down`, `Home`, `End`) em `assets/site.js` (linhas 95–146), roles ARIA (`aria-selected`, `aria-controls`, `role="tabpanel"`) — inalterada.
+- **CTAs de WhatsApp:** confirmados **6 CTAs** em `index.html`, todos com `data-conversion="whatsapp-cta"` presente e apontando para `https://wa.me/5546999746391` (com ou sem texto pré-preenchido conforme o contexto de cada botão) — nenhum href ou atributo alterado por este PR. O listener de `whatsapp_click` em `assets/site.js` (delegação de evento em `document`, capture=true) não foi tocado.
+- **Formulário → WhatsApp → `obrigado.html`:** o handler `contactForm.addEventListener('submit', ...)` em `index.html` (inalterado por este PR) valida `nome`, `telefone` e `assunto` como obrigatórios (`if (!nome || !telefone || !assunto) return;`), monta a mensagem, grava `sessionStorage.setItem('lead_form_submitted', '1')` **antes** de abrir o WhatsApp em nova aba e redirecionar para `obrigado.html` após 400ms.
+
+### 5. GA4, Google Ads e eventos (`whatsapp_click` / `lead_form_submit`)
+
+Validado tecnicamente via `network-requests` do Lighthouse (não via painel do GA4/Google Ads — **sem credenciais de acesso aos painéis reais neste ambiente**, limitação documentada explicitamente, conforme instruído):
+
+- **`gtag.js` carregado exatamente 1 vez por página** em todas as páginas testadas (`index.html`, `artigo-guarda-pensao.html`, `obrigado.html`, `alisson-paz-ads-manager.html`), confirmado pela lista de requisições de rede do Lighthouse — antes da correção eram 2 requisições nas 10 páginas afetadas.
+- GA4 (`G-5J4N177RQL`) e Google Ads (`AW-17974605756`) configurados via `gtag('config', ...)`, sem erro de CSP (item 2 acima) e sem `Refused to execute inline script`.
+- `whatsapp_click`: função `track()` chamada com `send_to: 'G-5J4N177RQL'` na delegação de clique — código inalterado, não há razão técnica para não disparar; não pôde ser confirmado com um clique real no Preview (bloqueado por SSO) nem em painel do GA4 (sem credenciais).
+- `lead_form_submit`: depende exclusivamente da flag `sessionStorage['lead_form_submitted']`, que é lida e **imediatamente removida** em `obrigado.html` antes de disparar o evento — isso garante: dispara só após submissão válida (a flag só é setada dentro do handler de submit, após a validação dos campos obrigatórios); dispara uma única vez (a remoção da flag acontece antes do `gtag('event', ...)`, então um F5 na mesma aba não encontra mais a flag); não dispara em acesso direto a `obrigado.html` (flag inexistente ⇒ `submitted === false`). Este bloco de código, em `obrigado.html`, **não foi alterado por este PR** (só a seção `<head>` da página foi tocada).
+
+### 6. CSP
+
+Ver item 2 (zero erros de CSP em 7 execuções de Lighthouse com a CSP real aplicada). Confirmado especificamente: `sha256-MZ/Z0hPMuggZeRGlItuyQYF3lWc+6HkjtCgy8VAMJsY=` corresponde ao script `gtag('config', 'AW-17974605756');` (recalculado e verificado byte a byte antes do commit, e agora também sem violação em runtime). Nenhum script inline legítimo foi bloqueado. `unsafe-inline` não foi adicionado.
+
+### 7. SEO e indexação
+
+- `index.html`: sem `<meta name="robots">` (padrão = indexável), `canonical` para `https://www.alissonpazadv.com.br/` ✓.
+- 6 artigos: `<meta name="robots" content="index, follow">`, `canonical` correto para cada URL de produção ✓ (inalterado).
+- `robots.txt`: `User-agent: * / Allow: / / Sitemap: https://www.alissonpazadv.com.br/sitemap.xml` — válido, inalterado.
+- `sitemap.xml`: XML válido (parseado com sucesso), 9 URLs, **`alisson-paz-ads-manager.html` confirmado ausente**.
+- `alisson-paz-ads-manager.html`: `<meta name="robots" content="noindex, nofollow">` confirmado ✓.
+- `obrigado.html`: `<meta name="robots" content="noindex, nofollow">` confirmado (inalterado) ✓; nova `<meta name="description" content="Sua mensagem foi recebida pelo escritório Alisson Paz Advocacia. Em breve entraremos em contato.">` confirmada presente ✓.
+
+### 8. Segurança
+
+HTTPS, HSTS, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` e CSP — todos confirmados presentes e corretos na resposta real do Preview (item 1) e replicados/validados localmente (item 2). Nenhum mixed content ou recurso HTTP inseguro foi identificado na leitura do HTML servido pelo Preview (todas as referências de script/imagem/font usam HTTPS ou caminhos relativos ao próprio domínio). Nenhuma alteração estrutural de segurança além do HSTS (já documentado desde a Fase 3) foi necessária.
+
+### Limitações do ambiente (resumo)
+
+1. SSO Protection do projeto Vercel impediu acesso HTTP direto e repetido ao Preview para a maioria das páginas e para interação real em navegador (screenshots, cliques, formulário).
+2. Tentativa de gerar um bypass de automação, solicitada explicitamente pelo usuário com escopo mínimo e temporário, falhou por falta de permissão da credencial conectada (403 Forbidden) — nenhum bypass foi criado, nada precisou ser revogado.
+3. Sem acesso aos painéis reais do GA4/Google Ads para confirmar o recebimento dos eventos no lado do servidor do Google (apenas a emissão client-side foi validada tecnicamente).
+4. Rede do sandbox bloqueia domínios externos (`googletagmanager.com`, `fonts.googleapis.com`), então os próprios recursos do Google não puderam ser baixados nos testes locais — isso gera erros de rede esperados no console, não relacionados ao código da branch.
+
+### Correções adicionais realizadas nesta etapa
+
+Nenhuma. Não foi identificado nenhum problema introduzido especificamente por este PR — nenhum arquivo de código foi alterado durante esta validação.
+
+### Conclusão
+
+Todas as evidências obtidas (headers reais do Preview, CSP real aplicada localmente com zero violações, contagem de requisições `gtag.js`, leitura estática confirmando que a lógica de `whatsapp_click`/`lead_form_submit`/navbar/tabs não foi tocada, e um `git diff` que não inclui nenhum arquivo visual) são consistentes entre si e não revelam nenhuma regressão causada pelas mudanças desta branch. As únicas lacunas são de **cobertura de teste** (não de resultado negativo): captura de screenshot comparativo real e clique/submissão interativa no Preview, e confirmação nos painéis do GA4/Google Ads — bloqueadas por SSO Protection do projeto e por falta de credenciais dos painéis, respectivamente, não por qualquer falha encontrada.
+
+Com essa ressalva expressa sobre cobertura de teste (não sobre resultado), a validação é:
+
+**VALIDAÇÃO TÉCNICA CONCLUÍDA COM RESSALVA — nenhuma regressão identificada nas verificações possíveis neste ambiente; recomenda-se complementar com screenshots comparativos reais e um clique/submissão manual no Preview (ou em produção pós-merge) antes de considerar a cobertura de QA visual/interativa como completa.**
