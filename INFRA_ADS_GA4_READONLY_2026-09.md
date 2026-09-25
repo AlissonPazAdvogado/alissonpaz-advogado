@@ -91,8 +91,12 @@ Fonte: busca na web com múltiplas fontes (fetch direto a `developers.google.com
 
 ```
                           ┌─────────────────────────────────────────┐
-                          │   Google Cloud Project dedicado          │
-                          │   (a criar — DEPENDE DE AÇÃO DO USUÁRIO) │
+                          │   Google Cloud Project                  │
+                          │   (existente OU novo — a decidir após    │
+                          │    identificar o projeto/nível de acesso │
+                          │    já usado pelo google-ads-mcp local;    │
+                          │    ver item 4 e item 9. Nenhuma criação  │
+                          │    de projeto novo é recomendada agora.) │
                           └───────────────┬───────────────────────--┘
                                           │
         ┌─────────────────────────────────┼─────────────────────────────────┐
@@ -105,9 +109,10 @@ Fonte: busca na web com múltiplas fontes (fetch direto a `developers.google.com
 │  não-forkada)       │        └───────────────────────┘          └──────────────────────┘
 │  Streamable HTTP    │
 │  + OAuth Proxy       │
-│  Ingress: privado    │
-│  (--no-allow-        │
-│   unauthenticated)   │
+│  Ingress: público     │
+│  (padrão upstream)   │
+│  OU privado + IAM     │
+│  (hardening, a testar)│
 └─────────┬───────────┘
           │ chamadas somente-leitura
           │ (search / get_resource_metadata / list_accessible_customers)
@@ -153,15 +158,23 @@ Fonte: busca na web com múltiplas fontes (fetch direto a `developers.google.com
 
 ---
 
-## 4. Google Cloud Project necessário — **DEPENDE DE AÇÃO DO USUÁRIO**
+## 4. Google Cloud Project necessário — **DEPENDE DE AÇÃO DO USUÁRIO — decisão de criação adiada**
 
-Um projeto GCP dedicado (não o mesmo projeto pessoal genérico, se houver outros) é recomendado para isolar IAM, cota e faturamento desta infraestrutura de monitoramento. Nenhum projeto foi criado nesta sessão. Ver item 9 para os comandos exatos que o usuário deve rodar localmente para descobrir se já existe um projeto associado ao acesso local funcional ao Google Ads.
+**Não recomendamos ainda criar um novo Google Cloud Project para o Google Ads.** O passo anterior a qualquer decisão sobre projeto é identificar **qual projeto OAuth já está sendo usado hoje pelo `google-ads-mcp` local** (o que já funciona na máquina do usuário) e **qual o nível de acesso** desse projeto na API Google Ads (Test Account Access, Basic Access ou Standard Access — ver item 2.2).
+
+Isso importa porque, sob o modelo vigente desde 9/09/2026, o nível de acesso é uma propriedade do **projeto** que gerou as credenciais OAuth — não da aplicação ou do ambiente de execução. Se o projeto já em uso local já tiver Basic Access ou Standard Access habilitado para a conta de produção, **criar um projeto novo obrigaria repetir todo o processo de obtenção de nível de acesso** (que pode envolver revisão/aprovação da Google), sem nenhum ganho de segurança correspondente — isolamento de IAM e faturamento pode ser obtido também dentro do mesmo projeto, por meio de Service Accounts e políticas de IAM dedicadas.
+
+**Ordem correta de decisão:**
+1. Executar os comandos do item 9 para identificar o projeto atual e seu nível de acesso.
+2. Só então decidir, com base no resultado, entre: (a) reaproveitar o projeto existente (com IAM/Service Account dedicados para esta infraestrutura de monitoramento) ou (b) criar um projeto novo — apenas se houver razão técnica concreta (por exemplo, o projeto atual não suportar produção, ou misturar responsabilidades incompatíveis).
+
+Nenhum projeto foi criado ou proposto como certo nesta sessão; esta seção permanece como **DEPENDE DE AÇÃO DO USUÁRIO**, com a criação de projeto novo explicitamente **não recomendada neste momento**.
 
 ---
 
 ## 5. Modelo OAuth — **PROPOSTA**
 
-- **Google Ads:** um único Cliente OAuth (tipo "Aplicativo Web", ou "Desktop" se preferir o fluxo do `google-ads-mcp` local) associado ao projeto GCP dedicado, escopo `https://www.googleapis.com/auth/adwords` (não há alternativa read-only). O papel do usuário/conta dentro do Google Ads deve ser configurado como **`READ_ONLY`** sempre que a interface do Google Ads permitir vincular esse papel à credencial usada pela integração — isso é uma camada adicional de proteção independente do escopo OAuth (ver item 8).
+- **Google Ads:** um único Cliente OAuth (tipo "Aplicativo Web", ou "Desktop" se preferir o fluxo do `google-ads-mcp` local) associado ao projeto GCP identificado no item 4 (existente ou, apenas se justificado, um novo), escopo `https://www.googleapis.com/auth/adwords` (não há alternativa read-only). O papel do usuário/conta dentro do Google Ads deve ser configurado como **`READ_ONLY`** sempre que a interface do Google Ads permitir vincular esse papel à credencial usada pela integração — isso é uma camada adicional de proteção independente do escopo OAuth (ver item 8).
 - **GA4:** um Cliente OAuth (pode ser o mesmo projeto GCP, credencial separada) com escopo **exclusivo** `https://www.googleapis.com/auth/analytics.readonly` — nunca solicitar escopos da Admin API.
 - Ambos os fluxos usam **Application Default Credentials (ADC)** do serviço Cloud Run (Service Account dedicada, sem chaves JSON baixadas) sempre que possível, reduzindo a superfície de segredos a gerenciar manualmente.
 
@@ -173,19 +186,20 @@ Um projeto GCP dedicado (não o mesmo projeto pessoal genérico, se houver outro
 - **Refresh tokens:** Firestore (backend nativo recomendado pelo próprio `google-ads-mcp`), com criptografia em repouso nativa do Firestore + criptografia adicional em nível de aplicação usando a chave gerenciada pelo Secret Manager (`GOOGLE_ADS_MCP` já expõe variáveis para isso).
 - **Client secret / JWT signing key:** exclusivamente no Secret Manager, montados como variável de ambiente/volume no momento da execução do container — nunca no código, nunca no `Dockerfile`, nunca em `.env` versionado.
 - **Estado OAuth (nonce, PKCE, sessão de autorização):** também em Firestore, com TTL curto.
+- **Correção sobre limpeza do Firestore:** o backend Firestore do `google-ads-mcp` **filtra** registros de estado OAuth expirados nas consultas (isto é, um registro vencido deixa de ser considerado válido em tempo de leitura), mas **não os remove automaticamente** da coleção. Em uma implantação de longa duração, isso significa que documentos expirados se acumulam indefinidamente no Firestore se nenhuma limpeza periódica for configurada. Recomendação: agendar uma rotina de expurgo (por exemplo, uma Cloud Scheduler job + Cloud Function/Run job simples, ou uma TTL policy nativa do Firestore sobre o campo de expiração, quando aplicável ao esquema usado pelo projeto) para remover fisicamente registros vencidos periodicamente — evitando crescimento não controlado de armazenamento e reduzindo a superfície de dados obsoletos retidos.
 
-### 6.2 Reconciliação: `--allow-unauthenticated` vs. exigência de autenticação obrigatória
+### 6.2 `--allow-unauthenticated` vs. exigência de autenticação obrigatória — **opção de hardening a validar, não decisão arquitetural fechada**
 
-O exemplo de deploy do repositório oficial usa `--allow-unauthenticated` no Cloud Run. Isso significa que a **camada de rede** do Cloud Run não exige autenticação — mas a **camada de aplicação** (o proxy OAuth do próprio `google-ads-mcp`, via FastMCP) exige um token MCP/OAuth válido para qualquer chamada de ferramenta ser executada. Ou seja, o exemplo oficial delega toda a autenticação à camada de aplicação, deixando a porta HTTP publicamente alcançável (ainda que inútil sem token).
+**O que o exemplo oficial realmente faz:** o exemplo de deploy do repositório `googleads/google-ads-mcp` usa `--allow-unauthenticated` e expõe o serviço em um **endpoint HTTP publicamente alcançável**; a autenticação de cada chamada é feita inteiramente pela **camada de aplicação** — o proxy OAuth do próprio MCP (FastMCP), que exige um token MCP/OAuth válido para qualquer ferramenta ser executada. Isto é, a arquitetura oficial já documentada e testada pelo mantenedor do projeto não depende de restrição de rede alguma: a porta é pública, mas inútil sem o token OAuth do próprio protocolo MCP.
 
-Isso **não atende** ao requisito explícito do usuário de "nenhuma porta pública desnecessária" e "autenticação obrigatória". A recomendação desta proposta diverge do exemplo padrão do repositório nesse ponto específico:
+**Por que isso não deve ser descartado de imediato em favor de `--no-allow-unauthenticated` + IAM:** essa combinação (ingress do Cloud Run exigindo identidade IAM, via `roles/run.invoker` + token de identidade do Google) é uma camada adicional de hardening, não uma peça testada do fluxo padrão do `google-ads-mcp`. Ela pode conflitar com o próprio handshake OAuth do FastMCP — por exemplo, se o cliente MCP remoto (Claude, ChatGPT ou outro) não conseguir anexar automaticamente um Google ID token (`Authorization: Bearer <identity-token>`) às chamadas HTTP subjacentes ao mesmo tempo em que conduz o fluxo OAuth do próprio MCP (que pode envolver redirecionamentos, callbacks e headers próprios), o resultado pode ser a própria autenticação do MCP quebrando antes de chegar à aplicação.
 
-- Usar **`--no-allow-unauthenticated`** no Cloud Run (ingress exige identidade IAM válida, verificada pelo próprio Cloud Run antes mesmo de a requisição chegar à aplicação).
-- Conceder o papel `roles/run.invoker` apenas às identidades de serviço que efetivamente precisam chamar o MCP (por exemplo, a identidade usada pelas Cloud Sessions do Claude, se ela puder ser federada, ou uma Service Account dedicada usada por um processo intermediário de análise diária).
-- Manter o proxy OAuth do `google-ads-mcp` **como uma segunda camada**, não como a única — resultando em autenticação **dupla**: IAM na borda (Cloud Run) + OAuth na aplicação (MCP).
-- Isso é uma mudança de configuração de implantação, não uma modificação de código-fonte do `google-ads-mcp` — continua sendo possível usar a imagem oficial sem fork.
+**Recomendação revisada — tratar como duas opções, a maior restritiva pendente de teste:**
 
-**Custo prático dessa escolha mais restritiva:** qualquer cliente MCP que queira chamar o serviço remoto precisará apresentar um token de identidade do Google (`gcloud auth print-identity-token` ou equivalente) além do fluxo OAuth do MCP, o que pode exigir um pequeno proxy/túnel local (`gcloud run services proxy`) para uso a partir de ferramentas que não suportem headers de autorização customizados nativamente. Isso deve ser testado no ambiente real do usuário antes da implantação definitiva.
+- **Opção A (padrão documentado pelo upstream):** `--allow-unauthenticated` no Cloud Run + autenticação exclusivamente pelo proxy OAuth do `google-ads-mcp`. Vantagem: é o caminho testado e suportado pelo mantenedor, sem risco de incompatibilidade entre camadas de auth. Desvantagem: não atende, por si só, ao requisito do usuário de "nenhuma porta pública desnecessária".
+- **Opção B (hardening adicional, a validar):** `--no-allow-unauthenticated` + `roles/run.invoker` restrito, resultando em autenticação dupla (IAM na borda + OAuth do MCP na aplicação). **Antes de adotar esta opção como arquitetura definitiva, é necessário testar em ambiente de laboratório** se um cliente MCP remoto (Claude/ChatGPT) consegue efetivamente fornecer o Google ID token exigido pelo Cloud Run sem quebrar o fluxo OAuth do FastMCP — por exemplo, verificando se o cliente suporta headers de autorização customizados persistentes junto ao transporte Streamable HTTP, ou se será necessário um proxy/túnel local (`gcloud run services proxy`) como intermediário, o que reduziria a praticidade do uso remoto direto por um agente.
+
+Esta seção permanece **em aberto**: nenhuma das duas opções foi testada nesta sessão (não há ambiente Cloud Run real disponível). A decisão final deve ser tomada somente após um teste controlado da Opção B; até lá, a Opção A (igual ao exemplo oficial) é o fallback conhecido e funcional.
 
 ---
 
@@ -207,7 +221,7 @@ Isso **não atende** ao requisito explícito do usuário de "nenhuma porta públ
 | 2 — Papel da conta | `READ_ONLY` na conta Google Ads vinculada, quando a interface permitir | Proposto — depende de ação do usuário no Google Ads |
 | 3 — Design do servidor MCP (Ads) | `google-ads-mcp` oficial não expõe nenhuma ferramenta de mutação — comprovado por leitura direta do README/lista de tools | **Verificado nesta sessão** |
 | 4 — Design do servidor MCP (GA4) | Implementação própria deve expor **apenas** ferramentas de relatório pré-definidas, nunca uma ferramenta de query arbitrária ou qualquer chamada à Admin API | Proposto (a implementar) |
-| 5 — IAM na borda | `--no-allow-unauthenticated` + `roles/run.invoker` restrito | Proposto (ver item 6.2) |
+| 5 — IAM na borda | `--no-allow-unauthenticated` + `roles/run.invoker` restrito (opção B, hardening) vs. `--allow-unauthenticated` + OAuth do MCP (opção A, padrão upstream) | Em aberto — nenhuma opção testada; decisão pendente de teste do handshake OAuth do FastMCP com ID token do Cloud Run (ver item 6.2) |
 | 6 — Auditoria/log | Cloud Logging padrão do Cloud Run, sem log de payload de token | Proposto |
 | 7 — Separação write | Qualquer operação futura de escrita (ex.: pausar campanha) deve ser uma integração **distinta**, com credencial e serviço próprios, nunca reaproveitando esta infraestrutura de monitoramento | Regra de design — a ser respeitada em qualquer etapa futura |
 
@@ -231,8 +245,15 @@ gcloud auth application-default print-access-token >/dev/null && echo "ADC OK" |
 gcloud services list --enabled --filter="name:googleads.googleapis.com OR name:analyticsdata.googleapis.com"
 
 # 5. Clientes OAuth já existentes no projeto (apenas nomes/IDs, nunca secrets)
-gcloud alpha iap oauth-clients list --project=$(gcloud config get-value project) 2>/dev/null || \
-  echo "Consulte também em: https://console.cloud.google.com/apis/credentials"
+#    gcloud iam oauth-clients é para o recurso genérico de OAuth Clients
+#    (Workforce/Workload Identity); Clientes OAuth "clássicos" (tipo Web/
+#    Desktop, os usados pelo fluxo padrão de Cliente OAuth para APIs de
+#    usuário como Google Ads/GA4) não têm listagem via gcloud e devem ser
+#    conferidos no Console. Use o comando abaixo apenas se aplicável ao
+#    seu caso (ex.: OAuth Clients do tipo Workforce Identity Federation);
+#    caso contrário, vá direto ao Console.
+gcloud iam oauth-clients list --location=global --project=$(gcloud config get-value project) 2>/dev/null || \
+  echo "Consulte em: https://console.cloud.google.com/apis/credentials"
 
 # 6. Nível de acesso atual da API Google Ads para este projeto
 #    (não existe comando gcloud direto; verificar no Google Ads:
@@ -339,12 +360,12 @@ Caso o usuário prefira, o próximo passo autorizado pode incluir um esqueleto m
 ## 16. Próximos passos, em ordem, cada um aguardando autorização explícita
 
 1. Usuário roda os comandos do item 9 localmente e envia as saídas não sensíveis.
-2. Usuário decide: criar o Google Cloud Project dedicado (ou reaproveitar um existente, se o item 1 revelar que já há um projeto compatível).
+2. Usuário decide, com base no resultado do item 1: reaproveitar o projeto GCP já usado pelo `google-ads-mcp` local (opção recomendada, se o nível de acesso já for adequado) ou, apenas com justificativa técnica concreta, criar um projeto novo.
 3. Usuário decide sobre a separação de repositório (item 11) — nome, visibilidade, e autoriza (ou não) a criação.
 4. Somente após 2 e 3: criação do Cliente OAuth para Google Ads (escopo `adwords`, papel `READ_ONLY` na conta quando possível) e para GA4 (escopo `analytics.readonly`).
 5. Configuração do Secret Manager e Firestore no projeto (após 2).
 6. Implementação do serviço `ga4-readonly-mcp` mínimo no novo repositório (após 3).
-7. Deploy de teste do `google-ads-mcp` oficial (imagem não-forkada) e do `ga4-readonly-mcp` em Cloud Run, com `--no-allow-unauthenticated` e IAM invoker restrito (após 4 e 5).
+7. Deploy de teste do `google-ads-mcp` oficial (imagem não-forkada) e do `ga4-readonly-mcp` em Cloud Run, começando pela Opção A (`--allow-unauthenticated` + OAuth do MCP, igual ao padrão upstream) e só então testando a Opção B (`--no-allow-unauthenticated` + IAM invoker) em laboratório, validando se o cliente MCP remoto consegue fornecer o ID token exigido sem quebrar o fluxo OAuth do FastMCP (após 4 e 5; ver item 6.2).
 8. Prova de conceito real (FASE 10), a partir de credenciais já validadas (após 7).
 9. Ativação do relatório diário (FASE 11).
 
@@ -354,7 +375,8 @@ Nenhum destes 9 passos foi executado nesta sessão. Esta etapa termina aqui, agu
 
 ## Resumo por status
 
-- **Verificado nesta sessão:** inventário de ambiente (item 1); design read-only do `google-ads-mcp` oficial (itens 2.1 e 8); confirmação do modelo de acesso pós-9/09/2026 (item 2.2); bloqueio de egress a `developers.google.com` (item 2, nota de limitação).
-- **Proposto (não implementado):** toda a arquitetura (itens 3–8, 10–12); estimativa de custo (item 10); separação de repositório (item 11).
-- **Depende de ação do usuário:** descoberta de projeto GCP (item 9); criação de qualquer recurso GCP; decisão sobre novo repositório; autorização de deploy.
+- **Verificado nesta sessão:** inventário de ambiente (item 1); design read-only do `google-ads-mcp` oficial (itens 2.1 e 8); confirmação do modelo de acesso pós-9/09/2026 (item 2.2); bloqueio de egress a `developers.google.com` (item 2, nota de limitação); comportamento do Firestore quanto a registros OAuth expirados — filtrados na leitura, não removidos automaticamente (item 6.1).
+- **Proposto (não implementado):** arquitetura geral de serviços/segredos (itens 3, 5–8, 10–12); estimativa de custo (item 10); separação de repositório (item 11).
+- **Em aberto, sem decisão tomada (requer teste antes de decidir):** criação de novo Google Cloud Project para o Google Ads — não recomendada até identificar o projeto/nível de acesso já em uso local (item 4); escolha entre Opção A (`--allow-unauthenticated`, padrão upstream) e Opção B (`--no-allow-unauthenticated` + IAM) para o ingress do Cloud Run — pendente de teste do handshake OAuth do FastMCP com ID token (item 6.2).
+- **Depende de ação do usuário:** descoberta de projeto GCP e Cliente OAuth já em uso (item 9, comando de listagem corrigido para `gcloud iam oauth-clients list --location=global`); criação de qualquer recurso GCP; decisão sobre novo repositório; autorização de deploy.
 - **Não executado por regra explícita:** prova de conceito real (item 13); qualquer alteração em Google Ads, GA4, Vercel ou no site.
