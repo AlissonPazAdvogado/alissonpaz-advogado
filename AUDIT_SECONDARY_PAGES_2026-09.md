@@ -108,6 +108,22 @@ Os outros 3 arquivos (`cormorant-garamond-latin.woff2`, `cormorant-garamond-ital
   ```
 - `font-display: swap` mantido (mesma estratégia já usada por `index.html` e pelo Google Fonts anteriormente).
 - Nas 10 páginas secundárias, o bloco de 3 linhas do Google Fonts (`preconnect` ×2 + `<link rel="stylesheet">`) foi substituído por 3 `<link rel="preload" as="font" type="font/woff2" ... crossorigin>` apontando para os arquivos locais (`manrope-latin.woff2`, `cormorant-garamond-latin.woff2`, `cinzel-secondary-latin.woff2`) — preload usado porque as 3 famílias (Manrope no corpo, Cormorant Garamond no H1, Cinzel na navbar) são todas usadas **acima da dobra**, mesmo padrão de justificativa que `index.html` já usa para suas próprias fontes.
+
+### Conformidade de licença (SIL OFL 1.1)
+
+Cinzel, Cormorant Garamond e Manrope são redistribuídas neste repositório como arquivos `.woff2` sob a **SIL Open Font License, versão 1.1**. A OFL exige que o Font Software (incluindo cópias redistribuídas, mesmo em formato binário) seja acompanhado do texto integral da licença e dos avisos de copyright originais — o que este repositório ainda não tinha para nenhuma das fontes já hospedadas localmente antes desta auditoria (`cinzel-latin.woff2`, `instrument-sans-latin.woff2`, ambas usadas por `index.html`).
+
+Como correção de conformidade, foram adicionados os textos **oficiais** de licença, copiados sem nenhuma modificação diretamente do repositório upstream `google/fonts` (`ofl/<família>/OFL.txt`, a fonte de verdade dos metadados de licenciamento que o próprio Google Fonts distribui):
+
+```
+assets/fonts/licenses/Cinzel-OFL.txt            (Copyright 2020 The Cinzel Project Authors)
+assets/fonts/licenses/CormorantGaramond-OFL.txt (Copyright 2015 the Cormorant Project Authors)
+assets/fonts/licenses/Manrope-OFL.txt           (Copyright 2018 The Manrope Project Authors)
+```
+
+Cada arquivo foi comparado byte a byte (`diff`) contra o download direto do upstream — **idênticos**, nenhuma edição de conteúdo. Nenhum `.woff2` foi alterado; nenhum HTML, CSS, CSP, `preload`, JavaScript, analytics ou aparência do site foi tocado nesta etapa — apenas os 3 arquivos de texto de licença foram adicionados (confirmado por `git status`, que não lista nenhum outro arquivo modificado).
+
+**Observação para uma etapa futura:** `cinzel-latin.woff2` e `instrument-sans-latin.woff2` (usados por `index.html`, fora do escopo desta sessão) também são Font Software sob OFL e igualmente deveriam ter seus avisos de licença redistribuídos junto — recomenda-se adicionar `assets/fonts/licenses/Cinzel-OFL.txt` (já presente, mesma licença/copyright) e um `InstrumentSans-OFL.txt` equivalente em uma próxima sessão que toque a home.
 - **Nenhuma declaração `font-family` no CSS de nenhuma página foi alterada** — todas continuam referenciando `'Cinzel'`, `'Cormorant Garamond'`, `'Manrope'` exatamente como antes; só a origem do arquivo físico mudou.
 - CSP (`vercel.json`): removidas as entradas `https://fonts.googleapis.com` de `style-src` e `https://fonts.gstatic.com` de `font-src`, já que nenhuma página depende mais desses domínios (confirmado por busca em todo o repositório — nenhuma referência restante). `font-src` passa a ser só `'self'`; `style-src` passa a ser `'self' 'unsafe-inline'` (o `'unsafe-inline'` já existia antes, não foi adicionado nem removido). Nenhum hash de `script-src` foi tocado (nenhum `<script>` inline foi alterado nesta rodada).
 
@@ -233,6 +249,9 @@ assets/fonts/cinzel-secondary-latin.woff2           (novo arquivo — NÃO é as
 assets/fonts/cormorant-garamond-latin.woff2         (novo arquivo)
 assets/fonts/cormorant-garamond-italic-latin.woff2  (novo arquivo)
 assets/fonts/manrope-latin.woff2                    (novo arquivo)
+assets/fonts/licenses/Cinzel-OFL.txt                (novo — texto oficial da licença, sem edição)
+assets/fonts/licenses/CormorantGaramond-OFL.txt     (novo — texto oficial da licença, sem edição)
+assets/fonts/licenses/Manrope-OFL.txt               (novo — texto oficial da licença, sem edição)
 vercel.json                            (CSP: remove fonts.googleapis.com / fonts.gstatic.com)
 artigo-guarda-pensao.html              (Google Fonts → preload local)
 artigo-lei-15397-codigo-penal.html     (Google Fonts → preload local)
