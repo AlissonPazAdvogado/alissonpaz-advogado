@@ -11,12 +11,12 @@ Esta sessão tem acesso à ferramenta **Windsor.ai** (conector MCP), que já vin
 
 Consultando o próprio Windsor.ai (`get_connectors`), as contas conectadas são:
 
-| Conector | ID da conta | Nome |
-|---|---|---|
-| `google_ads` | `370-558-3291` | **Alisson Paz - Advogado** |
-| `googleanalytics4` | `539491679` | **Site Alisson Paz Advogado** |
+| Conector | Conta |
+|---|---|
+| `google_ads` | conta Google Ads do escritório |
+| `googleanalytics4` | propriedade GA4 do escritório |
 
-Os nomes das contas confirmam que são as contas corretas do escritório (não há ambiguidade de conta).
+O nome retornado por `get_connectors` para cada conta/propriedade confirma que são as contas corretas do escritório (não há ambiguidade de conta) — os identificadores numéricos e o nome exato não são reproduzidos neste relatório por serem identificadores de conta.
 
 ### Tentativa de leitura de dados reais — bloqueada pelo plano do Windsor.ai
 
@@ -128,11 +128,11 @@ Google Ads impressão → clique → sessão/landing page → interação → wh
 
 Lido integralmente. Achados:
 
-- **O que a página realmente é**: uma página **estática e puramente informativa** (sem `<form>`, sem `<input>`, sem `fetch()`, sem qualquer chamada de API, sem `client_id`/`access_token` no código). O texto do próprio corpo da página descreve a finalidade: "ferramenta de uso interno... para administrar exclusivamente as próprias campanhas publicitárias do escritório... utiliza a Google Ads API... mediante autenticação OAuth do titular da conta". **Esta página no repositório é a página pública de divulgação exigida pelo processo de verificação OAuth do Google** (Google exige uma página pública descrevendo o app antes de aprovar escopos sensíveis) — não é a aplicação Ads Manager em si, que deve rodar em outro lugar (backend próprio, fora deste repositório estático).
+- **O que a página realmente é**: uma página **estática e puramente informativa** (sem `<form>`, sem `<input>`, sem `fetch()`, sem qualquer chamada de API, sem `client_id`/`access_token` no código). O texto do próprio corpo da página descreve a finalidade: "ferramenta de uso interno... para administrar exclusivamente as próprias campanhas publicitárias do escritório... utiliza a Google Ads API... mediante autenticação OAuth do titular da conta". **Esta página no repositório parece funcionar como a página pública/informativa relacionada ao aplicativo e ao processo de verificação OAuth do Google** — o texto do próprio corpo descreve exatamente esse papel, e esse tipo de página costuma ser solicitado pelo Google como parte da verificação de apps com escopos sensíveis, mas não confirmei nesta sessão os requisitos exatos do processo de verificação nem se esta página específica foi de fato submetida/aprovada nesse fluxo — não é a aplicação Ads Manager em si, que deve rodar em outro lugar (backend próprio, fora deste repositório estático).
 - **Segurança**: não há nenhum segredo, token ou endpoint de API exposto nesta página — correto e seguro como está.
 - **SEO/indexação**: `noindex, nofollow`, fora do `sitemap.xml` — confirmado consistente com as auditorias anteriores, sem regressão.
 - **Autenticação/arquitetura OAuth**: como a página não contém a aplicação real, não há nada a avaliar tecnicamente sobre o fluxo OAuth em si a partir deste repositório — a aplicação de verdade (se existir e estiver rodando) está fora do escopo visível aqui.
-- **Utilidade real hoje**: cumpre a função de "página de divulgação pública do app" exigida pelo Google. Não é, hoje, um painel funcional de leitura — não há UI de dados nesta página.
+- **Utilidade real hoje**: parece cumprir a função de página de divulgação pública do app, associada ao processo de verificação OAuth do Google (não confirmado com certeza nesta sessão). Não é, hoje, um painel funcional de leitura — não há UI de dados nesta página.
 - **O que falta para virar um painel read-only útil**: ver seção de arquitetura recomendada abaixo. Em resumo, precisaria de um backend próprio (fora do repositório estático do site) que guarde o `refresh_token` em um cofre de segredos, exponha só endpoints de leitura, e sirva os dados para uma UI — nunca client secret/refresh token no HTML/JS servido ao navegador.
 
 **Nenhuma alteração foi feita nesta página.**
@@ -161,9 +161,20 @@ Objetivo do usuário: acompanhar Google Ads + GA4 diariamente sem login manual, 
 
 Ao desenhar a integração oficial acima, **não implementar envio de evento diretamente para `AW-17974605756`** (via Measurement Protocol, API de conversões offline, ou qualquer outro caminho que grave uma conversão nova na conta de Ads) sem antes verificar, no próprio Google Ads (Conversões), quais ações de conversão já existem e se `whatsapp_click`/`lead_form_submit` já chegam lá via importação do GA4 (ver seção "Validação de eventos" acima — isso não foi confirmado nesta sessão por falta de acesso a dado real). Implementar um segundo caminho de envio para a mesma conversão, sem primeiro confirmar isso, criaria risco real de **dupla contagem** de leads/conversões no Ads. Este é um item de verificação manual antes de qualquer implementação, não uma tarefa executada nesta sessão.
 
+### Modelo de acesso do Google Ads API vigente (desde 09/09/2026)
+
+O modelo de nível de acesso do Google Ads API mudou nessa data e é relevante para qualquer implementação futura:
+
+- **Developer tokens deixaram de ser o mecanismo determinante do nível de acesso** (não são mais o que define se a integração tem acesso "test/basic/standard").
+- **O nível de acesso agora é associado ao Google Cloud Project** que gera as credenciais OAuth usadas na integração — é no GCP Project, não mais no developer token isoladamente, que o nível de acesso é avaliado/concedido.
+- **O OAuth scope continua sendo `https://www.googleapis.com/auth/adwords`** — não muda com essa atualização.
+- **Não existe scope OAuth separado de somente leitura no Google Ads API.** O mesmo scope `adwords` cobre leitura e escrita; a API não oferece um scope `adwords.readonly` ou equivalente.
+- **Para monitoramento estritamente somente leitura**, a forma correta de impor a restrição não é por scope OAuth (que não existe nesse formato), e sim por **role da conta**: usar um usuário/service account com **role `READ_ONLY`** na conta do Google Ads, e limitar a integração, no código, a chamar apenas métodos de consulta (`GoogleAdsService.Search`/`SearchStream`), nunca métodos de `mutate` — mesmo que o scope OAuth usado tecnicamente permita mais.
+- **GA4 mantém** o escopo `https://www.googleapis.com/auth/analytics.readonly`, que é, esse sim, um escopo nativamente somente leitura da Analytics Data API — assimetria real entre as duas APIs que vale ter em mente ao desenhar a integração.
+
 ### Recomendação de desenho (independente da opção escolhida)
 
-- **Leitura e escrita sempre separadas**: a integração usada para "ver os números todo dia" deve usar um token com escopo **somente leitura** (`adwords` read-only não existe como escopo separado nativamente no Google Ads API — na prática isso significa: nunca chamar métodos de mutate/create/update a partir dessa integração de monitoramento, mesmo que o escopo tecnicamente permita. Se a plataforma permitir, prefira um usuário/role somente leitura na conta do Google Ads).
+- **Leitura e escrita sempre separadas**: para o Google Ads, isso significa usuário/role `READ_ONLY` na conta **e** a integração de monitoramento implementada para só chamar métodos de consulta, nunca `mutate` (ver modelo de acesso acima — o scope OAuth por si só não impõe essa restrição). Para o GA4, o próprio escopo `analytics.readonly` já é somente leitura por natureza.
 - **Segredos nunca no frontend nem no GitHub**: `client_secret` e `refresh_token` ficam só em variáveis de ambiente de um backend/função serverless (ex.: Vercel Environment Variables marcadas como "sensitive", nunca commitadas). O repositório é público — reforço que nada disso pode ir para o Git, nem mesmo em um `.env.example` com valor real.
 - **Logs**: qualquer log do backend deve mascarar tokens; nunca logar o `refresh_token` ou `access_token` completo.
 - **Revogação**: com OAuth do Google, revogar é feito em https://myaccount.google.com/permissions — documentar esse caminho para quando for preciso trocar de integração.
