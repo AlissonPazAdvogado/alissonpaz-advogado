@@ -144,4 +144,38 @@
     tabContainer.classList.add('tabs-enhanced');
     activateTab(tabs.find((tab) => tab.classList.contains('active')) || tabs[0]);
   }
+
+  // Formulário de contato → WhatsApp (index.html). Fica aqui, e não inline,
+  // por causa da CSP (script-src com hashes). A flag lead_form_submitted é
+  // consumida em obrigado.html, que emite o lead_form_submit; este código
+  // não emite nenhum evento.
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    const assuntoEl = document.getElementById('assunto');
+    const naturezaGroup = document.getElementById('naturezaGroup');
+    const naturezaEl = document.getElementById('natureza');
+
+    assuntoEl?.addEventListener('change', () => {
+      if (!naturezaGroup || !naturezaEl) return;
+      const penal = assuntoEl.value === 'Direito Penal';
+      naturezaGroup.hidden = !penal;
+      naturezaEl.required = penal;
+      if (!penal) naturezaEl.selectedIndex = 0;
+    });
+
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const nome = document.getElementById('nome')?.value.trim();
+      const telefone = document.getElementById('telefone')?.value.trim();
+      const assunto = assuntoEl?.value;
+      const mensagem = document.getElementById('mensagem')?.value.trim();
+      const natureza = naturezaEl?.value || '';
+      if (!nome || !telefone || !assunto) return;
+      if (!document.getElementById('ciencia')?.checked) return;
+      const texto = `Olá! Meu nome é *${nome}*.\n\n*Área:* ${assunto}${natureza ? '\n*Natureza:* ' + natureza : ''}\n*Telefone:* ${telefone}\n\n*Caso:*\n${mensagem || 'Gostaria de mais informações.'}`;
+      sessionStorage.setItem('lead_form_submitted', '1');
+      window.open('https://wa.me/5546999746391?text=' + encodeURIComponent(texto), '_blank');
+      setTimeout(() => { window.location.href = 'obrigado.html'; }, 400);
+    });
+  }
 })();
