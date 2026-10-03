@@ -1239,37 +1239,6 @@
     }
     .btn-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
 
-    .form-group[hidden] { display: none; }
-
-    .form-notice {
-      font-size: 12px;
-      line-height: 1.65;
-      color: var(--gray);
-      border-left: 2px solid var(--dark-4);
-      padding-left: 14px;
-      margin: 4px 0 14px;
-    }
-
-    .form-check {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 12px;
-      line-height: 1.55;
-      color: rgba(240,237,232,0.7);
-      cursor: pointer;
-      margin-bottom: 4px;
-    }
-    .form-check input {
-      flex: 0 0 auto;
-      width: 18px;
-      height: 18px;
-      margin: 1px 0 0;
-      accent-color: var(--gold);
-      cursor: pointer;
-    }
-    .form-check input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-
     .form-disclaimer {
       font-size: 11px;
       color: var(--gray);
@@ -2467,32 +2436,14 @@
               <option>Outro</option>
             </select>
           </div>
-          <div class="form-group" id="naturezaGroup" hidden>
-            <label for="natureza">Natureza da demanda</label>
-            <select id="natureza">
-              <option value="" disabled selected>Selecione a natureza</option>
-              <option>Prisão ou flagrante</option>
-              <option>Inquérito ou investigação</option>
-              <option>Processo criminal</option>
-              <option>Audiência</option>
-              <option>Execução penal</option>
-              <option>Violência doméstica</option>
-              <option>Outro</option>
-            </select>
-          </div>
           <div class="form-group">
             <label for="email">E-mail</label>
             <input type="email" id="email" name="email" placeholder="seu@email.com">
           </div>
           <div class="form-group">
             <label for="mensagem">Descreva brevemente seu caso</label>
-            <textarea id="mensagem" placeholder="Descreva resumidamente o que aconteceu e informe se existe alguma urgência, audiência ou prazo."></textarea>
+            <textarea id="mensagem" placeholder="Conte o que aconteceu, quando ocorreu e o que você precisa..."></textarea>
           </div>
-          <p class="form-notice" id="consultaAviso">O envio deste formulário destina-se ao contato inicial e à identificação da demanda. Orientações jurídicas, análise de documentos ou avaliação individualizada do caso poderão caracterizar consulta profissional, sujeita à cobrança de honorários conforme a complexidade.</p>
-          <label class="form-check" for="ciencia">
-            <input type="checkbox" id="ciencia" required aria-describedby="consultaAviso">
-            <span>Estou ciente de que orientações e análises jurídicas individualizadas poderão ser objeto de consulta profissional remunerada.</span>
-          </label>
           <button type="submit" class="btn-submit">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             Enviar pelo WhatsApp
@@ -2603,27 +2554,14 @@
 <script src="assets/site.js" defer></script>
 <script>
   // Contact form → WhatsApp
-  (function() {
-    const assunto  = document.getElementById('assunto');
-    const grupo    = document.getElementById('naturezaGroup');
-    const natureza = document.getElementById('natureza');
-    assunto.addEventListener('change', function() {
-      const penal = assunto.value === 'Direito Penal';
-      grupo.hidden = !penal;
-      natureza.required = penal;
-      if (!penal) natureza.selectedIndex = 0;
-    });
-  })();
   document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const nome     = document.getElementById('nome').value.trim();
     const telefone = document.getElementById('telefone').value.trim();
     const assunto  = document.getElementById('assunto').value;
     const mensagem = document.getElementById('mensagem').value.trim();
-    const natureza = document.getElementById('natureza').value;
     if (!nome || !telefone || !assunto) return;
-    if (!document.getElementById('ciencia').checked) return;
-    const texto = `Olá! Meu nome é *${nome}*.\n\n*Área:* ${assunto}${natureza ? '\n*Natureza:* ' + natureza : ''}\n*Telefone:* ${telefone}\n\n*Caso:*\n${mensagem || 'Gostaria de mais informações.'}`;
+    const texto = `Olá! Meu nome é *${nome}*.\n\n*Área:* ${assunto}\n*Telefone:* ${telefone}\n\n*Caso:*\n${mensagem || 'Gostaria de mais informações.'}`;
     sessionStorage.setItem('lead_form_submitted', '1');
     window.open('https://wa.me/5546999746391?text=' + encodeURIComponent(texto), '_blank');
     setTimeout(() => { window.location.href = 'obrigado.html'; }, 400);
