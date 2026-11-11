@@ -35,6 +35,28 @@
     track('whatsapp_click', { send_to: 'G-5J4N177RQL', link_location: target.getAttribute('href') || '' });
   }, true);
 
+  // Botão flutuante do WhatsApp: enquanto os CTAs do hero ou o formulário
+  // de contato (que já levam ao WhatsApp) estão visíveis, marca o body com
+  // .wa-float-hidden. Só o CSS mobile da home usa essa classe — evita que
+  // o botão fixo cubra esses botões/campos em telas baixas (ex.: navegador
+  // interno do Instagram). Não altera links nem tracking.
+  const waFloat = document.querySelector('.whatsapp-float');
+  const waTargets = [
+    document.querySelector('#hero .hero-actions'),
+    document.querySelector('#contato .form-card'),
+  ].filter(Boolean);
+  if (waFloat && waTargets.length && 'IntersectionObserver' in window) {
+    const visible = new Set();
+    const waObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      });
+      document.body.classList.toggle('wa-float-hidden', visible.size > 0);
+    });
+    waTargets.forEach((el) => waObserver.observe(el));
+  }
+
   const year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 

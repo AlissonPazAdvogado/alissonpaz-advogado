@@ -144,10 +144,6 @@
       --nav-h: 88px; /* altura aproximada da navbar (padding 20px*2 + logo 54px, arredondado) */
     }
 
-    @media (max-width: 768px) {
-      :root { --nav-h: 74px; }
-    }
-
     ::selection { background: var(--gold); color: var(--dark); }
 
     html { scroll-behavior: smooth; }
@@ -440,28 +436,11 @@
       min-height: clamp(460px, calc(100svh - var(--nav-h, 88px)), 820px);
     }
 
-    /* Camada extra só do Hero: reforça o degradê à esquerda (onde fica o
-       texto) sobre o chapter-bg-overlay já discreto do capítulo inteiro —
-       o resto do capítulo 1 (Áreas de atuação) usa só o overlay uniforme. */
-    .hero-scrim {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background:
-        linear-gradient(to right,
-          rgba(20,17,13,0.66) 0%,
-          rgba(20,17,13,0.52) 26%,
-          rgba(20,17,13,0.22) 48%,
-          rgba(20,17,13,0.03) 66%,
-          transparent 80%
-        ),
-        linear-gradient(to top,
-          rgba(20,17,13,0.4) 0%,
-          rgba(20,17,13,0.1) 20%,
-          transparent 32%
-        );
-    }
+    /* .hero-scrim (véu sobre a foto) não é usado em nenhuma largura: no
+       desktop o texto fica no .content-panel do hero; no mobile a foto
+       fica acima do texto e o degradê de leitura é o próprio
+       .chapter-bg-overlay do capítulo 1 (ver bloco MOBILE no fim). */
+    .hero-scrim { display: none; }
 
     .hero-copy {
       position: relative;
@@ -488,11 +467,8 @@
        mas só ao redor do texto do hero — não mais um degradê cobrindo boa
        parte da foto/logo. Para os 4 cantos aparecerem (como nos outros
        painéis), a caixa deixa de começar na borda: o recuo esquerdo vira
-       margem, e o padding interno passa a ser simétrico com o direito.
-       .hero-scrim (véu largo) fica só para o mobile, onde o texto já
-       ocupa quase 100% da largura e um cartão flutuante não faria sentido. */
+       margem, e o padding interno passa a ser simétrico com o direito. */
     @media (min-width: 769px) {
-      .hero-scrim { display: none; }
       .hero-copy {
         max-width: max(380px, calc(100% - 2 * var(--hero-inset) + var(--hero-pad-r) - var(--hero-nav-w)));
         margin-left: var(--hero-inset);
@@ -560,38 +536,6 @@
       .hero-kicker { margin-bottom: clamp(6px, 1vh, 12px); }
       .hero-title { margin-bottom: clamp(8px, 1.2vh, 14px); }
       .hero-sub, .hero-actions { margin-bottom: clamp(10px, 2vh, 18px); }
-    }
-
-    @media (max-width: 768px) {
-      /* No mobile a coluna de texto ocupa quase toda a largura, então a foto
-         não tem "espaço negativo" real à esquerda — mantemos o mesmo
-         cenário único (agora em contain, com folga acima/abaixo em vez de
-         corte) e um véu quase full-bleed, mais escuro embaixo, onde o
-         texto se ancora. */
-      .hero-scrim {
-        background:
-          linear-gradient(to bottom,
-            rgba(20,17,13,0.55) 0%,
-            rgba(20,17,13,0.4) 22%,
-            rgba(20,17,13,0.55) 55%,
-            rgba(20,17,13,0.92) 88%,
-            #14110D 100%
-          );
-      }
-      #hero { align-items: flex-end; }
-      .hero-copy { max-width: 100%; justify-content: flex-end; padding: 28px 18px 40px; }
-      .hero-title, .hero-meta, .hero-sub { max-width: 100%; }
-    }
-
-    /* Em viewports mobile muito baixas (ex.: 320x568) o hero ocupa quase
-       toda a altura da tela, o CTA "Ver áreas de atuação" quebra em duas
-       linhas (largura estreita) e tanto ele quanto a linha de meta no
-       rodapé do hero ficam sob o botão flutuante do WhatsApp (fixed,
-       canto inferior direito). Reserva espaço à direita só nesse caso,
-       sem afetar as demais alturas. */
-    @media (max-width: 768px) and (max-height: 600px) {
-      .hero-meta { padding-right: 84px; }
-      .hero-actions .btn { max-width: calc(100% - 76px); }
     }
 
     /* ── MAPA ── */
@@ -691,18 +635,6 @@
 
     .area-desc { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 46ch; }
 
-    @media (max-width: 768px) {
-      .formacao-columns { grid-template-columns: 1fr; gap: 0; }
-      .formacao-col { padding-right: 0; }
-      .formacao-col + .formacao-col {
-        padding-left: 0;
-        border-left: none;
-        border-top: 1px solid rgba(201,168,76,0.14);
-        margin-top: 40px;
-        padding-top: 40px;
-      }
-    }
-
 
     /* ── TABS DE ÁREAS ── */
     /* Painel translúcido reutilizado nos blocos de texto dos capítulos com
@@ -770,7 +702,9 @@
     .tab-panel { display: none; grid-column: 2; grid-row: 1; }
     .tab-panel.active { display: block; }
 
-    @media (max-width: 900px) {
+    /* Faixa intermediária (769–900px): abas em linha. Abaixo de 769px a
+       lista vertical é definida no bloco MOBILE. */
+    @media (min-width: 769px) and (max-width: 900px) {
       .areas-tabs { display: block; }
       .tab-nav { flex-direction: row; flex-wrap: wrap; border-top: none; margin-bottom: 32px; }
       .tab-btn { border-bottom: 2px solid transparent; border-left: none; padding: 10px 14px 10px 0; width: auto; }
@@ -925,10 +859,6 @@
     .step h3 { font-size: 1.15rem; font-weight: 600; color: var(--white); margin-bottom: 10px; text-shadow: 0 1px 8px rgba(0,0,0,0.4); }
     .step p { font-size: 14px; color: var(--gray); line-height: 1.8; max-width: 30ch; text-shadow: 0 1px 6px rgba(0,0,0,0.35); }
 
-    @media (max-width: 768px) {
-      .processo-steps { grid-template-columns: 1fr; gap: 32px; }
-    }
-
     /* ── CONTEÚDO ── */
     #conteudo { background: transparent; }
 
@@ -1051,12 +981,6 @@
     .article-card.featured .article-body { padding: 36px 40px; }
     .article-card.featured .article-title { font-size: 1.25rem; margin-bottom: 16px; }
     .article-card.featured .article-excerpt { font-size: 14px; }
-    @media (max-width: 768px) {
-      .article-card.featured { flex-direction: column; }
-      .article-card.featured .article-img { width: 100%; height: 185px; min-height: unset; }
-      .article-card.featured .article-body { padding: 28px; }
-      .article-card.featured .article-title { font-size: 1.05rem; }
-    }
 
     /* Secondary articles: compact editorial list row instead of card grid */
     .article-card:not(.featured) {
@@ -1105,10 +1029,6 @@
     }
     .article-card:not(.featured) .article-meta {
       display: none;
-    }
-    @media (max-width: 640px) {
-      .article-card:not(.featured) .article-img { width: 76px; height: 76px; }
-      .article-card:not(.featured) .article-excerpt { display: none; }
     }
 
     /* ── CONTATO ── */
@@ -1402,118 +1322,6 @@
       .mapa-embed iframe { min-height: 300px; }
     }
 
-    @media (max-width: 768px) {
-      section { padding: 72px 0; }
-
-      /* Bloqueia scroll do body enquanto menu está aberto */
-      body.menu-open { overflow: hidden; touch-action: none; }
-
-      /* Overlay do menu mobile */
-      .nav-links {
-        display: none;
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(20,17,13,0.98);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 28px;
-        z-index: 9000;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links.open a { font-size: 1.3rem; letter-spacing: .04em; }
-      .nav-links.open .nav-cta { font-size: 1rem !important; padding: 14px 32px; margin-top: 8px; }
-      .nav-toggle { display: flex; z-index: 9001; }
-      body.menu-open .nav-toggle { display: none; } /* oculta hambúrguer quando menu aberto */
-
-      /* Botão fechar dentro do overlay */
-      .nav-close-item {
-        display: block;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        list-style: none;
-      }
-      .nav-close {
-        background: rgba(255,255,255,0.07);
-        border: 1px solid rgba(255,255,255,0.13);
-        border-radius: 50%;
-        color: var(--white);
-        cursor: pointer;
-        width: 46px;
-        height: 46px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background var(--tr);
-      }
-      .nav-close:active { background: rgba(255,255,255,0.18); }
-
-      /* Animação X no botão hambúrguer */
-      .nav-toggle span { transition: transform 0.3s ease, opacity 0.3s ease; }
-      .nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-      .nav-toggle.active span:nth-child(2) { opacity: 0; transform: translateX(-8px); }
-      .nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-      /* Grids → coluna única */
-      .processo-steps { grid-template-columns: 1fr; }
-      .content-grid { grid-template-columns: 1fr; }
-      .contato-layout { grid-template-columns: 1fr; gap: 40px; }
-      .footer-top { grid-template-columns: 1fr; gap: 36px; }
-      .footer-bottom { flex-direction: column; text-align: center; gap: 8px; }
-      .form-row { grid-template-columns: 1fr; }
-
-      /* Hero */
-      .hero-title { font-size: clamp(1.7rem, 7vw, 2.2rem); }
-      .hero-actions { flex-direction: column; gap: 10px; }
-      .hero-actions .btn { width: 100%; justify-content: center; }
-
-      /* Navbar */
-      .nav-mark { height: 34px; }
-      .nav-name { font-size: .8rem; }
-      .nav-tagline { font-size: .5rem; letter-spacing: .35em; margin-top: 5px; }
-
-      /* WhatsApp flutuante: esconde label (touch não tem hover). Soma
-         env(safe-area-inset-*) ao offset fixo para não ficar sob a área
-         de home-indicator/notch em iOS — resolve para 0 em devices sem
-         safe-area, então o valor final continua 20px onde já estava. */
-      .whatsapp-label { display: none; }
-      .whatsapp-float {
-        bottom: calc(20px + env(safe-area-inset-bottom));
-        right: calc(20px + env(safe-area-inset-right));
-      }
-
-      /* Seções */
-      .form-card { padding: 28px 20px; }
-      .content-header { margin-bottom: 36px; }
-      .mapa-inner { grid-template-columns: 1fr; }
-      .mapa-info { padding: 40px 24px; }
-      .mapa-embed iframe { min-height: 260px; }
-
-      /* Tabs */
-      .tab-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-      .tab-intro { font-size: 14px; margin-bottom: 28px; }
-    }
-
-    @media (max-width: 480px) {
-      section { padding: 56px 0; }
-      .container { padding: 0 18px; }
-
-      /* Seções */
-      .section-title { font-size: clamp(1.75rem, 7vw, 2rem); }
-      .mapa-info { padding: 32px 18px; }
-      .step { padding: 28px 18px; }
-      .step-num { font-size: 2.8rem; }
-      .form-card { padding: 24px 16px; }
-      .footer-name { font-size: .85rem; }
-      .footer-mark { height: 36px; }
-
-      /* Conteúdo: coluna única com separadores entre grupos */
-      .tab-grid { grid-template-columns: 1fr; gap: 0; }
-      .tab-group { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .tab-group:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
-    }
-
     /* ── assets/base.css (inlined to avoid a render-blocking request) ── */
     :root {
       --radius-action: 8px;
@@ -1742,25 +1550,335 @@
     .footer-nap { max-width: 760px; color: var(--gray); font-size: 0.76rem; line-height: 1.65; }
     .footer-bottom { gap: 18px 32px; }
 
+    /* ════════════════════════════════════════════════════════════════
+       MOBILE / TABLET — bloco único
+       Todas as regras de layout abaixo de 769px ficam aqui, no fim da
+       folha, para vencer pela ordem (sem !important nem seletores com
+       #id usados só para ganhar especificidade). O desktop (≥769px) não
+       é tocado por nada deste bloco.
+       ════════════════════════════════════════════════════════════════ */
+
+    /* Ponto focal de cada fotografia (fração da largura original, 1916px):
+       1 = brasão + "ALISSON PAZ"; 2 = corpo em pé; 3 = rosto sentado.
+       Usado só nos viewports retrato abaixo — no desktop as fotos seguem
+       em object-position: center, como aprovado. */
+    .visual-chapter-1 { --fx: .637; --fy: 50%; }
+    .visual-chapter-2 { --fx: .537; --fy: 50%; }
+    .visual-chapter-3 { --fx: .552; --fy: 50%; }
+
+    /* Enquadramento das fotos em telas estreitas/retrato: a foto 2.33:1
+       em cover mostra só uma fatia da largura; em vez de pegar a fatia do
+       meio (center), posiciona a imagem para que o ponto focal caia no
+       CENTRO exato da tela. Sem scale/zoom: é a mesma imagem em cover,
+       apenas deslocada. A conta usa unidades de container (cqw/cqh) do
+       próprio .chapter-bg:
+         largura renderizada  --iw = max(100cqw, 100cqh × 1916/821)
+         deslocamento ideal   50cqw − fx × --iw   (foco no centro)
+         travado entre        100cqw − --iw  e  0 (nunca sobra borda vazia)
+       Navegadores sem container queries ficam no fallback percentual. */
+    @media (max-width: 768px), (max-width: 1024px) and (orientation: portrait) {
+      .chapter-bg { container-type: size; }
+      .chapter-bg-img { object-position: calc(var(--fx) * 100%) var(--fy); }
+      @supports (width: 1cqw) {
+        .chapter-bg-img {
+          --iw: max(100cqw, 100cqh * 1916 / 821);
+          object-position: clamp(100cqw - var(--iw), 50cqw - var(--fx) * var(--iw), 0px) var(--fy);
+        }
+      }
+    }
+
     @media (max-width: 768px) {
-      #navbar .nav-links {
+      :root {
+        /* navbar mobile: 10px + toque de 44px + 10px (+ safe area, se houver) */
+        --nav-h: calc(64px + env(safe-area-inset-top, 0px));
+        /* altura das fotos de cada capítulo (sobrescrita com svh abaixo) */
+        --ph-1: min(128vw, 58vh);
+        --ph-2: min(128vw, 68vh);
+        --ph-3: min(108vw, 60vh);
+      }
+      /* svh = altura com as barras do navegador VISÍVEIS (Safari, Instagram
+         in-app etc.): a foto nunca fica maior que a área realmente útil e
+         não "pula" quando as barras recolhem durante o scroll. */
+      @supports (height: 1svh) {
+        :root {
+          --ph-1: min(128vw, 58svh);
+          --ph-2: min(128vw, 68svh);
+          --ph-3: min(108vw, 60svh);
+        }
+      }
+
+      html { scroll-padding-top: calc(var(--nav-h) + 8px); }
+
+      section,
+      #diferenciais,
+      #processo,
+      #contato { padding: 64px 0; }
+
+      /* ── Tipografia: mesmo sistema do site, só reescalonado ── */
+      .section-tag { font-size: .72rem; letter-spacing: .24em; margin-bottom: 12px; }
+      .section-title {
+        font-size: clamp(1.5rem, 6.2vw, 2.1rem);
+        line-height: 1.15;
+        margin-bottom: 14px;
+      }
+      .section-subtitle { font-size: 1rem; line-height: 1.65; }
+
+      /* ── Navbar ── */
+      #navbar,
+      #navbar.scrolled { padding: calc(10px + env(safe-area-inset-top, 0px)) 0 10px; }
+      .nav-lockup { gap: 12px; }
+      .nav-mark { height: 36px; }
+      .nav-name { font-size: .82rem; }
+      .nav-tagline { font-size: .5rem; letter-spacing: .35em; margin-top: 5px; }
+      .nav-toggle { display: flex; margin-right: -10px; }
+
+      /* Menu em overlay. A navbar tem transform (translateZ), então o
+         fixed é relativo a ela: a altura vem explícita em dvh. */
+      .nav-links {
+        display: none;
         position: fixed;
         inset: 0;
         z-index: 10000;
-        width: 100vw;
+        width: 100%;
         height: 100vh;
         height: 100dvh;
-        padding: 84px 24px 32px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        padding: calc(72px + env(safe-area-inset-top, 0px)) 24px calc(32px + env(safe-area-inset-bottom, 0px));
         overflow-y: auto;
         overscroll-behavior: contain;
         background: rgba(20, 17, 13, 0.97);
       }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1.2rem; letter-spacing: .04em; display: inline-flex; align-items: center; }
+      .nav-links .nav-cta { font-size: 1rem; padding: 12px 32px; margin-top: 8px; }
+      .nav-close-item {
+        display: block;
+        position: absolute;
+        top: calc(10px + env(safe-area-inset-top, 0px));
+        right: 14px;
+        list-style: none;
+      }
+      .nav-close {
+        display: flex;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.13);
+        transition: background var(--tr);
+      }
+      .nav-close:active { background: rgba(255,255,255,0.18); }
 
-      #navbar .nav-links.open { display: flex; }
-      #navbar .nav-close-item { position: absolute; top: 18px; right: 18px; display: block; }
-      #navbar .nav-links:not(.open) .nav-close-item { display: none; }
-      #navbar .nav-toggle { display: flex; }
-      .footer-bottom { align-items: flex-start; text-align: left; }
+      /* ── Capítulos visuais ──
+         No mobile a foto deixa de ser fundo sticky (o texto rolava por
+         cima do rosto/brasão) e vira a "capa" de cada capítulo: um bloco
+         com altura própria (--ph), no topo do capítulo, com o conteúdo
+         começando onde a parte essencial da foto termina. */
+      .visual-chapter-1 { --ph: var(--ph-1); }
+      .visual-chapter-2 { --ph: var(--ph-2); }
+      .visual-chapter-3 { --ph: var(--ph-3); }
+
+      .chapter-bg {
+        position: relative;
+        top: auto;
+        height: var(--ph);
+      }
+      .visual-chapter-1 .chapter-bg { margin-top: var(--nav-h); }
+      .chapter-bg-blend { display: none; }
+
+      /* Degradês de leitura/transição, sem véu sobre o centro da foto. */
+      .visual-chapter-1 .chapter-bg-overlay {
+        background: linear-gradient(to bottom,
+          rgba(20,17,13,0.35) 0%, rgba(20,17,13,0) 6%,
+          rgba(20,17,13,0) 50%, rgba(20,17,13,0.72) 72%, var(--dark) 100%);
+      }
+      .visual-chapter-2 .chapter-bg-overlay,
+      .visual-chapter-3 .chapter-bg-overlay {
+        background: linear-gradient(to bottom,
+          var(--dark) 0%, rgba(20,17,13,0) 5%,
+          rgba(20,17,13,0) 90%, var(--dark) 100%);
+      }
+
+      /* Painéis translúcidos existem para ler texto SOBRE a foto. No
+         mobile o texto fica abaixo dela, então o painel vira só um
+         agrupamento, sem caixa — mais largura útil e menos "cards". */
+      .content-panel {
+        background: none;
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+      }
+
+      /* ── Hero ── */
+      #hero {
+        min-height: 0;
+        display: block;
+        /* texto começa logo abaixo de "ADVOGADO" (≈54% da foto) */
+        padding-top: calc(var(--nav-h) + var(--ph) * .6);
+      }
+      .hero-copy {
+        /* no tablet (768px) limita a medida de leitura a ~65 caracteres */
+        max-width: 672px;
+        padding: 0 24px 40px;
+      }
+      .hero-kicker { font-size: .75rem; margin-bottom: 10px; }
+      .hero-title {
+        font-size: clamp(1.65rem, 6.9vw, 2.25rem);
+        line-height: 1.18;
+        margin-bottom: 14px;
+        text-wrap: balance;
+      }
+      .hero-sub { margin-bottom: 22px; }
+      .hero-actions { flex-direction: column; gap: 10px; margin-bottom: 20px; }
+      .hero-actions .btn {
+        width: 100%;
+        min-height: 48px;
+        padding: 12px 20px;
+        justify-content: center;
+      }
+      .hero-meta { font-size: 12.5px; padding-top: 14px; }
+
+      /* ── Áreas de atuação ── */
+      #atuacao { padding-top: 32px; }
+      .areas-header { gap: 8px; margin-bottom: 28px; }
+      .areas-hint { margin-top: 6px; }
+      .areas-tabs { display: block; margin-top: 0; }
+      .tab-nav { margin-bottom: 28px; }
+      .tab-btn { padding: 12px 8px 12px 14px; font-size: 15px; }
+      .tab-intro { font-size: 14px; line-height: 1.75; margin-bottom: 24px; }
+      .tab-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
+
+      /* ── Trajetória (capítulo 2 abre sob a foto em pé) ── */
+      /* a pessoa ocupa a foto quase de cima a baixo: o texto só começa
+         depois dela, nunca sobre o corpo */
+      #formacao { padding-top: calc(var(--ph) + 16px); }
+      .formacao-columns { grid-template-columns: 1fr; }
+      .formacao-col { padding-right: 0; }
+      .formacao-col + .formacao-col {
+        padding-left: 0;
+        border-left: none;
+        border-top: 1px solid rgba(201,168,76,0.14);
+        margin-top: 28px;
+        padding-top: 28px;
+      }
+      .formacao-col-title { padding-bottom: 14px; }
+      .formacao-item { padding: 20px 0; }
+      .area-title { font-size: 1.05rem; margin-bottom: 8px; }
+      .area-desc { max-width: none; }
+
+      /* ── Diferenciais ── */
+      #diferenciais { padding-top: 24px; }
+      .dif-list { margin-top: 28px; gap: 28px 32px; padding-bottom: 32px; }
+      .dif-text p { max-width: none; }
+      .dif-visual { margin-top: 32px; max-width: none; }
+      .dif-quote { font-size: 1.3rem; margin-bottom: 16px; }
+      .dif-detail { margin-bottom: 24px; }
+
+      /* ── Como funciona (capítulo 3 abre sob a foto sentado) ── */
+      #processo { padding-top: calc(var(--ph) + 16px); }
+      .processo-steps { grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
+      .step { padding: 2px 0 2px 18px; }
+      .step-dot { margin-bottom: 8px; }
+      .step h3 { margin-bottom: 6px; }
+      .step p { max-width: none; line-height: 1.7; }
+
+      /* ── Conteúdo jurídico ── */
+      #conteudo { padding-top: 24px; }
+      .content-header { gap: 8px; margin-bottom: 28px; }
+      .article-card.featured { flex-direction: column; }
+      .article-card.featured .article-img { width: 100%; height: 180px; min-height: 0; }
+      .article-card.featured .article-body { padding: 22px 20px; }
+      .article-card.featured .article-title { font-size: 1.05rem; }
+      .article-card.featured .article-meta { margin-top: 18px; padding-top: 16px; }
+      .content-list-label { margin: 36px 0 4px; padding-top: 24px; }
+      .article-card:not(.featured) { padding: 20px 0; gap: 18px; }
+
+      /* ── Contato ── */
+      #contato { padding-top: 24px; }
+      .contato-layout { grid-template-columns: 1fr; gap: 36px; }
+      .contato-info { padding-top: 0; }
+      .contato-list { margin-top: 24px; }
+      .contato-item { padding: 16px 0; }
+      .form-card { padding: 28px 22px; }
+      .form-title { font-size: 1.3rem; }
+      .form-subtitle { margin-bottom: 24px; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .form-group { margin-bottom: 16px; }
+      /* 16px evita o zoom automático do iOS ao focar o campo */
+      .form-group input,
+      .form-group select,
+      .form-group textarea { font-size: 16px; }
+
+      /* ── Localização ── */
+      .mapa-inner { grid-template-columns: 1fr; min-height: 0; }
+      .mapa-info { padding: 36px 24px; border-right: 0; }
+      .mapa-info h3 { font-size: 1.4rem; margin-bottom: 14px; }
+      .mapa-info a.mapa-link { margin-top: 14px; }
+      .mapa-embed iframe { min-height: 260px; }
+
+      /* ── Footer ── (padding inferior deixa a última linha livre do
+         botão flutuante do WhatsApp) */
+      footer { padding: 48px 0 calc(96px + env(safe-area-inset-bottom, 0px)); }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; margin-bottom: 32px; }
+      .footer-brand p { max-width: 42ch; }
+      .footer-col h2 { margin-bottom: 10px; }
+      .footer-col ul { gap: 2px; }
+      .footer-col ul li a { display: inline-block; padding: 6px 0; }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 12px;
+        padding-top: 24px;
+      }
+      .footer-legal { gap: 20px; }
+      .footer-legal a { display: inline-block; padding: 6px 0; }
+
+      /* ── WhatsApp flutuante ──
+         Sem label (touch não tem hover); afastado das safe areas. Some
+         enquanto os CTAs do hero ou o formulário (ambos já levam ao
+         WhatsApp) estão na tela — classe aplicada por assets/site.js —
+         para nunca cobrir botão nem campo. */
+      .whatsapp-label { display: none; }
+      .whatsapp-float {
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        right: calc(16px + env(safe-area-inset-right, 0px));
+        transition: opacity .25s ease, transform .25s ease, visibility .25s;
+      }
+      .whatsapp-btn { width: 52px; height: 52px; }
+      body.wa-float-hidden .whatsapp-float {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(12px);
+        pointer-events: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .article-card:not(.featured) .article-img { width: 76px; height: 76px; }
+      .article-card:not(.featured) .article-excerpt { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      section,
+      #diferenciais,
+      #processo,
+      #contato { padding-bottom: 52px; }
+      section { padding-top: 52px; }
+      .container { padding: 0 18px; }
+      .hero-copy { padding: 0 18px 36px; }
+
+      .tab-grid { grid-template-columns: 1fr; gap: 0; }
+      .tab-group { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .tab-group:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
+
+      .form-card { padding: 24px 18px; }
+      .mapa-info { padding: 32px 18px; }
+      .footer-name { font-size: .85rem; }
+      .footer-mark { height: 36px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
