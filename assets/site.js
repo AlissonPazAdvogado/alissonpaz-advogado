@@ -35,26 +35,39 @@
     track('whatsapp_click', { send_to: 'G-5J4N177RQL', link_location: target.getAttribute('href') || '' });
   }, true);
 
-  // Botão flutuante do WhatsApp: enquanto os CTAs do hero ou o formulário
-  // de contato (que já levam ao WhatsApp) estão visíveis, marca o body com
-  // .wa-float-hidden. Só o CSS mobile da home usa essa classe — evita que
-  // o botão fixo cubra esses botões/campos em telas baixas (ex.: navegador
-  // interno do Instagram). Não altera links nem tracking.
+  // Botão flutuante do WhatsApp: marca o body com .wa-float-hidden (só o
+  // CSS mobile da home usa essa classe) quando
+  //  (a) os CTAs do hero ou o formulário de contato — que já levam ao
+  //      WhatsApp — estão visíveis; ou
+  //  (b) um título, CTA ou aba passa pela faixa inferior da tela (16% de
+  //      baixo), que é onde o botão fixo fica.
+  // Assim o botão nunca cobre esses elementos, inclusive em telas baixas
+  // (ex.: navegador interno do Instagram). Não altera links nem tracking.
   const waFloat = document.querySelector('.whatsapp-float');
   const waTargets = [
     document.querySelector('#hero .hero-actions'),
     document.querySelector('#contato .form-card'),
   ].filter(Boolean);
+  const waZoneTargets = document.querySelectorAll(
+    'main .section-tag, main .section-title, main .btn, main .tab-btn, main .mapa-link'
+  );
   if (waFloat && waTargets.length && 'IntersectionObserver' in window) {
-    const visible = new Set();
-    const waObserver = new IntersectionObserver((entries) => {
+    const inView = new Set();
+    const inZone = new Set();
+    const updateWaFloat = () => {
+      document.body.classList.toggle('wa-float-hidden', inView.size > 0 || inZone.size > 0);
+    };
+    const collect = (set) => (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) visible.add(entry.target);
-        else visible.delete(entry.target);
+        if (entry.isIntersecting) set.add(entry.target);
+        else set.delete(entry.target);
       });
-      document.body.classList.toggle('wa-float-hidden', visible.size > 0);
-    });
-    waTargets.forEach((el) => waObserver.observe(el));
+      updateWaFloat();
+    };
+    const viewObserver = new IntersectionObserver(collect(inView));
+    waTargets.forEach((el) => viewObserver.observe(el));
+    const zoneObserver = new IntersectionObserver(collect(inZone), { rootMargin: '-84% 0px 0px 0px' });
+    waZoneTargets.forEach((el) => zoneObserver.observe(el));
   }
 
   const year = document.getElementById('year');
