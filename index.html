@@ -1607,7 +1607,8 @@
         }
       }
 
-      html { scroll-padding-top: calc(var(--nav-h) + 8px); }
+      /* âncoras param 16px abaixo do header fixo */
+      html { scroll-padding-top: calc(var(--nav-h) + 16px); }
 
       section,
       #diferenciais,
@@ -1624,8 +1625,16 @@
       .section-subtitle { font-size: 1rem; line-height: 1.65; }
 
       /* ── Navbar ── */
+      /* Header mobile sempre sólido (mesmo ônix, 96%) com desfoque: no
+         mobile a foto começa abaixo dele, então não há o que "mostrar"
+         por transparência — e nenhum texto deve parecer atravessá-lo. */
       #navbar,
-      #navbar.scrolled { padding: calc(10px + env(safe-area-inset-top, 0px)) 0 10px; }
+      #navbar.scrolled {
+        padding: calc(10px + env(safe-area-inset-top, 0px)) 0 10px;
+        background: rgba(20, 17, 13, 0.96);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+      }
       .nav-lockup { gap: 12px; }
       .nav-mark { height: 36px; }
       .nav-name { font-size: .82rem; }
@@ -1840,15 +1849,23 @@
       /* ── WhatsApp flutuante ──
          Sem label (touch não tem hover); afastado das safe areas. Some
          enquanto os CTAs do hero ou o formulário (ambos já levam ao
-         WhatsApp) estão na tela — classe aplicada por assets/site.js —
-         para nunca cobrir botão nem campo. */
+         WhatsApp) estão na tela, e também enquanto um título, CTA ou
+         aba passa pela faixa inferior onde ele fica — classe aplicada
+         por assets/site.js. 48px mantém a área de toque (≥44px); ícone
+         e sombra mais contidos reduzem o peso visual. */
       .whatsapp-label { display: none; }
       .whatsapp-float {
-        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-        right: calc(16px + env(safe-area-inset-right, 0px));
+        bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        right: calc(14px + env(safe-area-inset-right, 0px));
         transition: opacity .25s ease, transform .25s ease, visibility .25s;
       }
-      .whatsapp-btn { width: 52px; height: 52px; }
+      .whatsapp-btn {
+        width: 48px;
+        height: 48px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+      }
+      .whatsapp-btn svg { width: 22px; height: 22px; }
+      .whatsapp-btn:hover { transform: none; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35); }
       body.wa-float-hidden .whatsapp-float {
         opacity: 0;
         visibility: hidden;
