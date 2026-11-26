@@ -141,6 +141,10 @@
       --gray-lt: #5e5648;
       --radius:  6px;
       --tr: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      /* Superfície tonal dos blocos de texto: --dark-3 translúcido, um
+         degrau discreto acima do fundo (sobre --dark ≈ #1D1914; sobre
+         --dark-2 ≈ #201B15). Sem borda visível, sombra ou gradiente. */
+      --panel: rgba(36,31,24,0.6);
       --nav-h: 88px; /* altura aproximada da navbar (padding 20px*2 + logo 54px, arredondado) */
     }
 
@@ -420,8 +424,8 @@
            arredondado do painel aparecia colidindo com o menu. */
         margin-top: var(--nav-h);
         padding-left: var(--hero-pad-r);
-        background: rgba(20,17,13,0.48);
-        border: 1px solid rgba(201,168,76,0.12);
+        background: var(--panel);
+        border: 1px solid transparent;
         border-radius: 16px;
       }
     }
@@ -586,8 +590,8 @@
        Como funciona, Contato) — garante leitura sem exigir fundo opaco na
        seção inteira, deixando a foto respirar nas margens/respiros. */
     .content-panel {
-      background: rgba(20,17,13,0.48);
-      border: 1px solid rgba(201,168,76,0.12);
+      background: var(--panel);
+      border: 1px solid transparent;
       border-radius: 16px;
       padding: 40px clamp(20px, 4vw, 48px);
     }
@@ -1585,25 +1589,35 @@
       /* Painéis translúcidos existem para ler texto SOBRE a foto. No
          mobile o texto fica abaixo dela, então o painel vira só um
          agrupamento, sem caixa — mais largura útil e menos "cards". */
+      /* Mobile: o painel vira uma faixa tonal de ponta a ponta (sem caixa,
+         sem cantos, sem borda), ainda mais suave que no desktop. A margem
+         negativa devolve à faixa o recuo lateral do .container, e o padding
+         lateral igual a esse recuo mantém a largura útil do texto intacta. */
+      :root { --panel-m: rgba(36,31,24,0.42); --gutter: 24px; }
       .content-panel {
-        background: none;
+        background: var(--panel-m);
         border: 0;
         border-radius: 0;
-        padding: 0;
+        margin-inline: calc(-1 * var(--gutter));
+        padding: 24px var(--gutter);
       }
 
       /* ── Hero ── */
       #hero {
         min-height: 0;
         display: block;
-        /* sem a foto de capa: texto começa logo abaixo da navbar, com o
-           mesmo respiro de 40px que o .hero-copy já usa embaixo */
-        padding-top: calc(var(--nav-h) + 40px);
+        /* sem a foto de capa: texto começa logo abaixo da navbar. Os 40px
+           de respiro viram 16px fora + 24px dentro da faixa tonal, então o
+           texto fica exatamente na mesma altura de antes. */
+        padding-top: calc(var(--nav-h) + 16px);
       }
       .hero-copy {
-        /* no tablet (768px) limita a medida de leitura a ~65 caracteres */
-        max-width: 672px;
-        padding: 0 24px 40px;
+        /* no tablet (768px) limita a medida de leitura a ~65 caracteres
+           (624px de texto). A faixa tonal ocupa a largura toda; o limite
+           da medida passa para o padding direito, em vez de max-width. */
+        max-width: none;
+        padding: 24px max(var(--gutter), calc(100% - 624px - var(--gutter))) 40px var(--gutter);
+        background: var(--panel-m);
       }
       .hero-kicker { font-size: .75rem; margin-bottom: 10px; }
       .hero-title {
@@ -1676,7 +1690,7 @@
       /* ── Contato ── */
       #contato { padding-top: 24px; }
       .contato-layout { grid-template-columns: 1fr; gap: 36px; }
-      .contato-info { padding-top: 0; }
+      .contato-info { padding-top: 24px; } /* respiro interno da faixa tonal */
       .contato-list { margin-top: 24px; }
       .contato-item { padding: 16px 0; }
       .form-card { padding: 28px 22px; }
@@ -1753,8 +1767,9 @@
       #processo,
       #contato { padding-bottom: 52px; }
       section { padding-top: 52px; }
+      :root { --gutter: 18px; }
       .container { padding: 0 18px; }
-      .hero-copy { padding: 0 18px 36px; }
+      .hero-copy { padding: 24px 18px 36px; }
 
       .tab-grid { grid-template-columns: 1fr; gap: 0; }
       .tab-group { padding-bottom: 18px; margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.06); }
