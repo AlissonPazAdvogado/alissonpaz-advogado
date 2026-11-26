@@ -198,7 +198,7 @@ body::before {
 | OAB | OAB/PR 119.985 |
 | WhatsApp | `https://wa.me/5546999746391` |
 | E-mail | allissonpaz@hotmail.com |
-| Endereço | Rua Brigadeiro Rocha Loures, 219, Centro, Coronel Vivida – PR, CEP 85550-040 |
+| Endereço | Rua Major Estevão Ribeiro do Nascimento, 375, Centro, Coronel Vivida – PR, CEP 85550-088 |
 | Especialidade | Advocacia Criminal (+ Consumidor, Digital, Cível, Família) |
 | Atuação | Nacional |
 
