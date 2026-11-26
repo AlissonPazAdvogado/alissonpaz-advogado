@@ -42,10 +42,10 @@
         "image": "https://www.alissonpazadv.com.br/foto-advogado.jpg",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Rua Brigadeiro Rocha Loures, 219, Centro",
+          "streetAddress": "Rua Major Estevão Ribeiro do Nascimento, 375, Centro",
           "addressLocality": "Coronel Vivida",
           "addressRegion": "PR",
-          "postalCode": "85550-040",
+          "postalCode": "85550-088",
           "addressCountry": "BR"
         },
         "employee": { "@id": "https://www.alissonpazadv.com.br/#alisson-paz" }
@@ -145,6 +145,9 @@
     }
 
     ::selection { background: var(--gold); color: var(--dark); }
+
+    /* Destaque de texto: só palavras-chave (1–2 por bloco). */
+    .hl { color: var(--gold); font-weight: 500; }
 
     html { scroll-behavior: smooth; }
 
@@ -335,16 +338,8 @@
     .nav-close-item { display: none; }
 
     /* ── CAPÍTULOS VISUAIS ──
-       A home é dividida em 3 macroblocos ("visual-chapter"), cada um com UMA
-       fotografia fixa como cenário de fundo (sem troca automática — a única
-       alternância é a que o próprio scroll produz ao entrar/sair de cada
-       capítulo). Técnica: grid com uma única célula (chapter-bg e
-       chapter-content ocupam a MESMA grid-area, então um não empurra o
-       outro no fluxo do documento) + chapter-bg com position:sticky/top:0/
-       height:100vh, que faz a foto permanecer pinada no viewport enquanto o
-       conteúdo daquele capítulo (bem mais alto que 100vh) rola por cima —
-       e se desprende naturalmente quando o capítulo termina, sem JS e sem
-       os problemas de background-attachment:fixed no Safari/mobile. */
+       A home continua dividida em 3 macroblocos ("visual-chapter"); as
+       fotografias de fundo que cada um tinha foram removidas. */
     .visual-chapter {
       position: relative;
       display: grid;
@@ -353,71 +348,8 @@
       isolation: isolate;
     }
 
-    /* #navbar é fixed e sempre transparente, sobre os 3 capítulos.
-       Por isso .chapter-bg dos TRÊS capítulos começa exatamente abaixo dela
-       (top: var(--nav-h)) e cobre até o fim da viewport, sem respiro. */
-    .chapter-bg {
-      grid-column: 1;
-      grid-row: 1;
-      position: sticky;
-      top: var(--nav-h);
-      align-self: start;
-      height: calc(100vh - var(--nav-h));
-      height: calc(100svh - var(--nav-h));
-      overflow: hidden;
-      z-index: 0;
-      pointer-events: none;
-      background: var(--dark);
-    }
-
-    /* Fundo full-screen direto: as fotos já vêm recortadas em ~2.33:1 (bem
-       perto da proporção real da área abaixo da navbar), então cover quase
-       não precisa cortar nada. A <img> cobre 100% do .chapter-bg (sticky,
-       100vw de largura, borda-a-borda). */
-    .chapter-bg-img {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-
-    /* Suaviza a passagem de um capítulo para o outro: uma faixa no topo e
-       outra na base de cada foto borra o PRÓPRIO fundo por trás dela
-       (backdrop-filter), com o blur esmaecendo até zero em direção ao
-       centro (mask-image) — a foto nítida no meio não é tocada, só as
-       bordas onde uma foto entrega a vez pra próxima. */
-    .chapter-bg-blend {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 16%;
-      z-index: 1;
-      pointer-events: none;
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-    }
-    .chapter-bg-blend-top {
-      top: 0;
-      -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
-      mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
-    }
-    .chapter-bg-blend-bottom {
-      bottom: 0;
-      -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 100%);
-      mask-image: linear-gradient(to top, #000 0%, transparent 100%);
-    }
-
-    /* Tingimento uniforme leve, só para leitura do texto sobre a foto. */
-    .chapter-bg-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      background: rgba(20,17,13,0.32);
-    }
+    /* Fotografias de fundo dos capítulos (.chapter-bg) removidas: os
+       capítulos ficam sobre o fundo ônix sólido do body. */
 
     .chapter-content {
       grid-column: 1;
@@ -436,11 +368,22 @@
       min-height: clamp(460px, calc(100svh - var(--nav-h, 88px)), 820px);
     }
 
-    /* .hero-scrim (véu sobre a foto) não é usado em nenhuma largura: no
-       desktop o texto fica no .content-panel do hero; no mobile a foto
-       fica acima do texto e o degradê de leitura é o próprio
-       .chapter-bg-overlay do capítulo 1 (ver bloco MOBILE no fim). */
-    .hero-scrim { display: none; }
+    /* Detalhe de fundo do hero: brasão em traço fino, muito apagado, no
+       espaço livre à direita do texto (só desktop/tablet). */
+    @media (min-width: 769px) {
+      #hero::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: max(24px, calc((100% - 1200px) / 2));
+        width: min(34vw, 420px);
+        aspect-ratio: 180 / 245;
+        transform: translateY(-46%);
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='30 20 180 245' fill='none' stroke='%23C2A14E' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M58,52 L182,52 Q196,52 196,66 L196,150 Q196,206 120,252 Q44,206 44,150 L44,66 Q44,52 58,52 Z'/%3E%3Ccircle cx='120' cy='37' r='6.5'/%3E%3Cline x1='120' y1='43.5' x2='120' y2='96'/%3E%3Cline x1='60' y1='96' x2='180' y2='96'/%3E%3Ccircle cx='82' cy='96' r='3.2'/%3E%3Ccircle cx='158' cy='96' r='3.2'/%3E%3Cline x1='82' y1='99.2' x2='82' y2='112'/%3E%3Cline x1='158' y1='99.2' x2='158' y2='112'/%3E%3Cpath d='M82,112 L65,140 Q82,147 99,140 Z'/%3E%3Cpath d='M158,112 L141,140 Q158,147 175,140 Z'/%3E%3Cpath d='M113,98 L113,230 L120,247 L127,230 L127,98'/%3E%3Cline x1='120' y1='100' x2='120' y2='232'/%3E%3C/svg%3E") center / contain no-repeat;
+        opacity: .13;
+        pointer-events: none;
+      }
+    }
 
     .hero-copy {
       position: relative;
@@ -585,6 +528,7 @@
 
     /* ── ÁREAS DE ATUAÇÃO ── */
     #atuacao { background: transparent; }
+    #formacao { background: var(--dark-2); }
 
     .areas-header {
       display: flex;
@@ -828,7 +772,7 @@
     .dif-when ul li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
 
     /* ── PROCESSO ── */
-    #processo { background: transparent; }
+    #processo { background: var(--dark-2); }
 
     .processo-header { text-align: center; max-width: 600px; margin: 0 auto; }
     .processo-header .section-tag { text-align: center; }
@@ -1558,53 +1502,10 @@
        é tocado por nada deste bloco.
        ════════════════════════════════════════════════════════════════ */
 
-    /* Ponto focal de cada fotografia (fração da largura original, 1916px):
-       1 = brasão + "ALISSON PAZ"; 2 = corpo em pé; 3 = rosto sentado.
-       Usado só nos viewports retrato abaixo — no desktop as fotos seguem
-       em object-position: center, como aprovado. */
-    .visual-chapter-1 { --fx: .637; --fy: 50%; }
-    .visual-chapter-2 { --fx: .537; --fy: 50%; }
-    .visual-chapter-3 { --fx: .552; --fy: 50%; }
-
-    /* Enquadramento das fotos em telas estreitas/retrato: a foto 2.33:1
-       em cover mostra só uma fatia da largura; em vez de pegar a fatia do
-       meio (center), posiciona a imagem para que o ponto focal caia no
-       CENTRO exato da tela. Sem scale/zoom: é a mesma imagem em cover,
-       apenas deslocada. A conta usa unidades de container (cqw/cqh) do
-       próprio .chapter-bg:
-         largura renderizada  --iw = max(100cqw, 100cqh × 1916/821)
-         deslocamento ideal   50cqw − fx × --iw   (foco no centro)
-         travado entre        100cqw − --iw  e  0 (nunca sobra borda vazia)
-       Navegadores sem container queries ficam no fallback percentual. */
-    @media (max-width: 768px), (max-width: 1024px) and (orientation: portrait) {
-      .chapter-bg { container-type: size; }
-      .chapter-bg-img { object-position: calc(var(--fx) * 100%) var(--fy); }
-      @supports (width: 1cqw) {
-        .chapter-bg-img {
-          --iw: max(100cqw, 100cqh * 1916 / 821);
-          object-position: clamp(100cqw - var(--iw), 50cqw - var(--fx) * var(--iw), 0px) var(--fy);
-        }
-      }
-    }
-
     @media (max-width: 768px) {
       :root {
         /* navbar mobile: 10px + toque de 44px + 10px (+ safe area, se houver) */
         --nav-h: calc(64px + env(safe-area-inset-top, 0px));
-        /* altura das fotos de cada capítulo (sobrescrita com svh abaixo) */
-        --ph-1: min(128vw, 58vh);
-        --ph-2: min(128vw, 68vh);
-        --ph-3: min(108vw, 60vh);
-      }
-      /* svh = altura com as barras do navegador VISÍVEIS (Safari, Instagram
-         in-app etc.): a foto nunca fica maior que a área realmente útil e
-         não "pula" quando as barras recolhem durante o scroll. */
-      @supports (height: 1svh) {
-        :root {
-          --ph-1: min(128vw, 58svh);
-          --ph-2: min(128vw, 68svh);
-          --ph-3: min(108vw, 60svh);
-        }
       }
 
       /* âncoras param 16px abaixo do header fixo */
@@ -1681,36 +1582,6 @@
       }
       .nav-close:active { background: rgba(255,255,255,0.18); }
 
-      /* ── Capítulos visuais ──
-         No mobile a foto deixa de ser fundo sticky (o texto rolava por
-         cima do rosto/brasão) e vira a "capa" de cada capítulo: um bloco
-         com altura própria (--ph), no topo do capítulo, com o conteúdo
-         começando onde a parte essencial da foto termina. */
-      .visual-chapter-1 { --ph: var(--ph-1); }
-      .visual-chapter-2 { --ph: var(--ph-2); }
-      .visual-chapter-3 { --ph: var(--ph-3); }
-
-      .chapter-bg {
-        position: relative;
-        top: auto;
-        height: var(--ph);
-      }
-      .visual-chapter-1 .chapter-bg { margin-top: var(--nav-h); }
-      .chapter-bg-blend { display: none; }
-
-      /* Degradês de leitura/transição, sem véu sobre o centro da foto. */
-      .visual-chapter-1 .chapter-bg-overlay {
-        background: linear-gradient(to bottom,
-          rgba(20,17,13,0.35) 0%, rgba(20,17,13,0) 6%,
-          rgba(20,17,13,0) 50%, rgba(20,17,13,0.72) 72%, var(--dark) 100%);
-      }
-      .visual-chapter-2 .chapter-bg-overlay,
-      .visual-chapter-3 .chapter-bg-overlay {
-        background: linear-gradient(to bottom,
-          var(--dark) 0%, rgba(20,17,13,0) 5%,
-          rgba(20,17,13,0) 90%, var(--dark) 100%);
-      }
-
       /* Painéis translúcidos existem para ler texto SOBRE a foto. No
          mobile o texto fica abaixo dela, então o painel vira só um
          agrupamento, sem caixa — mais largura útil e menos "cards". */
@@ -1725,8 +1596,9 @@
       #hero {
         min-height: 0;
         display: block;
-        /* texto começa logo abaixo de "ADVOGADO" (≈54% da foto) */
-        padding-top: calc(var(--nav-h) + var(--ph) * .6);
+        /* sem a foto de capa: texto começa logo abaixo da navbar, com o
+           mesmo respiro de 40px que o .hero-copy já usa embaixo */
+        padding-top: calc(var(--nav-h) + 40px);
       }
       .hero-copy {
         /* no tablet (768px) limita a medida de leitura a ~65 caracteres */
@@ -1760,10 +1632,7 @@
       .tab-intro { font-size: 14px; line-height: 1.75; margin-bottom: 24px; }
       .tab-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 24px; }
 
-      /* ── Trajetória (capítulo 2 abre sob a foto em pé) ── */
-      /* a pessoa ocupa a foto quase de cima a baixo: o texto só começa
-         depois dela, nunca sobre o corpo */
-      #formacao { padding-top: calc(var(--ph) + 16px); }
+      /* ── Trajetória ── */
       .formacao-columns { grid-template-columns: 1fr; }
       .formacao-col { padding-right: 0; }
       .formacao-col + .formacao-col {
@@ -1786,8 +1655,7 @@
       .dif-quote { font-size: 1.3rem; margin-bottom: 16px; }
       .dif-detail { margin-bottom: 24px; }
 
-      /* ── Como funciona (capítulo 3 abre sob a foto sentado) ── */
-      #processo { padding-top: calc(var(--ph) + 16px); }
+      /* ── Como funciona ── */
       .processo-steps { grid-template-columns: 1fr; gap: 24px; margin-top: 32px; }
       .step { padding: 2px 0 2px 18px; }
       .step-dot { margin-bottom: 8px; }
@@ -1972,19 +1840,12 @@
 
 <!-- CAPÍTULO VISUAL 1 — parede/logo: Hero + Áreas de atuação -->
 <div class="visual-chapter visual-chapter-1">
-  <div class="chapter-bg" aria-hidden="true">
-    <img class="chapter-bg-img" src="hero-slide-1-logo-wall.webp" alt="" width="1916" height="821" fetchpriority="high" decoding="async">
-    <div class="chapter-bg-blend chapter-bg-blend-top"></div>
-    <div class="chapter-bg-blend chapter-bg-blend-bottom"></div>
-    <div class="chapter-bg-overlay"></div>
-  </div>
   <div class="chapter-content">
 <section id="hero">
-  <div class="hero-scrim" aria-hidden="true"></div>
   <div class="hero-copy fade-up">
     <p class="hero-kicker">Dr. Alisson Nascimento Paz · OAB/PR 119.985</p>
     <h1 class="hero-title">Advocacia Criminal, Cível e de Família em Coronel&nbsp;Vivida e região.</h1>
-    <p class="hero-sub section-subtitle">Atendimento direto pelo advogado responsável, com análise individual de cada caso e orientação sobre as providências cabíveis, nas áreas Criminal, Cível, Família, Consumidor e Digital/LGPD.</p>
+    <p class="hero-sub section-subtitle">Atendimento direto pelo <strong class="hl">advogado responsável</strong>, com análise individual de cada caso e orientação sobre as providências cabíveis, nas áreas Criminal, Cível, Família, Consumidor e Digital/LGPD.</p>
     <div class="hero-actions">
       <a href="https://wa.me/5546999746391?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta." class="btn btn-gold" target="_blank" rel="noopener" data-conversion="whatsapp-cta">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -1992,7 +1853,7 @@
       </a>
       <a href="#atuacao" class="btn btn-outline">Ver áreas de atuação</a>
     </div>
-    <p class="hero-meta">Coronel Vivida e região – PR · Atendimento com hora marcada</p>
+    <p class="hero-meta">Coronel Vivida e região – PR · Atendimento com <strong class="hl">hora marcada</strong></p>
   </div>
 </section>
 
@@ -2005,7 +1866,7 @@
         <span class="section-tag">Áreas de atuação</span>
         <h2 class="section-title">Como posso<br>ajudá-lo?</h2>
       </div>
-      <p class="section-subtitle">Atuação especializada nas áreas onde os riscos ao patrimônio, à liberdade e à privacidade são mais críticos.<br><span class="areas-hint">Selecione uma área para ver os principais serviços atendidos.</span></p>
+      <p class="section-subtitle">Atuação especializada nas áreas onde os riscos ao patrimônio, à <strong class="hl">liberdade</strong> e à privacidade são mais críticos.<br><span class="areas-hint">Selecione uma área para ver os principais serviços atendidos.</span></p>
     </div>
     <div class="areas-tabs content-panel">
 
@@ -2040,7 +1901,7 @@
 
       <!-- DIREITO PENAL -->
       <div class="tab-panel active" id="tab-penal">
-        <p class="tab-intro">Área central de atuação do escritório, com pós-graduação em Advocacia Criminal. A defesa abrange desde a fase investigativa no inquérito policial até a execução da pena.</p>
+        <p class="tab-intro">Área central de atuação do escritório, com <strong class="hl">pós-graduação em Advocacia Criminal</strong>. A defesa abrange desde a fase investigativa no inquérito policial até a execução da pena.</p>
         <div class="tab-grid">
           <div class="tab-group">
             <h3>Crimes contra a Pessoa</h3>
@@ -2087,7 +1948,7 @@
 
       <!-- CONSUMIDOR -->
       <div class="tab-panel" id="tab-consumidor">
-        <p class="tab-intro">Defesa dos direitos do consumidor frente a práticas abusivas, cobranças indevidas e contratos prejudiciais. A experiência prévia no Procon orienta a leitura prática de cada caso.</p>
+        <p class="tab-intro">Defesa dos direitos do consumidor frente a práticas abusivas, cobranças indevidas e contratos prejudiciais. A <strong class="hl">experiência prévia no Procon</strong> orienta a leitura prática de cada caso.</p>
         <div class="tab-grid">
           <div class="tab-group">
             <h3>Crédito e Cobranças</h3>
@@ -2134,7 +1995,7 @@
 
       <!-- DIGITAL & LGPD -->
       <div class="tab-panel" id="tab-digital">
-        <p class="tab-intro">Pós-graduação em Direito Digital, LGPD e Compliance. Atuação em crimes cibernéticos, proteção de dados pessoais e responsabilidade civil na internet.</p>
+        <p class="tab-intro">Pós-graduação em <strong class="hl">Direito Digital, LGPD e Compliance</strong>. Atuação em crimes cibernéticos, proteção de dados pessoais e responsabilidade civil na internet.</p>
         <div class="tab-grid">
           <div class="tab-group">
             <h3>Crimes Cibernéticos</h3>
@@ -2181,7 +2042,7 @@
 
       <!-- CÍVEL & CONTRATOS -->
       <div class="tab-panel" id="tab-civel">
-        <p class="tab-intro">Assessoria em conflitos contratuais, questões imobiliárias, responsabilidade civil e cobranças. Atuação preventiva e contenciosa nas relações cíveis.</p>
+        <p class="tab-intro">Assessoria em conflitos contratuais, questões imobiliárias, responsabilidade civil e cobranças. Atuação <strong class="hl">preventiva e contenciosa</strong> nas relações cíveis.</p>
         <div class="tab-grid">
           <div class="tab-group">
             <h3>Contratos</h3>
@@ -2228,7 +2089,7 @@
 
       <!-- FAMÍLIA & INVENTÁRIOS -->
       <div class="tab-panel" id="tab-familia">
-        <p class="tab-intro">Assessoria jurídica em questões familiares e sucessórias, com atenção ao aspecto humano de cada situação. Do divórcio ao inventário, cada caso é tratado de forma individualizada.</p>
+        <p class="tab-intro">Assessoria jurídica em questões familiares e sucessórias, com atenção ao aspecto humano de cada situação. <strong class="hl">Do divórcio ao inventário</strong>, cada caso é tratado de forma individualizada.</p>
         <div class="tab-grid">
           <div class="tab-group">
             <h3>Casamento e União</h3>
@@ -2281,12 +2142,6 @@
 
 <!-- CAPÍTULO VISUAL 2 — em pé: Trajetória + Diferenciais -->
 <div class="visual-chapter visual-chapter-2">
-  <div class="chapter-bg" aria-hidden="true">
-    <img class="chapter-bg-img" src="hero-slide-2-standing.webp" alt="" width="1916" height="821" loading="lazy" decoding="async">
-    <div class="chapter-bg-blend chapter-bg-blend-top"></div>
-    <div class="chapter-bg-blend chapter-bg-blend-bottom"></div>
-    <div class="chapter-bg-overlay"></div>
-  </div>
   <div class="chapter-content">
 <!-- FORMAÇÃO E TRAJETÓRIA -->
 <section id="formacao">
@@ -2316,11 +2171,11 @@
         <h3 class="formacao-col-title">Experiência institucional</h3>
         <div class="formacao-item">
           <h4 class="area-title">Experiência em Delegacia de Polícia</h4>
-          <p class="area-desc">Vivência direta no ambiente investigativo policial. Compreensão do funcionamento dos inquéritos, das fases de investigação e da dinâmica institucional que antecede o processo criminal. Referência importante na defesa desde a fase pré-processual.</p>
+          <p class="area-desc">Vivência direta no <strong class="hl">ambiente investigativo policial</strong>. Compreensão do funcionamento dos inquéritos, das fases de investigação e da dinâmica institucional que antecede o processo criminal. Referência importante na defesa desde a fase pré-processual.</p>
         </div>
         <div class="formacao-item">
           <h4 class="area-title">Experiência no PROCON</h4>
-          <p class="area-desc">Atuação institucional no órgão de defesa do consumidor, com conhecimento prático dos mecanismos administrativos e das principais infrações cometidas por fornecedores de produtos e serviços.</p>
+          <p class="area-desc">Atuação institucional no <strong class="hl">órgão de defesa do consumidor</strong>, com conhecimento prático dos mecanismos administrativos e das principais infrações cometidas por fornecedores de produtos e serviços.</p>
         </div>
       </div>
 
@@ -2342,25 +2197,25 @@
         <div class="dif-item">
           <div class="dif-text">
             <h3>Análise técnica</h3>
-            <p>Cada caso é estudado com rigor. A análise é construída sobre fatos, provas e fundamentos jurídicos sólidos. Sem promessas.</p>
+            <p>Cada caso é estudado com rigor. A análise é construída sobre fatos, provas e fundamentos jurídicos sólidos. <strong class="hl">Sem promessas.</strong></p>
           </div>
         </div>
         <div class="dif-item">
           <div class="dif-text">
             <h3>Comunicação transparente</h3>
-            <p>Você recebe informações claras e honestas sobre seu caso, prazos e perspectivas, sem linguagem hermética ou falsas expectativas.</p>
+            <p>Você recebe informações claras e honestas sobre seu caso, <strong class="hl">prazos e perspectivas</strong>, sem linguagem hermética ou falsas expectativas.</p>
           </div>
         </div>
         <div class="dif-item">
           <div class="dif-text">
             <h3>Atuação pessoal</h3>
-            <p>O advogado que assina sua petição é o mesmo que acompanha seu processo do início ao fim. Compromisso real, não delegação.</p>
+            <p>O advogado que assina sua petição é o mesmo que acompanha seu processo <strong class="hl">do início ao fim</strong>. Compromisso real, não delegação.</p>
           </div>
         </div>
         <div class="dif-item">
           <div class="dif-text">
             <h3>Postura firme</h3>
-            <p>Defesa assertiva dos seus direitos, sem passividade. Quando necessário, atuação combativa dentro dos limites da ética profissional.</p>
+            <p>Defesa assertiva dos seus direitos, sem passividade. Quando necessário, atuação combativa dentro dos <strong class="hl">limites da ética profissional</strong>.</p>
           </div>
         </div>
       </div>
@@ -2370,7 +2225,7 @@
           O momento de buscar orientação jurídica é antes que o problema se agrave.
         </p>
         <p class="dif-detail">
-          Na maioria dos casos, quanto antes o advogado é envolvido, mais recursos jurídicos estão disponíveis. Aguardar pode reduzir significativamente as opções estratégicas.
+          Na maioria dos casos, <strong class="hl">quanto antes o advogado é envolvido</strong>, mais recursos jurídicos estão disponíveis. Aguardar pode reduzir significativamente as opções estratégicas.
         </p>
         <div class="dif-when">
           <h3 class="dif-subheading">Busque orientação imediata quando</h3>
@@ -2397,12 +2252,6 @@
 
 <!-- CAPÍTULO VISUAL 3 — sentado: Como funciona + Conteúdo + Contato + Localização -->
 <div class="visual-chapter visual-chapter-3">
-  <div class="chapter-bg" aria-hidden="true">
-    <img class="chapter-bg-img" src="hero-slide-3-seated.webp" alt="" width="1916" height="821" loading="lazy" decoding="async">
-    <div class="chapter-bg-blend chapter-bg-blend-top"></div>
-    <div class="chapter-bg-blend chapter-bg-blend-bottom"></div>
-    <div class="chapter-bg-overlay"></div>
-  </div>
   <div class="chapter-content">
 <!-- PROCESSO -->
 <section id="processo">
@@ -2416,17 +2265,17 @@
       <div class="step">
         <div class="step-dot" aria-hidden="true">01</div>
         <h3>Consulta inicial</h3>
-        <p>Entre em contato pelo WhatsApp, apresente brevemente seu caso e agende um horário para uma conversa aprofundada, presencial ou remota.</p>
+        <p>Entre em contato pelo WhatsApp, apresente brevemente seu caso e agende um horário para uma conversa aprofundada, <strong class="hl">presencial ou remota</strong>.</p>
       </div>
       <div class="step">
         <div class="step-dot" aria-hidden="true">02</div>
         <h3>Análise do caso</h3>
-        <p>O caso é analisado detalhadamente. Você recebe uma explicação clara da sua situação e dos caminhos jurídicos possíveis.</p>
+        <p>O caso é analisado detalhadamente. Você recebe uma <strong class="hl">explicação clara</strong> da sua situação e dos caminhos jurídicos possíveis.</p>
       </div>
       <div class="step">
         <div class="step-dot" aria-hidden="true">03</div>
         <h3>Atuação e acompanhamento</h3>
-        <p>Com a contratação definida, a atuação tem início com acompanhamento contínuo e comunicação clara em cada etapa do processo.</p>
+        <p>Com a contratação definida, a atuação tem início com <strong class="hl">acompanhamento contínuo</strong> e comunicação clara em cada etapa do processo.</p>
       </div>
     </div>
   </div>
@@ -2440,7 +2289,7 @@
         <span class="section-tag">Conteúdo jurídico</span>
         <h2 class="section-title">Artigos e casos<br>recentes</h2>
       </div>
-      <p class="section-subtitle">Conteúdo prático para quem quer entender seus direitos antes de precisar de um advogado.</p>
+      <p class="section-subtitle">Conteúdo prático para quem quer <strong class="hl">entender seus direitos</strong> antes de precisar de um advogado.</p>
     </div>
     <div class="content-grid">
       <a class="article-card featured" href="artigo-memphis-depay-corinthians.html">
@@ -2541,7 +2390,7 @@
       <div class="contato-info content-panel">
         <span class="section-tag">Contato</span>
         <h2 class="section-title">Vamos conversar<br>sobre seu caso?</h2>
-        <p class="section-subtitle" style="margin-bottom: 0;">Consultas com hora marcada. Atendimento direto com o advogado, presencial ou remoto.</p>
+        <p class="section-subtitle" style="margin-bottom: 0;">Consultas com <strong class="hl">hora marcada</strong>. Atendimento direto com o advogado, <strong class="hl">presencial ou remoto</strong>.</p>
 
         <div class="contato-list">
         <div class="contato-item">
@@ -2570,7 +2419,7 @@
           </div>
           <div>
             <h3>Endereço</h3>
-            <p><a href="https://www.google.com/maps/search/Rua+Brigadeiro+Rocha+Loures+219+Coronel+Vivida+PR" target="_blank" rel="noopener">Rua Brigadeiro Rocha Loures, 219<br>Centro – Coronel Vivida, PR<br>CEP 85.550-040</a></p>
+            <p><a href="https://www.google.com/maps/search/Rua+Major+Estev%C3%A3o+Ribeiro+do+Nascimento+375+Coronel+Vivida+PR" target="_blank" rel="noopener">Rua Major Estevão Ribeiro do Nascimento, 375<br>Centro – Coronel Vivida, PR<br>CEP 85.550-088</a></p>
           </div>
         </div>
         </div>
@@ -2646,17 +2495,17 @@
     <div class="mapa-info">
       <span class="section-tag">Localização</span>
       <h3>Onde nos<br>encontrar</h3>
-      <p>Rua Brigadeiro Rocha Loures, 219</p>
+      <p>Rua Major Estevão Ribeiro do Nascimento, 375</p>
       <p>Centro – Coronel Vivida, PR</p>
-      <p>CEP 85.550-040</p>
-      <a class="mapa-link" href="https://www.google.com/maps/search/Rua+Brigadeiro+Rocha+Loures+219+Coronel+Vivida+PR" target="_blank" rel="noopener">
+      <p>CEP 85.550-088</p>
+      <a class="mapa-link" href="https://www.google.com/maps/search/Rua+Major+Estev%C3%A3o+Ribeiro+do+Nascimento+375+Coronel+Vivida+PR" target="_blank" rel="noopener">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         Abrir no Google Maps
       </a>
     </div>
     <div class="mapa-embed">
       <iframe
-        src="https://maps.google.com/maps?q=Rua+Brigadeiro+Rocha+Loures,219,Centro,Coronel+Vivida,PR,85550-040&output=embed&z=16"
+        src="https://maps.google.com/maps?q=Rua+Major+Estev%C3%A3o+Ribeiro+do+Nascimento,375,Centro,Coronel+Vivida,PR,85550-088&output=embed&z=16"
         allowfullscreen
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
@@ -2718,7 +2567,7 @@
     </div>
     <div class="footer-bottom">
       <p>© <span id="year"></span> Alisson Nascimento Paz Advocacia. Todos os direitos reservados.</p>
-      <p class="footer-nap">Dr. Alisson Nascimento Paz · OAB/PR 119.985 · Rua Brigadeiro Rocha Loures, 219, Centro, Coronel Vivida – PR, CEP 85550-040 · (46) 9 9974-6391</p>
+      <p class="footer-nap">Dr. Alisson Nascimento Paz · OAB/PR 119.985 · Rua Major Estevão Ribeiro do Nascimento, 375, Centro, Coronel Vivida – PR, CEP 85550-088 · (46) 9 9974-6391</p>
       <div class="footer-legal">
         <a href="politica-de-privacidade.html">Política de Privacidade</a>
         <a href="termos-de-uso.html">Termos de Uso</a>
